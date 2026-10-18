@@ -1,0 +1,9 @@
+ nombre_descripcion_software1-software2_tecnica1-tecnica2.ext
+
+ Ejemplo de filename válido:
+
+xhunter_pose_3dsmax-zbrush-substance_pbr-hard-surface-dof.jpg
+title: “Xhunter Pose”
+description: “pose”
+software: [“3dsmax”, “zbrush”, “substance”] → normalizado a Title Case
+techniques: [“Pbr”, “Hard Surface”, “Dof”]
