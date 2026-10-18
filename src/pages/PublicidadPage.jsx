@@ -4,13 +4,13 @@ import { useLanguage } from '../context/LanguageContext';
 import { Brain, Cpu, Code2, Gamepad2, Eye, Boxes, CheckCircle, ChevronLeft, ChevronRight, Share2 } from 'lucide-react';
 import Layout from '../components/Layout';
 import ContactForm from '../components/ContactForm';
-import servicesParallax from '../assets/parallax/soluciones-parallax.jpg';
-import aiReel from '../assets/reels/servicios-productos-parallax.jpg';
-import iotReel from '../assets/reels/proyectos-parallax.jpg';
-import fullstackReel from '../assets/reels/documentacion-parallax.jpg';
-import gamesReel from '../assets/reels/noticias-eventos-parallax.jpg';
-import visionReel from '../assets/reels/inversionistas-alianzas-parallax.jpg';
-import modularReel from '../assets/reels/filosofia-parallax.jpg';
+import servicesParallax from '../parallax/soluciones-parallax.jpg';
+import aiReel from '../reels/servicios-productos-parallax.jpg';
+import iotReel from '../reels/proyectos-parallax.jpg';
+import fullstackReel from '../reels/documentacion-parallax.jpg';
+import gamesReel from '../reels/noticias-eventos-parallax.jpg';
+import visionReel from '../reels/inversionistas-alianzas-parallax.jpg';
+import modularReel from '../reels/filosofia-parallax.jpg';
 
 export default function PublicidadPage() {
     const { t, lang } = useLanguage();
