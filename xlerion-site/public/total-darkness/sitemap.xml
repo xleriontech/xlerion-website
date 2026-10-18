@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Página principal del admin panel -->
+  <url>
+    <loc>https://xlerion.com/total-darkness/index.html</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://xlerion.com/total-darkness/index.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://xlerion.com/total-darkness/index.html"/>
+  </url>
+
+  <!-- Vista pública de la historia (español) -->
+  <url>
+    <loc>https://xlerion.com/total-darkness/historia.html</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://xlerion.com/total-darkness/historia.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://xlerion.com/total-darkness/story.html"/>
+  </url>
+
+  <!-- Vista pública de la historia (inglés) -->
+  <url>
+    <loc>https://xlerion.com/total-darkness/story.html</loc>
+    <lastmod>2026-01-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://xlerion.com/total-darkness/story.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://xlerion.com/total-darkness/historia.html"/>
+  </url>
+
+</urlset>

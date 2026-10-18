@@ -1,0 +1,25 @@
+{
+  "_alpine-l7QTk8p_.js": {
+    "file": "assets/alpine-l7QTk8p_.js",
+    "name": "alpine"
+  },
+  "_axios-D5GkNzM3.js": {
+    "file": "assets/axios-D5GkNzM3.js",
+    "name": "axios"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-Cyea-HrX.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-CxUd3F46.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "imports": [
+      "_alpine-l7QTk8p_.js",
+      "_axios-D5GkNzM3.js"
+    ]
+  }
+}

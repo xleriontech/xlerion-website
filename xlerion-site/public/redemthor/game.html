@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Xlerion: Última Aurora — Game Preview</title>
+    <meta name="description"
+        content="Preview del videojuego en desarrollo por Xlerion, inspirado en la mitología de Redemthor. Explora mecánicas, arte y screenshots.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://xlerion.com/redemthor/game.html">
+    <meta property="og:title" content="Xlerion: Última Aurora — Game Preview">
+    <meta property="og:description"
+        content="Preview del videojuego en desarrollo por Xlerion, inspirado en Redemthor. Mecánicas, arte y screenshots.">
+    <meta property="og:image" content="https://xlerion.com/redemthor/images/game-cover.png">
+    <meta property="og:url" content="https://xlerion.com/redemthor/game.html">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        body {
+            background: #070707;
+            color: #e8e8e8;
+            font-family: Inter, Arial, sans-serif;
+            margin: 0;
+            padding: 24px
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto
+        }
+
+        .hero {
+            display: flex;
+            gap: 24px;
+            align-items: center
+        }
+
+        .cover {
+            width: 320px;
+            height: 320px;
+            background: #111 url('images/game-cover.png') center/cover no-repeat;
+            border: 1px solid #333
+        }
+
+        .meta h1 {
+            font-family: Orbitron, sans-serif;
+            font-size: 28px;
+            margin: 0 0 12px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 18px
+        }
+
+        .screenshot {
+            height: 160px;
+            background: #111 center/cover no-repeat;
+            border: 1px solid #222
+        }
+
+        .specs {
+            background: #0b0b0b;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #222
+        }
+
+        dl {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 8px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/redemthor/">&larr; Back to Redemthor</a>
+        <div class="hero" style="margin-top:16px">
+            <div class="cover" role="img" aria-label="Game cover"></div>
+            <div class="meta">
+                <h1>Xlerion: Última Aurora (Preview)</h1>
+                <p>Single-player narrative survival/action with adaptive soundtrack by Redemthor. Players explore ruins,
+                    engage in phase-based combat and make moral choices that change the world state.</p>
+                <p><strong>Status:</strong> Early preview (2026)</p>
+            </div>
+        </div>
+
+        <section style="margin-top:28px">
+            <h2>Gameplay Specifications</h2>
+            <div class="specs">
+                <dl>
+                    <dt>Health</dt>
+                    <dd>Base HP 100 (upgrades via implants)</dd>
+                    <dt>Stamina</dt>
+                    <dd>Sprint/evade resource: 100 units, regenerates over time</dd>
+                    <dt>Skills</dt>
+                    <dd>3 active skill slots (Shockwave, EMP burst, Ritual Slash)</dd>
+                    <dt>Weapons</dt>
+                    <dd>Melee (heavy/light), ballistic hybrid, ritual artifacts</dd>
+                    <dt>Progression</dt>
+                    <dd>Skill tree + weapon mod system + faction reputation</dd>
+                    <dt>Objectives</dt>
+                    <dd>Primary story missions + optional exploration contracts + dynamic world events</dd>
+                    <dt>Save Model</dt>
+                    <dd>Checkpoint + persistent world flags</dd>
+                </dl>
+            </div>
+        </section>
+
+        <section style="margin-top:28px">
+            <h2>Screenshots & Art</h2>
+            <div class="grid">
+                <div class="screenshot" style="background-image:url('images/ss1.jpg')"></div>
+                <div class="screenshot" style="background-image:url('images/ss2.jpg')"></div>
+                <div class="screenshot" style="background-image:url('images/ss3.jpg')"></div>
+            </div>
+            <p class="mt-4">All images are previews and not final art.</p>
+        </section>
+
+        <section style="margin-top:28px">
+            <h2>Design Notes</h2>
+            <ul>
+                <li>Adaptive soundtrack driven by player state and region</li>
+                <li>Focus on environmental storytelling and emergent encounters</li>
+                <li>Balanced difficulty with options for stealth or direct combat</li>
+            </ul>
+        </section>
+
+        <footer style="margin-top:28px;border-top:1px solid #222;padding-top:12px">
+            <p>&copy; Xlerion — Internal preview. Do not distribute.</p>
+        </footer>
+    </div>
+    <!-- Analytics Tracker -->
+    <script src="../js/analytics-tracker.js"></script>
+    <script>
+        // Inicializar tracking de analytics
+        initAnalytics('Redemthor - Videojuego', 'page');
+    </script>
+</body>
+
+</html>

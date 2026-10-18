@@ -1,0 +1,15 @@
+{
+    "to": "sales@xlerion.com",
+    "from": "client@example.com",
+    "name": "SMTP Try",
+    "filename": "X:\\Programacion\\XlerionWeb\\xlerion-site\\public\\api\/..\/sent_emails\/email_20260202_023202_client_example_com.html",
+    "headers": [
+        "MIME-Version: 1.0",
+        "Content-Type: text\/html; charset=UTF-8",
+        "From: Formulario XLERION <noreply@xlerion.com>",
+        "Reply-To: SMTP Try <client@example.com>",
+        "X-Mailer: PHP\/8.5.1",
+        "X-Priority: 3"
+    ],
+    "timestamp": "20260202_023202"
+}

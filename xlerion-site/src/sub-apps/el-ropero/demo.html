@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ropero Mag&co - Demo Frontend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#00e9fa',
+                        secondary: '#333436',
+                        dark: '#000000',
+                    }
+                }
+            }
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.3/dist/cdn.min.js"></script>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .btn-primary {
+            @apply bg-primary text-dark px-6 py-3 rounded-lg font-semibold hover:bg-cyan-400 transition-colors duration-300;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-secondary shadow-lg sticky top-0 z-50 border-b border-primary/20">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-bold text-primary">👗</span>
+                    <span class="text-xl font-bold text-white">El Ropero</span>
+                    <span class="text-sm text-gray-400">Mag&co</span>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-primary transition-colors">Subastas</a>
+                    <a href="#" class="text-gray-300 hover:text-primary transition-colors">Categorías</a>
+                    <a href="#" class="text-gray-300 hover:text-primary transition-colors">Cómo Funciona</a>
+                </nav>
+
+                <!-- Auth Buttons -->
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-300 hover:text-primary transition-colors">Iniciar Sesión</button>
+                    <button
+                        class="bg-primary text-dark px-4 py-2 rounded-lg font-semibold hover:bg-cyan-400 transition-colors">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-b from-dark to-secondary">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 text-white">
+                Descubre Moda Única en
+                <span class="text-primary">Subasta</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                Compra y vende prendas de alta calidad en un mercado dinámico.
+                Pujas en tiempo real, autenticidad garantizada.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <button
+                    class="bg-primary text-dark px-8 py-4 rounded-lg font-bold text-lg hover:bg-cyan-400 transition-colors shadow-lg shadow-primary/50">
+                    Ver Subastas Activas
+                </button>
+                <button
+                    class="border-2 border-primary text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-primary hover:text-dark transition-colors">
+                    Vender Prenda
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Auctions -->
+    <section class="py-16 bg-dark">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-white">Subastas Destacadas</h2>
+                <a href="#" class="text-primary hover:text-cyan-400 font-semibold">Ver todas →</a>
+            </div>
+
+            <!-- Auction Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="bg-secondary rounded-lg overflow-hidden hover:shadow-xl hover:shadow-primary/20 transition-shadow duration-300">
+                    <div class="relative">
+                        <div
+                            class="w-full h-64 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                            <span class="text-6xl">👔</span>
+                        </div>
+                        <span
+                            class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Activa
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-white">Camisa Vintage Gucci</h3>
+                        <div class="flex justify-between text-sm text-gray-400 mb-3">
+                            <span>Excelente</span>
+                            <span>Talla M</span>
+                        </div>
+                        <div class="border-t border-gray-700 pt-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-400 text-sm">Puja actual:</span>
+                                <span class="text-primary font-bold text-lg">$250,000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-gray-400 text-sm">⏱️ Termina en:</span>
+                                <span class="text-white font-semibold">2d 5h 23m</span>
+                            </div>
+                            <button
+                                class="w-full bg-primary text-dark py-2 rounded-lg font-semibold hover:bg-cyan-400 transition-colors">
+                                Ver Detalle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-secondary rounded-lg overflow-hidden hover:shadow-xl hover:shadow-primary/20 transition-shadow duration-300">
+                    <div class="relative">
+                        <div
+                            class="w-full h-64 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                            <span class="text-6xl">👗</span>
+                        </div>
+                        <span
+                            class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Activa
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-white">Vestido Chanel</h3>
+                        <div class="flex justify-between text-sm text-gray-400 mb-3">
+                            <span>Nuevo</span>
+                            <span>Talla S</span>
+                        </div>
+                        <div class="border-t border-gray-700 pt-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-400 text-sm">Puja actual:</span>
+                                <span class="text-primary font-bold text-lg">$450,000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-gray-400 text-sm">⏱️ Termina en:</span>
+                                <span class="text-white font-semibold">1d 12h 45m</span>
+                            </div>
+                            <button
+                                class="w-full bg-primary text-dark py-2 rounded-lg font-semibold hover:bg-cyan-400 transition-colors">
+                                Ver Detalle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-secondary rounded-lg overflow-hidden hover:shadow-xl hover:shadow-primary/20 transition-shadow duration-300">
+                    <div class="relative">
+                        <div
+                            class="w-full h-64 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                            <span class="text-6xl">👟</span>
+                        </div>
+                        <span
+                            class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Activa
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-white">Zapatillas Nike Jordan</h3>
+                        <div class="flex justify-between text-sm text-gray-400 mb-3">
+                            <span>Bueno</span>
+                            <span>Talla 42</span>
+                        </div>
+                        <div class="border-t border-gray-700 pt-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-400 text-sm">Puja actual:</span>
+                                <span class="text-primary font-bold text-lg">$180,000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-gray-400 text-sm">⏱️ Termina en:</span>
+                                <span class="text-white font-semibold">3d 8h 15m</span>
+                            </div>
+                            <button
+                                class="w-full bg-primary text-dark py-2 rounded-lg font-semibold hover:bg-cyan-400 transition-colors">
+                                Ver Detalle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="bg-secondary rounded-lg overflow-hidden hover:shadow-xl hover:shadow-primary/20 transition-shadow duration-300">
+                    <div class="relative">
+                        <div
+                            class="w-full h-64 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                            <span class="text-6xl">👜</span>
+                        </div>
+                        <span
+                            class="absolute top-3 right-3 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            Activa
+                        </span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-2 text-white">Bolso Louis Vuitton</h3>
+                        <div class="flex justify-between text-sm text-gray-400 mb-3">
+                            <span>Excelente</span>
+                            <span>Original</span>
+                        </div>
+                        <div class="border-t border-gray-700 pt-3">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-400 text-sm">Puja actual:</span>
+                                <span class="text-primary font-bold text-lg">$850,000</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-gray-400 text-sm">⏱️ Termina en:</span>
+                                <span class="text-white font-semibold">5d 3h 30m</span>
+                            </div>
+                            <button
+                                class="w-full bg-primary text-dark py-2 rounded-lg font-semibold hover:bg-cyan-400 transition-colors">
+                                Ver Detalle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="py-16 bg-secondary">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-white">¿Cómo Funciona?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div
+                        class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+                        🔍
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-white">1. Busca</h3>
+                    <p class="text-gray-400">Explora nuestra selección de prendas únicas</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+                        💰
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-white">2. Puja</h3>
+                    <p class="text-gray-400">Haz tu oferta y compite en tiempo real</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+                        🏆
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-white">3. Gana</h3>
+                    <p class="text-gray-400">Sé el mejor postor al cierre</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4 text-4xl">
+                        📦
+                    </div>
+                    <h3 class="font-bold text-xl mb-2 text-white">4. Recibe</h3>
+                    <p class="text-gray-400">Tu prenda llegará a tu puerta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark border-t border-gray-800 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="font-bold text-white mb-4">El Ropero Mag&co</h4>
+                    <p class="text-gray-400 text-sm">Plataforma de subastas de moda de segunda mano de alta calidad.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Navegación</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Subastas</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Categorías</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Vender</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Soporte</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Ayuda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Contacto</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Legal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Términos</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Privacidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-primary">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2026 El Ropero Mag&co. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Status Badge -->
+    <div class="fixed bottom-4 right-4 bg-secondary border-2 border-primary rounded-lg p-4 shadow-xl">
+        <div class="text-xs text-gray-400 mb-1">Estado del Frontend</div>
+        <div class="flex items-center space-x-2">
+            <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <span class="text-white font-semibold">✅ Completo</span>
+        </div>
+        <div class="text-xs text-gray-400 mt-2">
+            30+ páginas implementadas<br>
+            Listo para backend
+        </div>
+    </div>
+</body>
+
+</html>

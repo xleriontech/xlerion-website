@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Hash SHA-256</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #0f3460;
+            border: 2px solid #00e9fa;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(0, 233, 250, 0.3);
+        }
+
+        h1 {
+            color: #00e9fa;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00e9fa;
+            font-size: 14px;
+        }
+
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="password"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00e9fa;
+            box-shadow: 0 0 10px rgba(0, 233, 250, 0.3);
+            background: #242424;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            background: #00e9fa;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #00d4e0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 233, 250, 0.4);
+        }
+
+        .result {
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 6px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .result.success {
+            border-color: #4caf50;
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .result.error {
+            border-color: #f44336;
+            background: rgba(244, 67, 54, 0.05);
+        }
+
+        .result-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .result-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .result-details {
+            background: #0f3460;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            color: #b0b0b0;
+            word-break: break-all;
+        }
+
+        .comparison-label {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .match {
+            color: #4caf50;
+        }
+
+        .mismatch {
+            color: #f44336;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-info {
+            background: rgba(0, 233, 250, 0.1);
+            border-left: 4px solid #00e9fa;
+            color: #81c0d4;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔍 Verificador de Hash SHA-256</h1>
+        <p class="subtitle">Comprueba si tu contraseña genera el hash correcto</p>
+
+        <div class="alert alert-info" id="info">
+            <strong>ℹ️ Cómo usar:</strong> Ingresa tu contraseña y el hash que copiaste en app.js. Este verificador te
+            dirá si coinciden.
+        </div>
+        <script>document.getElementById('info').classList.add('show');</script>
+
+        <div class="form-group">
+            <label for="testPassword">Tu Contraseña:</label>
+            <input type="password" id="testPassword" placeholder="Ingresa tu contraseña">
+        </div>
+
+        <div class="form-group">
+            <label for="expectedHash">Hash esperado (de app.js):</label>
+            <input type="text" id="expectedHash" placeholder="Pega el hash de ADMIN_PASSWORD_HASH">
+        </div>
+
+        <button onclick="verifyHash()">Verificar Hash</button>
+
+        <div class="result" id="result">
+            <div class="result-icon" id="icon"></div>
+            <div class="result-text" id="message"></div>
+            <div class="result-details">
+                <div class="comparison-label">
+                    <span>Hash Generado:</span>
+                    <span id="matchStatus" class="mismatch">NO COINCIDEN ❌</span>
+                </div>
+                <div id="generatedHash" style="margin-top: 8px; background: #1a1a2e; padding: 8px; border-radius: 3px;">
+                </div>
+                <div style="margin-top: 15px;">
+                    <span>Hash Esperado:</span>
+                    <div id="expectedHashDisplay"
+                        style="margin-top: 8px; background: #1a1a2e; padding: 8px; border-radius: 3px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function verifyHash() {
+            const password = document.getElementById('testPassword').value;
+            const expectedHash = document.getElementById('expectedHash').value;
+            const result = document.getElementById('result');
+
+            if (!password) {
+                alert('Por favor ingresa tu contraseña');
+                return;
+            }
+
+            if (!expectedHash) {
+                alert('Por favor ingresa el hash esperado');
+                return;
+            }
+
+            try {
+                // Generar hash de la contraseña ingresada
+                const msgBuffer = new TextEncoder().encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const generatedHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+                // Comparar hashes
+                const matches = generatedHash.toLowerCase() === expectedHash.toLowerCase();
+
+                // Mostrar resultado
+                const icon = document.getElementById('icon');
+                const message = document.getElementById('message');
+                const matchStatus = document.getElementById('matchStatus');
+                const generatedHashDisplay = document.getElementById('generatedHash');
+                const expectedHashDisplay = document.getElementById('expectedHashDisplay');
+
+                if (matches) {
+                    icon.textContent = '✅';
+                    message.textContent = '¡Los hashes coinciden! Tu contraseña es correcta.';
+                    matchStatus.textContent = 'COINCIDEN ✅';
+                    matchStatus.classList.remove('mismatch');
+                    matchStatus.classList.add('match');
+                    result.classList.add('success');
+                    result.classList.remove('error');
+                } else {
+                    icon.textContent = '❌';
+                    message.textContent = 'Los hashes NO coinciden. Verifica tu contraseña o el hash.';
+                    matchStatus.textContent = 'NO COINCIDEN ❌';
+                    matchStatus.classList.add('mismatch');
+                    matchStatus.classList.remove('match');
+                    result.classList.add('error');
+                    result.classList.remove('success');
+                }
+
+                generatedHashDisplay.textContent = generatedHash;
+                expectedHashDisplay.textContent = expectedHash;
+                result.classList.add('show');
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        }
+
+        document.getElementById('testPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyHash();
+        });
+    </script>
+</body>
+
+</html>

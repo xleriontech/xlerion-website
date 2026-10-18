@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "year": 2026,
+    "currency": "USD",
+    "method": "internal-benchmarking + international-competitive-adjustment",
+    "notes": "Estimated ranges designed to be affordable yet competitive. Replace with licensed sources when available.",
+    "lastUpdated": "2026-02-13"
+  },
+  "services": {
+    "ai": {
+      "label": "Artificial Intelligence",
+      "baseHourlyRange": [40, 85]
+    },
+    "iot": {
+      "label": "IoT & Connected Systems",
+      "baseHourlyRange": [35, 75]
+    },
+    "fullstack": {
+      "label": "Fullstack Development",
+      "baseHourlyRange": [28, 65]
+    },
+    "games": {
+      "label": "Cinematic Game Development",
+      "baseHourlyRange": [32, 80]
+    },
+    "vision": {
+      "label": "Computer Vision",
+      "baseHourlyRange": [42, 95]
+    },
+    "modular": {
+      "label": "Modular Integration",
+      "baseHourlyRange": [30, 70]
+    }
+  },
+  "countries": {
+    "CO": {
+      "name": "Colombia",
+      "affordableFactor": 0.55,
+      "tiers": {
+        "small": [800, 4500],
+        "medium": [4500, 18000],
+        "large": [18000, 65000]
+      }
+    },
+    "MX": {
+      "name": "Mexico",
+      "affordableFactor": 0.65,
+      "tiers": {
+        "small": [1200, 6000],
+        "medium": [6000, 22000],
+        "large": [22000, 80000]
+      }
+    },
+    "US": {
+      "name": "United States",
+      "affordableFactor": 1.25,
+      "tiers": {
+        "small": [6000, 20000],
+        "medium": [20000, 90000],
+        "large": [90000, 300000]
+      }
+    },
+    "ES": {
+      "name": "Spain",
+      "affordableFactor": 0.95,
+      "tiers": {
+        "small": [3000, 12000],
+        "medium": [12000, 45000],
+        "large": [45000, 160000]
+      }
+    },
+    "DE": {
+      "name": "Germany",
+      "affordableFactor": 1.05,
+      "tiers": {
+        "small": [3500, 14000],
+        "medium": [14000, 52000],
+        "large": [52000, 180000]
+      }
+    },
+    "FR": {
+      "name": "France",
+      "affordableFactor": 1.0,
+      "tiers": {
+        "small": [3200, 13000],
+        "medium": [13000, 50000],
+        "large": [50000, 170000]
+      }
+    },
+    "UK": {
+      "name": "United Kingdom",
+      "affordableFactor": 1.1,
+      "tiers": {
+        "small": [4000, 16000],
+        "medium": [16000, 60000],
+        "large": [60000, 210000]
+      }
+    },
+    "BR": {
+      "name": "Brazil",
+      "affordableFactor": 0.6,
+      "tiers": {
+        "small": [1000, 5500],
+        "medium": [5500, 20000],
+        "large": [20000, 70000]
+      }
+    },
+    "AR": {
+      "name": "Argentina",
+      "affordableFactor": 0.5,
+      "tiers": {
+        "small": [700, 4000],
+        "medium": [4000, 15000],
+        "large": [15000, 55000]
+      }
+    },
+    "CL": {
+      "name": "Chile",
+      "affordableFactor": 0.7,
+      "tiers": {
+        "small": [1400, 7000],
+        "medium": [7000, 26000],
+        "large": [26000, 90000]
+      }
+    },
+    "PE": {
+      "name": "Peru",
+      "affordableFactor": 0.55,
+      "tiers": {
+        "small": [900, 5000],
+        "medium": [5000, 19000],
+        "large": [19000, 70000]
+      }
+    }
+  }
+}

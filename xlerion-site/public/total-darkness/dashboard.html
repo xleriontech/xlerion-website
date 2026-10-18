@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Total Darkness — Panel de Control Admin | Xlerion</title>
+    <meta name="description"
+        content="Panel administrativo de Total Darkness - Gestión de historias, usuarios y contenido del backend de Xlerion">
+    <meta name="keywords" content="total darkness, admin panel, xlerion, backend, panel de control">
+    <meta property="og:title" content="Total Darkness — Panel Administrativo">
+    <meta property="og:description" content="Panel de control backend para Total Darkness en Xlerion">
+    <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .card {
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-8">
+
+    <div class="max-w-6xl mx-auto">
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-white mb-2">🎮 Total Darkness Control Panel</h1>
+            <p class="text-gray-300">Backend Authentication & Email System</p>
+        </div>
+
+        <!-- Status Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+
+            <div class="bg-black rounded-lg p-6 border-2 border-green-500">
+                <div class="text-green-500 text-3xl mb-2">✅</div>
+                <h3 class="text-white font-semibold mb-1">Servidor PHP</h3>
+                <p class="text-sm text-gray-400">localhost:8080</p>
+            </div>
+
+            <div class="bg-black rounded-lg p-6 border-2 border-blue-500">
+                <div class="text-blue-500 text-3xl mb-2">✅</div>
+                <h3 class="text-white font-semibold mb-1">Frontend Vite</h3>
+                <p class="text-sm text-gray-400">localhost:5173</p>
+            </div>
+
+            <div class="bg-black rounded-lg p-6 border-2 border-purple-500">
+                <div class="text-purple-500 text-3xl mb-2">✅</div>
+                <h3 class="text-white font-semibold mb-1">Base de Datos</h3>
+                <p class="text-sm text-gray-400">SQLite Local</p>
+            </div>
+
+            <div class="bg-black rounded-lg p-6 border-2 border-orange-500">
+                <div class="text-orange-500 text-3xl mb-2">✅</div>
+                <h3 class="text-white font-semibold mb-1">SMTP Xlerion</h3>
+                <p class="text-sm text-gray-400">support@xlerion.com</p>
+            </div>
+
+        </div>
+
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+
+            <!-- Quick Tests -->
+            <div class="lg:col-span-2 space-y-4">
+                <h2 class="text-2xl font-bold text-white mb-4">🧪 Tests Rápidos</h2>
+
+                <!-- Test 1: SMTP -->
+                <div class="card bg-black rounded-lg p-6 border border-gray-700">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="text-white font-semibold flex items-center">
+                                <span class="text-2xl mr-3">📧</span>
+                                Test SMTP (COMIENZA AQUÍ)
+                            </h3>
+                            <p class="text-sm text-gray-400 mt-1">Verifica que los correos se envían correctamente</p>
+                        </div>
+                        <span class="px-3 py-1 bg-orange-500 text-black rounded text-xs font-semibold">MÁS
+                            IMPORTANTE</span>
+                    </div>
+
+                    <div class="bg-gray-900 p-4 rounded mb-4 text-sm text-gray-300">
+                        <p class="mb-2"><strong>📍 URL:</strong> test-smtp.html</p>
+                        <p class="mb-2"><strong>⏱️ Tiempo:</strong> 1-2 minutos</p>
+                        <p><strong>✅ Prueba:</strong> Envía un correo de prueba a admin@xlerion.com</p>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <a href="http://localhost:5173/total-darkness/test-smtp.html" target="_blank"
+                            class="flex-1 px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-md font-semibold text-center">
+                            Ir al Test SMTP →
+                        </a>
+                        <button
+                            onclick="copyCommand(`curl -X POST http://localhost:8080/total-darkness/api/auth.php -d 'action=request-recovery&email=admin@xlerion.com'`)"
+                            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md">
+                            📋 Copy CLI
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Test 2: Backend -->
+                <div class="card bg-black rounded-lg p-6 border border-gray-700">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="text-white font-semibold flex items-center">
+                                <span class="text-2xl mr-3">⚙️</span>
+                                Tests Automatizados del Backend
+                            </h3>
+                            <p class="text-sm text-gray-400 mt-1">Verifica que todas las funciones API funcionan</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 p-4 rounded mb-4 text-sm text-gray-300">
+                        <p class="mb-2"><strong>📍 URL:</strong> test-backend-auth.html</p>
+                        <p class="mb-2"><strong>✅ Incluye:</strong> Login, Recuperación, Crear Admin, Listar Admin</p>
+                        <p><strong>⏱️ Tiempo:</strong> 1 minuto</p>
+                    </div>
+
+                    <a href="http://localhost:5173/total-darkness/test-backend-auth.html" target="_blank"
+                        class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold text-center">
+                        Ver Tests Automatizados →
+                    </a>
+                </div>
+
+                <!-- Test 3: Flujo Completo -->
+                <div class="card bg-black rounded-lg p-6 border border-gray-700">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <h3 class="text-white font-semibold flex items-center">
+                                <span class="text-2xl mr-3">🔄</span>
+                                Flujo Completo de Recuperación
+                            </h3>
+                            <p class="text-sm text-gray-400 mt-1">Prueba el sistema end-to-end</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-900 p-4 rounded mb-4 text-sm text-gray-300">
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li>Abre: <code
+                                    class="bg-black px-2 py-1 rounded">http://localhost:5173/total-darkness/</code></li>
+                            <li>Haz clic: "¿Olvidaste tu contraseña?"</li>
+                            <li>Ingresa: <code class="bg-black px-2 py-1 rounded">admin@xlerion.com</code></li>
+                            <li>Revisa: Tu bandeja de correos</li>
+                            <li>Haz clic: En el enlace del correo</li>
+                            <li>Crea: Nueva contraseña</li>
+                        </ol>
+                    </div>
+
+                    <a href="http://localhost:5173/total-darkness/" target="_blank"
+                        class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md font-semibold text-center">
+                        Ir al Panel de Admin →
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- Info Sidebar -->
+            <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-white mb-4">ℹ️ Información</h2>
+
+                <!-- Credentials -->
+                <div class="bg-black rounded-lg p-6 border border-yellow-500">
+                    <h4 class="text-yellow-400 font-semibold mb-3 flex items-center">
+                        <span class="text-lg mr-2">🔐</span>
+                        Credenciales
+                    </h4>
+                    <div class="space-y-2 text-sm">
+                        <div>
+                            <p class="text-gray-400">Email:</p>
+                            <code
+                                class="block bg-gray-900 p-2 rounded text-green-400 font-mono">admin@xlerion.com</code>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Password:</p>
+                            <code
+                                class="block bg-gray-900 p-2 rounded text-green-400 font-mono">TotalDarkness2026!</code>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-3">⚠️ Cambia esto después de la primera conexión</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="bg-black rounded-lg p-6 border border-purple-500">
+                    <h4 class="text-purple-400 font-semibold mb-3 flex items-center">
+                        <span class="text-lg mr-2">🔗</span>
+                        Enlaces Útiles
+                    </h4>
+                    <div class="space-y-2">
+                        <a href="SMTP-SETUP.md" target="_blank"
+                            class="block text-sm text-purple-300 hover:text-purple-200 truncate">
+                            📄 SMTP-SETUP.md
+                        </a>
+                        <a href="TESTING-NOW.md" target="_blank"
+                            class="block text-sm text-purple-300 hover:text-purple-200 truncate">
+                            📄 TESTING-NOW.md
+                        </a>
+                        <a href="QUICK-START.md" target="_blank"
+                            class="block text-sm text-purple-300 hover:text-purple-200 truncate">
+                            📄 QUICK-START.md
+                        </a>
+                        <a href="BACKEND-AUTH-README.md" target="_blank"
+                            class="block text-sm text-purple-300 hover:text-purple-200 truncate">
+                            📄 BACKEND-AUTH-README.md
+                        </a>
+                    </div>
+                </div>
+
+                <!-- System Info -->
+                <div class="bg-black rounded-lg p-6 border border-cyan-500">
+                    <h4 class="text-cyan-400 font-semibold mb-3 flex items-center">
+                        <span class="text-lg mr-2">📊</span>
+                        Sistema
+                    </h4>
+                    <div class="space-y-2 text-xs text-gray-300">
+                        <p><strong>API:</strong> http://localhost:8080</p>
+                        <p><strong>Frontend:</strong> http://localhost:5173</p>
+                        <p><strong>SMTP:</strong> mail.xlerion.com:465</p>
+                        <p><strong>DB:</strong> SQLite (auto-creada)</p>
+                        <p><strong>Auth:</strong> SHA-256 Hash</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Documentation -->
+        <div class="bg-black rounded-lg p-8 border border-gray-700">
+            <h2 class="text-2xl font-bold text-white mb-6">📚 Guía de Archivos</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+                    <h4 class="text-green-400 font-semibold mb-3">🟢 Backend (PHP)</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><code>api/auth.php</code> - API REST con SMTP</li>
+                        <li><code>config/smtp-config.php</code> - Credenciales SMTP</li>
+                        <li><code>data/admins.db</code> - Base de datos (auto)</li>
+                        <li><code>start-php-server.ps1</code> - Script inicio</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-blue-400 font-semibold mb-3">🔵 Frontend (HTML/JS)</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><code>index.html</code> - Panel principal</li>
+                        <li><code>recovery.html</code> - Solicitar recuperación</li>
+                        <li><code>reset-password.html</code> - Crear nueva contraseña</li>
+                        <li><code>admin-management.js</code> - Gestión de admins</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-orange-400 font-semibold mb-3">🟠 Testing (HTML/JS)</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><code>test-smtp.html</code> - ⭐ Prueba SMTP aquí</li>
+                        <li><code>test-backend-auth.html</code> - Tests automatizados</li>
+                        <li><code>hash-generator.html</code> - Generar hashes</li>
+                        <li><code>hash-verifier.html</code> - Verificar hashes</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-purple-400 font-semibold mb-3">🟣 Documentación (MD)</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><code>SMTP-SETUP.md</code> - Configuración SMTP</li>
+                        <li><code>TESTING-NOW.md</code> - Cómo probar ya</li>
+                        <li><code>QUICK-START.md</code> - Inicio rápido</li>
+                        <li><code>BACKEND-AUTH-README.md</code> - Documentación completa</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-gray-400">
+            <p>Total Darkness Story Management System © 2026</p>
+            <p class="text-sm">Backend Authentication & Email Recovery System</p>
+        </div>
+
+    </div>
+
+    <script>
+        function copyCommand(text) {
+            navigator.clipboard.writeText(text);
+            alert('✅ Comando copiado al portapapeles');
+        }
+    </script>
+
+    <!-- Analytics Tracker -->
+    <script src="../js/analytics-tracker.js"></script>
+    <script>
+        // Inicializar tracking de analytics para Total Darkness Dashboard
+        initAnalytics('Total Darkness - Dashboard', 'page');
+    </script>
+</body>
+
+</html>

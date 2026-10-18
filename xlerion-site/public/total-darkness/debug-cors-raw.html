@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Debug CORS Raw</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+        }
+
+        .box {
+            border: 1px solid #00ff00;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        pre {
+            background: #000;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔍 Debug CORS Raw</h1>
+
+    <div class="box">
+        <h2>Test 1: GET Simple</h2>
+        <button onclick="testSimpleGet()">Test GET</button>
+        <pre id="result1"></pre>
+    </div>
+
+    <div class="box">
+        <h2>Test 2: OPTIONS Simple</h2>
+        <button onclick="testOptions()">Test OPTIONS</button>
+        <pre id="result2"></pre>
+    </div>
+
+    <div class="box">
+        <h2>Test 3: POST JSON Simple</h2>
+        <button onclick="testPostJson()">Test POST</button>
+        <pre id="result3"></pre>
+    </div>
+
+    <script>
+        const API = 'http://localhost:8080/total-darkness/api/auth.php';
+
+        async function testSimpleGet() {
+            const el = document.getElementById('result1');
+            el.textContent = 'Cargando...';
+            try {
+                const r = await fetch(API);
+                el.textContent = `Status: ${r.status}\nOK: ${r.ok}\nText:\n${await r.text()}`;
+            } catch (e) {
+                el.textContent = 'ERROR: ' + e.message;
+            }
+        }
+
+        async function testOptions() {
+            const el = document.getElementById('result2');
+            el.textContent = 'Cargando...';
+            try {
+                const r = await fetch(API, { method: 'OPTIONS' });
+                const headers = {};
+                r.headers.forEach((v, k) => headers[k] = v);
+                el.textContent = `Status: ${r.status}\nHeaders:\n${JSON.stringify(headers, null, 2)}`;
+            } catch (e) {
+                el.textContent = 'ERROR: ' + e.message;
+            }
+        }
+
+        async function testPostJson() {
+            const el = document.getElementById('result3');
+            el.textContent = 'Cargando...';
+            try {
+                const r = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'login', email: 'admin@xlerion.com', password: 'test' })
+                });
+                const text = await r.text();
+                el.textContent = `Status: ${r.status}\nRaw Response:\n${text}`;
+            } catch (e) {
+                el.textContent = 'ERROR: ' + e.message;
+            }
+        }
+    </script>
+</body>
+
+</html>

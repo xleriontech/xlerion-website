@@ -1,0 +1,54 @@
+⚠️ IMPORTANTE: Limpieza de URLs Indexadas Incorrectamente
+===========================================================
+
+📌 PROBLEMA DETECTADO:
+- Google estaba indexando URLs incorrectas como: xlerion.com/views
+- Esto causaba pantalla negra cuando usuarios entraban desde buscadores
+
+✅ SOLUCIÓN IMPLEMENTADA:
+
+1. .htaccess - Redirecciones (301 permanentes):
+   /views/* → /
+   /views → /
+
+2. robots.txt - Bloquear URLs viejas:
+   Disallow: /views/
+   Disallow: /views
+
+3. index.html - Favicon mejorado:
+   - Múltiples referencias para compatibilidad
+   - link rel="icon"
+   - link rel="shortcut icon"
+   - link rel="apple-touch-icon"
+   - link rel="image_src"
+
+🚀 PASOS SIGUIENTES:
+
+1. Desplegar cambios en servidor (este archivo + cambios en .htaccess, robots.txt, index.html)
+
+2. Limpiar caché en Google Search Console:
+   → Herramientas → Limpieza de URL
+   → Escribir: https://xlerion.com/views
+   → Repetir para cada URL problemática
+
+3. Reenviar robots.txt en Google Search Console:
+   → Rastreo → robots.txt → Probar y enviar
+
+4. Solicitar reindexación:
+   → Inspección de URL
+   → Introducir: https://xlerion.com/views
+   → "Solicitar indexación"
+   → Google redirigirá automáticamente a /
+
+5. Esperar 1-2 semanas para que Google actualice su índice
+
+📊 RESULTADO ESPERADO:
+- URLs /views desaparecerán del índice de Google
+- Nuevo tráfico irá directamente a https://xlerion.com/
+- Favicon visible en resultados de búsqueda
+- Sin pantallas negras
+
+🔍 VERIFICAR PROGRESO:
+→ Google Search Console → Cobertura
+→ Sitemap → Ver estado de indexación
+→ Buscar "xlerion.com" en Google (debe mostrar la URL principal)

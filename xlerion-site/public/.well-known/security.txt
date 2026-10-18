@@ -1,0 +1,32 @@
+# security.txt for xlerion.com
+# This file is meant to show transparency and legitimacy of this company
+
+Contact: mailto:contacto@xlerion.tech
+Expires: 2027-01-20T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://xlerion.com/.well-known/security.txt
+
+# Company Information
+# Name: XLERION
+# Type: Technology Solutions & Software Development Company
+# Location: Bogotá, Colombia
+# Founded: 2004 (Redemthor project), 2026 (tech company)
+# Founder: Miguel Rodríguez Martínez
+# 
+# We are a legitimate Colombian technology company
+# providing modular solutions, technical toolkits,
+# 3D development, and enterprise software services.
+#
+# This is NOT a scam or fraudulent website.
+# We are a real company with verifiable projects:
+# - Redemthor (metal band site since 2004)
+# - Total Darkness (backend system)
+# - Turismo Incluyente (accessible tourism)
+# - Technical toolkits for enterprise
+#
+# For verification, contact us at the email above
+# or visit our social media profiles:
+# - Instagram: @ultimatexlerion
+# - Facebook: /xlerionultimate
+#
+# Thank you for your trust!

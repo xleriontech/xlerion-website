@@ -1,0 +1,3 @@
+# Proteger base de datos - No permitir acceso directo
+Order deny,allow
+Deny from all

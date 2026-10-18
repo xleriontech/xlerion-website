@@ -1,0 +1,38 @@
+name: CI Build & Artifact
+
+on:
+  push:
+    branches: [develop, main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.1"
+          extensions: mbstring, xml, bcmath
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+      - name: Composer install
+        run: composer install --no-dev --prefer-dist --optimize-autoloader
+      - name: NPM install & build
+        run: |
+          npm ci
+          npm run prod
+      - name: Artisan caches
+        run: |
+          php artisan config:cache
+          php artisan route:cache || true
+      - name: Create deploy zip
+        run: zip -r el-ropero-deploy.zip . -x "node_modules/*" "vendor/*" "storage/*" ".git/*"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: el-ropero-deploy
+          path: el-ropero-deploy.zip

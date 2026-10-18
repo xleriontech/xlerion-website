@@ -1,0 +1,23 @@
+# API-specific CORS configuration
+<IfModule mod_headers.c>
+  # Allow all origins for development
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, Accept"
+  Header set Access-Control-Max-Age "86400"
+  Header set Access-Control-Allow-Credentials "true"
+  
+  # For PHP files specifically
+  <FilesMatch "\.php$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, Accept"
+  </FilesMatch>
+</IfModule>
+
+# Handle OPTIONS requests at the server level
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{REQUEST_METHOD} ^OPTIONS$
+  RewriteRule ^(.*)$ - [L,R=200]
+</IfModule>

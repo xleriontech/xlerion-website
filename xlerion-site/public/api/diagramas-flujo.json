@@ -1,0 +1,16 @@
+[
+  {
+    "id": "sample-1",
+    "nombre": "Flujo de despliegue",
+    "descripcion": "Ejemplo: pasos de CI/CD y despliegue automático.",
+    "fecha_actualizacion": "2026-02-01",
+    "imagen": "/images/sample-diagram-1.png"
+  },
+  {
+    "id": "sample-2",
+    "nombre": "Onboarding de usuarios",
+    "descripcion": "Ejemplo: proceso de registro y verificación.",
+    "fecha_actualizacion": "2026-01-20",
+    "imagen": "/images/sample-diagram-2.png"
+  }
+]
