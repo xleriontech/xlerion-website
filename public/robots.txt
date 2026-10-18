@@ -1,0 +1,24 @@
+# robots.txt for xlerion.com
+# Última actualización: 20 Enero 2026
+
+User-agent: *
+Allow: /
+
+# ⚠️ BLOQUER URLs ANTIGUAS que causan pantalla negra
+Disallow: /views/
+Disallow: /views
+
+# Disallow admin or private areas (if any)
+# Disallow: /admin/
+
+# 🔍 SEO: Páginas importantes para indexación
+# /about.html - Página estática con contenido completo de la empresa
+# /humans.txt - Información del equipo y verificación
+# /.well-known/security.txt - Transparencia y contacto de seguridad
+
+# Sitemap location
+Sitemap: https://xlerion.com/sitemap.xml
+Sitemap: https://xlerion.com/redemthor/sitemap.xml
+
+# Crawl-delay (optional, adjust if needed)
+Crawl-delay: 1

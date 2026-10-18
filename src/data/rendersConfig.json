@@ -1,0 +1,608 @@
+{
+  "renders": [
+    {
+      "id": 1,
+      "filename": "XHunterRender0700_RenderPrincipalDelPersonajeX_3DMax-ZBrush-Substance3DPainter_CharacterDesign-HardsurfModeling-ProfessionalLighting.png",
+      "title": "X-Hunter Render 0700",
+      "description": "Render principal del personaje X-Hunter con iluminación profesional",
+      "bgColor": "white",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Character Design",
+        "Hardsurf Modeling",
+        "Professional Lighting"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 2,
+      "filename": "XHunterRender0532_VarianteLateralDelXHunter_3DMax-ZBrush-Substance3DPainter_SideProfile-MechanicalDetail-MaterialDefinition.png",
+      "title": "X-Hunter Render 0532",
+      "description": "Variante lateral del X-Hunter con énfasis en detalles mecánicos",
+      "bgColor": "white",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Side Profile",
+        "Mechanical Detail",
+        "Material Definition"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 3,
+      "filename": "XHunterRender0413_PoseDeAcciNDel_3DMax-ZBrush-Substance3DPainter_DynamicPose-WeaponSystems-ActionShot.png",
+      "title": "X-Hunter Render 0413",
+      "description": "Pose de acción del X-Hunter con sistemas de armamento",
+      "bgColor": "white",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Dynamic Pose",
+        "Weapon Systems",
+        "Action Shot"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 4,
+      "filename": "XHunterRender0260_VistaFrontalCompletaDelX_3DMax-ZBrush-Substance3DPainter_FrontView-FullBody-CompleteDetail.png",
+      "title": "X-Hunter Render 0260",
+      "description": "Vista frontal completa del X-Hunter con todos los detalles visibles",
+      "bgColor": "white",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Front View",
+        "Full Body",
+        "Complete Detail"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 5,
+      "filename": "XHunterPoster3_RenderCinematogrFicoDelX_3DMax-ZBrush-Substance3DPainter_Cinematic-NeonLighting-MoodyAtmosphere.jpg",
+      "title": "X-Hunter Poster 3",
+      "description": "Render cinematográfico del X-Hunter con iluminación neon",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Cinematic",
+        "Neon Lighting",
+        "Moody Atmosphere"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 6,
+      "filename": "XHunterPoster4_RenderAdicionalDelXHunter_3DMax-ZBrush-Substance3DPainter_AlternativePose-CompositionVariation-BrandShowcase.jpg",
+      "title": "X-Hunter Poster 4",
+      "description": "Render adicional del X-Hunter con variación de composición",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Alternative Pose",
+        "Composition Variation",
+        "Brand Showcase"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 7,
+      "filename": "XHunterPoster_PosterOficialDelXHunter_3DMax-ZBrush-Substance3DPainter_MarketingMaterial-OfficialArtwork-BrandIdentity.png",
+      "title": "X-Hunter Poster",
+      "description": "Poster oficial del X-Hunter para campañas de marketing",
+      "bgColor": "white",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Marketing Material",
+        "Official Artwork",
+        "Brand Identity"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 8,
+      "filename": "XHunterPosterJpg_VersiNJpgDelPoster_3DMax-ZBrush-Substance3DPainter_WebOptimization-FormatConversion-QualityBalance.jpg",
+      "title": "X-Hunter Poster JPG",
+      "description": "Versión JPG del poster X-Hunter optimizada para web",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Web Optimization",
+        "Format Conversion",
+        "Quality Balance"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 9,
+      "filename": "Bioflora_RenderDeProyectoBiofloraCon_3DMax-ZBrush-Substance3DPainter_OrganicForms-BiomechanicalFusion-NatureIntegration.jpg",
+      "title": "BioFlora",
+      "description": "Render de proyecto BioFlora con elementos orgánicos y biomecánicos",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Organic Forms",
+        "Biomechanical Fusion",
+        "Nature Integration"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 10,
+      "filename": "OficinaInterior3_DiseODeOficinaModerna_3DMax-ZBrush-Substance3DPainter_InteriorDesign-FlexibleSpaces-ModernAesthetics.jpg",
+      "title": "Oficina Interior 3",
+      "description": "Diseño de oficina moderna con espacios de trabajo flexibles",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Interior Design",
+        "Flexible Spaces",
+        "Modern Aesthetics"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 11,
+      "filename": "OficinaInterior4_VisualizaciNDeOficinaCon_3DMax-ZBrush-Substance3DPainter_CollaborationZone-OpenSpace-ModernLayout.jpg",
+      "title": "Oficina Interior 4",
+      "description": "Visualización de oficina con zona de colaboración",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Collaboration Zone",
+        "Open Space",
+        "Modern Layout"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 12,
+      "filename": "OficinaInterior9_OficinaConSalaDeReuniones_3DMax-ZBrush-Substance3DPainter_MeetingRoom-WindowViews-PanoramicVision.jpg",
+      "title": "Oficina Interior 9",
+      "description": "Oficina con sala de reuniones y vistas panorámicas",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Meeting Room",
+        "Window Views",
+        "Panoramic Vision"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 13,
+      "filename": "OficinaInterior10_OficinaEjecutivaDeLujoCon_3DMax-ZBrush-Substance3DPainter_ExecutiveSuite-PremiumMaterials-LuxuryFinish.jpg",
+      "title": "Oficina Interior 10",
+      "description": "Oficina ejecutiva de lujo con acabados premium",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Executive Suite",
+        "Premium Materials",
+        "Luxury Finish"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 14,
+      "filename": "OficinaInterior11_EstaciNDeTrabajoCon_3DMax-ZBrush-Substance3DPainter_WorkstationDesign-ModularSystem-Ergonomics.jpg",
+      "title": "Oficina Interior 11",
+      "description": "Estación de trabajo con diseño modular y funcional",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Workstation Design",
+        "Modular System",
+        "Ergonomics"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 15,
+      "filename": "OficinaInterior13_PasilloInteriorConIluminaciN_3DMax-ZBrush-Substance3DPainter_CorridorDesign-IntegratedLighting-FlowDesign.jpg",
+      "title": "Oficina Interior 13",
+      "description": "Pasillo interior con iluminación integrada",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Corridor Design",
+        "Integrated Lighting",
+        "Flow Design"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 16,
+      "filename": "OficinaInterior14_RecepciNConMuroFocal_3DMax-ZBrush-Substance3DPainter_ReceptionArea-FeatureWall-BrandExpression.jpg",
+      "title": "Oficina Interior 14",
+      "description": "Recepción con muro focal y elemento de identidad",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Reception Area",
+        "Feature Wall",
+        "Brand Expression"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 17,
+      "filename": "OficinaInterior17_SalaDeDescansoConDise_3DMax-ZBrush-Substance3DPainter_LoungeArea-ComfortDesign-WelcomingAmbiance.jpg",
+      "title": "Oficina Interior 17",
+      "description": "Sala de descanso con diseño acogedor y funcional",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Lounge Area",
+        "Comfort Design",
+        "Welcoming Ambiance"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 18,
+      "filename": "ServiceRender2_VisualizaciNDeInfraestructuraDe_3DMax-ZBrush-Substance3DPainter_TechInfrastructure-SystemVisualization-NetworkDesign.jpg",
+      "title": "Service Render 2",
+      "description": "Visualización de infraestructura de servicios tecnológicos",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Tech Infrastructure",
+        "System Visualization",
+        "Network Design"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 19,
+      "filename": "ServiceRender3_RenderDeComponentesDeServicio_3DMax-ZBrush-Substance3DPainter_ComponentDesign-TechnicalDetail-SpecializedParts.jpg",
+      "title": "Service Render 3",
+      "description": "Render de componentes de servicio especializados",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Component Design",
+        "Technical Detail",
+        "Specialized Parts"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 20,
+      "filename": "ServiceRender5_SistemaDeServicioConDise_3DMax-ZBrush-Substance3DPainter_IndustrialDesign-AdvancedSystems-TechnicalPrecision.jpg",
+      "title": "Service Render 5",
+      "description": "Sistema de servicio con diseño industrial avanzado",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Industrial Design",
+        "Advanced Systems",
+        "Technical Precision"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 21,
+      "filename": "ServiceRender12_InfraestructuraTCnicaComplejaPara_3DMax-ZBrush-Substance3DPainter_ComplexSystems-TechnicalArchitecture-IntegrationDesign.jpg",
+      "title": "Service Render 12",
+      "description": "Infraestructura técnica compleja para servicios",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Complex Systems",
+        "Technical Architecture",
+        "Integration Design"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 22,
+      "filename": "ServiceRender14_SoluciNDeServicioCompleta_3DMax-ZBrush-Substance3DPainter_SolutionDesign-MultiComponent-CompleteSystem.jpg",
+      "title": "Service Render 14",
+      "description": "Solución de servicio completa con múltiples componentes",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Solution Design",
+        "Multi-Component",
+        "Complete System"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 23,
+      "filename": "ServiciosProyecto2_ProyectoDeServiciosConEnfoque_3DMax-ZBrush-Substance3DPainter_BusinessSolutions-ProjectScope-EnterpriseFocus.jpg",
+      "title": "Servicios Proyecto 2",
+      "description": "Proyecto de servicios con enfoque en soluciones empresariales",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Business Solutions",
+        "Project Scope",
+        "Enterprise Focus"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 24,
+      "filename": "ServiciosProyecto6_PresentaciNVisualIntegralDe_3DMax-ZBrush-Substance3DPainter_ProfessionalServices-ComprehensiveView-Presentation.jpg",
+      "title": "Servicios Proyecto 6",
+      "description": "Presentación visual integral de servicios profesionales",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Professional Services",
+        "Comprehensive View",
+        "Presentation"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 25,
+      "filename": "ServiciosProyecto7_RenderDeServiciosConOrientaci_3DMax-ZBrush-Substance3DPainter_CommercialFocus-MarketOriented-SalesVisualization.jpg",
+      "title": "Servicios Proyecto 7",
+      "description": "Render de servicios con orientación comercial",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Commercial Focus",
+        "Market Oriented",
+        "Sales Visualization"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 26,
+      "filename": "ServiciosProyecto8_ServiciosDeCalidadPremiumCon_3DMax-ZBrush-Substance3DPainter_PremiumQuality-ProfessionalGrade-HighEndFinish.jpg",
+      "title": "Servicios Proyecto 8",
+      "description": "Servicios de calidad premium con acabados profesionales",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Premium Quality",
+        "Professional Grade",
+        "High-End Finish"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 27,
+      "filename": "ServiciosProyecto10_ServiciosIntegradosConDiseO_3DMax-ZBrush-Substance3DPainter_IntegratedServices-CorporateBranding-ConsistentDesign.jpg",
+      "title": "Servicios Proyecto 10",
+      "description": "Servicios integrados con diseño corporativo consistente",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Integrated Services",
+        "Corporate Branding",
+        "Consistent Design"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 28,
+      "filename": "ServiciosProyecto11_VisualizaciNDeServiciosEspecializados_3DMax-ZBrush-Substance3DPainter_SpecializedServices-TechnicalKnowledge-ExpertDesign.jpg",
+      "title": "Servicios Proyecto 11",
+      "description": "Visualización de servicios especializados y técnicos",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Specialized Services",
+        "Technical Knowledge",
+        "Expert Design"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 29,
+      "filename": "ServiciosProyecto13_RenderDeServiciosConPrecisi_3DMax-ZBrush-Substance3DPainter_DetailOriented-PrecisionWork-QualityAssurance.jpg",
+      "title": "Servicios Proyecto 13",
+      "description": "Render de servicios con precisión en detalles",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Detail Oriented",
+        "Precision Work",
+        "Quality Assurance"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 30,
+      "filename": "ServiciosProyecto15_ServiciosAvanzadosConTecnologA_3DMax-ZBrush-Substance3DPainter_AdvancedTechnology-CuttingEdge-Innovation.jpg",
+      "title": "Servicios Proyecto 15",
+      "description": "Servicios avanzados con tecnología de punta",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Advanced Technology",
+        "Cutting Edge",
+        "Innovation"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 31,
+      "filename": "ServiciosProyecto17_RenderFinalDeServiciosCon_3DMax-ZBrush-Substance3DPainter_FinalQuality-PortfolioPiece-ShowcaseStandard.jpg",
+      "title": "Servicios Proyecto 17",
+      "description": "Render final de servicios con máxima calidad visual",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Final Quality",
+        "Portfolio Piece",
+        "Showcase Standard"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 32,
+      "filename": "XHunterPosterCampaign_MaterialDeCampaADel_3DMax-ZBrush-Substance3DPainter_CampaignMaterial-MarketingAsset-BrandPromotion.jpg",
+      "title": "X-Hunter Poster Campaign",
+      "description": "Material de campaña del X-Hunter para mercadotecnia",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Campaign Material",
+        "Marketing Asset",
+        "Brand Promotion"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 33,
+      "filename": "XlerionSoftwareRender_VisualizaciNDelConceptoDe_3DMax-ZBrush-Substance3DPainter_ConceptArt-BrandVisualization-MessageDesign.jpg",
+      "title": "Xlerion Software Render",
+      "description": "Visualización del concepto de Xlerion Software",
+      "bgColor": "black",
+      "software": [
+        "3ds Max",
+        "ZBrush",
+        "Substance 3D Painter"
+      ],
+      "techniques": [
+        "Concept Art",
+        "Brand Visualization",
+        "Message Design"
+      ],
+      "year": "2024"
+    },
+    {
+      "id": 34,
+      "filename": "Render_Detalle_3DMax-ZBrush-Substance3DPainter_PBR-HardSurface.jpg",
+      "title": "",
+      "description": "",
+      "bgColor": "",
+      "software": [],
+      "techniques": [],
+      "year": ""
+    }
+  ]
+}

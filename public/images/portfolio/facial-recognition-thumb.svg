@@ -1,0 +1,42 @@
+<svg width="640" height="360" viewBox="0 0 640 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A0A0A" />
+      <stop offset="1" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="grid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#00E9FA" stop-opacity="0.35" />
+      <stop offset="1" stop-color="#00E9FA" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#bg)" />
+  <g stroke="url(#grid)" stroke-width="1">
+    <path d="M40 60H600" opacity="0.5" />
+    <path d="M40 120H600" opacity="0.35" />
+    <path d="M40 180H600" opacity="0.25" />
+    <path d="M40 240H600" opacity="0.2" />
+    <path d="M40 300H600" opacity="0.15" />
+    <path d="M80 40V320" opacity="0.4" />
+    <path d="M160 40V320" opacity="0.3" />
+    <path d="M240 40V320" opacity="0.25" />
+    <path d="M320 40V320" opacity="0.25" />
+    <path d="M400 40V320" opacity="0.25" />
+    <path d="M480 40V320" opacity="0.3" />
+    <path d="M560 40V320" opacity="0.35" />
+  </g>
+  <rect x="160" y="80" width="320" height="200" rx="16" fill="#0B0F17" stroke="#00E9FA" stroke-width="2" opacity="0.7" />
+  <rect x="180" y="110" width="280" height="140" rx="12" fill="#0F172A" stroke="#00E9FA" stroke-width="1.5" opacity="0.85" />
+  <rect x="210" y="130" width="220" height="100" rx="12" fill="#111827" stroke="#00E9FA" stroke-width="1" opacity="0.9" />
+  <circle cx="320" cy="180" r="70" stroke="#00E9FA" stroke-width="2" opacity="0.85" />
+  <path d="M280 170C285 140 305 130 320 130C335 130 355 140 360 170" stroke="#00E9FA" stroke-width="2" stroke-linecap="round" />
+  <path d="M292 190C300 205 310 212 320 212C330 212 340 205 348 190" stroke="#00E9FA" stroke-width="2" stroke-linecap="round" />
+  <circle cx="300" cy="175" r="6" fill="#00E9FA" />
+  <circle cx="340" cy="175" r="6" fill="#00E9FA" />
+  <path d="M320 150C323 154 325 160 325 166C325 175 322 184 320 188" stroke="#00E9FA" stroke-width="2" stroke-linecap="round" />
+  <path d="M260 240H380" stroke="#00E9FA" stroke-width="2" stroke-linecap="round" opacity="0.6" />
+  <rect x="245" y="95" width="150" height="12" rx="6" fill="#00E9FA" opacity="0.2" />
+  <rect x="390" y="195" width="70" height="26" rx="6" fill="#00E9FA" opacity="0.2" />
+  <rect x="180" y="200" width="60" height="18" rx="4" fill="#00E9FA" opacity="0.15" />
+  <rect x="280" y="250" width="80" height="10" rx="5" fill="#00E9FA" opacity="0.25" />
+  <text x="50%" y="330" text-anchor="middle" fill="#00E9FA" font-family="Inter, 'Segoe UI', sans-serif" font-size="18" opacity="0.8">Facial Recognition · Secure · Real-time</text>
+</svg>
