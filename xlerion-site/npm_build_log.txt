@@ -1,0 +1,71 @@
+
+> xlerion-site@0.0.0 build
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mÔ£ô[39m 5703 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                                   [39m[1m[2m   11.27 kB[22m[1m[22m[2m Ôöé gzip:   3.39 kB[22m
+[2mdist/[22m[35mcss/index.B2QgkGmd.css                       [39m[1m[2m   81.94 kB[22m[1m[22m[2m Ôöé gzip:  12.98 kB[22m
+[2mdist/[22m[36mjs/clone.C-2ngQk1.js                         [39m[1m[2m    0.09 kB[22m[1m[22m[2m Ôöé gzip:   0.11 kB[22m
+[2mdist/[22m[36mjs/channel.DOzPG13f.js                       [39m[1m[2m    0.11 kB[22m[1m[22m[2m Ôöé gzip:   0.12 kB[22m
+[2mdist/[22m[36mjs/init.Gi6I4Gst.js                          [39m[1m[2m    0.15 kB[22m[1m[22m[2m Ôöé gzip:   0.13 kB[22m
+[2mdist/[22m[36mjs/chunk-QZHKN3VN.EDZMcP8D.js                [39m[1m[2m    0.19 kB[22m[1m[22m[2m Ôöé gzip:   0.16 kB[22m
+[2mdist/[22m[36mjs/chunk-4BX2VUAB.1U_9Hgrc.js                [39m[1m[2m    0.22 kB[22m[1m[22m[2m Ôöé gzip:   0.17 kB[22m
+[2mdist/[22m[36mjs/chunk-55IACEB6.DYVIC_Fa.js                [39m[1m[2m    0.23 kB[22m[1m[22m[2m Ôöé gzip:   0.21 kB[22m
+[2mdist/[22m[36mjs/chunk-FMBD7UC4.DlIuPbtQ.js                [39m[1m[2m    0.36 kB[22m[1m[22m[2m Ôöé gzip:   0.27 kB[22m
+[2mdist/[22m[36mjs/stateDiagram-v2-4FDKWEC3.1i529-o-.js      [39m[1m[2m    0.46 kB[22m[1m[22m[2m Ôöé gzip:   0.31 kB[22m
+[2mdist/[22m[36mjs/classDiagram-2ON5EDUG.BwbFuTQv.js         [39m[1m[2m    0.50 kB[22m[1m[22m[2m Ôöé gzip:   0.33 kB[22m
+[2mdist/[22m[36mjs/classDiagram-v2-WZHVMYZB.BwbFuTQv.js      [39m[1m[2m    0.50 kB[22m[1m[22m[2m Ôöé gzip:   0.33 kB[22m
+[2mdist/[22m[36mjs/chunk-QN33PNHL.D6JnSkK1.js                [39m[1m[2m    0.50 kB[22m[1m[22m[2m Ôöé gzip:   0.35 kB[22m
+[2mdist/[22m[36mjs/min.BhLM7dky.js                           [39m[1m[2m    0.59 kB[22m[1m[22m[2m Ôöé gzip:   0.37 kB[22m
+[2mdist/[22m[36mjs/infoDiagram-WHAUD3N6.C5g4AIVm.js          [39m[1m[2m    0.72 kB[22m[1m[22m[2m Ôöé gzip:   0.47 kB[22m
+[2mdist/[22m[36mjs/ordinal.BYWQX77i.js                       [39m[1m[2m    1.19 kB[22m[1m[22m[2m Ôöé gzip:   0.57 kB[22m
+[2mdist/[22m[36mjs/chunk-TZMSLE5B.DchE6nT6.js                [39m[1m[2m    1.43 kB[22m[1m[22m[2m Ôöé gzip:   0.63 kB[22m
+[2mdist/[22m[36mjs/arc.CNkwJIGv.js                           [39m[1m[2m    3.43 kB[22m[1m[22m[2m Ôöé gzip:   1.48 kB[22m
+[2mdist/[22m[36mjs/diagram-S2PKOQOG.CY5jDnIG.js              [39m[1m[2m    4.35 kB[22m[1m[22m[2m Ôöé gzip:   1.90 kB[22m
+[2mdist/[22m[36mjs/defaultLocale.DX6XiGOO.js                 [39m[1m[2m    4.69 kB[22m[1m[22m[2m Ôöé gzip:   2.18 kB[22m
+[2mdist/[22m[36mjs/pieDiagram-ADFJNKIX.Nq6NPhBH.js           [39m[1m[2m    5.28 kB[22m[1m[22m[2m Ôöé gzip:   2.34 kB[22m
+[2mdist/[22m[36mjs/linear.lIt76lxq.js                        [39m[1m[2m    5.65 kB[22m[1m[22m[2m Ôöé gzip:   2.30 kB[22m
+[2mdist/[22m[36mjs/diagram-QEK2KX5R.D1ukksJq.js              [39m[1m[2m    5.94 kB[22m[1m[22m[2m Ôöé gzip:   2.51 kB[22m
+[2mdist/[22m[36mjs/_baseUniq.D6Sv1Ncg.js                     [39m[1m[2m    8.48 kB[22m[1m[22m[2m Ôöé gzip:   3.53 kB[22m
+[2mdist/[22m[36mjs/graph.BHcPwVZb.js                         [39m[1m[2m    9.36 kB[22m[1m[22m[2m Ôöé gzip:   3.20 kB[22m
+[2mdist/[22m[36mjs/stateDiagram-FKZM4ZOC.CBOjjMBj.js         [39m[1m[2m   10.45 kB[22m[1m[22m[2m Ôöé gzip:   3.67 kB[22m
+[2mdist/[22m[36mjs/dagre-6UL2VRFP.kzKuzrGs.js                [39m[1m[2m   11.06 kB[22m[1m[22m[2m Ôöé gzip:   4.13 kB[22m
+[2mdist/[22m[36mjs/diagram-PSM6KHXK.DtPNkuL4.js              [39m[1m[2m   15.91 kB[22m[1m[22m[2m Ôöé gzip:   5.69 kB[22m
+[2mdist/[22m[36mjs/kanban-definition-3W4ZIXB7.BhuY4Z3D.js    [39m[1m[2m   20.26 kB[22m[1m[22m[2m Ôöé gzip:   7.20 kB[22m
+[2mdist/[22m[36mjs/mindmap-definition-VGOIOE7T.CMvoQGeo.js   [39m[1m[2m   20.98 kB[22m[1m[22m[2m Ôöé gzip:   7.32 kB[22m
+[2mdist/[22m[36mjs/sankeyDiagram-TZEHDZUN.B-FnK5gb.js        [39m[1m[2m   22.18 kB[22m[1m[22m[2m Ôöé gzip:   8.17 kB[22m
+[2mdist/[22m[36mjs/journeyDiagram-XKPGCS4Q.DAN4VHFT.js       [39m[1m[2m   23.61 kB[22m[1m[22m[2m Ôöé gzip:   8.35 kB[22m
+[2mdist/[22m[36mjs/timeline-definition-IT6M3QCI.BNHChmre.js  [39m[1m[2m   23.65 kB[22m[1m[22m[2m Ôöé gzip:   8.25 kB[22m
+[2mdist/[22m[36mjs/gitGraphDiagram-NY62KEGX.Cu4C1QhO.js      [39m[1m[2m   24.17 kB[22m[1m[22m[2m Ôöé gzip:   7.45 kB[22m
+[2mdist/[22m[36mjs/erDiagram-Q2GNP2WA.ClmEkXb4.js            [39m[1m[2m   25.31 kB[22m[1m[22m[2m Ôöé gzip:   8.87 kB[22m
+[2mdist/[22m[36mjs/ui-vendor.C_6SbMWI.js                     [39m[1m[2m   27.50 kB[22m[1m[22m[2m Ôöé gzip:   9.62 kB[22m
+[2mdist/[22m[36mjs/layout.DFz3gJY6.js                        [39m[1m[2m   29.28 kB[22m[1m[22m[2m Ôöé gzip:  10.51 kB[22m
+[2mdist/[22m[36mjs/requirementDiagram-UZGBJVZJ.oc03uGmt.js   [39m[1m[2m   30.15 kB[22m[1m[22m[2m Ôöé gzip:   9.46 kB[22m
+[2mdist/[22m[36mjs/quadrantDiagram-AYHSOK5B.gpEe5uBh.js      [39m[1m[2m   33.91 kB[22m[1m[22m[2m Ôöé gzip:   9.98 kB[22m
+[2mdist/[22m[36mjs/chunk-DI55MBZ5.CczGXZ9k.js                [39m[1m[2m   36.33 kB[22m[1m[22m[2m Ôöé gzip:  11.84 kB[22m
+[2mdist/[22m[36mjs/xychartDiagram-PRI3JC2R.CBoKENYA.js       [39m[1m[2m   40.28 kB[22m[1m[22m[2m Ôöé gzip:  11.48 kB[22m
+[2mdist/[22m[36mjs/chunk-B4BG7PRW.iY3CTHNj.js                [39m[1m[2m   45.31 kB[22m[1m[22m[2m Ôöé gzip:  14.70 kB[22m
+[2mdist/[22m[36mjs/react-vendor.CSlGCIkQ.js                  [39m[1m[2m   46.15 kB[22m[1m[22m[2m Ôöé gzip:  16.38 kB[22m
+[2mdist/[22m[36mjs/flowDiagram-NV44I4VS.BUNzOZqk.js          [39m[1m[2m   60.52 kB[22m[1m[22m[2m Ôöé gzip:  19.48 kB[22m
+[2mdist/[22m[36mjs/ganttDiagram-JELNMOA3.39Gw_6_E.js         [39m[1m[2m   68.38 kB[22m[1m[22m[2m Ôöé gzip:  23.17 kB[22m
+[2mdist/[22m[36mjs/c4Diagram-YG6GDRKO.Yu9Hmgkg.js            [39m[1m[2m   70.20 kB[22m[1m[22m[2m Ôöé gzip:  19.71 kB[22m
+[2mdist/[22m[36mjs/blockDiagram-VD42YOAC.CvvPn0w9.js         [39m[1m[2m   71.85 kB[22m[1m[22m[2m Ôöé gzip:  20.53 kB[22m
+[2mdist/[22m[36mjs/cose-bilkent-S5V4N54A.BWa2unLK.js         [39m[1m[2m   81.77 kB[22m[1m[22m[2m Ôöé gzip:  22.51 kB[22m
+[2mdist/[22m[36mjs/sequenceDiagram-WL72ISMW.pmzuKVK6.js      [39m[1m[2m   97.87 kB[22m[1m[22m[2m Ôöé gzip:  26.88 kB[22m
+[2mdist/[22m[36mjs/architectureDiagram-VXUJARFQ.BR2uA2WV.js  [39m[1m[2m  148.73 kB[22m[1m[22m[2m Ôöé gzip:  42.12 kB[22m
+[2mdist/[22m[36mjs/index.es.Dxdm8UkN.js                      [39m[1m[2m  158.69 kB[22m[1m[22m[2m Ôöé gzip:  52.98 kB[22m
+[2mdist/[22m[36mjs/katex.DhXJpUyf.js                         [39m[1m[2m  265.42 kB[22m[1m[22m[2m Ôöé gzip:  77.51 kB[22m
+[2mdist/[22m[36mjs/treemap-KMMF4GRG.COwC2BY-.js              [39m[1m[2m  374.80 kB[22m[1m[22m[2m Ôöé gzip:  92.80 kB[22m
+[2mdist/[22m[36mjs/cytoscape.esm.5J0xJHOV.js                 [39m[1m[2m  441.64 kB[22m[1m[22m[2m Ôöé gzip: 141.47 kB[22m
+[2mdist/[22m[36mjs/three-vendor.roCZJozv.js                  [39m[1m[33m  511.72 kB[39m[22m[2m Ôöé gzip: 130.16 kB[22m
+[2mdist/[22m[36mjs/index.CbJ8JVPy.js                         [39m[1m[33m2,116.67 kB[39m[22m[2m Ôöé gzip: 570.30 kB[22m
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[32mÔ£ô built in 2m 5s[39m

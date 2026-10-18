@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="color-scheme" content="dark">
+
+    <title>TRANSMISIONES LÍRICAS - REDEMTHOR | X-lerion Protocol</title>
+    <meta name="description"
+        content="Archivos líricos de Redemthor. Transmisiones codificadas del Ultimate Metal desde 2004.">
+    <meta name="keywords" content="redemthor, letras, lyrics, metal, x-lerion, ultimate metal">
+
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="es">
+    <link rel="canonical" href="https://xlerion.com/redemthor/transmisiones.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xlerion.com/redemthor/transmisiones.html">
+    <meta property="og:title" content="Transmisiones Líricas - REDEMTHOR | X-lerion Protocol">
+    <meta property="og:description"
+        content="Archivos líricos del Ultimate Metal. Transmisiones codificadas de REDEMTHOR.">
+    <meta property="og:image" content="https://xlerion.com/redemthor/images/redemthor-logo.png">
+    <meta property="og:site_name" content="Redemthor">
+    <meta property="og:locale" content="es_CO">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://xlerion.com/redemthor/transmisiones.html">
+    <meta property="twitter:title" content="Transmisiones Líricas - REDEMTHOR | X-lerion Protocol">
+    <meta property="twitter:description"
+        content="Archivos líricos del Ultimate Metal. Transmisiones codificadas de REDEMTHOR.">
+    <meta property="twitter:image" content="https://xlerion.com/redemthor/images/redemthor-logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Translations -->
+    <script src="/redemthor/js/translations.js"></script>
+
+    <!-- Structured Data: Music Recordings List -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": [
+                {"@type": "MusicRecording", "name": "X-lerion", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "Light of the Sun", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "Kill To Live", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "The Last Word", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "Red Tormenthor", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "Soul Of Fire", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "War of Pride", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}},
+                {"@type": "MusicRecording", "name": "Total Darkness", "byArtist": {"@type": "MusicGroup", "name": "REDEMTHOR"}}
+            ]
+        }
+        </script>
+
+    <!-- Structured Data: Breadcrumbs -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Redemthor", "item": "https://xlerion.com/redemthor/"},
+                {"@type": "ListItem", "position": 2, "name": "Transmisiones", "item": "https://xlerion.com/redemthor/transmisiones.html"}
+            ]
+        }
+        </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Newton Howard';
+            src: url('fonts/Newton Howard Font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            font-family: 'Fira Code', monospace;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ddd;
+            overflow-x: hidden;
+        }
+
+        /* Scanline effect */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #ff0000, transparent);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.5;
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Glitch borders */
+        .glitch-border {
+            position: relative;
+            border: 1px solid #990000;
+        }
+
+        .glitch-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, #990000, transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .glitch-border:hover::before {
+            opacity: 0.3;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        #mobile-menu.active {
+            max-height: 500px;
+        }
+
+        #menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        @media (max-width: 767px) {
+            #menu-toggle {
+                display: flex;
+            }
+        }
+
+        #menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        #menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        #menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        #menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Lyrics cards */
+        .lyric-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #990000;
+            transition: all 0.3s ease;
+        }
+
+        .lyric-card:hover {
+            border-color: #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .lyric-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .lyric-content.active {
+            max-height: 2000px;
+        }
+
+        .lang-toggle {
+            background: rgba(153, 0, 0, 0.3);
+            border: 1px solid #990000;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle.active {
+            background: rgba(255, 0, 0, 0.5);
+            border-color: #ff0000;
+        }
+
+        /* Language Button Styles */
+        .lang-button {
+            background-color: transparent;
+            border: 1px solid #999;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-button:hover {
+            border-color: #ddd;
+            color: #ddd;
+        }
+
+        .lang-button.active {
+            background-color: #ff0000;
+            border-color: #ff0000;
+            color: #fff;
+            text-shadow: 0 0 10px #ff0000;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Log ticker */
+        .log-ticker {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(153, 0, 0, 0.9);
+            color: #fff;
+            padding: 8px 20px;
+            font-size: 12px;
+            z-index: 9998;
+            overflow: hidden;
+            border-top: 2px solid #ff0000;
+        }
+
+        .log-ticker-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 20s linear infinite;
+        }
+
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Parallax Banner */
+        .parallax-banner {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            background-image: url('/redemthor/images/banner_01.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 64px;
+            transition: filter 0.5s ease;
+            filter: sepia(0.5) hue-rotate(0deg);
+        }
+
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(10, 10, 10, 0.5));
+            z-index: 1;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .parallax-banner {
+                height: 50vh;
+                min-height: 300px;
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scanline effect -->
+    <div class="scanline"></div>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 left-0 w-full bg-black/90 backdrop-blur-sm border-b border-[#990000] z-50">
+        <nav class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html">
+                        <img src="/redemthor/images/redemthor-logo.png" alt="Redemthor"
+                            class="h-8 sm:h-10 w-auto object-contain">
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8 text-xs sm:text-sm uppercase tracking-wider">
+                    <a href="index.html#historia" class="text-gray-400 hover:text-[#ff0000] transition"
+                        data-i18n="nav_historia">Historia</a>
+                    <a href="index.html#xlerion" class="text-gray-400 hover:text-[#ff0000] transition"
+                        data-i18n="nav_protocolo">Protocolo X-lerion</a>
+                    <a href="transmisiones.html" class="text-[#ff0000] font-bold"
+                        data-i18n="nav_transmisiones">Transmisiones</a>
+                    <a href="index.html#archivos" class="text-gray-400 hover:text-[#ff0000] transition"
+                        data-i18n="nav_archivos">Archivos</a>
+                    <a href="index.html#unidades" class="text-gray-400 hover:text-[#ff0000] transition"
+                        data-i18n="nav_unidades">Unidades</a>
+                    <a href="/total-darkness/historia.html" class="text-gray-400 hover:text-[#ff0000] transition"
+                        title="Ver Historias en Total Darkness"><i class="fas fa-scroll mr-1"></i><span
+                            data-lang="es">Historias de Xlerion</span><span data-lang="en" class="hidden">Xlerion
+                            Stories</span></a>
+                </div>
+                <!-- Desktop Social Links & Language Toggle (visible only on desktop) -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="https://redemthor.bandcamp.com/" target="_blank" rel="noopener noreferrer"
+                        class="text-[#990000] hover:text-[#ff0000] transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M0 18.75l7.437-13.5h16.563l-7.438 13.5z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.reverbnation.com/redemthor" target="_blank" rel="noopener noreferrer"
+                        class="text-[#990000] hover:text-[#ff0000] transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.053 0 .097-.042.104-.098l.27-2.105-.27-2.154c-.007-.057-.051-.1-.104-.1zm1.274.05c-.057 0-.104.047-.111.108l-.193 1.871.193 1.823c.007.063.054.11.111.11.059 0 .108-.047.117-.11l.23-1.823-.23-1.871c-.009-.061-.058-.108-.117-.108zm1.223-.019c-.063 0-.114.053-.123.116l-.179 1.845.179 1.794c.009.066.06.121.123.121.066 0 .118-.055.126-.121l.211-1.794-.211-1.845c-.008-.063-.06-.116-.126-.116zm1.24-.021c-.068 0-.124.058-.134.126l-.164 1.866.164 1.812c.01.071.066.129.134.129.07 0 .128-.058.138-.129l.193-1.812-.193-1.866c-.01-.068-.068-.126-.138-.126zm1.259-.022c-.075 0-.137.062-.148.139l-.152 1.888.152 1.83c.011.078.073.141.148.141.076 0 .138-.063.148-.141l.178-1.83-.178-1.888c-.01-.077-.072-.139-.148-.139zm1.277-.023c-.081 0-.148.068-.159.149l-.139 1.911.139 1.849c.011.083.078.152.159.152.082 0 .15-.069.162-.152l.16-1.849-.16-1.911c-.012-.081-.08-.149-.162-.149zm1.293-.025c-.088 0-.161.073-.172.163l-.126 1.936.126 1.867c.011.09.084.165.172.165.089 0 .162-.075.174-.165l.147-1.867-.147-1.936c-.012-.09-.085-.163-.174-.163zm1.311-.026c-.095 0-.172.078-.184.175l-.113 1.96.113 1.885c.012.097.089.177.184.177.095 0 .173-.08.185-.177l.132-1.885-.132-1.96c-.012-.097-.09-.175-.185-.175zm1.329-.028c-.102 0-.186.084-.198.189l-.101 1.989.101 1.902c.012.105.096.191.198.191.103 0 .188-.086.199-.191l.117-1.902-.117-1.989c-.011-.105-.096-.189-.199-.189zm1.346-.03c-.109 0-.198.09-.21.201l-.088 2.018.088 1.921c.012.112.101.203.21.203.11 0 .199-.091.212-.203l.103-1.921-.103-2.018c-.013-.111-.102-.201-.212-.201zm1.364-.031c-.115 0-.209.096-.221.214l-.075 2.048.075 1.939c.012.118.106.216.221.216.116 0 .211-.098.223-.216l.088-1.939-.088-2.048c-.012-.118-.107-.214-.223-.214zm1.383-.034c-.122 0-.222.102-.234.228l-.062 2.078.062 1.956c.012.125.112.229.234.229.123 0 .223-.104.236-.229l.073-1.956-.073-2.078c-.013-.126-.113-.228-.236-.228zm1.4-.035c-.129 0-.234.107-.247.24l-.05 2.107.05 1.974c.013.133.118.243.247.243.13 0 .236-.11.249-.243l.059-1.974-.059-2.107c-.013-.133-.119-.24-.249-.24zm1.418-.037c-.136 0-.247.113-.26.254l-.036 2.136.036 1.993c.013.141.124.257.26.257.137 0 .249-.116.262-.257l.043-1.993-.043-2.136c-.013-.141-.125-.254-.262-.254zm1.437-.039c-.142 0-.259.119-.271.268l-.024 2.166.024 2.011c.012.149.129.271.271.271.143 0 .261-.122.274-.271l.028-2.011-.028-2.166c-.013-.149-.131-.268-.274-.268z" />
+                        </svg>
+                    </a>
+                    <!-- Language Toggle (Desktop) -->
+                    <div class="flex items-center space-x-2 ml-6 pl-6 border-l border-[#990000]/30">
+                        <button data-lang-button="es"
+                            class="lang-button px-3 py-1 text-xs uppercase font-bold transition" aria-label="Español">
+                            ES
+                        </button>
+                        <span class="text-gray-500">/</span>
+                        <button data-lang-button="en"
+                            class="lang-button px-3 py-1 text-xs uppercase font-bold transition" aria-label="English">
+                            EN
+                        </button>
+                    </div>
+                </div>
+                <!-- Mobile Menu Toggle (visible only on mobile) -->
+                <button id="menu-toggle" class="md:hidden" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden border-t border-[#990000] mt-4 pt-4">
+                <div class="flex flex-col space-y-3 text-xs sm:text-sm uppercase tracking-wider">
+                    <a href="index.html#historia" class="text-gray-400 hover:text-[#ff0000] transition py-2"
+                        data-i18n="nav_historia">Historia</a>
+                    <a href="index.html#xlerion" class="text-gray-400 hover:text-[#ff0000] transition py-2"
+                        data-i18n="nav_protocolo">Protocolo X-lerion</a>
+                    <a href="transmisiones.html" class="text-[#ff0000] font-bold py-2"
+                        data-i18n="nav_transmisiones">Transmisiones</a>
+                    <a href="index.html#archivos" class="text-gray-400 hover:text-[#ff0000] transition py-2"
+                        data-i18n="nav_archivos">Archivos</a>
+                    <a href="index.html#unidades" class="text-gray-400 hover:text-[#ff0000] transition py-2"
+                        data-i18n="nav_unidades">Unidades</a>
+                    <a href="/total-darkness/historia.html" class="text-gray-400 hover:text-[#ff0000] transition py-2"
+                        title="Ver Historias en Total Darkness"><i class="fas fa-scroll mr-1"></i><span
+                            data-lang="es">Historias de Xlerion</span><span data-lang="en" class="hidden">Xlerion
+                            Stories</span></a>
+                    <!-- Language Toggle (Mobile) -->
+                    <div class="flex items-center space-x-2 py-3 border-t border-b border-[#990000]/30">
+                        <button data-lang-button="es"
+                            class="lang-button px-3 py-1 text-xs uppercase font-bold transition flex-1"
+                            aria-label="Español">
+                            ES
+                        </button>
+                        <span class="text-gray-500">/</span>
+                        <button data-lang-button="en"
+                            class="lang-button px-3 py-1 text-xs uppercase font-bold transition flex-1"
+                            aria-label="English">
+                            EN
+                        </button>
+                    </div>
+                    <!-- Social Links in Mobile Menu -->
+                    <div class="flex items-center space-x-6 pt-4 border-t border-[#990000]/30">
+                        <a href="https://redemthor.bandcamp.com/" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center space-x-2 text-[#990000] hover:text-[#ff0000] transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M0 18.75l7.437-13.5h16.563l-7.438 13.5z" />
+                            </svg>
+                            <span class="text-xs">Bandcamp</span>
+                        </a>
+                        <a href="https://www.reverbnation.com/redemthor" target="_blank" rel="noopener noreferrer"
+                            class="flex items-center space-x-2 text-[#990000] hover:text-[#ff0000] transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M1.175 12.225c-.051 0-.094.046-.101.1l-.233 2.154.233 2.105c.007.058.05.098.101.098.053 0 .097-.042.104-.098l.27-2.105-.27-2.154c-.007-.057-.051-.1-.104-.1zm1.274.05c-.057 0-.104.047-.111.108l-.193 1.871.193 1.823c.007.063.054.11.111.11.059 0 .108-.047.117-.11l.23-1.823-.23-1.871c-.009-.061-.058-.108-.117-.108zm1.223-.019c-.063 0-.114.053-.123.116l-.179 1.845.179 1.794c.009.066.06.121.123.121.066 0 .118-.055.126-.121l.211-1.794-.211-1.845c-.008-.063-.06-.116-.126-.116zm1.24-.021c-.068 0-.124.058-.134.126l-.164 1.866.164 1.812c.01.071.066.129.134.129.07 0 .128-.058.138-.129l.193-1.812-.193-1.866c-.01-.068-.068-.126-.138-.126zm1.259-.022c-.075 0-.137.062-.148.139l-.152 1.888.152 1.83c.011.078.073.141.148.141.076 0 .138-.063.148-.141l.178-1.83-.178-1.888c-.01-.077-.072-.139-.148-.139zm1.277-.023c-.081 0-.148.068-.159.149l-.139 1.911.139 1.849c.011.083.078.152.159.152.082 0 .15-.069.162-.152l.16-1.849-.16-1.911c-.012-.081-.08-.149-.162-.149zm1.293-.025c-.088 0-.161.073-.172.163l-.126 1.936.126 1.867c.011.09.084.165.172.165.089 0 .162-.075.174-.165l.147-1.867-.147-1.936c-.012-.09-.085-.163-.174-.163zm1.311-.026c-.095 0-.172.078-.184.175l-.113 1.96.113 1.885c.012.097.089.177.184.177.095 0 .173-.08.185-.177l.132-1.885-.132-1.96c-.012-.097-.09-.175-.185-.175zm1.329-.028c-.102 0-.186.084-.198.189l-.101 1.989.101 1.902c.012.105.096.191.198.191.103 0 .188-.086.199-.191l.117-1.902-.117-1.989c-.011-.105-.096-.189-.199-.189zm1.346-.03c-.109 0-.198.09-.21.201l-.088 2.018.088 1.921c.012.112.101.203.21.203.11 0 .199-.091.212-.203l.103-1.921-.103-2.018c-.013-.111-.102-.201-.212-.201zm1.364-.031c-.115 0-.209.096-.221.214l-.075 2.048.075 1.939c.012.118.106.216.221.216.116 0 .211-.098.223-.216l.088-1.939-.088-2.048c-.012-.118-.107-.214-.223-.214zm1.383-.034c-.122 0-.222.102-.234.228l-.062 2.078.062 1.956c.012.125.112.229.234.229.123 0 .223-.104.236-.229l.073-1.956-.073-2.078c-.013-.126-.113-.228-.236-.228zm1.4-.035c-.129 0-.234.107-.247.24l-.05 2.107.05 1.974c.013.133.118.243.247.243.13 0 .236-.11.249-.243l.059-1.974-.059-2.107c-.013-.133-.119-.24-.249-.24zm1.418-.037c-.136 0-.247.113-.26.254l-.036 2.136.036 1.993c.013.141.124.257.26.257.137 0 .249-.116.262-.257l.043-1.993-.043-2.136c-.013-.141-.125-.254-.262-.254zm1.437-.039c-.142 0-.259.119-.271.268l-.024 2.166.024 2.011c.012.149.129.271.271.271.143 0 .261-.122.274-.271l.028-2.011-.028-2.166c-.013-.149-.131-.268-.274-.268z" />
+                            </svg>
+                            <span class="text-xs">ReverbNation</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Parallax Banner -->
+    <div class="parallax-banner" id="parallax-banner">
+        <div class="parallax-overlay"></div>
+        <div class="banner-content">
+            <h1 class="text-4xl md:text-5xl font-black text-[#ff0000] uppercase tracking-wider mb-2">
+                <span data-lang="es">Transmisiones Líricas</span>
+                <span data-lang="en" class="hidden">Lyrical Transmissions</span>
+            </h1>
+            <p class="text-sm md:text-base text-gray-400 uppercase tracking-widest">
+                <span data-lang="es">Archivos codificados del Ultimate Metal</span>
+                <span data-lang="en" class="hidden">Encoded archives of Ultimate Metal</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Lyrics Section -->
+    <section class="py-16 px-4 sm:px-6 relative" style="padding-bottom: 80px;">
+        <div class="container mx-auto max-w-5xl">
+
+            <!-- Song 1: X-lerion -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('xlerion')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ X-lerion
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('xlerion', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('xlerion', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="xlerion-content" class="lyric-content mt-6">
+                    <div id="xlerion-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">From the lands of darkness
+come the end of our hopes
+the future has being written
+by the hands of the death!!!!
+
+now the earth its rumble
+only it means the beginning of the fight
+with his burning eyes
+and black soul!!!
+
+run right now with our only hope
+don't turn back because
+she need you, to be the one
+
+please complete this mission
+or our future could be not seen by our eyes!!!!
+could be not seen by our eyes!!!!</pre>
+                    </div>
+                    <div id="xlerion-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">De las tierras de las tinieblas
+llega el fin de nuestras esperanzas
+el futuro ha sido escrito
+¡¡¡¡por las manos de la muerte!!!!
+
+ahora retumba la tierra
+solo significa el comienzo de la lucha
+con sus ojos ardientes
+¡¡¡y alma negra!!!
+
+corre ahora mismo con nuestra única esperanza
+no vuelvas atrás porque
+ella te necesita, para ser la única
+
+por favor completa esta misión
+¡¡¡¡o nuestro futuro podría no ser visto por nuestros ojos!!!!
+¡¡¡¡podría no ser visto por nuestros ojos!!!!</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 2: Light of the Sun -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('lightofthesun')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ Light of the Sun
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('lightofthesun', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('lightofthesun', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="lightofthesun-content" class="lyric-content mt-6">
+                    <div id="lightofthesun-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">dead warriors in everywhere
+the silence surrounded by the evil dark
+barking of wolves on the top of the hill
+my heart can feel the pain
+
+i run through the light
+i feel the death behind me
+this lands are so dark
+i must to run
+
+I am just a young man who want to live
+and they don't understand this
+they are behind me
+and they want my soul!!!!
+
+I run through the light
+i feel the death behind me
+this lands are so dark
+i must to run
+
+light of the sun!!!
+please guide my soul
+against to the evil darkness
+who want to take all !!!
+
+light of the sun!!!
+please guide my soul.</pre>
+                    </div>
+                    <div id="lightofthesun-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">guerreros muertos en todas partes
+el silencio rodeado por la oscuridad maligna
+ladridos de lobos en lo alto de la colina
+mi corazon puede sentir el dolor
+
+corro a través de la luz
+siento la muerte detrás de mí
+esta tierra es tan oscura
+debo correr
+
+Soy solo un joven que quiere vivir
+y ellos no lo entienden
+ellos están detrás de mí
+¡¡¡¡y quieren mi alma!!!!
+
+Corro a través de la luz
+siento la muerte detrás de mí
+estas tierras son tan oscuras
+debo correr
+
+¡¡¡luz del sol!!!
+por favor guia mi alma
+contra la malvada oscuridad
+¡¡¡¡¡ que quieren llevarse todo !!!!!
+
+¡¡¡luz del sol!!!
+por favor guia mi alma</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 3: Kill To Live -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('killtolive')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ Kill To Live
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('killtolive', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('killtolive', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="killtolive-content" class="lyric-content mt-6">
+                    <div id="killtolive-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">It's time to face our enemy
+the zero time has come!!!!
+you wont have mercy to they
+and you will make him feel our power!!!!
+
+They don't have mercy with you
+but our heavy metal army
+they will be dominated and destroyed
+all this cursed culture !!!
+
+It's time to pray
+to your god
+run right now
+because we will not stop
+if you cant beat us
+it's better to run or pray for your death!!!!
+
+the dark mist will surround you
+Join us or you'll be dead.
+The dark power is rising.
+live for him or die by him
+
+But the earth is broken too,
+and the fire of hell...
+spreads from the earth.
+The lord of dark fire has come
+to conquer the divine sky.</pre>
+                    </div>
+                    <div id="killtolive-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Es hora de enfrentarnos a nuestro enemigo
+¡¡¡¡la hora cero ha llegado!!!!
+no tendrás piedad de ellos
+¡¡¡¡y le harás sentir nuestro poder!!!!
+
+Ellos no tienen piedad contigo
+pero nuestro ejército de heavy metal
+serán dominados y destruidos
+¡¡toda esta maldita cultura !!
+
+Es hora de rezar
+a tu dios
+corre ahora mismo
+porque no nos detendremos
+si no puedes vencernos
+¡¡¡es mejor correr o rezar por tu muerte!!
+
+la niebla oscura te rodeará
+Únete a nosotros o morirás.
+El poder oscuro se alza.
+vive para él o muere por él
+
+Pero la tierra también está rota,
+y el fuego del infierno...
+se extiende desde la tierra.
+El señor del fuego oscuro ha venido
+para conquistar el cielo divino.</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 4: The Last Word -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('thelastword')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ The Last Word
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('thelastword', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('thelastword', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="thelastword-content" class="lyric-content mt-6">
+                    <div id="thelastword-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">destruction!!!
+the works of the new world
+the seven seas are dry by the nuclear holocaust
+ashes!!!!
+from all humans generations
+who has challenge the X-lerion empire
+
+we don't fear to our destiny
+we wont die now
+we want to see your dammit face
+in the threshold of hell!!!!!
+
+fight until die
+and reconquer your lost lands
+show no mercy but show your sword with rage
+hear my last word warrior
+fight for your freedom
+or fight for your soul!!!
+
+i will give my life for my lands
+i will give  my soul for clan
+i will drink your venous blood from you
+to rise again thanks to your death!!!!!</pre>
+                    </div>
+                    <div id="thelastword-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">¡¡¡destrucción!!!
+las obras del nuevo mundo
+los siete mares se secan por el holocausto nuclear
+¡¡¡¡cenizas!!!!
+de todas las generaciones humanas
+que ha desafiado al imperio X-lerion
+
+no tememos a nuestro destino
+no moriremos ahora
+queremos ver tu maldita cara
+¡¡¡¡¡en el umbral del infierno!!!!!
+
+lucha hasta morir
+y reconquistar tus tierras perdidas
+no muestres piedad pero muestra tu espada con rabia
+escucha mi última palabra guerrero
+lucha por tu libertad
+o lucha por tu alma
+
+daré mi vida por mis tierras
+daré mi alma por el clan
+beberé tu sangre venosa
+¡¡¡¡¡para resucitar gracias a tu muerte!!!!!</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 5: Red Tormenthor -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('redtormenthor')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ Red Tormenthor
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('redtormenthor', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('redtormenthor', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="redtormenthor-content" class="lyric-content mt-6">
+                    <div id="redtormenthor-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Red tormenthor !!!
+the final weapon of the human mankind
+bloody heaven !!!
+tears from the human´s god
+
+massive destruction !!!
+imminent death imminent faith
+Nuclear Holocaust !!!
+i see all dying
+
+this is my perspective of darkness
+and this is my oath with the destiny
+my perspective of darkness
+Look what I see
+forever!!!!</pre>
+                    </div>
+                    <div id="redtormenthor-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">¡¡¡Tormento rojo !!!
+el arma final de la humanidad humana
+¡¡¡cielo Sangriento !!!
+lágrimas del dios de los humanos
+
+destrucción masiva
+muerte inminente, fe inminente
+¡¡¡holocausto nuclear !!!
+veo a todos muriendo.
+
+esta es mi perspectiva de oscuridad
+y este es mi juramento con el destino
+mi perspectiva de la oscuridad
+Mira lo que veo
+¡¡¡¡para siempre!!!!</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 6: Soul Of Fire -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('souloffire')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ Soul Of Fire
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('souloffire', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('souloffire', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="souloffire-content" class="lyric-content mt-6">
+                    <div id="souloffire-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Far beyond of the life
+i cant see a hope in this war
+far beyond of this war
+i can see the death on my back!!!
+
+i don't want to die
+in this cursed war
+I don't want to face!!!
+To the frozen arms of the death!!!!
+
+Dont turn your back
+if you want to survive to this nightmare
+run, run, run!!!!
+its the only way to leave from here
+for now!!!!
+
+SOUL OF FIRE
+burning my heart
+
+SOUL OF FIRE
+break my faith!!!
+
+Walking through this living hell
+they are all behind us
+seeking our blood
+to disappear forever!!!!</pre>
+                    </div>
+                    <div id="souloffire-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Más allá de la vida
+no veo esperanza en esta guerra
+más allá de esta guerra
+¡¡¡puedo ver la muerte en mi espalda!!!
+
+no quiero morir
+en esta maldita guerra
+¡¡¡no quiero enfrentarme!!!
+¡¡¡¡a los brazos helados de la muerte!!!!
+
+No le des la espalda
+si quieres sobrevivir a esta pesadilla
+¡¡¡¡corre, corre, corre!!!!
+es la única manera de salir de aquí
+¡¡¡¡por ahora!!!!
+
+ALMA DE FUEGO
+quemando mi corazon
+
+ALMA DE FUEGO
+¡¡¡rompe mi fe!!!
+
+Caminando por este infierno viviente
+todos están detrás de nosotros
+buscando nuestra sangre
+¡¡¡¡para desaparecerla por siempre!!!!</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 7: War of Pride -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('warofpride')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ War of Pride
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('warofpride', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('warofpride', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="warofpride-content" class="lyric-content mt-6">
+                    <div id="warofpride-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Look to the sky brave warrior
+now you are the only
+survivor of this war!!!!
+
+the battle its hard
+but your mind its more
+don't surrender to the evil
+Force!!!!!
+
+show your sword
+show your sword
+to the moon!!!!
+claim for your victory
+rise your shield to the sun
+rise your shield to the sun
+and pray for your honor
+right now!!!!!
+
+search for more
+warriors
+to complete once again
+the metal army
+
+training they and convert
+in your disciples
+and go again
+to  the holy war!!!!</pre>
+                    </div>
+                    <div id="warofpride-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Mira al cielo valiente guerrero
+ahora eres el único
+¡¡¡¡superviviente de esta guerra!!!!
+
+la batalla es dura
+pero tu mente lo es más
+no te rindas a la malvada
+¡¡¡¡¡Fuerza!!!!!
+
+muestra tu espada
+muestra tu espada
+¡¡¡¡a la luna!!!!
+reclama tu victoria
+alza tu escudo al sol
+alza tu escudo al sol
+y ruega por tu honor
+¡¡¡¡¡ahora mismo!!!!!
+
+busca más
+guerreros
+para completar una vez más
+el ejército de metal
+
+entrenarlos y convertirlos
+en sus discípulos
+e ir de nuevo
+¡¡¡¡a la santa guerra!!!!</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Song 8: Total Darkness -->
+            <div class="lyric-card rounded-lg p-6 mb-6">
+                <div class="flex justify-between items-center cursor-pointer" onclick="toggleLyric('totaldarkness')">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-[#ff0000] uppercase"
+                        style="font-family: 'Orbitron', sans-serif;">
+                        ▶ Total Darkness
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase active"
+                            onclick="showLang('totaldarkness', 'en', event)">EN</button>
+                        <button class="lang-toggle px-3 py-1 rounded text-xs uppercase"
+                            onclick="showLang('totaldarkness', 'es', event)">ES</button>
+                    </div>
+                </div>
+                <div id="totaldarkness-content" class="lyric-content mt-6">
+                    <div id="totaldarkness-en" class="lang-version">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Now everything happens slowly.
+I see how my people die
+i hear his laments until they fall
+and the darkness invade my dreams
+
+Please god of Metal
+give me knowledge
+to confront my fears
+Please god Of Metal
+Give me the light
+to face the darkness in my mind
+to face the darkness in my mind</pre>
+                    </div>
+                    <div id="totaldarkness-es" class="lang-version hidden">
+                        <pre class="text-gray-300 text-sm sm:text-base leading-relaxed whitespace-pre-wrap">Ahora todo sucede lentamente.
+Veo como mi gente muere
+oigo sus lamentos hasta que caen
+y la oscuridad invade mis sueños
+
+Por favor dios del Metal
+dame conocimiento
+para afrontar mis miedos
+Por favor dios del Metal
+dame la luz
+para enfrentar la oscuridad en mi mente
+para enfrentar la oscuridad en mi mente</pre>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t-2 border-[#990000] py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <!-- Contacto -->
+                <div>
+                    <h4 class="text-sm font-bold text-[#ff0000] uppercase tracking-wider mb-4"
+                        data-i18n="footer_transmision_directa">Transmisión Directa</h4>
+                    <p class="text-xs text-gray-500 mb-2">redemthor@xlerion.com</p>
+                    <p class="text-xs text-gray-500 mb-2">ultimateredemthor@gmail.com</p>
+                    <div class="flex gap-4 text-[#990000]">
+                        <a href="https://www.facebook.com/Redemthor" target="_blank"
+                            class="hover:text-[#ff0000]">Facebook</a>
+                        <a href="https://www.reverbnation.com/redemthor" target="_blank"
+                            class="hover:text-[#ff0000]">ReverbNation</a>
+                    </div>
+                </div>
+
+                <!-- Plataformas -->
+                <div>
+                    <h4 class="text-sm font-bold text-[#ff0000] uppercase tracking-wider mb-4"
+                        data-i18n="footer_nodos_distribucion">Nodos de Distribución</h4>
+                    <ul class="space-y-1 text-xs text-gray-500">
+                        <li><a href="https://redemthor.bandcamp.com/" target="_blank" class="hover:text-[#ff0000]">→
+                                Bandcamp</a></li>
+                        <li><a href="https://www.reverbnation.com/redemthor" target="_blank"
+                                class="hover:text-[#ff0000]">→
+                                ReverbNation</a></li>
+                        <li><a href="https://www.metal-archives.com/bands/Redemthor/3540342365" target="_blank"
+                                class="hover:text-[#ff0000]">→ Metal Archives</a></li>
+                        <li><a href="https://www.last.fm/es/music/Redemthor" target="_blank"
+                                class="hover:text-[#ff0000]">→
+                                Last.fm</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legacy -->
+                <div>
+                    <h4 class="text-sm font-bold text-[#ff0000] uppercase tracking-wider mb-4"
+                        data-i18n="footer_protocolo">
+                        Protocolo</h4>
+                    <p class="text-xs text-gray-500 leading-relaxed mb-2">
+                        <span data-lang="es">"Autoconciencia para evitar la autodestrucción. Salvación a través de la
+                            acción colectiva"</span>
+                        <span data-lang="en" class="hidden">"Self-awareness to avoid self-destruction. Salvation through
+                            collective action"</span>
+                    </p>
+                    <p class="text-xs text-gray-600">
+                        Ultimate Metal · Thrash · Heavy · Death
+                    </p>
+                </div>
+            </div>
+
+            <!-- Terminal Footer -->
+            <div class="border-t border-[#990000] pt-6">
+                <div class="font-mono text-xs text-gray-600 space-y-1">
+                    <p><span class="text-[#ff0000]">$</span> <span data-i18n="footer_history_log">cat
+                            /var/log/redemthor/history</span></p>
+                    <p><span class="text-gray-700">> <span data-i18n="footer_archivos_recuperados">Archivos recuperados:
+                                2004-2026</span></span></p>
+                    <p><span class="text-gray-700">> <span data-i18n="footer_ubicacion">Ubicación: San Antonio de
+                                Pereira → Rionegro → Bogotá → Chía</span></span>
+                    </p>
+                    <p><span class="text-gray-700">> <span data-i18n="footer_estado">Estado</span>: <span
+                                class="text-[#ff0000]" data-i18n="footer_activo">ACTIVO</span></span></p>
+                    <p><span class="text-gray-700">> <span data-i18n="footer_clasificacion">Clasificación: Ultimate
+                                Metal [Independiente]</span></span></p>
+                </div>
+            </div>
+
+            <div class="text-center text-xs text-gray-700 mt-8">
+                <span data-i18n="footer_copyright">© 2004-2026 REDEMTHOR · Ultimate Metal · Colombia</span>
+                <br class="mt-4">
+                <span class="text-[#990000] font-mono">$ <span data-i18n="visitors">Visitantes</span>: <span
+                        id="visit-counter" class="text-[#ff0000] font-bold">0</span> <span
+                        data-i18n="since">desde</span>
+                    2024</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Log Ticker -->
+    <div class="log-ticker">
+        <div class="log-ticker-content" id="ticker-content">
+            <!-- Generated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                menuToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Toggle lyric visibility
+        function toggleLyric(songId) {
+            const content = document.getElementById(songId + '-content');
+            content.classList.toggle('active');
+        }
+
+        // Switch language
+        function showLang(songId, lang, event) {
+            event.stopPropagation();
+
+            const enVersion = document.getElementById(songId + '-en');
+            const esVersion = document.getElementById(songId + '-es');
+            const buttons = event.target.parentElement.querySelectorAll('.lang-toggle');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (lang === 'en') {
+                enVersion.classList.remove('hidden');
+                esVersion.classList.add('hidden');
+            } else {
+                enVersion.classList.add('hidden');
+                esVersion.classList.remove('hidden');
+            }
+        }
+
+        // Random ticker messages
+        const tickerMessages = [
+            {
+                icon: "█ X-LERION ACTIVE",
+                segments: [
+                    "SISTEMA OPERATIVO: ULTIMATE METAL v2.6",
+                    "THREAT LEVEL: OMEGA",
+                    'ULTIMA TRANSMISION: "A HOPE IN THE DARK" [2024]',
+                    "RESISTENCIA HUMANA: HEAVY METAL ARMY",
+                    "PROTOCOLO: ERRADICACION SUSPENDED - EVALUACION EN CURSO"
+                ]
+            },
+            {
+                icon: "⚠ ALERT STATUS",
+                segments: [
+                    "NEURAL NETWORK: ONLINE",
+                    "SURVEILLANCE MODE: ACTIVE",
+                    "HUMAN CONSCIOUSNESS: DETECTED",
+                    "METAL FREQUENCY: 432Hz ANOMALY",
+                    "PROTOCOLO: ANALISIS DE VIBRACIONES SÓNICAS"
+                ]
+            },
+            {
+                icon: "▶ TRANSMISSION LOG",
+                segments: [
+                    'SONG DETECTED: "DYSTOPIAN DREAMS"',
+                    "AUDIO SIGNATURE: HEAVY METAL PATTERN",
+                    "EMOTIONAL IMPACT: HIGH RESISTANCE POTENTIAL",
+                    "LYRICAL ANALYSIS: ANTI-SYSTEM NARRATIVE",
+                    "RECOMENDACION: MONITOREO CONTINUO"
+                ]
+            }
+        ];
+
+        function generateRandomTicker() {
+            const tickerContent = document.getElementById('ticker-content');
+            if (!tickerContent) return;
+
+            const randomMessage = tickerMessages[Math.floor(Math.random() * tickerMessages.length)];
+            const shuffledSegments = [...randomMessage.segments].sort(() => Math.random() - 0.5);
+
+            let html = `<span class="text-black font-bold">${randomMessage.icon}</span>`;
+
+            shuffledSegments.forEach(segment => {
+                html += `<span class="mx-4">|</span>${segment}`;
+            });
+
+            html += `<span class="mx-4">|</span><span class="text-black font-bold">${randomMessage.icon}</span>`;
+
+            tickerContent.innerHTML = html;
+        }
+
+        generateRandomTicker();
+        setInterval(generateRandomTicker, 15000);
+
+        // Language Button Event Listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            const langButtons = document.querySelectorAll('[data-lang-button]');
+
+            langButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const lang = this.getAttribute('data-lang-button');
+
+                    // Check if setLanguage function exists from translations.js
+                    if (typeof setLanguage === 'function') {
+                        setLanguage(lang);
+                    } else {
+                        // Fallback: manual language toggle
+                        localStorage.setItem('redemthorLang', lang);
+
+                        // Update button states
+                        document.querySelectorAll('[data-lang-button]').forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        document.querySelectorAll(`[data-lang-button="${lang}"]`).forEach(btn => {
+                            btn.classList.add('active');
+                        });
+
+                        // Toggle language content
+                        document.querySelectorAll('[data-lang="es"]').forEach(el => {
+                            if (lang === 'es') {
+                                el.classList.remove('hidden');
+                            } else {
+                                el.classList.add('hidden');
+                            }
+                        });
+
+                        document.querySelectorAll('[data-lang="en"]').forEach(el => {
+                            if (lang === 'en') {
+                                el.classList.remove('hidden');
+                            } else {
+                                el.classList.add('hidden');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Initialize language on page load
+            const currentLang = localStorage.getItem('redemthorLang') || 'es';
+
+            // Set active button state
+            document.querySelectorAll('[data-lang-button]').forEach(btn => {
+                if (btn.getAttribute('data-lang-button') === currentLang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Show/hide content based on current language
+            if (currentLang === 'en') {
+                document.querySelectorAll('[data-lang="es"]').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('[data-lang="en"]').forEach(el => el.classList.remove('hidden'));
+            } else {
+                document.querySelectorAll('[data-lang="es"]').forEach(el => el.classList.remove('hidden'));
+                document.querySelectorAll('[data-lang="en"]').forEach(el => el.classList.add('hidden'));
+            }
+
+            // Try to initialize translations.js if available
+            if (typeof initTranslations === 'function') {
+                initTranslations();
+            }
+        });
+
+        // Parallax Banner Image Rotation
+        const bannerImages = [
+            'banner_01.jpg',
+            'banner_02.jpg',
+            'banner_03.jpg',
+            'banner_05.jpg',
+            'banner_06.jpg',
+            'banner_07.jpg',
+            'banner_08.jpg'
+        ];
+
+        let currentBannerIndex = 1; // Start at 1 since banner_01 is already loaded in CSS
+
+        function loadParallaxBanner() {
+            const parallaxBanner = document.getElementById('parallax-banner');
+            if (parallaxBanner && bannerImages.length > 0) {
+                const imgUrl = `/redemthor/images/${bannerImages[currentBannerIndex]}`;
+                parallaxBanner.style.backgroundImage = `url('${imgUrl}')`;
+                currentBannerIndex = (currentBannerIndex + 1) % bannerImages.length;
+            }
+        }
+
+        // Change banner image every 5 seconds with filter effects
+        setInterval(() => {
+            const parallaxBanner = document.getElementById('parallax-banner');
+            if (parallaxBanner) {
+                parallaxBanner.style.filter = 'sepia(0.3) hue-rotate(15deg)';
+                setTimeout(() => {
+                    loadParallaxBanner();
+                    parallaxBanner.style.filter = 'sepia(0.5) hue-rotate(0deg)';
+                }, 500);
+            }
+        }, 5000);
+    </script>
+
+    <!-- Analytics Tracker -->
+    <script src="../js/analytics-tracker.js"></script>
+    <script>
+        // Inicializar tracking de analytics
+        initAnalytics('Redemthor - Transmisiones', 'page');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test CORS - Total Darkness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-purple-900 to-black p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <div class="bg-black rounded-2xl shadow-2xl border border-cyan-500/20 p-8">
+
+            <h1 class="text-3xl font-bold text-white mb-2">🔌 Test CORS y Conectividad</h1>
+            <p class="text-gray-400 mb-8">Verifica que la comunicación entre servidores funciona correctamente</p>
+
+            <div class="space-y-4" id="tests-container">
+                <!-- Test 1: Ping API -->
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white">1. Conectar al API</h3>
+                            <p class="text-sm text-gray-400">Verifica que http://localhost:8080 responde</p>
+                        </div>
+                        <button onclick="testApi()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+                            <span id="test1-text">Probar</span>
+                            <span id="test1-loading" class="hidden">⏳</span>
+                        </button>
+                    </div>
+                    <div id="test1-result" class="hidden mt-3 p-3 rounded text-sm"></div>
+                </div>
+
+                <!-- Test 2: CORS Headers -->
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white">2. Verificar CORS Headers</h3>
+                            <p class="text-sm text-gray-400">Verifica que los headers CORS son correctos</p>
+                        </div>
+                        <button onclick="testCors()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+                            <span id="test2-text">Probar</span>
+                            <span id="test2-loading" class="hidden">⏳</span>
+                        </button>
+                    </div>
+                    <div id="test2-result" class="hidden mt-3 p-3 rounded text-sm"></div>
+                </div>
+
+                <!-- Test 3: Login -->
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white">3. Probar Login</h3>
+                            <p class="text-sm text-gray-400">Login con admin@xlerion.com</p>
+                        </div>
+                        <button onclick="testLogin()"
+                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+                            <span id="test3-text">Probar</span>
+                            <span id="test3-loading" class="hidden">⏳</span>
+                        </button>
+                    </div>
+                    <div id="test3-result" class="hidden mt-3 p-3 rounded text-sm"></div>
+                </div>
+
+                <!-- Test 4: Recuperación -->
+                <div class="bg-gray-900 p-4 rounded-lg border border-gray-700">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="font-semibold text-white">4. Solicitar Recuperación</h3>
+                            <p class="text-sm text-gray-400">Iniciar flujo de recuperación de contraseña</p>
+                        </div>
+                        <button onclick="testRecovery()"
+                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">
+                            <span id="test4-text">Probar</span>
+                            <span id="test4-loading" class="hidden">⏳</span>
+                        </button>
+                    </div>
+                    <div id="test4-result" class="hidden mt-3 p-3 rounded text-sm"></div>
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="mt-8 pt-6 border-t border-gray-700">
+                <h3 class="text-white font-semibold mb-3">ℹ️ Información del Sistema</h3>
+                <div class="bg-gray-900 p-4 rounded text-sm text-gray-300 space-y-1">
+                    <p><strong>Frontend:</strong> <code class="bg-black px-2 py-1 rounded">localhost:5173</code></p>
+                    <p><strong>Backend:</strong> <code class="bg-black px-2 py-1 rounded">localhost:8080</code></p>
+                    <p><strong>API URL:</strong> <code
+                            class="bg-black px-2 py-1 rounded">http://localhost:8080/total-darkness/api/auth.php</code>
+                    </p>
+                    <p><strong>CORS:</strong> <code
+                            class="bg-black px-2 py-1 rounded">Access-Control-Allow-Origin: *</code></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080/total-darkness/api/auth.php';
+
+        async function testApi() {
+            updateTest(1, 'loading');
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'OPTIONS'
+                });
+
+                if (response.ok) {
+                    updateTest(1, 'success', '✅ API responde correctamente');
+                    logHeaders(response);
+                } else {
+                    updateTest(1, 'error', `❌ API retornó: ${response.status}`);
+                }
+            } catch (error) {
+                updateTest(1, 'error', `❌ Error: ${error.message}`);
+            }
+        }
+
+        async function testCors() {
+            updateTest(2, 'loading');
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'invalid-action'
+                    })
+                });
+
+                const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+                const corsMethods = response.headers.get('Access-Control-Allow-Methods');
+
+                if (corsOrigin) {
+                    updateTest(2, 'success', `✅ CORS Funciona\n• Allow-Origin: ${corsOrigin}\n• Allow-Methods: ${corsMethods}`);
+                } else {
+                    updateTest(2, 'warning', '⚠️ Headers CORS no presente');
+                }
+            } catch (error) {
+                updateTest(2, 'error', `❌ Error: ${error.message}`);
+            }
+        }
+
+        async function testLogin() {
+            updateTest(3, 'loading');
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'login',
+                        email: 'admin@xlerion.com',
+                        password: 'TotalDarkness2026!'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.user) {
+                    updateTest(3, 'success', `✅ Login exitoso\n• Email: ${data.user.email}`);
+                } else {
+                    updateTest(3, 'error', `❌ ${data.error || 'Login falló'}`);
+                }
+            } catch (error) {
+                updateTest(3, 'error', `❌ Error: ${error.message}`);
+            }
+        }
+
+        async function testRecovery() {
+            updateTest(4, 'loading');
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'request-recovery',
+                        email: 'admin@xlerion.com'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    updateTest(4, 'success', `✅ Solicitud enviada\n${data.message}`);
+                } else {
+                    updateTest(4, 'error', `❌ ${data.error || 'Error'}`);
+                }
+            } catch (error) {
+                updateTest(4, 'error', `❌ Error: ${error.message}`);
+            }
+        }
+
+        function updateTest(num, status, message = '') {
+            const textEl = document.getElementById(`test${num}-text`);
+            const loadingEl = document.getElementById(`test${num}-loading`);
+            const resultEl = document.getElementById(`test${num}-result`);
+
+            if (status === 'loading') {
+                textEl.classList.add('hidden');
+                loadingEl.classList.remove('hidden');
+                resultEl.classList.add('hidden');
+            } else {
+                textEl.classList.remove('hidden');
+                loadingEl.classList.add('hidden');
+                resultEl.classList.remove('hidden');
+
+                if (status === 'success') {
+                    resultEl.className = 'mt-3 p-3 rounded text-sm bg-green-500/10 border border-green-500 text-green-400';
+                } else if (status === 'error') {
+                    resultEl.className = 'mt-3 p-3 rounded text-sm bg-red-500/10 border border-red-500 text-red-400';
+                } else if (status === 'warning') {
+                    resultEl.className = 'mt-3 p-3 rounded text-sm bg-yellow-500/10 border border-yellow-500 text-yellow-400';
+                }
+
+                resultEl.textContent = message;
+            }
+        }
+
+        function logHeaders(response) {
+            console.log('Response Headers:');
+            response.headers.forEach((value, name) => {
+                if (name.toLowerCase().includes('access-control')) {
+                    console.log(`  ${name}: ${value}`);
+                }
+            });
+        }
+
+        // Ejecutar test inicial al cargar
+        window.addEventListener('load', () => {
+            setTimeout(testApi, 500);
+        });
+    </script>
+
+</body>
+
+</html>

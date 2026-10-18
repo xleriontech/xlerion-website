@@ -1,0 +1,23 @@
+# robots.txt para Xlerion Stories - Total Darkness
+# Este archivo indica a los motores de búsqueda qué páginas pueden rastrear
+
+User-agent: *
+Allow: /
+Allow: /total-darkness/
+Allow: /total-darkness/story.html
+Allow: /total-darkness/historia.html
+
+# Bloquear archivos de datos sensibles y administrativos
+Disallow: /total-darkness/data.json
+Disallow: /total-darkness/data.js
+Disallow: /total-darkness/app.js
+Disallow: /total-darkness/*.js$
+
+# Permitir CSS e imágenes
+Allow: /total-darkness/*.css
+Allow: /total-darkness/images/
+Allow: /total-darkness/icons/
+Allow: /total-darkness/media/
+
+# Sitemap
+Sitemap: https://xlerion.com/total-darkness/sitemap.xml

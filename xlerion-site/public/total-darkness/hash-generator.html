@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Hash SHA-256 para Xlerion Stories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #0f3460;
+            border: 2px solid #00e9fa;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(0, 233, 250, 0.3);
+        }
+
+        h1 {
+            color: #00e9fa;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00e9fa;
+            font-size: 14px;
+        }
+
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="password"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #00e9fa;
+            box-shadow: 0 0 10px rgba(0, 233, 250, 0.3);
+            background: #242424;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            background: #00e9fa;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #00d4e0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 233, 250, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .button-secondary {
+            background: #333;
+            color: #00e9fa;
+        }
+
+        .button-secondary:hover {
+            background: #444;
+            box-shadow: 0 5px 20px rgba(0, 233, 250, 0.2);
+        }
+
+        .result-box {
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            border-color: #00e9fa;
+        }
+
+        .result-label {
+            font-size: 12px;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .result-content {
+            background: #0f3460;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            word-break: break-all;
+            color: #00e9fa;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            padding: 6px 12px;
+            background: #00e9fa;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .copy-btn:hover {
+            background: #00d4e0;
+        }
+
+        .copy-btn.copied {
+            background: #4caf50;
+            color: white;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert-success {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            color: #81c784;
+        }
+
+        .alert-error {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            color: #ef5350;
+        }
+
+        .alert-warning {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid #ffc107;
+            color: #ffb74d;
+        }
+
+        .info-box {
+            background: rgba(0, 233, 250, 0.1);
+            border: 1px solid rgba(0, 233, 250, 0.3);
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+
+        .info-box strong {
+            color: #00e9fa;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #00e9fa;
+            color: #000;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-weight: 700;
+            margin-right: 8px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔐 Generador de Hash SHA-256</h1>
+        <p class="subtitle">Xlerion Stories - Panel de Administración</p>
+
+        <div class="alert alert-warning" id="warning">
+            <strong>⚠️ Importante:</strong> Asegúrate de que tu contraseña sea fuerte (mínimo 16 caracteres, mayúsculas,
+            minúsculas, números y símbolos).
+        </div>
+        <script>document.getElementById('warning').classList.add('show');</script>
+
+        <div class="form-group">
+            <label for="password">Ingresa tu Contraseña:</label>
+            <input type="password" id="password" placeholder="Escribe tu contraseña">
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirma tu Contraseña:</label>
+            <input type="password" id="confirmPassword" placeholder="Repite tu contraseña">
+        </div>
+
+        <div class="button-group">
+            <button onclick="generateHash()">Generar Hash SHA-256</button>
+            <button class="button-secondary" onclick="togglePassword()">Mostrar/Ocultar</button>
+        </div>
+
+        <div class="alert alert-error" id="errorAlert"></div>
+        <div class="alert alert-success" id="successAlert"></div>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-label">Hash SHA-256 Generado:</div>
+            <div class="result-content">
+                <span id="hashResult" style="flex: 1; word-break: break-all;"></span>
+                <button class="copy-btn" onclick="copyHash()">Copiar</button>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <p>
+                <span class="step-number">1</span>
+                <strong>Ingresa tu contraseña</strong> en ambos campos
+            </p>
+            <p style="margin-top: 10px;">
+                <span class="step-number">2</span>
+                <strong>Haz clic en "Generar Hash SHA-256"</strong>
+            </p>
+            <p style="margin-top: 10px;">
+                <span class="step-number">3</span>
+                <strong>Copia el hash generado</strong>
+            </p>
+            <p style="margin-top: 10px;">
+                <span class="step-number">4</span>
+                <strong>Abre <code style="background: #1a1a2e; padding: 2px 6px;">app.js</code></strong> y reemplaza el
+                valor de:<br>
+                <code
+                    style="background: #1a1a2e; padding: 4px 8px; display: inline-block; margin-top: 5px;">const ADMIN_PASSWORD_HASH = "PEGA_AQUI_TU_HASH";</code>
+            </p>
+            <p style="margin-top: 10px;">
+                <span class="step-number">5</span>
+                <strong>Haz Ctrl+Shift+R</strong> en el navegador para limpiar caché
+            </p>
+            <p style="margin-top: 10px; color: #ef5350;">
+                <strong>6️⃣ Guarda este hash en un lugar seguro</strong> (gestor de contraseñas)
+            </p>
+        </div>
+    </div>
+
+    <script>
+        async function generateHash() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorAlert = document.getElementById('errorAlert');
+            const successAlert = document.getElementById('successAlert');
+            const resultBox = document.getElementById('resultBox');
+
+            // Limpiar alertas
+            errorAlert.textContent = '';
+            errorAlert.classList.remove('show');
+            successAlert.textContent = '';
+            successAlert.classList.remove('show');
+
+            // Validaciones
+            if (!password || !confirmPassword) {
+                errorAlert.textContent = '❌ Por favor ingresa una contraseña en ambos campos.';
+                errorAlert.classList.add('show');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                errorAlert.textContent = '❌ Las contraseñas no coinciden.';
+                errorAlert.classList.add('show');
+                return;
+            }
+
+            if (password.length < 8) {
+                errorAlert.textContent = '❌ La contraseña debe tener al menos 8 caracteres. Se recomiendan 16+.';
+                errorAlert.classList.add('show');
+                return;
+            }
+
+            try {
+                // Generar hash SHA-256
+                const msgBuffer = new TextEncoder().encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+                // Mostrar resultado
+                document.getElementById('hashResult').textContent = hashHex;
+                resultBox.classList.add('show');
+
+                successAlert.innerHTML = '✅ <strong>Hash generado correctamente.</strong> Copia el valor de abajo y pégalo en <code>app.js</code>';
+                successAlert.classList.add('show');
+            } catch (error) {
+                errorAlert.textContent = '❌ Error al generar el hash: ' + error.message;
+                errorAlert.classList.add('show');
+            }
+        }
+
+        function copyHash() {
+            const hash = document.getElementById('hashResult').textContent;
+            navigator.clipboard.writeText(hash).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copiado';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const type = password.type === 'password' ? 'text' : 'password';
+            password.type = type;
+            confirmPassword.type = type;
+        }
+
+        // Permitir Enter para generar hash
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') generateHash();
+        });
+        document.getElementById('confirmPassword').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') generateHash();
+        });
+    </script>
+</body>
+
+</html>

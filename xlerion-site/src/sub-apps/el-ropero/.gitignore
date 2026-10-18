@@ -1,0 +1,7 @@
+vendor/
+node_modules/
+.env
+storage/
+.idea/
+.vscode/
+el-ropero-deploy.zip

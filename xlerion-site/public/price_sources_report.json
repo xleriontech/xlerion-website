@@ -1,0 +1,90 @@
+[
+  {
+    "key": "videojuegos",
+    "url": "https://www.gamedeveloper.com/",
+    "checkedAt": "2026-02-01T22:08:05-05:00",
+    "ok": false,
+    "status": "200 (blank-or-non-html)",
+    "finalUrl": "https://www.gamedeveloper.com/",
+    "contentType": "text/html; charset=utf-8",
+    "contentLength": 2,
+    "error": ""
+  },
+  {
+    "key": "desarrollo-web-movil",
+    "url": "https://www.upwork.com/hire/web-developers/",
+    "checkedAt": "2026-02-01T22:08:05-05:00",
+    "ok": false,
+    "status": "error",
+    "finalUrl": "",
+    "contentType": "",
+    "contentLength": 0,
+    "error": "Response status code does not indicate success: 403 (Forbidden)."
+  },
+  {
+    "key": "diseño-branding",
+    "url": "https://99designs.com/pricing",
+    "checkedAt": "2026-02-01T22:08:05-05:00",
+    "ok": false,
+    "status": "200 (blank-or-non-html)",
+    "finalUrl": "https://99designs.com/pricing",
+    "contentType": "text/html; charset=utf-8",
+    "contentLength": 2,
+    "error": ""
+  },
+  {
+    "key": "marketing-digital",
+    "url": "https://blog.hubspot.com/marketing/how-much-does-digital-marketing-cost",
+    "checkedAt": "2026-02-01T22:08:06-05:00",
+    "ok": false,
+    "status": "error",
+    "finalUrl": "",
+    "contentType": "",
+    "contentLength": 0,
+    "error": "Response status code does not indicate success: 404 (Not Found)."
+  },
+  {
+    "key": "transformacion-digital",
+    "url": "https://www.mckinsey.com/business-functions/mckinsey-digital/our-insights",
+    "checkedAt": "2026-02-01T22:08:12-05:00",
+    "ok": false,
+    "status": "error",
+    "finalUrl": "",
+    "contentType": "",
+    "contentLength": 0,
+    "error": "The request was canceled due to the configured HttpClient.Timeout of 15 seconds elapsing."
+  },
+  {
+    "key": "modelado-3d",
+    "url": "https://www.artstation.com/marketplace",
+    "checkedAt": "2026-02-01T22:08:42-05:00",
+    "ok": false,
+    "status": "error",
+    "finalUrl": "",
+    "contentType": "",
+    "contentLength": 0,
+    "error": "Response status code does not indicate success: 403 (Forbidden)."
+  },
+  {
+    "key": "software-empresarial",
+    "url": "https://www.goodfirms.co/directory/country/top-software-development-companies",
+    "checkedAt": "2026-02-01T22:08:42-05:00",
+    "ok": false,
+    "status": "error",
+    "finalUrl": "",
+    "contentType": "",
+    "contentLength": 0,
+    "error": "Response status code does not indicate success: 403 (Forbidden)."
+  },
+  {
+    "key": "tecnologias-blockchain",
+    "url": "https://consensys.io/blog",
+    "checkedAt": "2026-02-01T22:08:42-05:00",
+    "ok": false,
+    "status": "200 (blank-or-non-html)",
+    "finalUrl": "https://consensys.io/blog",
+    "contentType": "text/html; charset=utf-8",
+    "contentLength": 2,
+    "error": ""
+  }
+]

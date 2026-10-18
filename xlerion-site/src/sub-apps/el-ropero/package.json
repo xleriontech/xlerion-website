@@ -1,0 +1,33 @@
+{
+  "name": "magco-el-ropero-frontend",
+  "version": "1.0.0",
+  "description": "El Ropero Mag&co frontend - Laravel Blade + Tailwind + Alpine.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "serve": "node server-static.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint resources/js --max-warnings 0",
+    "lint:fix": "eslint resources/js --fix",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "format": "prettier --write \"resources/**/*.{js,css,blade.php}\"",
+    "format:check": "prettier --check \"resources/**/*.{js,css,blade.php}\""
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.10",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "laravel-vite-plugin": "^1.0.0",
+    "postcss": "^8.4.33",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.0.10"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.3",
+    "axios": "^1.6.4"
+  }
+}

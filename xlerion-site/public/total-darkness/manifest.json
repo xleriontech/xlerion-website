@@ -1,0 +1,20 @@
+{
+  "name": "Xlerion Stories",
+  "short_name": "Stories",
+  "start_url": "/total-darkness/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00e9fa",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

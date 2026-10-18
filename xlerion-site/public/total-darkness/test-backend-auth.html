@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Backend Auth - Total Darkness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .test-item {
+            border-left: 4px solid #666;
+        }
+
+        .test-item.pending {
+            border-left-color: #FFA500;
+        }
+
+        .test-item.success {
+            border-left-color: #00FF00;
+        }
+
+        .test-item.error {
+            border-left-color: #FF0000;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <div class="bg-black rounded-2xl shadow-2xl border border-primary/20 p-8">
+
+            <h1 class="text-3xl font-bold text-white mb-2">🧪 Backend Authentication Testing</h1>
+            <p class="text-gray-400 mb-8">Sistema de pruebas para verificar el backend de autenticación</p>
+
+            <div class="space-y-4" id="tests-container">
+                <!-- Tests se agregan dinámicamente -->
+            </div>
+
+            <div class="mt-8 flex gap-4">
+                <button id="run-all-tests"
+                    class="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-md font-semibold">
+                    ▶ Ejecutar Todos los Tests
+                </button>
+                <button id="clear-results"
+                    class="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-md font-semibold">
+                    🗑️ Limpiar Resultados
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080/total-darkness/api/auth.php';
+        const testsContainer = document.getElementById('tests-container');        // Definición de tests
+        const tests = [
+            {
+                name: '1. Verificar que el API responde',
+                async run() {
+                    try {
+                        const response = await fetch(API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'invalid-action' })
+                        });
+                        const data = await response.json();
+                        if (data.error) {
+                            return { success: true, message: 'API responde correctamente con error esperado' };
+                        }
+                        throw new Error('API no retornó error esperado');
+                    } catch (error) {
+                        if (error.message.includes('API')) throw error;
+                        throw new Error('No se pudo conectar al API. Verifica que api/auth.php existe');
+                    }
+                }
+            },
+            {
+                name: '2. Verificar base de datos se crea correctamente',
+                async run() {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'login',
+                            email: 'admin@xlerion.com',
+                            password: 'TotalDarkness2026!'
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.success && data.user) {
+                        return { success: true, message: 'Admin por defecto funciona correctamente', data: data.user };
+                    }
+                    throw new Error('Login con admin por defecto falló: ' + (data.error || 'Sin error específico'));
+                }
+            },
+            {
+                name: '3. Login con credenciales incorrectas debe fallar',
+                async run() {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'login',
+                            email: 'wrong@email.com',
+                            password: 'wrongpassword'
+                        })
+                    });
+                    const data = await response.json();
+                    if (!data.success) {
+                        return { success: true, message: 'Login incorrecto rechazado correctamente' };
+                    }
+                    throw new Error('Login incorrecto fue aceptado (problema de seguridad)');
+                }
+            },
+            {
+                name: '4. Solicitar recuperación de contraseña',
+                async run() {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'request-recovery',
+                            email: 'admin@xlerion.com'
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        return {
+                            success: true,
+                            message: 'Solicitud de recuperación procesada. Verifica tu correo o MailHog (localhost:8025)'
+                        };
+                    }
+                    throw new Error(data.error || 'Error al solicitar recuperación');
+                }
+            },
+            {
+                name: '5. Validar token inválido debe fallar',
+                async run() {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'validate-token',
+                            token: 'token-invalido-123'
+                        })
+                    });
+                    const data = await response.json();
+                    if (!data.success) {
+                        return { success: true, message: 'Token inválido rechazado correctamente' };
+                    }
+                    throw new Error('Token inválido fue aceptado (problema de seguridad)');
+                }
+            },
+            {
+                name: '6. Listar administradores',
+                async run() {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'list-admins',
+                            currentEmail: 'admin@xlerion.com'
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.success && Array.isArray(data.admins)) {
+                        return {
+                            success: true,
+                            message: `${data.admins.length} administrador(es) encontrado(s)`,
+                            data: data.admins
+                        };
+                    }
+                    throw new Error(data.error || 'Error al listar administradores');
+                }
+            },
+            {
+                name: '7. Crear administrador requiere autenticación',
+                async run() {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'create-admin',
+                            currentEmail: 'admin@xlerion.com',
+                            currentPassword: 'wrong-password',
+                            newEmail: 'test@example.com',
+                            newPassword: 'Test123456',
+                            newName: 'Test User'
+                        })
+                    });
+                    const data = await response.json();
+                    if (!data.success && data.error.includes('inválidas')) {
+                        return { success: true, message: 'Creación sin autenticación correctamente bloqueada' };
+                    }
+                    throw new Error('Creación de admin sin autenticación fue permitida (problema de seguridad)');
+                }
+            }
+        ];
+
+        // Crear elementos de test
+        tests.forEach((test, index) => {
+            const testElement = document.createElement('div');
+            testElement.id = `test-${index}`;
+            testElement.className = 'test-item bg-gray-900 p-4 rounded-lg';
+            testElement.innerHTML = `
+        <div class="flex items-start justify-between">
+          <div class="flex-1">
+            <h3 class="font-semibold text-white mb-2">${test.name}</h3>
+            <div class="test-status text-gray-400 text-sm">
+              <span class="status-icon">⏳</span>
+              <span class="status-text">Pendiente</span>
+            </div>
+            <div class="test-details hidden mt-2 text-sm"></div>
+          </div>
+          <button onclick="runTest(${index})" class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-sm">
+            Ejecutar
+          </button>
+        </div>
+      `;
+            testsContainer.appendChild(testElement);
+        });
+
+        // Ejecutar un test individual
+        window.runTest = async function (index) {
+            const test = tests[index];
+            const element = document.getElementById(`test-${index}`);
+            const statusIcon = element.querySelector('.status-icon');
+            const statusText = element.querySelector('.status-text');
+            const details = element.querySelector('.test-details');
+
+            // Marcar como ejecutando
+            element.className = 'test-item bg-gray-900 p-4 rounded-lg pending';
+            statusIcon.textContent = '⏳';
+            statusText.textContent = 'Ejecutando...';
+            details.classList.add('hidden');
+
+            try {
+                const result = await test.run();
+
+                // Éxito
+                element.className = 'test-item bg-gray-900 p-4 rounded-lg success';
+                statusIcon.textContent = '✅';
+                statusText.textContent = 'Éxito';
+
+                details.className = 'test-details mt-2 text-sm text-green-400';
+                details.textContent = result.message;
+
+                if (result.data) {
+                    details.innerHTML += `<pre class="mt-2 p-2 bg-black/50 rounded overflow-x-auto">${JSON.stringify(result.data, null, 2)}</pre>`;
+                }
+
+                details.classList.remove('hidden');
+
+            } catch (error) {
+                // Error
+                element.className = 'test-item bg-gray-900 p-4 rounded-lg error';
+                statusIcon.textContent = '❌';
+                statusText.textContent = 'Error';
+
+                details.className = 'test-details mt-2 text-sm text-red-400';
+                details.textContent = '⚠️ ' + error.message;
+                details.classList.remove('hidden');
+            }
+        };
+
+        // Ejecutar todos los tests
+        document.getElementById('run-all-tests').addEventListener('click', async () => {
+            for (let i = 0; i < tests.length; i++) {
+                await runTest(i);
+                // Pequeña pausa entre tests
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        });
+
+        // Limpiar resultados
+        document.getElementById('clear-results').addEventListener('click', () => {
+            tests.forEach((test, index) => {
+                const element = document.getElementById(`test-${index}`);
+                element.className = 'test-item bg-gray-900 p-4 rounded-lg';
+                element.querySelector('.status-icon').textContent = '⏳';
+                element.querySelector('.status-text').textContent = 'Pendiente';
+                element.querySelector('.test-details').classList.add('hidden');
+            });
+        });
+    </script>
+
+</body>
+
+</html>

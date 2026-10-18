@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Diagnostic Tool</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ddd;
+        }
+
+        .test.success {
+            border-left-color: #4caf50;
+            background: #f1f8f4;
+        }
+
+        .test.error {
+            border-left-color: #f44336;
+            background: #fef5f5;
+        }
+
+        .test.running {
+            border-left-color: #2196f3;
+            background: #f3f8ff;
+        }
+
+        .test h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .test pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+
+        .test p {
+            margin: 5px 0;
+        }
+
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 5px 5px 0;
+        }
+
+        button:hover {
+            background: #1976d2;
+        }
+
+        .status-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            margin-right: 10px;
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .status-icon.success {
+            background: #4caf50;
+        }
+
+        .status-icon.error {
+            background: #f44336;
+        }
+
+        .status-icon.loading {
+            background: #2196f3;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🔧 CORS Diagnostic Tool</h1>
+
+    <div class="info">
+        <p><strong>Frontend URL:</strong> <code id="frontend-url">-</code></p>
+        <p><strong>Backend URL:</strong> <code id="backend-url">-</code></p>
+        <p><strong>Expected Headers:</strong> <code>Access-Control-Allow-Origin: *</code></p>
+    </div>
+
+    <button onclick="testDirectConnection()">Test 1: Direct Connection</button>
+    <button onclick="testOptions()">Test 2: OPTIONS Preflight</button>
+    <button onclick="testPhpHeaders()">Test 3: PHP Headers Handler</button>
+    <button onclick="testAuthApi()">Test 4: Auth API Login</button>
+    <button onclick="clearTests()">Clear All</button>
+
+    <div id="results"></div>
+
+    <script>
+        const BACKEND_URL = 'http://localhost:8080/total-darkness';
+        const API_URL = BACKEND_URL + '/api/auth.php';
+        const TEST_PHP_HEADERS = BACKEND_URL + '/test-php-headers.php';
+
+        document.getElementById('frontend-url').textContent = window.location.origin;
+        document.getElementById('backend-url').textContent = BACKEND_URL;
+
+        function addResult(title, success, details) {
+            const resultsDiv = document.getElementById('results');
+            const testDiv = document.createElement('div');
+            testDiv.className = `test ${success ? 'success' : 'error'}`;
+
+            const statusIcon = success ? '✅' : '❌';
+            testDiv.innerHTML = `
+                <h3><span class="status-icon ${success ? 'success' : 'error'}">${statusIcon}</span>${title}</h3>
+                <pre>${details}</pre>
+            `;
+
+            resultsDiv.appendChild(testDiv);
+        }
+
+        function clearTests() {
+            document.getElementById('results').innerHTML = '';
+        }
+
+        async function testDirectConnection() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+                const details = `
+Status: ${response.status}
+Access-Control-Allow-Origin: ${corsOrigin || '(not present)'}
+Content-Type: ${response.headers.get('Content-Type')}
+Headers Received:
+${Array.from(response.headers.entries()).map(([k, v]) => `  ${k}: ${v}`).join('\n')}
+                `;
+
+                addResult('Direct Connection', corsOrigin !== null, details);
+            } catch (error) {
+                addResult('Direct Connection', false, `Error: ${error.message}\n\nThis might be expected due to CORS preflight.`);
+            }
+        }
+
+        async function testOptions() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+                const corsMethods = response.headers.get('Access-Control-Allow-Methods');
+                const corsHeaders = response.headers.get('Access-Control-Allow-Headers');
+
+                const details = `
+Status: ${response.status}
+Access-Control-Allow-Origin: ${corsOrigin || '(not present)'}
+Access-Control-Allow-Methods: ${corsMethods || '(not present)'}
+Access-Control-Allow-Headers: ${corsHeaders || '(not present)'}
+
+All Headers:
+${Array.from(response.headers.entries()).map(([k, v]) => `  ${k}: ${v}`).join('\n')}
+                `;
+
+                addResult('OPTIONS Preflight', corsOrigin !== null, details);
+            } catch (error) {
+                addResult('OPTIONS Preflight', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testPhpHeaders() {
+            try {
+                const response = await fetch(TEST_PHP_HEADERS, {
+                    method: 'GET'
+                });
+
+                const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+                const data = await response.json();
+
+                const details = `
+Status: ${response.status}
+Access-Control-Allow-Origin: ${corsOrigin || '(not present)'}
+
+Response Body:
+${JSON.stringify(data, null, 2)}
+                `;
+
+                addResult('PHP Headers Handler', corsOrigin !== null, details);
+            } catch (error) {
+                addResult('PHP Headers Handler', false, `Error: ${error.message}`);
+            }
+        }
+
+        async function testAuthApi() {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'login',
+                        email: 'admin@xlerion.com',
+                        password: 'TotalDarkness2026!'
+                    })
+                });
+
+                const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+                const data = await response.json();
+
+                const details = `
+Status: ${response.status}
+Access-Control-Allow-Origin: ${corsOrigin || '(not present)'}
+
+Response:
+${JSON.stringify(data, null, 2)}
+                `;
+
+                addResult('Auth API Login', corsOrigin !== null && data.success, details);
+            } catch (error) {
+                addResult('Auth API Login', false, `Error: ${error.message}\n\nNote: This might fail due to preflight CORS issue.`);
+            }
+        }
+
+        // Run initial test on page load
+        window.addEventListener('load', () => {
+            console.log('Page loaded. Run tests with buttons above.');
+        });
+    </script>
+</body>
+
+</html>

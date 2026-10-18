@@ -1,0 +1,30 @@
+# Redemthor - robots.txt
+# Archivo de configuración para buscadores web
+
+User-agent: *
+Allow: /
+Allow: /redemthor/
+Allow: /redemthor/*.html
+Allow: /redemthor/images/
+Allow: /redemthor/fonts/
+
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.php$
+Disallow: /total-darkness/
+
+# Crawl delay para respetar servidor
+Crawl-delay: 1
+
+# Dirección del sitemap
+Sitemap: https://xlerion.com/redemthor/sitemap.xml
+
+# Reglas específicas para buscadores principales
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0.5
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

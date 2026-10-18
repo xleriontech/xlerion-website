@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="pageTitle">Mi Historia</title>
+
+    <!-- Open Graph / Twitter (logo preview) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://xlerion.com/total-darkness/historia.html" />
+    <meta property="og:title" content="Total Darkness - Historia" />
+    <meta property="og:description" content="Explora la historia, personajes y lugares del proyecto Total Darkness." />
+    <meta property="og:image" content="https://xlerion.com/logo-1200x1200.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://xlerion.com/logo-1200x1200.png" />
+
+    <!-- Tailwind (Local) -->
+    <script src="vendor/tailwind.js"></script>
+
+    <!-- Iconos y fuentes -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon">
+
+    <!-- Newton Howard Font Custom -->
+    <style>
+        @font-face {
+            font-family: 'Newton Howard';
+            src: url('./fonts/Newton Howard Font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Newton Howard';
+            src: url('./fonts/Newton Howard Font Italic.ttf') format('truetype');
+            font-weight: normal;
+            font-style: italic;
+        }
+    </style>
+
+    <!-- Librerías para el Mapa Mental -->
+    <script>
+        // Ensure wheel listeners on canvas are passive to avoid scroll-blocking warnings
+        (function () {
+            try {
+                const orig = HTMLCanvasElement.prototype.addEventListener;
+                HTMLCanvasElement.prototype.addEventListener = function (type, listener, options) {
+                    if (type === 'wheel') {
+                        if (typeof options === 'boolean' || typeof options === 'undefined' || (typeof options === 'object' && options && options.passive === undefined)) {
+                            const opts = (typeof options === 'object' && options) ? Object.assign({}, options, { passive: true }) : { passive: true };
+                            return orig.call(this, type, listener, opts);
+                        }
+                    }
+                    return orig.call(this, type, listener, options);
+                };
+            } catch (e) {
+                // If environment doesn't support modification, silently continue
+                console && console.warn && console.warn('Could not patch canvas.addEventListener for passive wheel:', e);
+            }
+        })();
+    </script>
+    <script type="text/javascript" src="vendor/vis-network.min.js"></script>
+    <link href="vendor/vis-network.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Librería para IndexedDB (Local) -->
+    <script src="vendor/idb.js"></script>
+
+    <style>
+        :root {
+            --primary: #00e9fa;
+            --bg: #050505;
+            --panel: #0b0d0f;
+            --panel-alt: #0f1216;
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #e8edf2;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at 20% 20%, rgba(0, 233, 250, 0.08), transparent 30%),
+                radial-gradient(circle at 80% 0%, rgba(0, 233, 250, 0.05), transparent 26%),
+                var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            letter-spacing: 0.01em;
+        }
+
+        .content-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        /* Estilos globales para títulos con fuente Newton Howard */
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Newton Howard', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .prose-custom {
+            color: #cfd6de;
+        }
+
+        .prose-custom h1,
+        .prose-custom h2,
+        .prose-custom h3 {
+            color: #f8fafc;
+            font-family: 'Newton Howard', serif;
+            text-transform: uppercase;
+            letter-spacing: -0.03em;
+            font-weight: 800;
+        }
+
+        .prose-custom a {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .slider-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .slider-image.active {
+            opacity: 1;
+        }
+
+        /* Estilos para el slider de comentarios */
+        .comment-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 0.7s ease-in-out;
+        }
+
+        .comment-slide.active {
+            opacity: 1;
+        }
+
+        /* Header & footer */
+        .site-header {
+            background: linear-gradient(120deg, rgba(0, 233, 250, 0.12), transparent 40%), var(--panel-alt);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .site-footer {
+            background: linear-gradient(180deg, var(--panel) 0%, #030303 100%);
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-link {
+            transition: color 0.2s, opacity 0.2s;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            color: #c3c8ce;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            opacity: 1;
+        }
+
+        /* Menú de secciones en móvil */
+        #sections-menu {
+            max-height: calc(100vh - 100px);
+            overflow-y-auto;
+            animation: slideDown 0.2s ease-out;
+        }
+
+        #sections-menu.hidden {
+            display: none;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-link {
+            font-size: 0.95rem;
+            color: #e8edf2;
+        }
+
+        .section-link:active {
+            background-color: rgba(0, 233, 250, 0.15);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--primary);
+            color: #000;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border: 1px solid var(--primary);
+            border-radius: 6px;
+            padding: 10px 18px;
+            transition: all 0.25s ease;
+            box-shadow: 0 0 24px rgba(0, 233, 250, 0.25);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(0, 233, 250, 0.06);
+        }
+
+        /* Inputs */
+        input,
+        textarea {
+            background: #0f1419;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Surfaces */
+        .bg-gray-800,
+        .bg-gray-900,
+        .bg-gray-700 {
+            background-color: var(--panel) !important;
+        }
+
+        .border-gray-700,
+        .border-gray-600,
+        .border-gray-800,
+        .border-gray-900 {
+            border-color: var(--border) !important;
+        }
+
+        .text-gray-300,
+        .text-gray-400,
+        .text-gray-500,
+        .text-gray-600 {
+            color: #cfd6de !important;
+        }
+
+        /* Cards inside grids */
+        #publicProjectList>div,
+        #chaptersList>div,
+        #charactersList>div,
+        #placesList>div,
+        #objectsList>div {
+            background: var(--panel-alt);
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        #publicProjectList>div:hover,
+        #chaptersList>div:hover,
+        #charactersList>div:hover,
+        #placesList>div:hover,
+        #objectsList>div:hover {
+            border-color: rgba(0, 233, 250, 0.6);
+            transform: translateY(-4px);
+        }
+
+        /* Ratings */
+        .rating-stars {
+            cursor: pointer;
+            color: #4b5563;
+            font-size: 1.75rem;
+        }
+
+        .rating-stars .star:hover,
+        .rating-stars .star.filled {
+            color: #f59e0b;
+        }
+
+        .rating-average {
+            font-size: 0.875rem;
+            color: #9ca3af;
+            margin-left: 0.75rem;
+        }
+
+        .rating-stars.rated {
+            cursor: default;
+            opacity: 0.7;
+        }
+
+        .rating-stars.rated .star {
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header Profesional -->
+    <header class="site-header sticky top-0 z-40 shadow-md">
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <a href="#" id="logo-link" class="flex items-center gap-3 cursor-pointer">
+                <img src="./images/xlerions-totaldarkness.png" alt="Xlerion's Total Darkness" class="h-12 w-auto">
+            </a>
+            <div class="flex items-center gap-6">
+                <!-- Selector de Idioma -->
+                <div class="relative">
+                    <button id="language-toggle"
+                        class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+                        <i class="fas fa-language text-[#00e9fa]"></i>
+                        <span id="current-language" class="text-white text-sm font-medium">ES</span>
+                    </button>
+                </div>
+                <!-- Botón hamburguesa para móvil (secciones de contenido) -->
+                <button id="sections-toggle" class="md:hidden p-2 hover:bg-white/10 rounded transition-colors">
+                    <i class="fas fa-bars text-white text-xl"></i>
+                </button>
+                <!-- (Moved) Mobile header links removed from header and placed inside the mobile sections menu below for consistency -->
+
+                <!-- Menú desplegable de secciones en móvil -->
+                <nav id="sections-menu"
+                    class="hidden absolute top-16 left-4 right-4 bg-[#0b0d0f] border border-[#00e9fa]/30 rounded-lg shadow-2xl z-50 md:hidden backdrop-blur-xl">
+                    <!-- Moved mobile header links: Projects / About / Contact -->
+                    <!-- Botón de regreso a Total Darkness en móvil -->
+                    <a href="/total-darkness/index.html"
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium flex items-center gap-2"
+                        title="Volver al Panel de Administración">
+                        <i class="fas fa-arrow-left mr-1 text-[#00e9fa]"></i><span data-i18n="backToAdmin">Volver</span>
+                    </a>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        id="mobile-projects-link">
+                        <i class="fas fa-book mr-3 text-[#00e9fa]"></i><span data-i18n="projects">Proyectos</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        id="mobile-about-link">
+                        <i class="fas fa-info-circle mr-3 text-[#00e9fa]"></i><span data-i18n="about">Acerca de</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        id="mobile-contact-link">
+                        <i class="fas fa-envelope mr-3 text-[#00e9fa]"></i><span data-i18n="contact">Contacto</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        data-section="chaptersContainer">
+                        <i class="fas fa-book mr-3 text-[#00e9fa]"></i><span data-i18n="chapters">Capítulos</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        data-section="charactersContainer">
+                        <i class="fas fa-users mr-3 text-[#00e9fa]"></i><span data-i18n="characters">Personajes</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        data-section="placesContainer">
+                        <i class="fas fa-map-marker-alt mr-3 text-[#00e9fa]"></i><span data-i18n="places">Lugares</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-[#00e9fa]/20 active:bg-[#00e9fa]/30 transition-all duration-200 border-b border-white/10 text-white font-medium"
+                        data-section="objectsContainer">
+                        <i class="fas fa-box mr-3 text-[#00e9fa]"></i><span data-i18n="objects">Objetos</span>
+                    </button>
+                    <button
+                        class="section-link w-full text-left px-4 py-3 hover:bg-white/5 transition-colors border-b border-white/5"
+                        data-section="mindMapSection">
+                        <i class="fas fa-project-diagram mr-2 text-[#00e9fa]"></i><span data-i18n="mindMap">Mapa
+                            Mental</span>
+                    </button>
+                    <hr class="border-white/10 my-2">
+                    <!-- Botones de autenticación en móvil -->
+                    <div id="mobile-user-session" class="p-2">
+                        <div class="logged-out">
+                            <button id="login-btn-mobile" class="btn-primary w-full text-xs sm:text-sm py-2">
+                                <i class="fas fa-sign-in-alt mr-2"></i><span data-i18n="login">Iniciar Sesión</span>
+                            </button>
+                        </div>
+                        <div class="logged-in hidden">
+                            <div class="px-4 py-3 text-sm border-b border-white/5">
+                                <span class="font-semibold"><i class="fas fa-user mr-2 text-[#00e9fa]"></i><span
+                                        id="user-email-span-mobile"></span></span>
+                            </div>
+                            <button id="logout-btn-mobile"
+                                class="w-full text-left px-4 py-3 text-red-400 hover:bg-white/5 transition-colors text-sm">
+                                <i class="fas fa-sign-out-alt mr-2"></i><span data-i18n="logout">Salir</span>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="/total-darkness/index.html"
+                        class="btn-ghost w-full text-left px-4 py-3 hover:bg-white/5 transition-colors border-t border-white/5 text-xs sm:text-sm block md:hidden">
+                        <i class="fas fa-shield-alt mr-2"></i><span data-i18n="adminPanel">Panel Admin</span>
+                    </a>
+                </nav>
+
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="/total-darkness/index.html"
+                        class="nav-link text-gray-300 font-semibold flex items-center gap-2"
+                        title="Volver al Panel de Administración"><i class="fas fa-arrow-left"></i><span
+                            data-i18n="backToAdmin">Volver</span></a>
+                    <a href="#" id="nav-projects-link" class="nav-link text-gray-300 font-semibold"
+                        data-i18n="projects">Proyectos</a>
+                    <a href="#" id="nav-about-link" class="nav-link text-gray-300" data-i18n="about">Acerca de</a>
+                    <a href="#" id="nav-contact-link" class="nav-link text-gray-300" data-i18n="contact">Contacto</a>
+                </nav>
+                <a href="/total-darkness/index.html"
+                    class="btn-ghost hidden md:inline-flex items-center gap-2 text-xs sm:text-sm">
+                    <i class="fas fa-shield-alt"></i> <span data-i18n="adminPanel">Panel Admin</span>
+                </a>
+                <!-- NUEVO: Sección de sesión de usuario (solo desktop) -->
+                <div id="user-session" class="hidden md:block text-sm text-white">
+                    <div class="logged-out">
+                        <button id="login-btn" class="btn-primary text-xs sm:text-sm" data-i18n="login">Iniciar
+                            Sesión</button>
+                    </div>
+                    <div class="logged-in hidden flex items-center gap-2 sm:gap-4">
+                        <span id="user-email-span"
+                            class="font-semibold text-xs sm:text-sm truncate max-w-[100px] sm:max-w-none"></span>
+                        <button id="logout-btn"
+                            class="btn-ghost text-red-400 border border-red-500/40 hover:text-red-200 text-xs sm:text-sm"
+                            data-i18n="logout">Salir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="loading" class="fixed inset-0 bg-black flex items-center justify-center z-40">
+        <div class="text-center">
+            <i class="fas fa-spinner fa-spin text-4xl text-[#00e9fa]"></i>
+            <p class="mt-4 text-lg text-white" data-i18n="loadingStory">Cargando historia...</p>
+        </div>
+    </div>
+
+    <!-- NUEVO: Pantalla de selección de proyectos -->
+    <div id="projectSelectionScreen" class="container mx-auto p-4 md:p-8 text-center hidden flex-grow">
+        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">XLERION´S SAGA</h1>
+
+        <!-- NUEVO: Image Slider -->
+        <div id="image-slider-container"
+            class="relative w-full max-w-4xl mx-auto h-64 md:h-80 mb-12 rounded-lg overflow-hidden bg-gray-800 shadow-lg hidden">
+            <div id="image-slider" class="relative w-full h-full">
+                <!-- Las imágenes del slider se insertarán aquí por JS -->
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+        </div>
+
+        <!-- NUEVO: Slider de Comentarios Aleatorios -->
+        <div id="comment-slider-container" class="w-full max-w-4xl mx-auto mb-12 hidden">
+            <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-700/50">
+                <h3 class="text-lg font-semibold text-[#00e9fa] mb-3 text-left"><i
+                        class="fas fa-comments mr-2"></i><span data-i18n="communityComments">Comentarios de la
+                        Comunidad</span></h3>
+                <div id="comment-slider" class="relative h-24 flex items-center">
+                    <!-- El comentario se insertará aquí por JS -->
+                </div>
+            </div>
+        </div>
+
+        <div id="publicProjectList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            <!-- Las tarjetas de proyecto se insertarán aquí por JS -->
+        </div>
+    </div>
+
+    <main id="storyContent" class="container mx-auto p-4 md:p-8 max-w-5xl hidden flex-grow">
+        <!-- Portada y Título -->
+        <header class="mb-12">
+            <button id="backToProjectsBtn" class="mb-8 btn-primary">
+                <i class="fas fa-arrow-left mr-2"></i> <span data-i18n="backToList">Volver a la lista</span>
+            </button>
+            <div class="text-center">
+                <img id="projectCover" src="" alt="Portada del Proyecto" loading="lazy"
+                    class="w-full max-w-2xl mx-auto h-auto object-cover rounded-lg shadow-2xl mb-6 hidden">
+                <h1 id="projectTitle" class="text-4xl md:text-6xl font-bold tracking-tight text-white"></h1>
+            </div>
+        </header>
+
+        <!-- Sinopsis -->
+        <section id="projectSummaryContainer" class="mb-12 prose prose-custom lg:prose-xl max-w-none hidden">
+            <h2 class="text-3xl font-semibold border-b border-gray-700 pb-2" data-i18n="synopsis">Sinopsis</h2>
+            <p id="projectSummary" class="mt-4 text-lg leading-relaxed"></p>
+        </section>
+
+        <!-- Capítulos -->
+        <section id="chaptersContainer" class="mb-12 hidden">
+            <h2 class="text-3xl font-semibold border-b border-gray-700 pb-2 mb-6" data-i18n="chapters">Capítulos</h2>
+            <div id="chaptersList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Los capítulos se insertarán aquí -->
+            </div>
+        </section>
+
+        <!-- Personajes -->
+        <section id="charactersContainer" class="mb-12 hidden">
+            <h2 class="text-3xl font-semibold border-b border-gray-700 pb-2 mb-6" data-i18n="characters">Personajes</h2>
+            <div id="charactersList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Las tarjetas de personajes se insertarán aquí -->
+            </div>
+        </section>
+
+        <!-- Lugares -->
+        <section id="placesContainer" class="mb-12 hidden">
+            <h2 class="text-3xl font-semibold border-b border-gray-700 pb-2 mb-6" data-i18n="places">Lugares</h2>
+            <div id="placesList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Las tarjetas de lugares se insertarán aquí -->
+            </div>
+        </section>
+
+        <!-- Objetos -->
+        <section id="objectsContainer" class="mb-12 hidden">
+            <h2 class="text-3xl font-semibold border-b border-gray-700 pb-2 mb-6" data-i18n="keyObjects">Objetos Clave
+            </h2>
+            <div id="objectsList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Las tarjetas de objetos se insertarán aquí -->
+            </div>
+        </section>
+
+        <!-- Mapa Mental -->
+        <section id="mindMapSection" class="mb-12 hidden">
+            <h2 class="text-3xl font-semibold border-b border-gray-700 pb-2 mb-6" data-i18n="mindMapTitle">Mapa Mental
+                de la Trama</h2>
+            <div id="publicMindMapContainer" class="w-full h-[60vh] border border-gray-700 rounded-lg bg-gray-800">
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Inicio de Sesión -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[999] hidden">
+        <div class="bg-[#0b0d0f] border border-white/10 p-8 rounded-lg shadow-2xl w-full max-w-sm m-4">
+            <h2 class="text-2xl font-bold text-white mb-4" data-i18n="loginTitle">Iniciar Sesión / Registrarse</h2>
+            <p class="text-gray-300 mb-6" data-i18n="loginDescription">Ingresa tu correo para calificar y comentar. No
+                se necesita contraseña.</p>
+            <form id="loginForm">
+                <input type="email" id="emailInput" data-i18n="emailPlaceholder" placeholder="tu-correo@ejemplo.com"
+                    required
+                    class="w-full p-3 bg-[#050505] text-white rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#00e9fa]">
+                <p id="loginError" class="text-red-400 text-sm mt-2 hidden"></p>
+                <button type="submit" class="w-full mt-6 btn-primary" data-i18n="enter">Ingresar</button>
+            </form>
+            <button id="closeLoginModal" type="button" title="Cerrar"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Detalles (Modificado para incluir calificaciones y comentarios) -->
+    <div id="publicDetailsModal"
+        class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-[998] hidden p-4">
+        <div class="bg-[#0b0d0f] text-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col relative border border-white/10"
+            id="publicDetailsModalContent">
+            <header class="p-6 border-b border-white/10 flex justify-between items-center">
+                <h3 id="publicDetailsTitle" class="text-3xl font-bold text-[#00e9fa]"></h3>
+                <button id="publicCloseDetailsModal" title="Cerrar ventana"
+                    class="text-gray-400 hover:text-white hover:bg-red-500/20 text-3xl leading-none w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200">&times;</button>
+            </header>
+            <main id="publicDetailsBody" class="p-6 overflow-y-auto flex-grow">
+                <!-- El contenido del ítem se insertará aquí -->
+            </main>
+            <!-- NUEVA SECCIÓN DE CALIFICACIONES Y COMENTARIOS -->
+            <section id="interaction-section"
+                class="p-6 border-t border-white/10 bg-[#050505] overflow-y-auto flex-shrink-0"
+                style="max-height: 45vh;">
+                <!-- Calificaciones -->
+                <div id="detailsRatingContainer" class="mb-6">
+                    <h4 class="font-bold text-lg mb-2 text-[#00e9fa]" data-i18n="ratings">Calificaciones</h4>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div class="flex items-center gap-2">
+                            <div id="average-stars" class="text-2xl flex gap-1 text-gray-600">
+                                <!-- Estrellas de promedio se insertan aquí -->
+                            </div>
+                            <span class="rating-value text-gray-400 font-semibold"></span>
+                        </div>
+                        <div id="user-rating-section" class="hidden flex items-center gap-2">
+                            <p class="text-sm text-gray-300" data-i18n="yourRating">Tu calificación:</p>
+                            <div id="user-stars" class="text-2xl flex gap-1 text-gray-500" data-item-id="">
+                                <!-- Estrellas para el usuario se insertarán aquí -->
+                            </div>
+                            <p id="user-rated-message" class="text-xs text-gray-400 ml-2 hidden"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Comentarios -->
+                <div id="detailsCommentsContainer">
+                    <h4 class="font-bold text-lg mb-4 text-[#00e9fa]" data-i18n="comments">Comentarios</h4>
+                    <form id="commentForm" class="hidden mb-6">
+                        <textarea id="comment-textarea" data-i18n="commentPlaceholder"
+                            placeholder="Escribe tu comentario..." required
+                            class="w-full p-3 bg-gray-700 text-white rounded-lg border border-gray-600 mb-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+                        <button type="submit" class="btn-primary float-right" data-i18n="comment">Comentar</button>
+                    </form>
+                    <ul id="commentsList" class="space-y-4 clear-both">
+                        <!-- Los comentarios se insertarán aquí -->
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Static Content Modal -->
+    <div id="staticContentModal"
+        class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-[997] hidden p-4">
+        <div
+            class="bg-[#0b0d0f] rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col border border-white/10">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center flex-shrink-0">
+                <h3 id="staticContentTitle" class="text-2xl font-bold text-white"></h3>
+                <button id="btnCloseStaticContent" title="Cerrar ventana"
+                    class="text-gray-400 hover:text-white hover:bg-red-500/20 text-3xl leading-none w-10 h-10 flex items-center justify-center rounded-full transition-all duration-200">&times;</button>
+            </div>
+            <div id="staticContentBody"
+                class="p-6 overflow-y-auto prose prose-custom lg:prose-xl max-w-none text-gray-300">
+                <!-- El contenido estático se inyectará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Profesional -->
+    <footer class="site-footer mt-auto pt-12 pb-8 px-4">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-gray-400">
+            <!-- Columna del Logo -->
+            <div class="space-y-4">
+                <a href="#" id="footer-logo-link" class="flex items-center gap-3 cursor-pointer">
+                    <img src="./images/xlerions-totaldarkness.png" alt="Xlerion's Total Darkness" class="h-8 w-auto">
+                </a>
+                <p class="text-sm" data-i18n="footerDescription">Tu plataforma para crear y compartir mundos e historias
+                    interactivas.</p>
+            </div>
+            <!-- Columna de Navegación -->
+            <div>
+                <h4 class="font-semibold text-white mb-4" data-i18n="navigation">Navegación</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" id="footer-projects-link" class="nav-link" data-i18n="projects">Proyectos</a></li>
+                    <li><a href="#" id="footer-about-link" class="nav-link" data-i18n="about">Acerca de</a></li>
+                    <li><a href="#" id="footer-contact-link" class="nav-link" data-i18n="contact">Contacto</a></li>
+                </ul>
+            </div>
+            <!-- Columna Legal -->
+            <div>
+                <h4 class="font-semibold text-white mb-4" data-i18n="legal">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" id="footer-terms-link" class="nav-link" data-i18n="termsOfService">Términos de
+                            Servicio</a></li>
+                    <li><a href="#" id="footer-privacy-link" class="nav-link" data-i18n="privacyPolicy">Política de
+                            Privacidad</a></li>
+                </ul>
+            </div>
+            <!-- Columna de Redes Sociales -->
+            <div>
+                <h4 class="font-semibold text-white mb-4" data-i18n="followUs">Síguenos</h4>
+                <div class="flex space-x-4 text-2xl">
+                    <a href="https://twitter.com/XlerionUltimate" target="_blank" rel="noopener noreferrer"
+                        class="nav-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/company/xlerion" target="_blank" rel="noopener noreferrer"
+                        class="nav-link" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.patreon.com/c/xlerion" target="_blank" rel="noopener noreferrer"
+                        class="nav-link" aria-label="Patreon"><i class="fab fa-patreon"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
+            <p>&copy; <span id="footer-year"></span> Xlerion. <span data-i18n="allRightsReservedText">Todos los derechos
+                    reservados.</span></p>
+        </div>
+    </footer>
+
+    <!-- El script historia.js ahora cargará los datos desde data.json si existe, o usará los datos inyectados. -->
+    <!-- historia.js ahora leerá desde data.js en lugar de una base de datos -->
+    <!-- Script de menú móvil eliminado: ahora toda la lógica está centralizada en historia.js -->
+    </script>
+
+    <!-- Modal para gestión de traducciones dinámicas -->
+    <div id="translationManagerModal"
+        class="hidden fixed inset-0 bg-black/70 z-[1000] flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-[#0b0d0f] border border-white/10 rounded-lg max-w-2xl w-full my-8">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-6 border-b border-white/10">
+                <h2 class="text-xl font-bold text-white" data-i18n="translationManager">Translation Manager</h2>
+                <button id="closeTranslationModal" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6 max-h-[70vh] overflow-y-auto">
+                <!-- Tab de contenido sin traducir -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-[#00e9fa] mb-4">Contenido sin traducción detectado:</h3>
+                    <div id="missingTranslationsList" class="space-y-4">
+                        <p class="text-gray-400 text-sm">Cargando...</p>
+                    </div>
+                </div>
+
+                <!-- Formulario para agregar traducción manual -->
+                <div class="border-t border-white/10 pt-6">
+                    <h3 class="text-lg font-semibold text-[#00e9fa] mb-4">Agregar traducción:</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Texto original (ES):</label>
+                            <textarea id="translationOriginal" placeholder="Texto en español..."
+                                class="w-full px-4 py-2 rounded bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00e9fa]"
+                                rows="2"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-400 mb-2">Traducción (EN):</label>
+                            <textarea id="translationTranslated" placeholder="Traducción al inglés..."
+                                class="w-full px-4 py-2 rounded bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#00e9fa]"
+                                rows="2"></textarea>
+                        </div>
+                        <button id="addTranslationBtn"
+                            class="w-full px-4 py-2 bg-[#00e9fa] text-black font-semibold rounded hover:bg-[#00b8c4] transition-colors">
+                            Guardar Traducción
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botones de utilidad -->
+                <div class="border-t border-white/10 pt-6 mt-6 space-y-2">
+                    <button id="exportTranslationsBtn"
+                        class="w-full px-4 py-2 bg-white/10 text-white font-semibold rounded hover:bg-white/20 transition-colors text-sm">
+                        Exportar Traducciones Faltantes (JSON)
+                    </button>
+                    <button id="clearCacheBtn"
+                        class="w-full px-4 py-2 bg-red-900/30 text-red-300 font-semibold rounded hover:bg-red-900/50 transition-colors text-sm">
+                        Limpiar Caché
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Todo el control del menú móvil está centralizado en historia.js -->
+    <script src="historia.js"></script>
+
+    <!-- Analytics Tracker -->
+    <script src="../js/analytics-tracker.js"></script>
+    <script>
+        // Inicializar tracking de analytics para Total Darkness Historia
+        initAnalytics('Total Darkness - Historia', 'page');
+    </script>
+</body>
+
+</html>

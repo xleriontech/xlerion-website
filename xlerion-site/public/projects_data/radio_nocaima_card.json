@@ -1,0 +1,55 @@
+{
+  "id": "radio-nocaima-demo",
+  "project_type": "community_radio",
+  "status": "demo",
+  "title": "Estación Comunitaria Nocaima",
+  "short_description": "Plataforma de radio comunitaria con transmisión en vivo, episodios on-demand y participación local en la vereda Nocaima, Cundinamarca.",
+  "long_description": "Estación Comunitaria Nocaima es una plataforma web completa para radio comunitaria que integra streaming en vivo, biblioteca de episodios, calendario de eventos, mapeo sonoro interactivo y herramientas de participación ciudadana. Diseñada específicamente para empoderar comunidades rurales con tecnología accesible.",
+  "thumbnail_url": "/images/projects/radio-nocaima-thumbnail.jpg",
+  "hero_image": "/images/projects/radio-nocaima-hero.jpg",
+  "featured_image": "/images/projects/radio-nocaima-featured.jpg",
+  "tags": ["radio", "comunidad", "streaming", "participación", "Colombia", "demo"],
+  "categories": ["media", "community", "technology"],
+  "estimated_duration": "8 semanas",
+  "difficulty": "Estándar",
+  "status_badge": "Demo",
+  "cta_text": "Ver demo",
+  "cta_text_en": "View demo",
+  "demo_route": "/projects/radio-nocaima-demo",
+  "external_url": null,
+  "target_blank": false,
+  "featured": true,
+  "active": true,
+  "order": 1,
+  "metadata": {
+    "client": "Comunidad Vereda Nocaima",
+    "client_location": "Cundinamarca, Colombia",
+    "launch_date": "2024-Q3",
+    "status": "In Development",
+    "team_size": 4,
+    "tech_stack": ["React 19", "Vite", "Three.js", "PHP", "HLS/MP3", "Leaflet Maps"]
+  },
+  "preview_text": "Empoderando comunidades rurales con tecnología de streaming en vivo y participación ciudadana.",
+  "preview_bullets": [
+    "Transmisión en vivo con contador de oyentes",
+    "Episodios on-demand con buscador inteligente"
+  ],
+  "seo": {
+    "title": "Estación Comunitaria Nocaima - Radio en Vivo Comunitaria",
+    "description": "Plataforma de radio comunitaria con transmisión en vivo, episodios, eventos, y herramientas de participación para la vereda Nocaima.",
+    "keywords": [
+      "radio comunitaria",
+      "streaming",
+      "Nocaima",
+      "Colombia",
+      "participación ciudadana",
+      "podcast"
+    ],
+    "og_image": "/images/projects/radio-nocaima-og.jpg",
+    "og_type": "website"
+  },
+  "created_at": "2025-02-04T10:00:00Z",
+  "updated_at": "2025-02-04T10:00:00Z",
+  "created_by": "admin",
+  "version": "1.0"
+}

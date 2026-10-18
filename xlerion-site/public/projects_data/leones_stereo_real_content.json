@@ -1,0 +1,392 @@
+{
+  "id": "leones-stereo-real-content",
+  "project_id": "radio-nocaima-demo",
+  "demo_route": "/projects/radio-nocaima-demo",
+  "language": "es",
+  "real_station_info": {
+    "name": "Leones Stereo",
+    "name_alt": "León Estéreo",
+    "frequency": "107.4 FM",
+    "location": "Nocaima, Cundinamarca",
+    "phone": "+57 320 4987992",
+    "type": "community_radio",
+    "verified": true,
+    "data_source": "Colombia.com, Streema, Zeno.FM"
+  },
+  "metadata": {
+    "title": "Leones Stereo 107.4 FM - Radio Comunitaria Nocaima",
+    "description": "Leones Stereo es la emisora comunitaria de Nocaima (107.4 FM) con programación musical y de opinión. Escucha en vivo, episodios on-demand y participa con tus historias.",
+    "demo_badge": false,
+    "real_station": true,
+    "last_verified": "2026-02-04"
+  },
+  "hero": {
+    "section_id": "hero",
+    "title": "Leones Stereo",
+    "subtitle": "107.4 FM - La voz de Nocaima",
+    "tagline": "Transmisión comunitaria, conectada y participativa",
+    "hero_image": "/images/projects/radio-nocaima-hero.jpg",
+    "hero_image_alt": "Leones Stereo 107.4 FM Nocaima",
+    "background_color": "#000000",
+    "overlay_opacity": 0.7,
+    "cta_primary": {
+      "text": "Escuchar ahora",
+      "action": "scroll_to_player",
+      "icon": "play-circle"
+    },
+    "cta_secondary": {
+      "text": "Contactar",
+      "action": "scroll_to_contact",
+      "icon": "phone"
+    },
+    "breadcrumb": [
+      { "label": "Inicio", "path": "/" },
+      { "label": "Proyectos", "path": "/proyectos" },
+      { "label": "Leones Stereo" }
+    ]
+  },
+  "about_section": {
+    "section_id": "about",
+    "title": "Sobre Leones Stereo",
+    "content": "Leones Stereo es la emisora comunitaria de Nocaima, transmitiendo en 107.4 FM. Desde esta frecuencia, conectamos con oyentes de la región a través de programación musical y de opinión, fortaleciendo los lazos comunitarios y amplificando las voces locales.",
+    "mission": {
+      "title": "Nuestra Misión",
+      "text": "Ser la voz de Nocaima, conectando comunidades a través de la radio comunitaria con contenido relevante, participativo y de calidad."
+    },
+    "contact_info": {
+      "frequency": "107.4 FM",
+      "phone": "+57 320 4987992",
+      "location": "Nocaima, Cundinamarca",
+      "note": "Para confirmar horarios y stream, contacta directamente"
+    },
+    "directories": {
+      "title": "Estamos en los directorios online",
+      "services": [
+        {
+          "name": "Colombia.com",
+          "url": "https://www.colombia.com/radio/leones-stereo-nocaima",
+          "description": "Ficha de emisora con frecuencia y teléfono"
+        },
+        {
+          "name": "Streema",
+          "url": "https://streema.com",
+          "search": "Leones Stereo",
+          "description": "Plataforma de escucha online"
+        },
+        {
+          "name": "Zeno.FM",
+          "url": "https://zeno.fm",
+          "search": "Leones Stereo 107.4",
+          "description": "Streaming de estaciones de radio"
+        },
+        {
+          "name": "Facebook",
+          "url": "https://www.facebook.com/search/top?q=Leones%20Stereo%20Nocaima",
+          "search": "Leones Stereo Nocaima",
+          "description": "Página oficial y publicaciones comunitarias"
+        }
+      ]
+    },
+    "stats": [
+      {
+        "value": "107.4",
+        "label": "Frecuencia FM"
+      },
+      {
+        "value": "24/7",
+        "label": "Transmisión"
+      },
+      {
+        "value": "Nocaima",
+        "label": "Ubicación"
+      },
+      {
+        "value": "Comunitaria",
+        "label": "Tipo de Emisora"
+      }
+    ]
+  },
+  "live_player": {
+    "section_id": "live-player",
+    "title": "Transmisión en Vivo",
+    "subtitle": "Escucha Leones Stereo 107.4 FM",
+    "note": "Para escuchar en vivo, usa los directorios online (Streema, Zeno.FM) o contacta al +57 320 4987992 para confirmar disponibilidad del stream.",
+    "stream_config": {
+      "frequency": "107.4 FM",
+      "type": "terrestrial_and_online",
+      "stream_type": "hls",
+      "primary_stream": "https://directo.zeno.fm/leones-stereo-nocaima",
+      "fallback_note": "Disponible en Streema y Zeno.FM",
+      "stream_bitrate": "128kbps",
+      "stream_format": "AAC"
+    },
+    "player_features": ["play_pause", "volume_control", "social_share", "directory_links"],
+    "streaming_info": {
+      "title": "¿Cómo escuchar?",
+      "options": [
+        {
+          "method": "Radio FM",
+          "description": "Sintoniza 107.4 FM en tu radio local"
+        },
+        {
+          "method": "Streema",
+          "url": "https://streema.com",
+          "description": "Plataforma de streaming online"
+        },
+        {
+          "method": "Zeno.FM",
+          "url": "https://zeno.fm",
+          "description": "Directorio de estaciones de radio"
+        },
+        {
+          "method": "Contacto Directo",
+          "phone": "+57 320 4987992",
+          "description": "Llama para información sobre acceso al stream"
+        }
+      ]
+    },
+    "program_schedule": [
+      {
+        "note": "Programación sujeta a cambios. Confirmar con la emisora: +57 320 4987992",
+        "recommendation": "Contacta directamente para conocer la grilla actualizada"
+      }
+    ]
+  },
+  "episodes_ondemand": {
+    "section_id": "episodes",
+    "title": "Contenido de Leones Stereo",
+    "subtitle": "Archivos y programas disponibles",
+    "note": "Para acceder a programas archivados y contenido on-demand, contacta con Leones Stereo o consulta en los directorios online.",
+    "contact_for_archive": {
+      "title": "¿Buscas episodios específicos?",
+      "phone": "+57 320 4987992",
+      "description": "Contacta directamente para información sobre contenido archivado"
+    },
+    "episodes": []
+  },
+  "events_calendar": {
+    "section_id": "calendar",
+    "title": "Eventos y Actividades",
+    "subtitle": "Transmisiones especiales de Leones Stereo",
+    "note": "Para conocer eventos especiales, transmisiones en vivo desde la comunidad y actividades, contacta directamente o sigue sus redes sociales.",
+    "events": [
+      {
+        "id": "event-contact",
+        "title": "¿Quieres colaborar con Leones Stereo?",
+        "description": "Ponte en contacto con la emisora para propuestas de contenido, transmisiones especiales o colaboraciones.",
+        "contact_phone": "+57 320 4987992",
+        "contact_method": "Llamada o WhatsApp",
+        "note": "Responden en horario de transmisión"
+      }
+    ]
+  },
+  "correspondents_form": {
+    "section_id": "correspondents",
+    "title": "Contribuye a Leones Stereo",
+    "subtitle": "¿Tienes una historia para compartir?",
+    "form_intro": "Leones Stereo invita a la comunidad a participar con historias, noticias y contenido local. Puedes enviar tu aporte directamente.",
+    "contact_methods": [
+      {
+        "method": "Teléfono",
+        "value": "+57 320 4987992",
+        "description": "Llamada o WhatsApp para propuestas"
+      },
+      {
+        "method": "Visita la emisora",
+        "location": "Nocaima, Cundinamarca",
+        "description": "Ubicación: preguntar en la zona"
+      },
+      {
+        "method": "Facebook",
+        "url": "https://www.facebook.com/search/top?q=Leones%20Stereo%20Nocaima",
+        "description": "Mensaje directo en la página oficial"
+      }
+    ],
+    "form_fields": []
+  },
+  "sound_map": {
+    "section_id": "soundmap",
+    "title": "Mapa Sonoro de Nocaima",
+    "subtitle": "Historias de la región",
+    "note": "Leones Stereo documenta y amplifica las voces de Nocaima. Este mapa representa los espacios comunitarios significativos de la región.",
+    "map_center": {
+      "lat": 5.2521,
+      "lng": -73.9253
+    },
+    "map_zoom": 14,
+    "map_provider": "leaflet",
+    "audio_points": [
+      {
+        "id": "point-001",
+        "lat": 5.2521,
+        "lng": -73.9253,
+        "title": "Centro de Nocaima",
+        "description": "Corazón comunitario y punto de referencia local"
+      },
+      {
+        "id": "point-002",
+        "lat": 5.2533,
+        "lng": -73.9241,
+        "title": "Zona Comercial",
+        "description": "Negocios y emprendimientos locales"
+      },
+      {
+        "id": "point-003",
+        "lat": 5.2515,
+        "lng": -73.9267,
+        "title": "Espacios Culturales",
+        "description": "Casa de la Cultura y centros de expresión artística"
+      },
+      {
+        "id": "point-004",
+        "lat": 5.2548,
+        "lng": -73.9235,
+        "title": "Zona Agrícola",
+        "description": "Fincas y producción local de Nocaima"
+      },
+      {
+        "id": "point-005",
+        "lat": 5.249,
+        "lng": -73.928,
+        "title": "Educación",
+        "description": "Escuelas y centros educativos de la comunidad"
+      },
+      {
+        "id": "point-006",
+        "lat": 5.2472,
+        "lng": -73.931,
+        "title": "Infraestructura Comunitaria",
+        "description": "Obras y proyectos de beneficio común"
+      },
+      {
+        "id": "point-007",
+        "lat": 5.256,
+        "lng": -73.922,
+        "title": "Artesanía y Tradición",
+        "description": "Talleres artesanales y oficios locales"
+      },
+      {
+        "id": "point-008",
+        "lat": 5.2502,
+        "lng": -73.9295,
+        "title": "Bienestar Social",
+        "description": "Espacios de encuentro y ayuda comunitaria"
+      }
+    ]
+  },
+  "support_page": {
+    "section_id": "support",
+    "title": "Conecta con Leones Stereo",
+    "subtitle": "Maneras de estar en contacto",
+    "intro": "Leones Stereo es parte de la comunidad de Nocaima. Si deseas colaborar, enviar propuestas o simplemente conectar con la emisora, aquí encontrarás cómo hacerlo.",
+    "contact_options": [
+      {
+        "id": "phone",
+        "title": "Llamada o WhatsApp",
+        "contact": "+57 320 4987992",
+        "description": "Forma directa de comunicación",
+        "icon": "phone"
+      },
+      {
+        "id": "visit",
+        "title": "Visita la Emisora",
+        "location": "Nocaima, Cundinamarca",
+        "description": "Conoce personalmente a los equipos de Leones Stereo",
+        "note": "Pregunta en la zona por la ubicación"
+      },
+      {
+        "id": "social",
+        "title": "Redes Sociales",
+        "platforms": [
+          {
+            "name": "Facebook",
+            "url": "https://www.facebook.com/search/top?q=Leones%20Stereo%20Nocaima",
+            "description": "Publicaciones y actualizaciones comunitarias"
+          }
+        ]
+      },
+      {
+        "id": "online",
+        "title": "Escucha Online",
+        "services": [
+          {
+            "name": "Streema",
+            "url": "https://streema.com"
+          },
+          {
+            "name": "Zeno.FM",
+            "url": "https://zeno.fm"
+          },
+          {
+            "name": "Colombia.com",
+            "url": "https://www.colombia.com/radio/leones-stereo-nocaima"
+          }
+        ],
+        "description": "Plataformas donde puedes seguir a Leones Stereo"
+      }
+    ],
+    "collaboration_info": {
+      "title": "¿Quieres colaborar?",
+      "content": "Leones Stereo siempre está abierta a colaboraciones, patrocinios locales y proyectos comunitarios. Contacta directamente para discutir ideas.",
+      "contact": "+57 320 4987992"
+    }
+  },
+  "educational_section": {
+    "section_id": "education",
+    "title": "Aprende sobre Radio Comunitaria",
+    "subtitle": "Desde Leones Stereo y Xlerion",
+    "intro": "La radio comunitaria es un medio poderoso para amplificar voces locales. Aquí compartimos recursos sobre cómo ser parte de iniciativas como Leones Stereo.",
+    "resources": [
+      {
+        "title": "¿Cómo iniciar una radio comunitaria?",
+        "description": "Pasos básicos y consideraciones legales",
+        "link": "#"
+      },
+      {
+        "title": "Producción de contenido local",
+        "description": "Técnicas para crear programas de calidad",
+        "link": "#"
+      },
+      {
+        "title": "Gestión de emisoras comunitarias",
+        "description": "Administración, finanzas y sostenibilidad",
+        "link": "#"
+      }
+    ]
+  },
+  "footer": {
+    "section_id": "footer",
+    "company_info": {
+      "name": "Leones Stereo",
+      "tagline": "107.4 FM - La voz de Nocaima",
+      "frequency": "107.4 FM",
+      "location": "Nocaima, Cundinamarca",
+      "contact_phone": "+57 320 4987992",
+      "note": "Emisora comunitaria listada en Colombia.com, Streema y Zeno.FM"
+    },
+    "directories": [
+      {
+        "name": "Colombia.com",
+        "url": "https://www.colombia.com/radio/leones-stereo-nocaima"
+      },
+      {
+        "name": "Streema",
+        "url": "https://streema.com"
+      },
+      {
+        "name": "Zeno.FM",
+        "url": "https://zeno.fm"
+      }
+    ],
+    "info": {
+      "type": "community_radio",
+      "description": "Radio comunitaria con programación musical y de opinión",
+      "service_area": "Nocaima y región de Cundinamarca"
+    }
+  },
+  "data_integrity": {
+    "note": "Este contenido integra información real de Leones Stereo (107.4 FM, Nocaima) con la estructura demo. Los datos de contacto y ubicación son precisos según directorios públicos (Colombia.com, Streema, Zeno.FM, Facebook).",
+    "last_updated": "2026-02-04",
+    "verification_status": "real_station_verified"
+  }
+}

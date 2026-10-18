@@ -1,0 +1,790 @@
+{
+  "id": "radio-nocaima-demo-content",
+  "project_id": "radio-nocaima-demo",
+  "demo_route": "/projects/radio-nocaima-demo",
+  "language": "es",
+  "metadata": {
+    "title": "Estación Comunitaria Nocaima - Página Demo",
+    "description": "Demo completa de la plataforma de radio comunitaria",
+    "demo_badge": true,
+    "demo_badge_text": "Demo — contenido de ejemplo"
+  },
+  "hero": {
+    "section_id": "hero",
+    "title": "Estación Comunitaria Nocaima",
+    "subtitle": "La voz de nuestra comunidad. En vivo, conectados, unidos.",
+    "hero_image": "/images/projects/radio-nocaima-hero.jpg",
+    "hero_image_alt": "Estación Comunitaria Nocaima - Hero Visual",
+    "background_color": "#000000",
+    "overlay_opacity": 0.7,
+    "cta_primary": {
+      "text": "Escuchar en vivo",
+      "action": "scroll_to_player",
+      "icon": "play-circle"
+    },
+    "cta_secondary": {
+      "text": "Explorar episodios",
+      "action": "scroll_to_episodes",
+      "icon": "music"
+    },
+    "breadcrumb": [
+      { "label": "Inicio", "path": "/" },
+      { "label": "Proyectos", "path": "/proyectos" },
+      { "label": "Radio Nocaima" }
+    ]
+  },
+  "about_section": {
+    "section_id": "about",
+    "title": "Sobre la Emisora",
+    "content": "Estación Comunitaria Nocaima nace como iniciativa de empoderamiento local, permitiendo que los ciudadanos de la vereda compartan sus historias, música, noticias y opiniones. Transmitiendo 24/7, nos conectamos con hogares, negocios y espacios públicos.",
+    "stats": [
+      {
+        "value": "500+",
+        "label": "Oyentes diarios"
+      },
+      {
+        "value": "50+",
+        "label": "Episodios archivados"
+      },
+      {
+        "value": "12",
+        "label": "Programas regulares"
+      }
+    ],
+    "mission": {
+      "title": "Nuestra Misión",
+      "text": "Fortalecer lazos comunitarios mediante comunicación inclusiva, accesible y centrada en voces locales."
+    },
+    "values": ["Inclusión", "Transparencia", "Participación", "Sostenibilidad", "Educación"]
+  },
+  "socials": [
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/LeonesStereoNocaima"
+    },
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/LeonesStereoNocaima"
+    },
+    {
+      "id": "youtube",
+      "label": "YouTube",
+      "url": "https://www.youtube.com/@LeonesStereoNocaima"
+    },
+    {
+      "id": "whatsapp",
+      "label": "WhatsApp",
+      "url": "https://wa.me/573001234567?text=Quiero%20comunicarme%20con%20Leones%20Stereo%20Nocaima"
+    }
+  ],
+  "live_player": {
+    "section_id": "live-player",
+    "title": "Transmisión en Vivo",
+    "subtitle": "Escucha en tiempo real",
+    "stream_config": {
+      "stream_type": "hls",
+      "primary_stream": "https://demo-streams.xlerion.local/radio-nocaima/live.m3u8",
+      "fallback_stream": "https://demo-streams.xlerion.local/radio-nocaima/live.mp3",
+      "stream_bitrate": "128kbps",
+      "stream_format": "AAC"
+    },
+    "player_features": [
+      "play_pause",
+      "volume_control",
+      "fullscreen",
+      "social_share",
+      "quality_selector"
+    ],
+    "listener_stats": {
+      "current_listeners": 127,
+      "peak_today": 342,
+      "average_daily": 245
+    },
+    "now_playing": {
+      "title": "Mañanitas Nocaima",
+      "host": "María González",
+      "start_time": "06:00",
+      "end_time": "09:00",
+      "schedule_type": "recurring_daily",
+      "description": "Programa matutino con noticias locales, música variada y participación de oyentes."
+    },
+    "program_schedule": [
+      {
+        "time": "06:00 - 09:00",
+        "title": "Mañanitas Nocaima",
+        "host": "María González",
+        "type": "magazine"
+      },
+      {
+        "time": "09:00 - 12:00",
+        "title": "La Hora Agrícola",
+        "host": "Roberto Campos",
+        "type": "educational"
+      },
+      {
+        "time": "12:00 - 15:00",
+        "title": "Almuerzo Melódico",
+        "host": "DJ Carlos",
+        "type": "music"
+      },
+      {
+        "time": "15:00 - 18:00",
+        "title": "Tarde Comunitaria",
+        "host": "Lucía Mendoza",
+        "type": "community"
+      },
+      {
+        "time": "18:00 - 21:00",
+        "title": "Noches de Luz",
+        "host": "Equipo Nocaima",
+        "type": "entertainment"
+      },
+      {
+        "time": "21:00 - 24:00",
+        "title": "Música Bajo la Luna",
+        "host": "DJ Alejandro",
+        "type": "music"
+      }
+    ]
+  },
+  "episodes_ondemand": {
+    "section_id": "episodes",
+    "title": "Episodios On-Demand",
+    "subtitle": "Accede a nuestro archivo de programas",
+    "search_enabled": true,
+    "filter_enabled": true,
+    "sort_options": ["newest", "oldest", "most_popular", "longest"],
+    "filter_categories": ["magazine", "music", "educational", "community", "entertainment", "news"],
+    "episodes": [
+      {
+        "id": "ep-001",
+        "title": "Mañanitas Nocaima - Especial Café y Tradición",
+        "description": "Hablamos sobre la importancia del café en nuestra región con productores locales.",
+        "date": "2025-02-03",
+        "duration": "180",
+        "host": "María González",
+        "category": "magazine",
+        "thumbnail": "/images/episodes/ep-001-thumb.jpg",
+        "audio_url": "https://demo-assets.xlerion.local/episodes/ep-001.mp3",
+        "duration_formatted": "3:00",
+        "description_short": "Especial café y tradición regional",
+        "play_count": 145,
+        "tags": ["café", "tradición", "productores"]
+      },
+      {
+        "id": "ep-002",
+        "title": "La Hora Agrícola - Técnicas de Riego Sostenible",
+        "description": "Entrevista con ingeniero agrónomo sobre sistemas de riego eficientes.",
+        "date": "2025-02-02",
+        "duration": "240",
+        "host": "Roberto Campos",
+        "category": "educational",
+        "thumbnail": "/images/episodes/ep-002-thumb.jpg",
+        "audio_url": "https://demo-assets.xlerion.local/episodes/ep-002.mp3",
+        "duration_formatted": "4:00",
+        "description_short": "Técnicas de riego sostenible con expertos",
+        "play_count": 89,
+        "tags": ["agricultura", "sostenibilidad", "tecnología"]
+      },
+      {
+        "id": "ep-003",
+        "title": "Almuerzo Melódico - Cumbia y Salsa",
+        "description": "Una hora de cumbia y salsa clásicas para amenizar tu almuerzo.",
+        "date": "2025-02-01",
+        "duration": "180",
+        "host": "DJ Carlos",
+        "category": "music",
+        "thumbnail": "/images/episodes/ep-003-thumb.jpg",
+        "audio_url": "https://demo-assets.xlerion.local/episodes/ep-003.mp3",
+        "duration_formatted": "3:00",
+        "description_short": "Cumbia y salsa para disfrutar",
+        "play_count": 234,
+        "tags": ["cumbia", "salsa", "música"]
+      }
+    ],
+    "donation_enabled": true,
+    "donation_text": "Apoye la producción de este episodio",
+    "donation_amounts": [5000, 10000, 25000, 50000]
+  },
+  "events_calendar": {
+    "section_id": "calendar",
+    "title": "Calendario de Eventos",
+    "subtitle": "Actividades y transmisiones especiales",
+    "calendar_view": "month",
+    "events": [
+      {
+        "id": "event-001",
+        "title": "Festival de Música Comunitaria",
+        "description": "Gran festival con bandas locales, DJ y artistas de la región. Transmisión en vivo desde el parque central.",
+        "date": "2025-02-15",
+        "time_start": "14:00",
+        "time_end": "22:00",
+        "location": "Parque Central Nocaima",
+        "location_lat": 5.2521,
+        "location_lng": -73.9253,
+        "category": "festival",
+        "image": "/images/events/festival-2025.jpg",
+        "attendees": 450,
+        "add_to_calendar_enabled": true,
+        "live_stream": true,
+        "is_featured": true
+      },
+      {
+        "id": "event-002",
+        "title": "Charla: Emprendimiento Rural",
+        "description": "Conversa con emprendedores locales sobre oportunidades de negocio en zonas rurales.",
+        "date": "2025-02-20",
+        "time_start": "18:00",
+        "time_end": "20:00",
+        "location": "Salón Comunitario",
+        "location_lat": 5.2533,
+        "location_lng": -73.9241,
+        "category": "workshop",
+        "image": "/images/events/emprendimiento.jpg",
+        "attendees": 85,
+        "add_to_calendar_enabled": true,
+        "live_stream": true,
+        "is_featured": false
+      },
+      {
+        "id": "event-003",
+        "title": "Noche de Poesía y Café",
+        "description": "Recital de poetas locales acompañado de café de la región. Ambiente íntimo y participativo.",
+        "date": "2025-02-25",
+        "time_start": "19:00",
+        "time_end": "21:30",
+        "location": "Casa de la Cultura",
+        "location_lat": 5.2515,
+        "location_lng": -73.9267,
+        "category": "cultural",
+        "image": "/images/events/poesia.jpg",
+        "attendees": 120,
+        "add_to_calendar_enabled": true,
+        "live_stream": true,
+        "is_featured": false
+      },
+      {
+        "id": "event-004",
+        "title": "Capacitación: Producción Radiofónica",
+        "description": "Taller práctico para interesados en producir contenido para la radio comunitaria.",
+        "date": "2025-03-01",
+        "time_start": "15:00",
+        "time_end": "18:00",
+        "location": "Estudio Nocaima",
+        "location_lat": 5.2525,
+        "location_lng": -73.9255,
+        "category": "workshop",
+        "image": "/images/events/capacitacion.jpg",
+        "attendees": 35,
+        "add_to_calendar_enabled": true,
+        "live_stream": false,
+        "is_featured": false
+      },
+      {
+        "id": "event-005",
+        "title": "Conversatorio: Voces Campesinas",
+        "description": "Panel de agricultores, ganaderos y artesanos compartiendo sus historias y experiencias.",
+        "date": "2025-03-08",
+        "time_start": "17:00",
+        "time_end": "19:00",
+        "location": "Parque Central",
+        "location_lat": 5.2521,
+        "location_lng": -73.9253,
+        "category": "community",
+        "image": "/images/events/voces.jpg",
+        "attendees": 200,
+        "add_to_calendar_enabled": true,
+        "live_stream": true,
+        "is_featured": true
+      },
+      {
+        "id": "event-006",
+        "title": "Maratón de Música Nocturna",
+        "description": "24 horas de música ininterrumpida con artistas y DJ locales. Especial benéfico.",
+        "date": "2025-03-15",
+        "time_start": "18:00",
+        "time_end": "18:00",
+        "category": "marathon",
+        "image": "/images/events/maraton.jpg",
+        "attendees": 800,
+        "add_to_calendar_enabled": true,
+        "live_stream": true,
+        "is_featured": true,
+        "special": true,
+        "note": "Evento de 24 horas"
+      }
+    ],
+    "upcoming_count": 6
+  },
+  "correspondents_form": {
+    "section_id": "correspondents",
+    "title": "Corresponsales Comunitarios",
+    "subtitle": "¿Tienes una historia que contar? Envía tu audio o propuesta",
+    "form_intro": "Queremos amplificar las voces de nuestra comunidad. Si tienes una noticia, reportaje, música o testimonio, ¡comparte con nosotros!",
+    "form_fields": [
+      {
+        "name": "nombre",
+        "label": "Nombre completo",
+        "type": "text",
+        "required": true,
+        "placeholder": "Tu nombre"
+      },
+      {
+        "name": "email",
+        "label": "Correo electrónico",
+        "type": "email",
+        "required": true,
+        "placeholder": "tu@email.com"
+      },
+      {
+        "name": "telefono",
+        "label": "Teléfono / WhatsApp",
+        "type": "tel",
+        "required": false,
+        "placeholder": "+57 3XX XXXXXX"
+      },
+      {
+        "name": "ubicacion",
+        "label": "Tu ubicación en la vereda",
+        "type": "text",
+        "required": false,
+        "placeholder": "Barrio, sector o vereda"
+      },
+      {
+        "name": "categoria",
+        "label": "Tipo de contenido",
+        "type": "select",
+        "required": true,
+        "options": [
+          { "value": "noticia", "label": "Noticia" },
+          { "value": "reportaje", "label": "Reportaje" },
+          { "value": "musica", "label": "Música" },
+          { "value": "testimonio", "label": "Testimonio" },
+          { "value": "entrevista", "label": "Entrevista" },
+          { "value": "otro", "label": "Otro" }
+        ]
+      },
+      {
+        "name": "titulo",
+        "label": "Título de tu contenido",
+        "type": "text",
+        "required": true,
+        "placeholder": "¿De qué trata tu historia?"
+      },
+      {
+        "name": "descripcion",
+        "label": "Descripción breve",
+        "type": "textarea",
+        "required": true,
+        "placeholder": "Cuéntanos en pocas palabras de qué se trata",
+        "rows": 4
+      },
+      {
+        "name": "archivo_opcion",
+        "label": "¿Cómo deseas enviar tu contenido?",
+        "type": "radio",
+        "required": true,
+        "options": [
+          { "value": "archivo", "label": "Subir archivo de audio (MP3, WAV)" },
+          { "value": "whatsapp", "label": "Enviar por WhatsApp" },
+          { "value": "enlace", "label": "Compartir enlace externo" }
+        ]
+      },
+      {
+        "name": "archivo_audio",
+        "label": "Tu archivo de audio",
+        "type": "file",
+        "required": false,
+        "accept": "audio/*",
+        "max_size": 52428800,
+        "conditional_field": "archivo_opcion",
+        "conditional_value": "archivo"
+      },
+      {
+        "name": "enlace_url",
+        "label": "URL de tu contenido",
+        "type": "url",
+        "required": false,
+        "placeholder": "https://...",
+        "conditional_field": "archivo_opcion",
+        "conditional_value": "enlace"
+      },
+      {
+        "name": "consentimiento",
+        "label": "Autorizo a Estación Comunitaria Nocaima a reproducir y editar mi contenido",
+        "type": "checkbox",
+        "required": true
+      },
+      {
+        "name": "privacidad",
+        "label": "He leído y acepto la política de privacidad",
+        "type": "checkbox",
+        "required": true
+      }
+    ],
+    "form_endpoint": "/api/correspondents/submit",
+    "form_method": "POST",
+    "success_message": "¡Gracias por tu contribución! Revisaremos tu contenido y nos pondremos en contacto en los próximos 2-3 días hábiles.",
+    "whatsapp_link": "https://wa.me/573001234567?text=Quiero%20ser%20corresponsal%20de%20Estaci%C3%B3n%20Nocaima",
+    "email_templates": {
+      "submission_confirmation": {
+        "subject": "Tu contenido ha sido recibido - Estación Nocaima",
+        "template": "correspondent_submission_confirmation"
+      },
+      "approval_notification": {
+        "subject": "¡Tu contenido ha sido aprobado! - Estación Nocaima",
+        "template": "correspondent_approval"
+      }
+    }
+  },
+  "sound_map": {
+    "section_id": "soundmap",
+    "title": "Mapa Sonoro",
+    "subtitle": "Explora las historias de nuestra vereda",
+    "map_center": {
+      "lat": 5.2521,
+      "lng": -73.9253
+    },
+    "map_zoom": 14,
+    "map_provider": "leaflet",
+    "map_tile_layer": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    "audio_points": [
+      {
+        "id": "point-001",
+        "lat": 5.2521,
+        "lng": -73.9253,
+        "title": "Parque Central",
+        "description": "Histórico punto de encuentro comunitario desde 1985",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/parque-central.mp3",
+        "thumbnail": "/images/soundmap/parque-central.jpg",
+        "duration": "2:34",
+        "category": "cultural",
+        "narrator": "Don Julio García"
+      },
+      {
+        "id": "point-002",
+        "lat": 5.2533,
+        "lng": -73.9241,
+        "title": "Tienda de Don Caliche",
+        "description": "Negocio familiar que atiende a la comunidad desde hace 40 años",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/tienda-caliche.mp3",
+        "thumbnail": "/images/soundmap/tienda.jpg",
+        "duration": "1:58",
+        "category": "commerce",
+        "narrator": "Caliche Moreno"
+      },
+      {
+        "id": "point-003",
+        "lat": 5.2515,
+        "lng": -73.9267,
+        "title": "Casa de la Cultura",
+        "description": "Centro de expresión artística y cultural de Nocaima",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/casa-cultura.mp3",
+        "thumbnail": "/images/soundmap/casa-cultura.jpg",
+        "duration": "3:12",
+        "category": "cultural",
+        "narrator": "Lucía Mendoza"
+      },
+      {
+        "id": "point-004",
+        "lat": 5.2548,
+        "lng": -73.9235,
+        "title": "Finca El Roble",
+        "description": "Producción de café de especialidad con técnicas ancestrales",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/finca-roble.mp3",
+        "thumbnail": "/images/soundmap/finca.jpg",
+        "duration": "2:47",
+        "category": "agricultural",
+        "narrator": "Roberto Campos"
+      },
+      {
+        "id": "point-005",
+        "lat": 5.249,
+        "lng": -73.928,
+        "title": "Escuela Rural Nocaima",
+        "description": "Centro educativo que forma a las nuevas generaciones de la comunidad",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/escuela.mp3",
+        "thumbnail": "/images/soundmap/escuela.jpg",
+        "duration": "3:05",
+        "category": "educational",
+        "narrator": "Directora Martha Gómez"
+      },
+      {
+        "id": "point-006",
+        "lat": 5.2472,
+        "lng": -73.931,
+        "title": "Puente sobre la Quebrada",
+        "description": "Construcción comunitaria de 2015 que conecta dos sectores de la vereda",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/puente.mp3",
+        "thumbnail": "/images/soundmap/puente.jpg",
+        "duration": "2:19",
+        "category": "infrastructure",
+        "narrator": "Testimonio colectivo"
+      },
+      {
+        "id": "point-007",
+        "lat": 5.256,
+        "lng": -73.922,
+        "title": "Taller Artesanal de María",
+        "description": "Creación de artesanías tradicionales en tejido y cerámica",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/taller-maria.mp3",
+        "thumbnail": "/images/soundmap/taller.jpg",
+        "duration": "2:51",
+        "category": "artisan",
+        "narrator": "María Jiménez"
+      },
+      {
+        "id": "point-008",
+        "lat": 5.2502,
+        "lng": -73.9295,
+        "title": "Comedor Comunitario",
+        "description": "Espacio de encuentro y alimentación segura para niños y familias",
+        "audio_url": "https://demo-assets.xlerion.local/soundmap/comedor.mp3",
+        "thumbnail": "/images/soundmap/comedor.jpg",
+        "duration": "2:28",
+        "category": "social",
+        "narrator": "Coordinadora Adriana López"
+      }
+    ]
+  },
+  "support_page": {
+    "section_id": "support",
+    "title": "Apoya la Emisora",
+    "subtitle": "Diferentes formas de contribuir al proyecto",
+    "intro": "Estación Comunitaria Nocaima es un proyecto sin ánimo de lucro impulsado por la comunidad. Tu apoyo nos ayuda a mantener la transmisión, mejorar la infraestructura y crear más contenido de calidad.",
+    "donation_options": [
+      {
+        "id": "monthly_member",
+        "type": "subscription",
+        "title": "Membresía Mensual",
+        "description": "Apoyo continuo que impulsa nuestro crecimiento",
+        "amount": 30000,
+        "currency": "COP",
+        "benefits": [
+          "Acceso prioritario a contenido exclusivo",
+          "Mención mensual en la emisora",
+          "Reportes transparentes de uso de fondos",
+          "Insignia de Miembro Comunitario"
+        ],
+        "frequency": "monthly",
+        "stripe_plan_id": "nocaima-monthly-member"
+      },
+      {
+        "id": "one_time_small",
+        "type": "donation",
+        "title": "Donación - Pequeña",
+        "description": "Contribución puntual",
+        "amount": 10000,
+        "currency": "COP",
+        "benefits": ["Agradecimiento público (opcional)", "Contribución visible en nuestro sitio"]
+      },
+      {
+        "id": "one_time_medium",
+        "type": "donation",
+        "title": "Donación - Mediana",
+        "description": "Apoyo significativo",
+        "amount": 50000,
+        "currency": "COP",
+        "benefits": [
+          "Agradecimiento especial en emisión en vivo",
+          "Mención en boletín comunitario",
+          "Certificado de contribuyente"
+        ]
+      },
+      {
+        "id": "one_time_large",
+        "type": "donation",
+        "title": "Donación - Significativa",
+        "description": "Apoyo transformador",
+        "amount": 200000,
+        "currency": "COP",
+        "benefits": [
+          "Programa especial dedicado a tu nombre o negocio",
+          "Certificado de Benefactor Comunitario",
+          "Reconocimiento permanente en nuestro sitio",
+          "Sesión de planeación estratégica con equipo"
+        ]
+      },
+      {
+        "id": "local_sponsorship",
+        "type": "sponsorship",
+        "title": "Patrocinio Local",
+        "description": "Negocios y emprendimientos locales",
+        "amount": 500000,
+        "currency": "COP",
+        "benefits": [
+          "Identificación en todos los programas",
+          "Menciones en redes sociales",
+          "Stand en eventos comunitarios",
+          "Acceso a datos de audiencia",
+          "Colaboración en contenido editorial"
+        ],
+        "frequency": "monthly",
+        "includes_advertising": true
+      }
+    ],
+    "payment_methods": ["credit_card", "bank_transfer", "mobile_money", "cryptocurrency"],
+    "transparency": {
+      "title": "Transparencia de Fondos",
+      "content": "Cada trimestre publicamos reportes detallados sobre cómo se utilizan los fondos recaudados.",
+      "budget_categories": [
+        {
+          "category": "Infraestructura de Transmisión",
+          "percentage": 35
+        },
+        {
+          "category": "Producción de Contenido",
+          "percentage": 30
+        },
+        {
+          "category": "Equipo y Software",
+          "percentage": 20
+        },
+        {
+          "category": "Desarrollo Web y Plataforma",
+          "percentage": 15
+        }
+      ]
+    }
+  },
+  "educational_section": {
+    "section_id": "education",
+    "title": "Educación y Capacitación",
+    "subtitle": "Aprende a crear radio con nosotros",
+    "intro": "Ofrecemos talleres y capacitaciones para fortalecer las habilidades de comunicación y producción radiofónica en nuestra comunidad.",
+    "workshops": [
+      {
+        "id": "workshop-001",
+        "title": "Producción Radiofónica Básica",
+        "description": "Aprende los fundamentos de la radio: edición, locución, producción de efectos sonoros.",
+        "duration_hours": 12,
+        "session_count": 4,
+        "difficulty": "beginner",
+        "schedule": ["Sábados 14:00 - 17:00"],
+        "instructor": "DJ Carlos Mendoza",
+        "max_participants": 20,
+        "price": 50000,
+        "includes": [
+          "Material de capacitación",
+          "Acceso a estudio durante las sesiones",
+          "Certificado de participación"
+        ],
+        "next_session": "2025-02-22",
+        "cta": "Inscribirse"
+      },
+      {
+        "id": "workshop-002",
+        "title": "Edición de Audio Profesional",
+        "description": "Domina software de edición como Audacity y Adobe Audition para producir contenido de calidad profesional.",
+        "duration_hours": 16,
+        "session_count": 4,
+        "difficulty": "intermediate",
+        "schedule": ["Domingos 15:00 - 19:00"],
+        "instructor": "Ingeniero Sonoro Juan Ramírez",
+        "max_participants": 15,
+        "price": 80000,
+        "includes": [
+          "Licencias de prueba de software",
+          "Acceso a laboratorio de audio",
+          "Proyecto final",
+          "Certificado profesional"
+        ],
+        "next_session": "2025-03-01",
+        "cta": "Inscribirse"
+      },
+      {
+        "id": "workshop-003",
+        "title": "Periodismo de Audio",
+        "description": "Técnicas de investigación, entrevista y narrativa sonora para reportajes de calidad.",
+        "duration_hours": 20,
+        "session_count": 5,
+        "difficulty": "intermediate",
+        "schedule": ["Martes y Jueves 18:00 - 20:00"],
+        "instructor": "Periodista Marta Gutiérrez",
+        "max_participants": 18,
+        "price": 120000,
+        "includes": [
+          "Material de referencia",
+          "Proyecto de reportaje real",
+          "Publicación en emisora",
+          "Certificado"
+        ],
+        "next_session": "2025-03-04",
+        "cta": "Inscribirse"
+      }
+    ],
+    "newsletter_cta": {
+      "title": "Mantente Actualizado",
+      "description": "Recibe información sobre nuevos talleres y programas educativos",
+      "placeholder": "Tu email"
+    }
+  },
+  "footer": {
+    "section_id": "footer",
+    "company_info": {
+      "name": "Estación Comunitaria Nocaima",
+      "tagline": "La voz de nuestra comunidad",
+      "contact_email": "contacto@estacionnocaima.local",
+      "contact_whatsapp": "+57 3001234567",
+      "contact_phone": "+57 1 8765432"
+    },
+    "social_links": [
+      {
+        "platform": "facebook",
+        "url": "https://facebook.com/estacionnocaima",
+        "icon": "facebook"
+      },
+      {
+        "platform": "instagram",
+        "url": "https://instagram.com/estacionnocaima",
+        "icon": "instagram"
+      },
+      {
+        "platform": "whatsapp",
+        "url": "https://wa.me/573001234567",
+        "icon": "whatsapp"
+      },
+      {
+        "platform": "youtube",
+        "url": "https://youtube.com/estacionnocaima",
+        "icon": "youtube"
+      }
+    ],
+    "links": [
+      {
+        "group": "Navegación",
+        "items": [
+          { "label": "Inicio", "url": "#hero" },
+          { "label": "En Vivo", "url": "#live-player" },
+          { "label": "Episodios", "url": "#episodes" },
+          { "label": "Eventos", "url": "#calendar" }
+        ]
+      },
+      {
+        "group": "Comunidad",
+        "items": [
+          { "label": "Corresponsales", "url": "#correspondents" },
+          { "label": "Mapa Sonoro", "url": "#soundmap" },
+          { "label": "Capacitación", "url": "#education" },
+          { "label": "Apoya la Emisora", "url": "#support" }
+        ]
+      },
+      {
+        "group": "Legal",
+        "items": [
+          { "label": "Aviso de Privacidad", "url": "/privacy" },
+          { "label": "Términos de Uso", "url": "/terms" },
+          { "label": "Política de Cookies", "url": "/cookies" }
+        ]
+      }
+    ],
+    "metrics": {
+      "total_downloads": 12450,
+      "active_listeners": 127,
+      "episodes_published": 156,
+      "years_on_air": 3
+    }
+  }
+}

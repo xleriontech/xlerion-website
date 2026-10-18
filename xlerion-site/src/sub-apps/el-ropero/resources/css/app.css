@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+* {
+    @apply box-border;
+}
+
+html {
+    @apply scroll-smooth;
+}
+
+body {
+    @apply bg-dark text-white font-sans antialiased;
+}
+
+/* Utility classes */
+.container-app {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.btn-primary {
+    @apply px-6 py-2 rounded-lg bg-primary text-dark font-semibold transition-all duration-200 hover:bg-opacity-90 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+    @apply px-6 py-2 rounded-lg border border-primary text-primary font-semibold transition-all duration-200 hover:bg-primary hover:text-dark disabled:opacity-50;
+}
+
+.btn-sm {
+    @apply px-3 py-1 text-sm;
+}
+
+.input-field {
+    @apply w-full px-4 py-2 rounded-lg bg-secondary text-white placeholder-gray-400 border border-gray-600 focus:border-primary focus:outline-none transition-colors;
+}
+
+.card-auction {
+    @apply bg-secondary rounded-lg overflow-hidden hover:shadow-lg transition-all duration-200;
+}
+
+.badge {
+    @apply inline-block px-3 py-1 rounded-full text-xs font-semibold;
+}
+
+.badge-active {
+    @apply bg-green-900 text-green-100;
+}
+
+.badge-closed {
+    @apply bg-gray-700 text-gray-100;
+}
+
+.badge-expired {
+    @apply bg-red-900 text-red-100;
+}
+
+.skeleton {
+    @apply bg-gray-700 animate-pulse rounded;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+}

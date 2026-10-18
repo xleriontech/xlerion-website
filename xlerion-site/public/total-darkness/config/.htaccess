@@ -1,0 +1,6 @@
+# Proteger configuración sensible - No permitir acceso directo
+
+<FilesMatch "\.php$">
+    Order deny,allow
+    Deny from all
+</FilesMatch>

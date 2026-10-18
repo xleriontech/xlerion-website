@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Ropero Mag&co - Frontend MVP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #333436;
+            border-bottom: 1px solid rgba(0, 233, 250, 0.2);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 24px;
+            color: #00e9fa;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .logo-sub {
+            font-size: 14px;
+            color: #9CA3AF;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #D1D5DB;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #00e9fa;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-login {
+            color: #D1D5DB;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-login:hover {
+            color: #00e9fa;
+        }
+
+        .btn-primary {
+            background-color: #00e9fa;
+            color: #000000;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #33edfb;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(to bottom, #000000, #333436);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .hero .highlight {
+            color: #00e9fa;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #D1D5DB;
+            margin-bottom: 32px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-solid {
+            background-color: #00e9fa;
+            color: #000000;
+            border: none;
+            box-shadow: 0 0 20px rgba(0, 233, 250, 0.5);
+        }
+
+        .btn-solid:hover {
+            background-color: #33edfb;
+        }
+
+        .btn-outline {
+            background: none;
+            color: #00e9fa;
+            border: 2px solid #00e9fa;
+        }
+
+        .btn-outline:hover {
+            background-color: #00e9fa;
+            color: #000000;
+        }
+
+        /* Auctions Section */
+        .auctions {
+            padding: 64px 0;
+            background-color: #000000;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .section-header h2 {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .view-all {
+            color: #00e9fa;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .view-all:hover {
+            color: #33edfb;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background-color: #333436;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 30px rgba(0, 233, 250, 0.3);
+        }
+
+        .card-image {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #4B5563, #1F2937);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #10B981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #9CA3AF;
+            margin-bottom: 12px;
+        }
+
+        .card-divider {
+            border-top: 1px solid #4B5563;
+            padding-top: 12px;
+        }
+
+        .card-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .price-label {
+            font-size: 14px;
+            color: #9CA3AF;
+        }
+
+        .price-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00e9fa;
+        }
+
+        .card-time {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .time-value {
+            font-weight: 600;
+        }
+
+        .btn-card {
+            width: 100%;
+            padding: 10px;
+            background-color: #00e9fa;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-card:hover {
+            background-color: #33edfb;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 64px 0;
+            background-color: #333436;
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 48px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #00e9fa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 40px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            color: #9CA3AF;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000000;
+            border-top: 1px solid #374151;
+            padding: 48px 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h4 {
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .footer-section p {
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #9CA3AF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #00e9fa;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 32px;
+            text-align: center;
+            color: #9CA3AF;
+            font-size: 14px;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            background-color: #333436;
+            border: 2px solid #00e9fa;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .status-title {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-bottom: 4px;
+        }
+
+        .status-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .status-text {
+            font-weight: 600;
+        }
+
+        .status-info {
+            font-size: 12px;
+            color: #9CA3AF;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">👗</span>
+                    <span class="logo-text">El Ropero</span>
+                    <span class="logo-sub">Mag&co</span>
+                </div>
+
+                <nav>
+                    <a href="#auctions">Subastas</a>
+                    <a href="#categories">Categorías</a>
+                    <a href="#how">Cómo Funciona</a>
+                </nav>
+
+                <div class="auth-buttons">
+                    <button class="btn-login">Iniciar Sesión</button>
+                    <button class="btn-primary">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                Descubre Moda Única en<br>
+                <span class="highlight">Subasta</span>
+            </h1>
+            <p>
+                Compra y vende prendas de alta calidad en un mercado dinámico.
+                Pujas en tiempo real, autenticidad garantizada.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-large btn-solid">Ver Subastas Activas</button>
+                <button class="btn-large btn-outline">Vender Prenda</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Auctions -->
+    <section class="auctions" id="auctions">
+        <div class="container">
+            <div class="section-header">
+                <h2>Subastas Destacadas</h2>
+                <a href="#" class="view-all">Ver todas →</a>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-image">
+                        <span>👔</span>
+                        <span class="badge">Activa</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Camisa Vintage Gucci</div>
+                        <div class="card-meta">
+                            <span>Excelente</span>
+                            <span>Talla M</span>
+                        </div>
+                        <div class="card-divider">
+                            <div class="card-price">
+                                <span class="price-label">Puja actual:</span>
+                                <span class="price-value">$250,000</span>
+                            </div>
+                            <div class="card-time">
+                                <span class="price-label">⏱️ Termina en:</span>
+                                <span class="time-value">2d 5h 23m</span>
+                            </div>
+                            <button class="btn-card">Ver Detalle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-image">
+                        <span>👗</span>
+                        <span class="badge">Activa</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Vestido Chanel</div>
+                        <div class="card-meta">
+                            <span>Nuevo</span>
+                            <span>Talla S</span>
+                        </div>
+                        <div class="card-divider">
+                            <div class="card-price">
+                                <span class="price-label">Puja actual:</span>
+                                <span class="price-value">$450,000</span>
+                            </div>
+                            <div class="card-time">
+                                <span class="price-label">⏱️ Termina en:</span>
+                                <span class="time-value">1d 12h 45m</span>
+                            </div>
+                            <button class="btn-card">Ver Detalle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-image">
+                        <span>👟</span>
+                        <span class="badge">Activa</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Zapatillas Nike Jordan</div>
+                        <div class="card-meta">
+                            <span>Bueno</span>
+                            <span>Talla 42</span>
+                        </div>
+                        <div class="card-divider">
+                            <div class="card-price">
+                                <span class="price-label">Puja actual:</span>
+                                <span class="price-value">$180,000</span>
+                            </div>
+                            <div class="card-time">
+                                <span class="price-label">⏱️ Termina en:</span>
+                                <span class="time-value">3d 8h 15m</span>
+                            </div>
+                            <button class="btn-card">Ver Detalle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="card">
+                    <div class="card-image">
+                        <span>👜</span>
+                        <span class="badge">Activa</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title">Bolso Louis Vuitton</div>
+                        <div class="card-meta">
+                            <span>Excelente</span>
+                            <span>Original</span>
+                        </div>
+                        <div class="card-divider">
+                            <div class="card-price">
+                                <span class="price-label">Puja actual:</span>
+                                <span class="price-value">$850,000</span>
+                            </div>
+                            <div class="card-time">
+                                <span class="price-label">⏱️ Termina en:</span>
+                                <span class="time-value">5d 3h 30m</span>
+                            </div>
+                            <button class="btn-card">Ver Detalle</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how">
+        <div class="container">
+            <h2>¿Cómo Funciona?</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon">🔍</div>
+                    <h3>1. Busca</h3>
+                    <p>Explora nuestra selección de prendas únicas</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">💰</div>
+                    <h3>2. Puja</h3>
+                    <p>Haz tu oferta y compite en tiempo real</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">🏆</div>
+                    <h3>3. Gana</h3>
+                    <p>Sé el mejor postor al cierre</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">📦</div>
+                    <h3>4. Recibe</h3>
+                    <p>Tu prenda llegará a tu puerta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>El Ropero Mag&co</h4>
+                    <p>Plataforma de subastas de moda de segunda mano de alta calidad.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Navegación</h4>
+                    <ul class="footer-links">
+                        <li><a href="#auctions">Subastas</a></li>
+                        <li><a href="#categories">Categorías</a></li>
+                        <li><a href="#">Vender</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Ayuda</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 El Ropero Mag&co. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Status Badge -->
+    <div class="status-badge">
+        <div class="status-title">Estado del Frontend</div>
+        <div class="status-content">
+            <div class="status-dot"></div>
+            <span class="status-text">✅ Completo</span>
+        </div>
+        <div class="status-info">
+            30+ páginas implementadas<br>
+            Listo para backend
+        </div>
+    </div>
+</body>
+
+</html>
