@@ -32,6 +32,12 @@ interface EventData {
 	timestamp: string;
 }
 
+interface VisitorCountData {
+	unique_visitors: number;
+	total_views: number;
+	today_visitors: number;
+}
+
 // Helper to store analytics (replace with your preferred storage: D1, KV, external API, etc.)
 async function storeAnalytics(env: Env, data: AnalyticsData | PingData | EventData, type: 'pageview' | 'ping' | 'event') {
 	// Option 1: Log to console (visible in Cloudflare Workers logs)
@@ -74,26 +80,56 @@ async function storeAnalytics(env: Env, data: AnalyticsData | PingData | EventDa
 	return true;
 }
 
+export async function onRequestGet(context: { request: Request; env: Env }): Promise<Response> {
+	try {
+		const url = new URL(context.request.url);
+		const pathname = url.pathname;
+
+		const isVisitorCount = pathname === '/api/analytics-visitor-count' || pathname.endsWith('/api/analytics-visitor-count');
+
+		if (isVisitorCount) {
+			// Return mock data for now (replace with real analytics storage)
+			// In production, query your D1/KV/external analytics
+			const data: VisitorCountData = {
+				unique_visitors: 1247,
+				total_views: 3891,
+				today_visitors: 23,
+			};
+			return Response.json({ success: true, data });
+		}
+
+		return Response.json({ error: 'Not found' }, { status: 404 });
+	} catch (error) {
+		console.error('Analytics GET error:', error);
+		return Response.json({ success: false, error: 'Internal error' }, { status: 500 });
+	}
+}
+
 export async function onRequestPost(context: { request: Request; env: Env }): Promise<Response> {
 	try {
 		const url = new URL(context.request.url);
 		const pathname = url.pathname;
 
-		if (pathname.endsWith('/analytics')) {
+		// Handle both /api/analytics* and /analytics* paths
+		const isAnalytics = pathname === '/api/analytics' || pathname.endsWith('/api/analytics');
+		const isPing = pathname === '/api/analytics-ping' || pathname.endsWith('/api/analytics-ping');
+		const isEvent = pathname === '/api/analytics-event' || pathname.endsWith('/api/analytics-event');
+
+		if (isAnalytics) {
 			// Page view tracking
 			const data: AnalyticsData = await context.request.json();
 			await storeAnalytics(context.env, data, 'pageview');
 			return Response.json({ success: true });
 		}
 
-		if (pathname.endsWith('/analytics-ping')) {
+		if (isPing) {
 			// Periodic ping
 			const data: PingData = await context.request.json();
 			await storeAnalytics(context.env, data, 'ping');
 			return Response.json({ success: true });
 		}
 
-		if (pathname.endsWith('/analytics-event')) {
+		if (isEvent) {
 			// Custom event tracking
 			const data: EventData = await context.request.json();
 			await storeAnalytics(context.env, data, 'event');
