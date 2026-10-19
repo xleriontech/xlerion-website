@@ -58,7 +58,7 @@ const COPY = {
     commitmentDesc:
       'Cada solicitud es analizada directamente por nuestro equipo de arquitectura. Recibirá una respuesta técnica estructurada en menos de 24 horas hábiles.',
     channelLabel: 'Canal corporativo',
-    channelValue: 'contacto@xlerion.com',
+    channelValue: 'xlerionultimate@gmail.com',
     hqLabel: 'Sede principal',
     hqValue: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     slaLabel: 'SLA de respuesta',
@@ -105,7 +105,7 @@ const COPY = {
     commitmentTitle: 'Technical response commitment',
     commitmentDesc: 'Every request is reviewed directly by our architecture team. You will receive a structured technical response in under 24 business hours.',
     channelLabel: 'Corporate channel',
-    channelValue: 'contacto@xlerion.com',
+    channelValue: 'xlerionultimate@gmail.com',
     hqLabel: 'Headquarters',
     hqValue: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     slaLabel: 'Response SLA',
@@ -192,15 +192,28 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting || !formData.consent) return;
     setIsSubmitting(true);
-    timerRef.current = setTimeout(() => {
-      setTicketId(`POC-XLERION-${Math.floor(1000 + Math.random() * 9000)}`);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setTicketId(data.ticketId);
+        setIsSuccess(true);
+      } else {
+        alert(data.error || 'Error al enviar la solicitud');
+      }
+    } catch {
+      alert('Error de conexión. Intente nuevamente.');
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 900);
+    }
   };
 
   const handleNewQuery = () => {

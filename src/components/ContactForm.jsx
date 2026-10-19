@@ -33,10 +33,7 @@ const ContactForm = () => {
     setLoading(true);
     setStatusMessage('');
 
-    const isDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    const apiUrl = isDevelopment
-      ? 'http://localhost:3001/api/send-email'
-      : '/api/send-email.php';
+    const apiUrl = '/api/contact';
 
     try {
       const response = await fetch(apiUrl, {

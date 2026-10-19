@@ -35,7 +35,7 @@ export default function PrivacyPage() {
                 'Oposición: Negarse al tratamiento por causa legítima.',
             ],
             contact_title: 'Contacto DPO',
-            contact_desc: 'Para ejercer sus derechos o consultas sobre privacidad: contacto@xlerion.com | +57 313 226 3265 | Bogotá / Nocaima, Cundinamarca, Colombia',
+            contact_desc: 'Para ejercer sus derechos o consultas sobre privacidad: xlerionultimate@gmail.com | +57 313 226 3265 | Bogotá / Nocaima, Cundinamarca, Colombia',
         },
         en: {
             banner_subtitle: 'Data Processing Policy',
@@ -63,7 +63,7 @@ export default function PrivacyPage() {
                 'Objection: Object to processing on legitimate grounds.',
             ],
             contact_title: 'DPO Contact',
-            contact_desc: 'To exercise your rights or for privacy inquiries: contacto@xlerion.com | +57 313 226 3265 | Bogotá / Nocaima, Cundinamarca, Colombia',
+            contact_desc: 'To exercise your rights or for privacy inquiries: xlerionultimate@gmail.com | +57 313 226 3265 | Bogotá / Nocaima, Cundinamarca, Colombia',
         },
     };
 
