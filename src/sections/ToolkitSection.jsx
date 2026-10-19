@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, BarChart2, Zap, Code2, FileText, Cpu, ChevronRight } from 'lucide-react';
+import { Shield, BarChart2, Zap, Code2, FileText, Cpu, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionHeader } from '../components/ui';
 
