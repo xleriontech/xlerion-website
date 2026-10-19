@@ -12,6 +12,7 @@ import ProjectsHubPage from './pages/ProjectsHubPage.jsx'
 import IdentityHubPage from './pages/IdentityHubPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import FounderPage from './pages/FounderPage.jsx'
+import PanelaIAPage from './pages/PanelaIA'
 
 function Root() {
   // In development (localhost) skip the intro so the nav is accessible immediately.
@@ -35,6 +36,7 @@ function Root() {
           <Route path="/proyectos" element={<ProjectsHubPage />} />
           <Route path="/identidad" element={<IdentityHubPage />} />
           <Route path="/fundador" element={<FounderPage />} />
+          <Route path="/panelaia" element={<PanelaIAPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
