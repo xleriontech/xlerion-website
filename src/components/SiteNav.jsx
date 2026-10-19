@@ -89,43 +89,30 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
           {/* Desktop Navigation */}
           {variant === 'full' && (
             <div className="hidden lg:flex items-center gap-0.5 text-[11px] font-work uppercase tracking-[0.15em] font-medium">
-              {/* Anclas del Home */}
-              <button data-transition="nav" onClick={() => navTo('soluciones')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Servicios
-              </button>
-
-              <button data-transition="nav" onClick={() => navTo('casos')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Casos de Éxito
+              {/* Home anchors */}
+              <button data-transition="nav" onClick={() => navTo('home')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
+                {t('nav_home')}
               </button>
 
               <button data-transition="nav" onClick={() => navTo('metricas')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Métricas &amp; ROI
+                {t('nav_metrics')}
+              </button>
+
+              <button data-transition="nav" onClick={() => navTo('proyectos')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
+                {t('nav_projects')}
+              </button>
+
+              <button data-transition="nav" onClick={() => navTo('toolkit')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
+                {t('nav_toolkit')}
               </button>
 
               <button data-transition="nav" onClick={() => navTo('arquitectura')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Arquitectura
+                {t('nav_architecture')}
               </button>
 
               <button data-transition="nav" onClick={() => navTo('liderazgo')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Liderazgo
+                {t('nav_leadership')}
               </button>
-
-              {/* Sub-páginas */}
-              <Link data-transition="nav" to="/toolkit" className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Toolkit
-              </Link>
-
-              <Link data-transition="nav" to="/proyectos" className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Proyectos
-              </Link>
-
-              <Link data-transition="nav" to="/identidad" className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                Identidad
-              </Link>
-
-              <Link data-transition="nav" to="/game" className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                JUGAR
-              </Link>
 
               {/* Language Toggle */}
               <div className="flex items-center gap-0.5 border-l border-white/10 pl-3 ml-2">
@@ -185,71 +172,46 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
             <div className="flex flex-col gap-6 text-center w-full max-w-sm">
               <button
                 data-transition="nav"
-                onClick={() => navTo('soluciones')}
+                onClick={() => navTo('home')}
                 className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
               >
-                Servicios
-              </button>
-              <button
-                data-transition="nav"
-                onClick={() => navTo('casos')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                Casos de Éxito
+                {t('nav_home')}
               </button>
               <button
                 data-transition="nav"
                 onClick={() => navTo('metricas')}
                 className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
               >
-                Métricas &amp; ROI
+                {t('nav_metrics')}
+              </button>
+              <button
+                data-transition="nav"
+                onClick={() => navTo('proyectos')}
+                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
+              >
+                {t('nav_projects')}
+              </button>
+              <button
+                data-transition="nav"
+                onClick={() => navTo('toolkit')}
+                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
+              >
+                {t('nav_toolkit')}
               </button>
               <button
                 data-transition="nav"
                 onClick={() => navTo('arquitectura')}
                 className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
               >
-                Arquitectura
+                {t('nav_architecture')}
               </button>
               <button
                 data-transition="nav"
                 onClick={() => navTo('liderazgo')}
                 className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
               >
-                Liderazgo
+                {t('nav_leadership')}
               </button>
-              <Link
-                data-transition="nav"
-                to="/toolkit"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                Toolkit
-              </Link>
-              <Link
-                data-transition="nav"
-                to="/proyectos"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                Proyectos
-              </Link>
-              <Link
-                data-transition="nav"
-                to="/identidad"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                Identidad
-              </Link>
-              <Link
-                data-transition="nav"
-                to="/game"
-                onClick={() => setMobileMenuOpen(false)}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                JUGAR
-              </Link>
 
               <div className="mobile-menu-item border-t border-white/[0.08] pt-6 mt-2">
                 <button

@@ -21,7 +21,7 @@ import { SectionHeader } from '../components/ui';
 const SECTORS = [
   { value: 'manufactura', es: 'Manufactura', en: 'Manufacturing' },
   { value: 'mineria', es: 'Minería', en: 'Mining' },
-  { value: 'smart-cities', es: 'Smart Cities & Gobierno', en: 'Smart Cities & Government' },
+  { value: 'smart-cities', es: 'Smart Cities', en: 'Smart Cities' },
   { value: 'energia', es: 'Energía', en: 'Energy' },
   { value: 'logistica', es: 'Logística', en: 'Logistics' },
   { value: 'otro', es: 'Otro', en: 'Other' },
@@ -60,18 +60,15 @@ const COPY = {
     channelLabel: 'Canal corporativo',
     channelValue: 'contacto@xlerion.com',
     hqLabel: 'Sede principal',
-    hqValue: 'Bogotá D.C., Colombia',
+    hqValue: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     slaLabel: 'SLA de respuesta',
     slaValue: '< 24 horas hábiles',
     ndaLabel: 'NDA opcional',
-    ndaValue:
-      'Firmamos Acuerdo de Confidencialidad mutuo antes de compartir planos, redes o telemetría de planta.',
+    ndaValue: 'Firmamos Acuerdo de Confidencialidad mutuo antes de compartir planos, redes o telemetría de planta.',
     briefTitle: 'Ficha Técnica Ejecutiva',
     briefDesc: 'Documento de arquitectura B2B v4.2',
     briefCta: 'Descargar ficha técnica ejecutiva (PDF)',
-    legalNotice:
-      'Protección de datos conforme a la Ley 1581 de 2012 (Habeas Data). Sus especificaciones técnicas nunca son compartidas con terceros.',
-    legalLink: 'Política de tratamiento de datos',
+    legalNotice: 'Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion',
     formTitle: 'Formulario de evaluación de proyecto',
     formSubtitle: 'Campos requeridos para preparar la sesión técnica',
     name: 'Nombre',
@@ -85,17 +82,15 @@ const COPY = {
     companyPh: 'Ej. Minera Andina S.A.',
     emailPh: 'nombre@empresa.com',
     rolePh: 'Ej. CTO / Gerente de Planta / Director TI',
-    challengePh:
-      'Ej. Reportes entre plantas con alta latencia o dificultad para consultar 40.000 manuales técnicos sin alucinaciones...',
+    challengePh: 'Ej. Reportes entre plantas con alta latencia o dificultad para consultar 40.000 manuales técnicos sin alucinaciones...',
     consent: 'Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012.',
-    submit: 'Agendar Prueba de Concepto (PoC)',
+    submit: 'Solicitar Prueba de Concepto (PoC)',
     submitting: 'Procesando solicitud técnica...',
     customerFallback: 'equipo',
     successTicket: 'Ticket generado',
     successTitle: 'Solicitud de PoC registrada exitosamente',
     successThanks: 'Gracias,',
-    successArchitect:
-      'Hemos asignado su desafío técnico al equipo de arquitectura de Xlerion y le contactaremos en menos de 24 horas hábiles.',
+    successArchitect: 'Hemos asignado su desafío técnico al equipo de arquitectura de Xlerion y le contactaremos en menos de 24 horas hábiles.',
     summaryTitle: 'Resumen del requerimiento',
     sumSector: 'Sector',
     sumLine: 'Línea',
@@ -108,23 +103,19 @@ const COPY = {
     subtitle: 'Contact & Proof of Concept',
     title: 'Start Your Technical Proof of Concept',
     commitmentTitle: 'Technical response commitment',
-    commitmentDesc:
-      'Every request is reviewed directly by our architecture team. You will receive a structured technical response in under 24 business hours.',
+    commitmentDesc: 'Every request is reviewed directly by our architecture team. You will receive a structured technical response in under 24 business hours.',
     channelLabel: 'Corporate channel',
     channelValue: 'contacto@xlerion.com',
     hqLabel: 'Headquarters',
-    hqValue: 'Bogotá D.C., Colombia',
+    hqValue: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     slaLabel: 'Response SLA',
     slaValue: '< 24 business hours',
     ndaLabel: 'Optional NDA',
-    ndaValue:
-      'We sign a mutual Confidentiality Agreement before sharing blueprints, network diagrams or plant telemetry.',
+    ndaValue: 'We sign a mutual Confidentiality Agreement before sharing blueprints, network diagrams or plant telemetry.',
     briefTitle: 'Executive Technical Brief',
     briefDesc: 'B2B architecture document v4.2',
     briefCta: 'Download executive technical brief (PDF)',
-    legalNotice:
-      'Data protection under Colombian Law 1581 of 2012 (Habeas Data). Your technical specifications are never shared with third parties.',
-    legalLink: 'Personal data processing policy',
+    legalNotice: 'Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion',
     formTitle: 'Project evaluation form',
     formSubtitle: 'Required fields to prepare the technical session',
     name: 'Name',
@@ -138,17 +129,15 @@ const COPY = {
     companyPh: 'E.g. Andean Mining Corp.',
     emailPh: 'name@company.com',
     rolePh: 'E.g. CTO / Plant Manager / IT Director',
-    challengePh:
-      'E.g. High-latency reports across plants, or querying 40,000 technical manuals without hallucinations...',
+    challengePh: 'E.g. High-latency reports across plants, or querying 40,000 technical manuals without hallucinations...',
     consent: 'I authorize the processing of my personal data under Colombian Law 1581 of 2012.',
-    submit: 'Schedule Proof of Concept (PoC)',
+    submit: 'Request Proof of Concept (PoC)',
     submitting: 'Processing technical request...',
     customerFallback: 'team',
     successTicket: 'Ticket generated',
     successTitle: 'PoC request successfully registered',
     successThanks: 'Thank you,',
-    successArchitect:
-      'We have assigned your technical challenge to the Xlerion architecture team and will contact you within 24 business hours.',
+    successArchitect: 'We have assigned your technical challenge to the Xlerion architecture team and will contact you within 24 business hours.',
     summaryTitle: 'Request summary',
     sumSector: 'Industry',
     sumLine: 'Area',
@@ -180,9 +169,6 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
   const { lang } = useLanguage();
   const c = COPY[lang] || COPY.es;
 
-  // Los parámetros calculados en el ROI se aplican como estado INICIAL. El Home
-  // remonta esta sección (mediante `key`) cada vez que se aplican, así que no
-  // hace falta sincronizar props con efectos.
   const [formData, setFormData] = useState(() => {
     const initial = { ...INITIAL_FORM };
     if (prefill) {
@@ -257,7 +243,7 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
                     key={label}
                     className={`flex items-start gap-3 pt-3 ${index === 0 ? '' : 'border-t border-white/[0.08]'}`}
                   >
-                    <div className="w-8 h-8 rounded-md bg-[#050508] border border-white/[0.08] flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-md bg-[#0b1018] border border-[#00e9fa]/30 flex items-center justify-center shrink-0">
                       <Icon size={16} className={accent} />
                     </div>
                     <div>
@@ -275,9 +261,9 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
                   </div>
                   <div>
                     <span className="block text-[10px] font-mono uppercase tracking-[0.2em] text-gray-500">
-                      {c.ndaLabel}
+                      NDA opcional
                     </span>
-                    <span className="text-gray-400 text-sm leading-relaxed">{c.ndaValue}</span>
+                    <span className="text-gray-400 text-sm leading-relaxed">Firmamos Acuerdo de Confidencialidad mutuo antes de compartir planos, redes o telemetría de planta.</span>
                   </div>
                 </div>
               </div>
@@ -288,19 +274,15 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
               <div className="flex items-start gap-3">
                 <FileText size={20} className="text-[#00e9fa] shrink-0 mt-0.5" />
                 <div>
-                  <h3 className="text-white text-sm font-semibold">{c.briefTitle}</h3>
-                  <p className="text-[11px] font-mono uppercase tracking-[0.15em] text-gray-500 mt-1">
-                    {c.briefDesc}
+                  <h3 className="text-white text-sm font-semibold">Ficha Técnica Ejecutiva</h3>
+                  <p className="mt-1 text-[11px] font-mono uppercase tracking-[0.15em] text-gray-500">
+                    Documento de arquitectura B2B v4.2
                   </p>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={onOpenExecutiveBrief}
-                className="xl-btn-secondary shrink-0 text-xs gap-2"
-              >
-                <Download size={15} />
-                {c.briefCta}
+              <button type="button" onClick={onOpenExecutiveBrief} className="xl-btn-secondary shrink-0 text-xs gap-2">
+                <Download size={16} />
+                Descargar ficha técnica ejecutiva (PDF)
               </button>
             </div>
 
@@ -308,15 +290,7 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
             <div className="bg-[#050508] border border-white/[0.08] rounded-lg p-4 flex items-start gap-3">
               <ShieldCheck size={16} className="text-[#00e9fa] shrink-0 mt-0.5" />
               <span className="text-[11px] font-mono text-gray-400 leading-relaxed">
-                {c.legalNotice}{' '}
-                <button
-                  type="button"
-                  onClick={onOpenPrivacy}
-                  className="text-[#00e9fa] underline hover:text-[#33edfb] transition-colors"
-                >
-                  {c.legalLink}
-                </button>
-                .
+                Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion
               </span>
             </div>
           </div>
@@ -324,229 +298,160 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
           {/* Right column: evaluation form */}
           <div data-reveal className="stagger-2">
             <div className="relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 backdrop-blur-sm glow-on-hover">
-              {isSuccess ? (
-                <div className="py-4 text-center">
-                  <div className="w-16 h-16 rounded-full bg-[#00e9fa]/10 border border-[#00e9fa]/40 flex items-center justify-center mx-auto mb-5">
-                    <CheckCircle2 size={30} className="text-[#00e9fa]" />
-                  </div>
-
-                  <span className="inline-block font-mono text-[11px] uppercase tracking-[0.2em] text-[#00e9fa] bg-[#00e9fa]/[0.06] border border-[#00e9fa]/30 rounded px-3 py-1">
-                    {c.successTicket}: {ticketId}
-                  </span>
-
-                  <h3 className="text-white text-xl font-semibold mt-4">{c.successTitle}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed max-w-md mx-auto mt-2">
-                    {c.successThanks}{' '}
-                    <span className="text-white font-semibold">
-                      {formData.name || c.customerFallback}
-                    </span>
-                    {formData.company ? ` (${formData.company})` : ''} {c.successArchitect}
-                  </p>
-
-                  <div className="mt-5 bg-[#050508] border border-white/[0.08] rounded-lg p-4 text-left font-mono text-xs space-y-2 max-w-md mx-auto">
-                    <div className="text-[10px] uppercase tracking-[0.2em] text-gray-500">
-                      {c.summaryTitle}
-                    </div>
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-gray-500">{c.sumSector}</span>
-                      <span className="text-white text-right">{labelOf(SECTORS, formData.sector, lang)}</span>
-                    </div>
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-gray-500">{c.sumLine}</span>
-                      <span className="text-[#00e9fa] text-right">{labelOf(INTERESTS, formData.interest, lang)}</span>
-                    </div>
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-gray-500">{c.sumSla}</span>
-                      <span className="text-[#00e9fa] text-right">{c.sumSlaValue}</span>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button
-                      type="button"
-                      onClick={onOpenExecutiveBrief}
-                      className="xl-btn-secondary text-xs gap-2 w-full sm:w-auto"
-                    >
-                      <Download size={15} />
-                      {c.successBrief}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={handleNewQuery}
-                      className="xl-btn-primary text-xs gap-2 w-full sm:w-auto"
-                    >
-                      {c.successNew}
-                      <ArrowRight size={15} />
-                    </button>
-                  </div>
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="border-b border-white/[0.08] pb-4">
+                  <h3 className="text-white text-lg font-semibold">Formulario de evaluación de proyecto</h3>
+                  <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500 mt-1">Campos requeridos para preparar la sesión técnica</p>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="border-b border-white/[0.08] pb-4">
-                    <h3 className="text-white text-lg font-semibold">{c.formTitle}</h3>
-                    <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500 mt-1">
-                      {c.formSubtitle}
-                    </p>
-                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className={LABEL_CLASS} htmlFor="poc-name">
-                        <User size={12} className="inline text-[#00e9fa] mr-1.5" />
-                        {c.name} <span className="text-[#00e9fa]">*</span>
-                      </label>
-                      <input
-                        id="poc-name"
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={setField('name')}
-                        placeholder={c.namePh}
-                        className={INPUT_CLASS}
-                      />
-                    </div>
-
-                    <div>
-                      <label className={LABEL_CLASS} htmlFor="poc-company">
-                        <Building2 size={12} className="inline text-[#00e9fa] mr-1.5" />
-                        {c.company} <span className="text-[#00e9fa]">*</span>
-                      </label>
-                      <input
-                        id="poc-company"
-                        type="text"
-                        required
-                        value={formData.company}
-                        onChange={setField('company')}
-                        placeholder={c.companyPh}
-                        className={INPUT_CLASS}
-                      />
-                    </div>
-
-                    <div>
-                      <label className={LABEL_CLASS} htmlFor="poc-email">
-                        <Mail size={12} className="inline text-[#00e9fa] mr-1.5" />
-                        {c.email} <span className="text-[#00e9fa]">*</span>
-                      </label>
-                      <input
-                        id="poc-email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={setField('email')}
-                        placeholder={c.emailPh}
-                        className={INPUT_CLASS}
-                      />
-                    </div>
-
-                    <div>
-                      <label className={LABEL_CLASS} htmlFor="poc-role">
-                        <Briefcase size={12} className="inline text-[#00e9fa] mr-1.5" />
-                        {c.role}
-                      </label>
-                      <input
-                        id="poc-role"
-                        type="text"
-                        value={formData.role}
-                        onChange={setField('role')}
-                        placeholder={c.rolePh}
-                        className={INPUT_CLASS}
-                      />
-                    </div>
-
-                    <div>
-                      <label className={LABEL_CLASS} htmlFor="poc-sector">
-                        <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
-                        {c.sector}
-                      </label>
-                      <select
-                        id="poc-sector"
-                        value={formData.sector}
-                        onChange={setField('sector')}
-                        className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
-                      >
-                        {SECTORS.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option[lang]}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className={LABEL_CLASS} htmlFor="poc-interest">
-                        <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
-                        {c.interest}
-                      </label>
-                      <select
-                        id="poc-interest"
-                        value={formData.interest}
-                        onChange={setField('interest')}
-                        className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
-                      >
-                        {INTERESTS.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option[lang]}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className={LABEL_CLASS} htmlFor="poc-name">
+                      <User size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      Nombre <span className="text-[#00e9fa]">*</span>
+                    </label>
+                    <input
+                      id="poc-name"
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={setField('name')}
+                      placeholder="Ej. Ing. Carlos Mendoza"
+                      className={INPUT_CLASS}
+                    />
                   </div>
 
                   <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-challenge">
-                      <HelpCircle size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      {c.challenge} <span className="text-[#00e9fa]">*</span>
+                    <label className={LABEL_CLASS} htmlFor="poc-company">
+                      <Building2 size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      Empresa <span className="text-[#00e9fa]">*</span>
                     </label>
-                    <textarea
-                      id="poc-challenge"
-                      required
-                      rows={4}
-                      value={formData.challenge}
-                      onChange={setField('challenge')}
-                      placeholder={c.challengePh}
-                      className={`${INPUT_CLASS} resize-none`}
-                    />
-                  </div>
-
-                  <div className="flex items-start gap-3">
                     <input
-                      id="poc-consent"
-                      type="checkbox"
+                      id="poc-company"
+                      type="text"
                       required
-                      checked={formData.consent}
-                      onChange={setField('consent')}
-                      className="mt-0.5 accent-[#00e9fa]"
+                      value={formData.company}
+                      onChange={setField('company')}
+                      placeholder="Ej. Minera Andina S.A."
+                      className={INPUT_CLASS}
                     />
-                    <p className="text-[11px] font-mono text-gray-400 leading-relaxed">
-                      <label htmlFor="poc-consent" className="cursor-pointer">
-                        {c.consent}
-                      </label>{' '}
-                      <button
-                        type="button"
-                        onClick={onOpenPrivacy}
-                        className="text-[#00e9fa] underline hover:text-[#33edfb] transition-colors"
-                      >
-                        {c.legalLink}
-                      </button>
-                    </p>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="xl-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      c.submitting
-                    ) : (
-                      <>
-                        {c.submit}
-                        <Send size={16} />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
+                  <div>
+                    <label className={LABEL_CLASS} htmlFor="poc-email">
+                      <Mail size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      Correo corporativo <span className="text-[#00e9fa]">*</span>
+                    </label>
+                    <input
+                      id="poc-email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={setField('email')}
+                      placeholder="nombre@empresa.com"
+                      className={INPUT_CLASS}
+                    />
+                  </div>
+
+                  <div>
+                    <label className={LABEL_CLASS} htmlFor="poc-role">
+                      <Briefcase size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      Cargo
+                    </label>
+                    <input
+                      id="poc-role"
+                      type="text"
+                      value={formData.role}
+                      onChange={setField('role')}
+                      placeholder="Ej. CTO / Gerente de Planta / Director TI"
+                      className={INPUT_CLASS}
+                    />
+                  </div>
+
+                  <div>
+                    <label className={LABEL_CLASS} htmlFor="poc-sector">
+                      <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      Sector
+                    </label>
+                    <select
+                      id="poc-sector"
+                      value={formData.sector}
+                      onChange={setField('sector')}
+                      className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
+                    >
+                      {SECTORS.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option[lang]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className={LABEL_CLASS} htmlFor="poc-interest">
+                      <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      Línea de interés
+                    </label>
+                    <select
+                      id="poc-interest"
+                      value={formData.interest}
+                      onChange={setField('interest')}
+                      className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
+                    >
+                      {INTERESTS.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option[lang]}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className={LABEL_CLASS} htmlFor="poc-challenge">
+                    <HelpCircle size={12} className="inline text-[#00e9fa] mr-1.5" />
+                    ¿Cuál es su mayor desafío con los datos? <span className="text-[#00e9fa]">*</span>
+                  </label>
+                  <textarea
+                    id="poc-challenge"
+                    required
+                    rows={4}
+                    value={formData.challenge}
+                    onChange={setField('challenge')}
+                    placeholder="Ej. Reportes entre plantas con alta latencia o dificultad para consultar 40.000 manuales técnicos sin alucinaciones..."
+                    className={`${INPUT_CLASS} resize-none`}
+                  />
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <input
+                    id="poc-consent"
+                    type="checkbox"
+                    required
+                    checked={formData.consent}
+                    onChange={setField('consent')}
+                    className="mt-0.5 accent-[#00e9fa]"
+                  />
+                  <p className="text-[11px] font-mono text-gray-400 leading-relaxed">
+                    <label htmlFor="poc-consent" className="cursor-pointer">
+                      Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012.
+                    </label>
+                  </p>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="xl-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? 'Procesando solicitud técnica...' : (
+                    <>
+                      Solicitar Prueba de Concepto (PoC)
+                      <Send size={16} />
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
           </div>
         </div>

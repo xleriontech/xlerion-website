@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MessageCircle, Mail, MapPin } from 'lucide-react';
+import { MessageCircle, Mail, MapPin, Linkedin, Github, Globe } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import FooterVisitorCounter from './FooterVisitorCounter';
 
@@ -30,35 +30,25 @@ export default function Footer({ navTo }) {
             <h4 className="text-[#00e9fa] font-mono text-xs uppercase tracking-[0.2em] font-semibold">
               {t('footer_contact')}
             </h4>
-            <a
-              href="https://wa.me/573208605600"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-[12px] text-white font-mono uppercase tracking-widest hover:text-[#00e9fa] transition-colors"
-            >
-              <MessageCircle size={16} className="text-[#00e9fa]" /> +57 3208605600
-            </a>
-            <div className="flex flex-col gap-2 text-[10px] text-gray-500 font-mono uppercase tracking-widest">
-              {[
-                'contactus@xlerion.com',
-                'support@xlerion.com',
-                'sales@xlerion.com',
-                'admin@xlerion.com',
-                'branding@xlerion.com',
-                'toolkit@xlerion.com',
-                'neuro@xlerion.com',
-                'mike@xlerion.com',
-                'totaldarkness@xlerion.com'
-              ].map((mail) => (
-                <a
-                  key={mail}
-                  href={`mailto:${mail}`}
-                  className="text-gray-400 no-underline hover:text-[#00e9fa] transition-colors flex items-center gap-2"
-                >
-                  <Mail size={10} className="text-[#00e9fa]/50" />
-                  {mail}
-                </a>
-              ))}
+            <div className="space-y-3 text-sm font-sans">
+              <a
+                href="https://wa.me/573132263265"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 text-white font-mono uppercase tracking-widest hover:text-[#00e9fa] transition-colors"
+              >
+                <MessageCircle size={16} className="text-[#00e9fa]" /> +57 313 226 3265
+              </a>
+              <a
+                href="mailto:contacto@xlerion.com"
+                className="flex items-center gap-3 text-white font-mono uppercase tracking-widest hover:text-[#00e9fa] transition-colors"
+              >
+                <Mail size={16} className="text-[#00e9fa]" /> contacto@xlerion.com
+              </a>
+              <div className="flex items-center gap-3 text-gray-400 font-mono text-[11px] uppercase tracking-widest">
+                <MapPin size={14} className="text-[#00e9fa]/50" />
+                <span>Bogotá / Nocaima, Cundinamarca, Colombia</span>
+              </div>
             </div>
           </div>
 
@@ -68,15 +58,13 @@ export default function Footer({ navTo }) {
               {t('footer_access')}
             </h4>
             <ul className="space-y-3 text-[10px] font-mono text-gray-500 uppercase tracking-widest list-none p-0 m-0">
-              <li><button onClick={() => go('soluciones')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_services')}</button></li>
-              <li><Link to="/toolkit" className="hover:text-[#00e9fa] transition-colors">{t('footer_access_toolkit')}</Link></li>
-              <li><Link to="/proyectos" className="hover:text-[#00e9fa] transition-colors">{t('footer_access_projects')}</Link></li>
-              <li><Link to="/identidad" className="hover:text-[#00e9fa] transition-colors">{t('footer_access_identity')}</Link></li>
-              <li><button onClick={() => go('casos')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('nav_case_studies')}</button></li>
-              <li><Link to="/fundador" className="hover:text-[#00e9fa] transition-colors">{lang === 'en' ? 'Founder' : 'Fundador'}</Link></li>
-              <li><Link to="/documentacion" className="hover:text-[#00e9fa] transition-colors">{t('nav_docs')}</Link></li>
-              <li><Link to="/cotizacion" className="hover:text-[#00e9fa] transition-colors">{t('nav_pricing')}</Link></li>
-              <li><Link to="/legal/privacidad" className="hover:text-[#00e9fa] transition-colors">{t('nav_legal')}</Link></li>
+              <li><button onClick={() => go('home')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_home')}</button></li>
+              <li><button onClick={() => go('metricas')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_metrics')}</button></li>
+              <li><button onClick={() => go('proyectos')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_projects')}</button></li>
+              <li><button onClick={() => go('toolkit')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_toolkit')}</button></li>
+              <li><button onClick={() => go('arquitectura')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_architecture')}</button></li>
+              <li><button onClick={() => go('liderazgo')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_leadership')}</button></li>
+              <li><button onClick={() => go('contacto')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_contact')}</button></li>
             </ul>
           </div>
 
@@ -85,14 +73,34 @@ export default function Footer({ navTo }) {
             <h4 className="text-[#00e9fa] font-mono text-xs uppercase tracking-[0.2em] font-semibold">
               {t('footer_networks')}
             </h4>
-            <div className="grid grid-cols-2 gap-3 text-[10px] font-mono uppercase tracking-widest text-gray-500">
-              <a href="https://www.linkedin.com/company/xlerion" className="hover:text-[#00e9fa] transition-colors">LinkedIn</a>
-              <a href="https://www.instagram.com/ultimatexlerion/" className="hover:text-[#00e9fa] transition-colors">Instagram</a>
-              <a href="https://www.facebook.com/xlerionultimate" className="hover:text-[#00e9fa] transition-colors">Facebook</a>
-              <a href="https://www.behance.net/xlerionultimate" className="hover:text-[#00e9fa] transition-colors">Behance</a>
-              <a href="https://www.indiegogo.com/es/profile/miguel_rodriguez-martinez_edb9?redirect_reason#/overview" className="hover:text-[#00e9fa] transition-colors">Indiegogo</a>
-              <a href="https://www.kickstarter.com/profile/xlerionstudios" className="hover:text-[#00e9fa] transition-colors">Kickstarter</a>
-              <a href="https://www.patreon.com/xlerion" className="hover:text-[#00e9fa] transition-colors">Patreon</a>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="https://linkedin.com/in/miguelrodriguez-dataviz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.08] hover:border-[#00e9fa]/40 hover:bg-[#00e9fa]/5 transition-all duration-300 text-[11px] font-mono uppercase tracking-widest text-gray-400"
+              >
+                <Linkedin size={14} className="text-[#00e9fa]" />
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href="https://github.com/miguelxlerion"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.08] hover:border-[#00e9fa]/40 hover:bg-[#00e9fa]/5 transition-all duration-300 text-[11px] font-mono uppercase tracking-widest text-gray-400"
+              >
+                <Github size={14} className="text-[#00e9fa]" />
+                <span>GitHub</span>
+              </a>
+              <a
+                href="https://miguelxlerion.github.io/Mike_portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.08] hover:border-[#00e9fa]/40 hover:bg-[#00e9fa]/5 transition-all duration-300 text-[11px] font-mono uppercase tracking-widest text-gray-400"
+              >
+                <Globe size={14} className="text-[#00e9fa]" />
+                <span>Portfolio</span>
+              </a>
             </div>
           </div>
         </div>
@@ -100,16 +108,15 @@ export default function Footer({ navTo }) {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/[0.05] flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] font-mono text-gray-600 tracking-[0.3em] uppercase text-center md:text-left">
           <div>
-            {t('footer_rights')}<br />
-            <span className="text-[#00e9fa]/40">{t('footer_claim')}</span>
+            {t('footer_rights')}
           </div>
           <div className="flex gap-8 opacity-40">
             <div className="flex items-center gap-2">
               <MapPin size={10} />
-              <span>LAT: 05°04′00″N</span>
+              <span>LAT: 04°42′N</span>
             </div>
             <div>
-              <span>LONG: 74°23′00″W</span>
+              <span>LONG: 74°04′W</span>
             </div>
           </div>
         </div>

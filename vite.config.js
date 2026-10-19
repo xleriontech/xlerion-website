@@ -23,24 +23,11 @@ export default defineConfig({
       }
     },
     cloudflare(),
-    // Copiar SOLO lo necesario del public/ - excluir sub-proyectos
+    // Copiar assets al root de dist/ preservando estructura de directorios
     viteStaticCopy({
       targets: [
-        { src: 'public/images', dest: '' },
-        { src: 'public/videos', dest: '' },
-        { src: 'public/manifest.json', dest: '' },
-        { src: 'public/service-worker.js', dest: '' },
-        { src: 'public/robots.txt', dest: '' },
-        { src: 'public/favicon.ico', dest: '' },
-        { src: 'public/favicon.png', dest: '' },
-        { src: 'public/LogoX.png', dest: '' },
-        { src: 'public/LogoX.svg', dest: '' },
-        { src: 'public/logo-1200x1200.png', dest: '' },
-        { src: 'public/logo-512.png', dest: '' },
-        { src: 'public/humans.txt', dest: '' },
-        { src: 'public/sitemap.xml', dest: '' },
-        { src: 'public/sitemapindex.xml', dest: '' },
-        { src: 'public/.htaccess', dest: '' },
+        { src: 'public/images/*', dest: 'images' },
+        { src: 'public/videos/*', dest: 'videos' },
       ]
     }),
     cloudflare()

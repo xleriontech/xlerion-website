@@ -13,8 +13,8 @@ import useSectionTransition from './hooks/useSectionTransition';
 
 import HeroSection from './sections/HeroSection';
 import MetricsSection from './sections/MetricsSection';
-import SolutionsSection from './sections/SolutionsSection';
 import CaseStudiesDeepSection from './sections/CaseStudiesDeepSection';
+import ToolkitSection from './sections/ToolkitSection';
 import TechStackSecuritySection from './sections/TechStackSecuritySection';
 import FounderLeadershipSection from './sections/FounderLeadershipSection';
 import ContactPoCSection from './sections/ContactPoCSection';
@@ -27,8 +27,8 @@ import ContactPoCSection from './sections/ContactPoCSection';
  * sitio (Inter/Roboto Mono, acento #00e9fa, utilidades .xl-btn-* y data-reveal).
  *
  * Orden del Home:
- *   hero -> metricas (métricas + ROI) -> soluciones -> casos ->
- *   arquitectura (stack + seguridad) -> liderazgo -> contacto (PoC)
+ *   hero -> metricas (métricas + ROI) -> casos ->
+ *   toolkit -> arquitectura (stack + seguridad) -> liderazgo -> contacto (PoC)
  */
 
 /**
@@ -110,8 +110,8 @@ export default function App() {
         <main>
           <HeroSection onOpenPoC={goToContact} />
           <MetricsSection onApplyRoi={handleApplyRoi} onOpenPoC={goToContact} />
-          <SolutionsSection onOpenSolution={setActiveSolution} />
           <CaseStudiesDeepSection onOpenCase={setActiveCase} />
+          <ToolkitSection onOpenPoC={goToContact} />
           <TechStackSecuritySection onOpenPoC={goToContact} />
           <FounderLeadershipSection onOpenPoC={goToContact} />
           <ContactPoCSection
