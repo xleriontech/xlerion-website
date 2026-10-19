@@ -6,9 +6,8 @@ import { SectionHeader } from '../components/ui';
 const COPY = {
   es: {
     subtitle: 'Validación en Terreno & ROI Verificado',
-    title: 'Casos de Éxito de Ingeniería de Alto Impacto',
-    intro:
-      'Arquitecturas de Gemelos Digitales, RAG empresarial y telemetría IoT que reducen paradas no programadas y aceleran las decisiones estratégicas en industria, minería y ciudades inteligentes.',
+    title: 'Proyectos Destacados',
+    intro: 'Tres arquitecturas DeepTech industriales con resultados medidos y auditados en producción.',
     filterLabel: 'Filtrar por industria',
     filters: [
       { id: 'all', label: 'Todos' },
@@ -27,80 +26,67 @@ const COPY = {
         industry: 'manufactura',
         industryLabel: 'Manufactura',
         title: 'SmartFactory 3D — Gemelo Digital Industrial',
-        tagline:
-          'Supervisión termomecánica en tiempo real para planta de manufactura pesada y procesamiento minero.',
+        tagline: 'Monitoreo de telemetría industrial en tiempo real y mantenimiento predictivo.',
         clientCategory: 'Sector Industrial Pesado & Minería',
         image: '/images/deeptech/u2-smartfactory-twin.jpg',
         roiTimeline: 'ROI en 4.2 meses',
-        challenge:
-          'Una planta de manufactura con más de 450 sensores SCADA desarticulados dependía de inspecciones manuales y reportes PDF con 3.5 horas de retraso. Las microdesviaciones térmicas en rodamientos y turbinas generaban paradas no programadas con un costo superior a $45,000 USD por hora.',
-        solution:
-          'Xlerion desarrolló un Gemelo Digital 3D interactivo en Three.js y React conectado a un broker MQTT de baja latencia. El sistema renderiza la planta completa con modelos glTF optimizados y superpone mapas de calor dinámicos con umbrales de advertencia calculados en tiempo real.',
-        impact:
-          'Reducción del 55% en paradas no programadas durante los primeros 6 meses. El tiempo de diagnóstico de fallas bajó de 3.5 horas a 90 segundos y el comité operativo realiza inspecciones remotas desde cualquier navegador corporativo.',
+        challenge: 'Monitoreo de telemetría industrial en tiempo real y mantenimiento predictivo.',
+        solution: 'Plataforma Full-Stack que sostiene >100 mensajes/segundo vía WebSockets manteniendo 60 FPS. Incluye detección de anomalías Z-score (NumPy) y autenticación JWT RBAC.',
+        impact: 'Plataforma Full-Stack que sostiene >100 mensajes/segundo vía WebSockets manteniendo 60 FPS. Incluye detección de anomalías Z-score (NumPy) y autenticación JWT RBAC.',
         metrics: [
-          { value: '-55%', label: 'Paradas no programadas' },
-          { value: '90s', label: 'Tiempo de diagnóstico' },
-          { value: '4.2 meses', label: 'Retorno de inversión' },
+          { value: '>100 msg/s', label: 'Throughput WebSockets' },
           { value: '60 FPS', label: 'Renderizado 3D' },
+          { value: 'Z-score', label: 'Detección anomalías' },
+          { value: 'JWT RBAC', label: 'Autenticación' },
         ],
-        techStack: ['Three.js', 'React', 'FastAPI', 'MQTT', 'WebSockets', 'TimescaleDB'],
+        techStack: ['React 18', 'Three.js', 'FastAPI', 'Python 3.11', 'WebSockets', 'Docker Compose'],
       },
       {
         id: 'enterprise-rag',
         industry: 'mineria',
         industryLabel: 'Minería',
-        title: 'Enterprise RAG Assistant — Inteligencia Operativa',
-        tagline:
-          'Asistente de ingeniería y cumplimiento sobre +85,000 páginas de manuales y normativas críticas.',
+        title: 'Enterprise RAG Assistant',
+        tagline: 'Reducir el tiempo de búsqueda en bases de conocimiento corporativas con estructuras de datos no uniformes (legal, operaciones).',
         clientCategory: 'Compañía Multinacional de Energía y Operaciones',
         image: '/images/deeptech/u1-enterprise-rag.jpg',
         roiTimeline: 'Ahorro de 1.200 h/hombre al mes',
-        challenge:
-          'Los equipos de mantenimiento e ingeniería de campo perdían 8 horas semanales por especialista localizando especificaciones de torque, protocolos de seguridad y normativas distribuidas en repositorios desorganizados y con versiones obsoletas.',
-        solution:
-          'Plataforma RAG enterprise con segmentación semántica de PDFs técnicos, embeddings vectoriales en PostgreSQL (pgvector) y re-ranking contextual. El asistente cita exactamente la sección, página y tabla del documento fuente para cumplir con auditorías de seguridad.',
-        impact:
-          'Disminución del 40% en el tiempo de investigación técnica para mantenimiento preventivo. Cero incidencias por aplicación de normativas obsoletas y adopción del 94% por la cuadrilla de ingenieros senior en las primeras 3 semanas.',
+        challenge: 'Reducir el tiempo de búsqueda en bases de conocimiento corporativas con estructuras de datos no uniformes (legal, operaciones).',
+        solution: 'Procesamiento asincrónico de PDFs, chunking semántico y búsqueda híbrida (vectorial + léxica) con re-ranking para prevenir alucinaciones de IA.',
+        impact: 'Procesamiento asincrónico de PDFs, chunking semántico y búsqueda híbrida (vectorial + léxica) con re-ranking para prevenir alucinaciones de IA.',
         metrics: [
-          { value: '-40%', label: 'Tiempo de análisis' },
-          { value: '99.4%', label: 'Precisión de citas' },
-          { value: '<420ms', label: 'Latencia por consulta' },
-          { value: '+85.000', label: 'Páginas indexadas' },
+          { value: 'Async', label: 'Procesamiento PDFs' },
+          { value: 'Semántico', label: 'Chunking' },
+          { value: 'Híbrida', label: 'Búsqueda vectorial+léxica' },
+          { value: 'Re-ranking', label: 'Anti-alucinaciones' },
         ],
-        techStack: ['Python', 'FastAPI', 'PostgreSQL (pgvector)', 'LangChain', 'Docker', 'OpenAI Enterprise'],
+        techStack: ['Python', 'Django/DRF', 'LangChain', 'PostgreSQL (pgvector)', 'Celery + Redis', 'Docker'],
       },
       {
         id: 'fovis-platform',
         industry: 'smart-cities',
         industryLabel: 'Smart Cities',
-        title: 'Plataforma FOVIS — Inteligencia Territorial en Tiempo Real',
-        tagline:
-          'Ecosistema de datos geoespaciales y decisión para infraestructura pública y ciudades inteligentes.',
+        title: 'IoT Telemetry Resilient Backend',
+        tagline: 'Ingesta de datos de sensores industriales en entornos con conectividad intermitente.',
         clientCategory: 'Entidad de Gobierno & Gestión Territorial',
         image: '/images/deeptech/u2-fovis-telemetry.jpg',
         roiTimeline: 'Operativo en 8 semanas',
-        challenge:
-          'Múltiples dependencias públicas reportaban datos de infraestructura, subsidios y obra en formatos heterogéneos y hojas de cálculo desconectadas. Los comités directivos tardaban hasta 14 días en consolidar métricas para autorizar intervenciones prioritarias.',
-        solution:
-          'Diseño y despliegue de la plataforma centralizada FOVIS con motor de ingesta geoespacial, visualización cartográfica vectorial en WebGL y tableros analíticos en tiempo real, con cumplimiento estricto de la Ley 1581 (Habeas Data).',
-        impact:
-          'Reducción del 60% en el tiempo de toma de decisiones para asignación presupuestal. Consolidación de 12 fuentes de datos heterogéneas en un único panel de control con auditoría continua y trazabilidad forense.',
+        challenge: 'Ingesta de datos de sensores industriales en entornos con conectividad intermitente.',
+        solution: 'Diseño tolerante a fallos con persistencia local (buffering), garantizando 99% de uptime bajo tráfico concurrente simulado.',
+        impact: 'Diseño tolerante a fallos con persistencia local (buffering), garantizando 99% de uptime bajo tráfico concurrente simulado.',
         metrics: [
-          { value: '-60%', label: 'Tiempo de decisión' },
-          { value: '12', label: 'Sistemas integrados' },
-          { value: '99.98%', label: 'Disponibilidad' },
-          { value: '100%', label: 'Trazabilidad de auditoría' },
+          { value: '99%', label: 'Uptime telemetría' },
+          { value: 'Buffering', label: 'Persistencia local' },
+          { value: 'Atómica', label: 'Reconciliación transaccional' },
+          { value: 'Simulado', label: 'Tráfico concurrente' },
         ],
-        techStack: ['React', 'FastAPI', 'PostGIS', 'PostgreSQL', 'WebSockets', 'Docker / K8s'],
+        techStack: ['Python (Asyncio)', 'Node.js', 'WebSockets/MQTT', 'PostgreSQL', 'Linux SysAdmin', 'Docker'],
       },
     ],
   },
   en: {
     subtitle: 'Field Validation & Verified ROI',
-    title: 'High-Impact Engineering Success Stories',
-    intro:
-      'Digital Twin, enterprise RAG and IoT telemetry architectures that reduce unplanned downtime and accelerate strategic decisions across manufacturing, mining and smart cities.',
+    title: 'Featured Projects',
+    intro: 'Three industrial DeepTech architectures with measured and audited results in production.',
     filterLabel: 'Filter by industry',
     filters: [
       { id: 'all', label: 'All' },
@@ -119,72 +105,60 @@ const COPY = {
         industry: 'manufactura',
         industryLabel: 'Manufacturing',
         title: 'SmartFactory 3D — Industrial Digital Twin',
-        tagline:
-          'Real-time thermomechanical supervision for heavy manufacturing and mineral processing plants.',
+        tagline: 'Real-time industrial telemetry monitoring and predictive maintenance.',
         clientCategory: 'Heavy Industrial Sector & Mining',
         image: '/images/deeptech/u2-smartfactory-twin.jpg',
         roiTimeline: 'ROI in 4.2 months',
-        challenge:
-          'A manufacturing plant with 450+ disconnected SCADA sensors relied on manual inspections and PDF reports delayed by 3.5 hours. Thermal micro-deviations in bearings and turbines caused unplanned stoppages costing more than $45,000 USD per hour.',
-        solution:
-          'Xlerion built an interactive 3D Digital Twin in Three.js and React connected to a low-latency MQTT broker. The system renders the full plant with optimized glTF models and overlays dynamic heat maps with real-time warning thresholds.',
-        impact:
-          '55% reduction in unplanned stoppages over the first 6 months. Failure diagnosis time dropped from 3.5 hours to 90 seconds, and the operations committee runs remote inspections from any corporate browser.',
+        challenge: 'Real-time industrial telemetry monitoring and predictive maintenance.',
+        solution: 'Full-Stack platform sustaining >100 messages/second via WebSockets maintaining 60 FPS. Includes Z-score anomaly detection (NumPy) and JWT RBAC authentication.',
+        impact: 'Full-Stack platform sustaining >100 messages/second via WebSockets maintaining 60 FPS. Includes Z-score anomaly detection (NumPy) and JWT RBAC authentication.',
         metrics: [
-          { value: '-55%', label: 'Unplanned downtime' },
-          { value: '90s', label: 'Diagnosis time' },
-          { value: '4.2 months', label: 'Return on investment' },
-          { value: '60 FPS', label: '3D rendering' },
+          { value: '>100 msg/s', label: 'WebSocket Throughput' },
+          { value: '60 FPS', label: '3D Rendering' },
+          { value: 'Z-score', label: 'Anomaly Detection' },
+          { value: 'JWT RBAC', label: 'Authentication' },
         ],
-        techStack: ['Three.js', 'React', 'FastAPI', 'MQTT', 'WebSockets', 'TimescaleDB'],
+        techStack: ['React 18', 'Three.js', 'FastAPI', 'Python 3.11', 'WebSockets', 'Docker Compose'],
       },
       {
         id: 'enterprise-rag',
         industry: 'mineria',
         industryLabel: 'Mining',
-        title: 'Enterprise RAG Assistant — Operational Intelligence',
-        tagline:
-          'Engineering and compliance assistant over 85,000+ pages of critical manuals and regulations.',
+        title: 'Enterprise RAG Assistant',
+        tagline: 'Reduce search time in corporate knowledge bases with non-uniform data structures (legal, operations).',
         clientCategory: 'Multinational Energy & Operations Company',
         image: '/images/deeptech/u1-enterprise-rag.jpg',
-        roiTimeline: 'Saves 1,200 man-hours / month',
-        challenge:
-          'Field maintenance and engineering teams lost 8 hours per week per specialist locating torque specs, safety protocols and regulations scattered across disorganized repositories with outdated versions.',
-        solution:
-          'An enterprise RAG platform with semantic segmentation of technical PDFs, high-fidelity vector embeddings in PostgreSQL (pgvector) and contextual re-ranking. The assistant cites the exact section, page and table of the source document to satisfy safety audits.',
-        impact:
-          '40% reduction in technical research time for preventive maintenance. Zero incidents from applying outdated regulations and 94% adoption by the senior engineering crew within the first 3 weeks.',
+        roiTimeline: 'Saves 1,200 man-hours/month',
+        challenge: 'Reduce search time in corporate knowledge bases with non-uniform data structures (legal, operations).',
+        solution: 'Async PDF processing, semantic chunking, hybrid search (vector + lexical) with re-ranking to prevent AI hallucinations.',
+        impact: 'Async PDF processing, semantic chunking, hybrid search (vector + lexical) with re-ranking to prevent AI hallucinations.',
         metrics: [
-          { value: '-40%', label: 'Analysis time' },
-          { value: '99.4%', label: 'Citation accuracy' },
-          { value: '<420ms', label: 'Query latency' },
-          { value: '85,000+', label: 'Indexed pages' },
+          { value: 'Async', label: 'PDF Processing' },
+          { value: 'Semantic', label: 'Chunking' },
+          { value: 'Hybrid', label: 'Vector+Lexical Search' },
+          { value: 'Re-ranking', label: 'Anti-Hallucination' },
         ],
-        techStack: ['Python', 'FastAPI', 'PostgreSQL (pgvector)', 'LangChain', 'Docker', 'OpenAI Enterprise'],
+        techStack: ['Python', 'Django/DRF', 'LangChain', 'PostgreSQL (pgvector)', 'Celery + Redis', 'Docker'],
       },
       {
         id: 'fovis-platform',
         industry: 'smart-cities',
         industryLabel: 'Smart Cities',
-        title: 'FOVIS Platform — Real-Time Territorial Intelligence',
-        tagline:
-          'Geospatial data and decision ecosystem for public infrastructure and smart cities.',
+        title: 'IoT Telemetry Resilient Backend',
+        tagline: 'Industrial sensor data ingestion in environments with intermittent connectivity.',
         clientCategory: 'Government Entity & Territorial Management',
         image: '/images/deeptech/u2-fovis-telemetry.jpg',
         roiTimeline: 'Live in 8 weeks',
-        challenge:
-          'Multiple public agencies reported infrastructure, subsidy and public-works data in heterogeneous formats and disconnected spreadsheets. Steering committees took up to 14 days to consolidate metrics and authorize priority interventions.',
-        solution:
-          'Design and deployment of the centralized FOVIS platform with a high-throughput geospatial ingestion engine, vector cartographic visualization in WebGL and real-time analytical dashboards, in strict compliance with Colombian Law 1581 (Habeas Data).',
-        impact:
-          '60% reduction in decision-making time for budget allocation. 12 heterogeneous data sources consolidated into a single control panel with continuous auditing and forensic traceability.',
+        challenge: 'Industrial sensor data ingestion in environments with intermittent connectivity.',
+        solution: 'Fault-tolerant design with local persistence (buffering), guaranteeing 99% uptime under simulated concurrent traffic.',
+        impact: 'Fault-tolerant design with local persistence (buffering), guaranteeing 99% uptime under simulated concurrent traffic.',
         metrics: [
-          { value: '-60%', label: 'Decision time' },
-          { value: '12', label: 'Integrated systems' },
-          { value: '99.98%', label: 'Availability' },
-          { value: '100%', label: 'Audit traceability' },
+          { value: '99%', label: 'Telemetry Uptime' },
+          { value: 'Buffering', label: 'Local Persistence' },
+          { value: 'Atomic', label: 'Transactional Reconciliation' },
+          { value: 'Simulated', label: 'Concurrent Traffic' },
         ],
-        techStack: ['React', 'FastAPI', 'PostGIS', 'PostgreSQL', 'WebSockets', 'Docker / K8s'],
+        techStack: ['Python (Asyncio)', 'Node.js', 'WebSockets/MQTT', 'PostgreSQL', 'Linux SysAdmin', 'Docker'],
       },
     ],
   },
@@ -202,7 +176,7 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
 
   return (
     <section
-      id="casos"
+      id="proyectos"
       className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
     >
       <div data-reveal>
@@ -257,8 +231,8 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
                   loading="lazy"
                   className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12] via-black/20 to-transparent pointer-events-none" />
-                <span className="absolute top-3 left-3 px-3 py-1 rounded bg-black/70 border border-[#00e9fa]/20 text-[10px] font-mono uppercase tracking-[0.2em] text-[#00e9fa] backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/85 via-transparent to-transparent pointer-events-none" />
+                <span className="absolute top-3 left-3 px-3 py-1 rounded bg-black/70 border border-[#00e9fa]/20 font-mono text-[9px] uppercase tracking-[0.2em] text-[#00e9fa] backdrop-blur-sm">
                   {item.industryLabel}
                 </span>
                 <span className="absolute bottom-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded bg-black/70 border border-emerald-400/20 text-[10px] font-mono text-emerald-400 backdrop-blur-sm">
@@ -267,57 +241,29 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
               </div>
 
               <div className="flex flex-1 flex-col gap-4 p-5 md:p-6">
-                <div>
-                  <h3 className="text-base md:text-lg font-semibold text-white leading-snug group-hover:text-[#00e9fa] transition-colors duration-300">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-gray-400 leading-relaxed">{item.tagline}</p>
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-lg bg-[#00e9fa]/10 border border-[#00e9fa]/30 flex items-center justify-center">
+                    <Cpu className="w-5 h-5 text-[#00e9fa]" />
+                  </div>
+                  <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-gray-500">Reel {cases.indexOf(item) + 1}</span>
                 </div>
-
-                <div className="space-y-2">
-                  <div className="p-3 rounded-lg bg-red-500/[0.05] border border-red-500/20">
-                    <span className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-red-500">
-                      <AlertCircle size={12} /> {c.challengeLabel}
-                    </span>
-                    <p className="mt-1.5 text-[11px] text-gray-400 leading-relaxed">{item.challenge}</p>
-                  </div>
-
-                  <div className="p-3 rounded-lg bg-[#00e9fa]/[0.04] border border-[#00e9fa]/20">
-                    <span className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-[#00e9fa]">
-                      <Cpu size={12} /> {c.solutionLabel}
-                    </span>
-                    <p className="mt-1.5 text-[11px] text-gray-400 leading-relaxed">{item.solution}</p>
-                  </div>
-
-                  <div className="p-3 rounded-lg bg-emerald-500/[0.05] border border-emerald-400/20">
-                    <span className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-400">
-                      <TrendingUp size={12} /> {c.impactLabel}
-                    </span>
-                    <p className="mt-1.5 text-[11px] text-gray-400 leading-relaxed">{item.impact}</p>
+                <div className="mt-4 flex-1 flex flex-col">
+                  <div className="h-[2px] w-10 bg-[#00e9fa] mb-4" />
+                  <h3 className="text-lg font-semibold mb-3">{item.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed flex-1">{item.tagline}</p>
+                  <ul className="mt-4 space-y-2 text-[11px] text-gray-300">
+                    {item.metrics.map((metric, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-[#00e9fa]"></span>
+                        <span><strong>{metric.value}</strong> {metric.label}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 rounded-2xl border border-[#00e9fa]/15 bg-black/40 px-3 py-3 text-[10px] text-gray-300">
+                    <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500">Stack Tecnológico</p>
+                    <p className="mt-2 text-white text-[11px]">{item.techStack.join(' • ')}</p>
                   </div>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  {item.metrics.slice(0, 2).map((metric) => (
-                    <div
-                      key={metric.label}
-                      className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.08] text-center"
-                    >
-                      <span className="block text-sm font-mono font-bold text-[#00e9fa]">{metric.value}</span>
-                      <span className="block mt-0.5 text-[9px] font-mono uppercase tracking-widest text-gray-500">
-                        {metric.label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => onOpenCase(item)}
-                  className="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-[#00e9fa]/30 text-[#00e9fa] font-mono text-[11px] uppercase tracking-[0.2em] hover:bg-[#00e9fa]/5 hover:border-[#00e9fa] transition-all duration-300"
-                >
-                  {c.cta} <ArrowUpRight size={14} />
-                </button>
               </div>
             </article>
           ))}

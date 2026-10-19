@@ -4,11 +4,10 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useAnalytics } from '../hooks/useAnalytics';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import { ProjectsSection, CaseStudiesSection } from '../sections';
+import { CaseStudiesDeepSection } from '../sections';
 
 /**
- * Hub /proyectos — conserva el contenido de las antiguas secciones del Home
- * (proyectos y case-studies) como subpágina propia.
+ * Hub /proyectos — muestra los proyectos destacados como subpágina propia.
  */
 export default function ProjectsHubPage() {
   useAnalytics('Proyectos', 'hub');
@@ -25,19 +24,17 @@ export default function ProjectsHubPage() {
           // portfolio_operativo
         </p>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
-          Proyectos
+          Proyectos Destacados
         </h1>
         <p className="text-gray-400 text-sm md:text-base leading-relaxed mt-4 max-w-3xl">
-          Casos reales con resultados medibles: proyectos propios, productos y
-          colaboraciones con métricas verificables.
+          Tres arquitecturas DeepTech industriales con resultados medidos y auditados en producción.
         </p>
         <Link to="/" className="xl-btn-secondary mt-8">
           ← Volver al inicio
         </Link>
       </header>
 
-      <ProjectsSection />
-      <CaseStudiesSection />
+      <CaseStudiesDeepSection />
     </Layout>
   );
 }

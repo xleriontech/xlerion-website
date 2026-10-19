@@ -15,237 +15,206 @@ import {
 import { useLanguage } from '../context/LanguageContext';
 import { SectionHeader } from '../components/ui';
 
-const COPY = {
-  es: {
-    subtitle: 'Ingeniería de Nivel Empresarial',
-    title: 'Stack Tecnológico y Estándares de Seguridad',
-    intro:
-      'No utilizamos librerías experimentales ni dependencias frágiles. Cada componente del stack fue seleccionado por su tolerancia a fallos, soporte a largo plazo y rendimiento a escala industrial.',
-    stackHeading: 'Stack Tecnológico por Capas',
-    stackIntro:
-      'Arquitecturas modulares que cubren la visualización, la ingesta de datos, la inteligencia y el despliegue en infraestructura crítica.',
-    stackNote: 'Auditoría CI/CD, tipado estricto y versiones con soporte a largo plazo (LTS).',
-    categories: [
-      {
-        icon: Box,
-        title: 'Visualización 3D & Frontend',
-        description: 'Renderizado web acelerado por GPU, sin instalación de ejecutables locales.',
-        techs: [
-          { name: 'React', role: 'Arquitectura UI / SPA reactiva', badge: 'Frontend' },
-          { name: 'Three.js', role: 'Motor WebGL 2.0 y shaders', badge: 'Core 3D' },
-          { name: 'Draco', role: 'Compresión geométrica glTF', badge: 'Rendimiento' },
-        ],
-      },
-      {
-        icon: Server,
-        title: 'Backend, Ingesta & IoT',
-        description: 'Servicios asíncronos de baja latencia y protocolos industriales.',
-        techs: [
-          { name: 'FastAPI', role: 'APIs asíncronas en Python', badge: 'Backend' },
-          { name: 'Python', role: 'Pipelines de datos y lógica numérica', badge: 'Lenguaje' },
-          { name: 'WebSockets', role: 'Streaming full-duplex bidireccional', badge: 'Streaming' },
-          { name: 'MQTT', role: 'Telemetría ligera para IoT industrial', badge: 'Protocolo IoT' },
-        ],
-      },
-      {
-        icon: Database,
-        title: 'Datos, Vectores & IA',
-        description: 'Almacenamiento híbrido para series de tiempo y embeddings semánticos.',
-        techs: [
-          { name: 'pgvector', role: 'Embeddings vectoriales sobre PostgreSQL', badge: 'Vector DB' },
-          { name: 'LangChain', role: 'Orquestación de agentes y RAG', badge: 'IA' },
-          { name: 'TimescaleDB', role: 'Series de tiempo para telemetría', badge: 'Time-Series' },
-        ],
-      },
-      {
-        icon: Cloud,
-        title: 'Infraestructura & Despliegue',
-        description: 'Contenerización portable para nube privada, On-Premise o borde.',
-        techs: [
-          { name: 'Docker', role: 'Contenedores inmutables', badge: 'DevOps' },
-          { name: 'Kubernetes', role: 'Orquestación y alta disponibilidad', badge: 'Cloud Native' },
-          { name: 'Linux / Arm64', role: 'Gateways embebidos de planta', badge: 'Hardware Edge' },
-        ],
-      },
-    ],
-    securityHeading: 'Seguridad y Cumplimiento',
-    securityIntro:
-      'Diseñamos arquitecturas para la confianza de CTOs y auditores de TI en infraestructura crítica.',
-    badgeIso: 'ISO 27001 ALIGNED',
-    badgeLey: 'LEY 1581 COLOMBIA',
-    panelTag: 'Control de arquitectura verificado',
-    controls: [
-      {
-        id: 'iso27001',
-        icon: ShieldCheck,
-        title: 'Arquitecturas alineadas a ISO 27001',
-        badge: 'ISO/IEC 27001:2022',
-        summary: 'Gobernanza de seguridad de la información desde el diseño.',
-        details: [
-          'Segregación de ambientes Dev / Stage / Prod',
-          'Control de acceso por roles (RBAC) y mínimo privilegio',
-          'Logs de auditoría inmutables y monitoreo OWASP Top 10',
-        ],
-      },
-      {
-        id: 'encryption',
-        icon: Lock,
-        title: 'Cifrado de datos en tránsito y reposo',
-        badge: 'AES-256 & TLS 1.3',
-        summary: 'Protección criptográfica de telemetría y conocimiento confidencial.',
-        details: [
-          'TLS 1.3 con Perfect Forward Secrecy en HTTPS / WSS / MQTTS',
-          'Cifrado AES-256 en bases relacionales, vectoriales y de series',
-          'Gestión de claves con Vault / KMS corporativos',
-        ],
-      },
-      {
-        id: 'habeasdata',
-        icon: FileCheck2,
-        title: 'Cumplimiento de la Ley 1581 (Habeas Data)',
-        badge: 'Ley 1581 de 2012 (Colombia)',
-        summary: 'Garantía legal y técnica para el tratamiento de datos personales.',
-        details: [
-          'Alineación con la Ley Estatutaria 1581 de 2012 y el Decreto 1377 de 2013',
-          'Anonimización de registros y ejercicio de derechos ARCO',
-          'Trazabilidad forense de cada operación',
-        ],
-      },
-      {
-        id: 'airgap',
-        icon: Server,
-        title: 'Aislamiento On-Premise y Redes Air-Gapped',
-        badge: 'Air-Gap / Private VPC',
-        summary: 'Operación autónoma sin dependencia de servicios públicos de terceros.',
-        details: [
-          'Despliegue íntegro en la red local del cliente o VPC privada',
-          'Inferencia de IA y RAG sin APIs públicas externas',
-          'Integración segura con DMZ y firewalls industriales (Purdue)',
-        ],
-      },
-    ],
-    sovereignty: 'Soberanía total de datos: despliegue On-Premise o VPC privada.',
-    cta: 'Solicitar checklist de ciberseguridad',
-  },
-  en: {
-    subtitle: 'Enterprise-Grade Engineering',
-    title: 'Technology Stack and Security Standards',
-    intro:
-      'We do not rely on experimental libraries or fragile dependencies. Every stack component was selected for fault tolerance, long-term support and industrial-scale performance.',
-    stackHeading: 'Layered Technology Stack',
-    stackIntro:
-      'Modular architectures covering visualization, data ingestion, intelligence and deployment on critical infrastructure.',
-    stackNote: 'CI/CD auditing, strict typing and long-term support (LTS) versions.',
-    categories: [
-      {
-        icon: Box,
-        title: '3D Visualization & Frontend',
-        description: 'GPU-accelerated web rendering with no local executables to install.',
-        techs: [
-          { name: 'React', role: 'Reactive UI / SPA architecture', badge: 'Frontend' },
-          { name: 'Three.js', role: 'WebGL 2.0 engine and shaders', badge: 'Core 3D' },
-          { name: 'Draco', role: 'glTF geometry compression', badge: 'Performance' },
-        ],
-      },
-      {
-        icon: Server,
-        title: 'Backend, Ingestion & IoT',
-        description: 'Low-latency asynchronous services and industrial protocols.',
-        techs: [
-          { name: 'FastAPI', role: 'Asynchronous Python APIs', badge: 'Backend' },
-          { name: 'Python', role: 'Data pipelines and numeric logic', badge: 'Language' },
-          { name: 'WebSockets', role: 'Full-duplex bidirectional streaming', badge: 'Streaming' },
-          { name: 'MQTT', role: 'Lightweight industrial IoT telemetry', badge: 'IoT Protocol' },
-        ],
-      },
-      {
-        icon: Database,
-        title: 'Data, Vectors & AI',
-        description: 'Hybrid storage for time series and semantic embeddings.',
-        techs: [
-          { name: 'pgvector', role: 'Vector embeddings on PostgreSQL', badge: 'Vector DB' },
-          { name: 'LangChain', role: 'Agent and RAG orchestration', badge: 'AI' },
-          { name: 'TimescaleDB', role: 'Time series for telemetry', badge: 'Time-Series' },
-        ],
-      },
-      {
-        icon: Cloud,
-        title: 'Infrastructure & Deployment',
-        description: 'Portable containerization for private cloud, on-premise or edge.',
-        techs: [
-          { name: 'Docker', role: 'Immutable containers', badge: 'DevOps' },
-          { name: 'Kubernetes', role: 'Orchestration and high availability', badge: 'Cloud Native' },
-          { name: 'Linux / Arm64', role: 'Embedded plant gateways', badge: 'Edge Hardware' },
-        ],
-      },
-    ],
-    securityHeading: 'Security and Compliance',
-    securityIntro:
-      'We design architectures for the trust of CTOs and IT auditors on critical infrastructure.',
-    badgeIso: 'ISO 27001 ALIGNED',
-    badgeLey: 'LEY 1581 COLOMBIA',
-    panelTag: 'Verified architecture control',
-    controls: [
-      {
-        id: 'iso27001',
-        icon: ShieldCheck,
-        title: 'ISO 27001-aligned architectures',
-        badge: 'ISO/IEC 27001:2022',
-        summary: 'Information security governance by design.',
-        details: [
-          'Environment segregation: Dev / Stage / Prod',
-          'Role-based access control (RBAC) and least privilege',
-          'Immutable audit logs and OWASP Top 10 monitoring',
-        ],
-      },
-      {
-        id: 'encryption',
-        icon: Lock,
-        title: 'Data encryption in transit and at rest',
-        badge: 'AES-256 & TLS 1.3',
-        summary: 'Cryptographic protection of telemetry and confidential knowledge.',
-        details: [
-          'TLS 1.3 with Perfect Forward Secrecy on HTTPS / WSS / MQTTS',
-          'AES-256 encryption across relational, vector and time-series stores',
-          'Key management with corporate Vault / KMS',
-        ],
-      },
-      {
-        id: 'habeasdata',
-        icon: FileCheck2,
-        title: 'Compliance with Law 1581 (Habeas Data)',
-        badge: 'Colombian Law 1581 of 2012',
-        summary: 'Legal and technical assurance for personal data processing.',
-        details: [
-          'Alignment with Statutory Law 1581 of 2012 and Decree 1377 of 2013',
-          'Record anonymization and ARCO data-subject rights',
-          'Forensic traceability of every operation',
-        ],
-      },
-      {
-        id: 'airgap',
-        icon: Server,
-        title: 'On-Premise isolation and Air-Gapped networks',
-        badge: 'Air-Gap / Private VPC',
-        summary: 'Autonomous operation with no dependency on third-party public services.',
-        details: [
-          'Full deployment inside the client network or a private VPC',
-          'AI and RAG inference without external public APIs',
-          'Secure integration with DMZ and industrial firewalls (Purdue)',
-        ],
-      },
-    ],
-    sovereignty: 'Full data sovereignty: on-premise or private VPC deployment.',
-    cta: 'Request the cybersecurity checklist',
-  },
-};
-
 export default function TechStackSecuritySection({ onOpenPoC }) {
   const { lang } = useLanguage();
-  const c = COPY[lang] || COPY.es;
-  const [selectedControl, setSelectedControl] = useState(0);
+  const c = lang === 'en' ? 'en' : 'es';
 
-  const active = c.controls[selectedControl];
+  const COPY = {
+    es: {
+      subtitle: 'Ingeniería de Nivel Empresarial',
+      title: 'Stack Tecnológico y Estándares de Seguridad',
+      intro: 'No utilizamos librerías experimentales ni dependencias frágiles. Cada componente del stack fue seleccionado por su tolerancia a fallos, soporte a largo plazo y rendimiento a escala industrial.',
+      stackHeading: 'Stack Tecnológico por Capas',
+      stackIntro: 'Arquitecturas modulares que cubren la visualización, la ingesta de datos, la inteligencia y el despliegue en infraestructura crítica.',
+      stackNote: 'Auditoría CI/CD, tipado estricto y versiones con soporte a largo plazo (LTS).',
+      categories: [
+        {
+          icon: Box,
+          title: 'Visualización 3D & Frontend',
+          description: 'Renderizado web acelerado por GPU, sin instalación de ejecutables locales.',
+          techs: [
+            { name: 'React', role: 'Arquitectura UI / SPA reactiva', badge: 'Frontend' },
+            { name: 'Three.js', role: 'Motor WebGL 2.0 y shaders', badge: 'Core 3D' },
+            { name: 'Draco', role: 'Compresión geométrica glTF', badge: 'Rendimiento' },
+          ],
+        },
+        {
+          icon: Server,
+          title: 'Backend, Ingesta & IoT',
+          description: 'Servicios asíncronos de baja latencia y protocolos industriales.',
+          techs: [
+            { name: 'FastAPI', role: 'APIs asíncronas en Python', badge: 'Backend' },
+            { name: 'Python', role: 'Pipelines de datos y lógica numérica', badge: 'Lenguaje' },
+            { name: 'WebSockets', role: 'Streaming full-duplex bidireccional', badge: 'Streaming' },
+            { name: 'MQTT', role: 'Telemetría ligera para IoT industrial', badge: 'Protocolo IoT' },
+          ],
+        },
+        {
+          icon: Database,
+          title: 'Datos, Vectores & IA',
+          description: 'Almacenamiento híbrido para series de tiempo y embeddings semánticos.',
+          techs: [
+            { name: 'pgvector', role: 'Embeddings vectoriales sobre PostgreSQL', badge: 'Vector DB' },
+            { name: 'LangChain', role: 'Orquestación de agentes y RAG', badge: 'IA' },
+            { name: 'TimescaleDB', role: 'Series de tiempo para telemetría', badge: 'Time-Series' },
+          ],
+        },
+        {
+          icon: Cloud,
+          title: 'Infraestructura & Despliegue',
+          description: 'Contenerización portable para nube privada, On-Premise o borde.',
+          techs: [
+            { name: 'Docker', role: 'Contenedores inmutables', badge: 'DevOps' },
+            { name: 'Kubernetes', role: 'Orquestación y alta disponibilidad', badge: 'Cloud Native' },
+            { name: 'Linux / Arm64', role: 'Gateways embebidos de planta', badge: 'Hardware Edge' },
+          ],
+        },
+      ],
+      securityHeading: 'Seguridad y Cumplimiento',
+      securityIntro: 'Diseñamos arquitecturas para la confianza de CTOs y auditores de TI en infraestructura crítica.',
+      badgeLey: 'LEY 1581 COLOMBIA',
+      panelTag: 'Control de arquitectura verificado',
+      controls: [
+        {
+          id: 'encryption',
+          icon: Lock,
+          title: 'Cifrado de datos en tránsito y reposo',
+          badge: 'AES-256 & TLS 1.3',
+          summary: 'Protección criptográfica de telemetría y conocimiento confidencial.',
+          details: [
+            'TLS 1.3 con Perfect Forward Secrecy en HTTPS / WSS / MQTTS',
+            'Cifrado AES-256 en bases relacionales, vectoriales y de series',
+            'Gestión de claves con Vault / KMS corporativos',
+          ],
+        },
+        {
+          id: 'habeasdata',
+          icon: FileCheck2,
+          title: 'Cumplimiento de la Ley 1581 (Habeas Data)',
+          badge: 'Ley 1581 de 2012 (Colombia)',
+          summary: 'Garantía legal y técnica para el tratamiento de datos personales.',
+          details: [
+            'Alineación con la Ley Estatutaria 1581 de 2012 y el Decreto 1377 de 2013',
+            'Anonimización de registros y ejercicio de derechos ARCO',
+            'Trazabilidad forense de cada operación',
+          ],
+        },
+        {
+          id: 'airgap',
+          icon: Server,
+          title: 'Aislamiento On-Premise y Redes Air-Gapped',
+          badge: 'Air-Gap / Private VPC',
+          summary: 'Operación autónoma sin dependencia de servicios públicos de terceros.',
+          details: [
+            'Despliegue íntegro en la red local del cliente o VPC privada',
+            'Inferencia de IA y RAG sin APIs públicas externas',
+            'Integración segura con DMZ y firewalls industriales (Purdue)',
+          ],
+        },
+      ],
+      sovereignty: 'Soberanía total de datos: despliegue On-Premise o VPC privada.',
+      cta: 'Solicitar checklist de ciberseguridad',
+    },
+    en: {
+      subtitle: 'Enterprise-Grade Engineering',
+      title: 'Technology Stack and Security Standards',
+      intro: 'We do not rely on experimental libraries or fragile dependencies. Every stack component was selected for fault tolerance, long-term support and industrial-scale performance.',
+      stackHeading: 'Layered Technology Stack',
+      stackIntro: 'Modular architectures covering visualization, data ingestion, intelligence and deployment on critical infrastructure.',
+      stackNote: 'CI/CD auditing, strict typing and long-term support (LTS) versions.',
+      categories: [
+        {
+          icon: Box,
+          title: '3D Visualization & Frontend',
+          description: 'GPU-accelerated web rendering with no local executables to install.',
+          techs: [
+            { name: 'React', role: 'Reactive UI / SPA architecture', badge: 'Frontend' },
+            { name: 'Three.js', role: 'WebGL 2.0 engine and shaders', badge: 'Core 3D' },
+            { name: 'Draco', role: 'glTF geometry compression', badge: 'Performance' },
+          ],
+        },
+        {
+          icon: Server,
+          title: 'Backend, Ingestion & IoT',
+          description: 'Low-latency asynchronous services and industrial protocols.',
+          techs: [
+            { name: 'FastAPI', role: 'Asynchronous Python APIs', badge: 'Backend' },
+            { name: 'Python', role: 'Data pipelines and numeric logic', badge: 'Language' },
+            { name: 'WebSockets', role: 'Full-duplex bidirectional streaming', badge: 'Streaming' },
+            { name: 'MQTT', role: 'Lightweight industrial IoT telemetry', badge: 'IoT Protocol' },
+          ],
+        },
+        {
+          icon: Database,
+          title: 'Data, Vectors & AI',
+          description: 'Hybrid storage for time series and semantic embeddings.',
+          techs: [
+            { name: 'pgvector', role: 'Vector embeddings on PostgreSQL', badge: 'Vector DB' },
+            { name: 'LangChain', role: 'Agent and RAG orchestration', badge: 'AI' },
+            { name: 'TimescaleDB', role: 'Time series for telemetry', badge: 'Time-Series' },
+          ],
+        },
+        {
+          icon: Cloud,
+          title: 'Infrastructure & Deployment',
+          description: 'Portable containerization for private cloud, on-premise or edge.',
+          techs: [
+            { name: 'Docker', role: 'Immutable containers', badge: 'DevOps' },
+            { name: 'Kubernetes', role: 'Orchestration and high availability', badge: 'Cloud Native' },
+            { name: 'Linux / Arm64', role: 'Embedded plant gateways', badge: 'Edge Hardware' },
+          ],
+        },
+      ],
+      securityHeading: 'Security and Compliance',
+      securityIntro: 'We design architectures for the trust of CTOs and IT auditors on critical infrastructure.',
+      badgeLey: 'LAW 1581 COLOMBIA',
+      panelTag: 'Verified architecture control',
+      controls: [
+        {
+          id: 'encryption',
+          icon: Lock,
+          title: 'Data encryption in transit and at rest',
+          badge: 'AES-256 & TLS 1.3',
+          summary: 'Cryptographic protection of telemetry and confidential knowledge.',
+          details: [
+            'TLS 1.3 with Perfect Forward Secrecy on HTTPS / WSS / MQTTS',
+            'AES-256 encryption across relational, vector and time-series stores',
+            'Key management with corporate Vault / KMS',
+          ],
+        },
+        {
+          id: 'habeasdata',
+          icon: FileCheck2,
+          title: 'Compliance with Law 1581 (Habeas Data)',
+          badge: 'Colombian Law 1581 of 2012',
+          summary: 'Legal and technical assurance for personal data processing.',
+          details: [
+            'Alignment with Statutory Law 1581 of 2012 and Decree 1377 of 2013',
+            'Record anonymization and ARCO data-subject rights',
+            'Forensic traceability of every operation',
+          ],
+        },
+        {
+          id: 'airgap',
+          icon: Server,
+          title: 'On-Premise isolation and Air-Gapped networks',
+          badge: 'Air-Gap / Private VPC',
+          summary: 'Autonomous operation with no dependency on third-party public services.',
+          details: [
+            'Full deployment inside the client network or a private VPC',
+            'AI and RAG inference without external public APIs',
+            'Secure integration with DMZ and industrial firewalls (Purdue)',
+          ],
+        },
+      ],
+      sovereignty: 'Full data sovereignty: on-premise or private VPC deployment.',
+      cta: 'Request the cybersecurity checklist',
+    },
+  };
+
+  const copy = COPY[c] || COPY.es;
+  const [selectedControl, setSelectedControl] = useState(0);
+  const active = copy.controls[selectedControl];
 
   return (
     <section
@@ -253,26 +222,26 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
       className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
     >
       <div data-reveal>
-        <SectionHeader title={c.title} subtitle={c.subtitle} />
+        <SectionHeader title={copy.title} subtitle={copy.subtitle} />
       </div>
 
       <p
         data-reveal
         className="stagger-1 max-w-3xl -mt-6 mb-12 text-sm md:text-base text-gray-400 leading-relaxed font-sans"
       >
-        {c.intro}
+        {copy.intro}
       </p>
 
       {/* Stack by layers */}
       <div data-reveal className="stagger-2 mb-16">
         <div className="flex items-center gap-3 mb-2">
           <Layers size={18} className="text-[#00e9fa]" />
-          <h3 className="text-base md:text-lg font-semibold text-white">{c.stackHeading}</h3>
+          <h3 className="text-base md:text-lg font-semibold text-white">{copy.stackHeading}</h3>
         </div>
-        <p className="mb-6 max-w-2xl text-xs md:text-sm text-gray-500 leading-relaxed">{c.stackIntro}</p>
+        <p className="mb-6 max-w-2xl text-xs md:text-sm text-gray-500 leading-relaxed">{copy.stackIntro}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {c.categories.map((cat, index) => {
+          {copy.categories.map((cat, index) => {
             const Icon = cat.icon;
             return (
               <div
@@ -315,7 +284,7 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
           })}
         </div>
 
-        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500">{c.stackNote}</p>
+        <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500">{copy.stackNote}</p>
       </div>
 
       {/* Security & compliance */}
@@ -327,19 +296,15 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-2">
               <ShieldCheck size={18} className="text-[#00e9fa]" />
-              <h3 className="text-base md:text-lg font-semibold text-white">{c.securityHeading}</h3>
+              <h3 className="text-base md:text-lg font-semibold text-white">{copy.securityHeading}</h3>
             </div>
-            <p className="text-xs md:text-sm text-gray-400 leading-relaxed">{c.securityIntro}</p>
+            <p className="text-xs md:text-sm text-gray-400 leading-relaxed">{copy.securityIntro}</p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/[0.08] border border-emerald-400/30 text-emerald-400 font-mono text-[10px] uppercase tracking-[0.2em]">
-              <CheckCircle2 size={14} />
-              {c.badgeIso}
-            </span>
             <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/30 text-[#00e9fa] font-mono text-[10px] uppercase tracking-[0.2em]">
               <Lock size={14} />
-              {c.badgeLey}
+              {copy.badgeLey}
             </span>
           </div>
         </div>
@@ -347,7 +312,7 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Selectable list */}
           <div className="lg:col-span-5 space-y-3">
-            {c.controls.map((control, index) => {
+            {copy.controls.map((control, index) => {
               const Icon = control.icon;
               const isSelected = selectedControl === index;
               return (
@@ -399,7 +364,7 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
                   {active.badge}
                 </span>
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500">
-                  {c.panelTag}
+                  {copy.panelTag}
                 </span>
               </div>
 
@@ -419,10 +384,10 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
             <div className="mt-8 pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <span className="flex items-center gap-2 font-mono text-[11px] text-gray-500">
                 <Server size={15} className="text-[#00e9fa] shrink-0" />
-                {c.sovereignty}
+                {copy.sovereignty}
               </span>
               <button type="button" onClick={onOpenPoC} className="xl-btn-primary">
-                {c.cta}
+                {copy.cta}
                 <ArrowUpRight size={16} />
               </button>
             </div>

@@ -4,11 +4,10 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useAnalytics } from '../hooks/useAnalytics';
 import useScrollAnimation from '../hooks/useScrollAnimation';
-import { ToolkitSection, MethodologySection, CVXGeneratorSection } from '../sections';
+import { ToolkitSection } from '../sections';
 
 /**
- * Hub /toolkit — conserva el contenido de las antiguas secciones del Home
- * (toolkit, methodology y cvx-generator) como subpágina propia.
+ * Hub /toolkit — muestra la sección Toolkit como subpágina propia.
  */
 export default function ToolkitHubPage() {
   useAnalytics('Toolkit', 'hub');
@@ -25,11 +24,13 @@ export default function ToolkitHubPage() {
           // toolkit_modular
         </p>
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white">
-          Toolkit
+          Xlerion Core Toolkit
         </h1>
         <p className="text-gray-400 text-sm md:text-base leading-relaxed mt-4 max-w-3xl">
-          Producto principal de Xlerion: módulos de validación, logging, diagnóstico y
-          performance, junto con nuestra metodología de entrega y el generador CVX.
+          Entorno modular propietario para el diagnóstico y validación de sistemas técnicos.
+          Incluye logging estructurado en JSON, comparadores de rendimiento, diagnóstico previo
+          a tareas críticas y preservación de convenciones para garantizar la escalabilidad
+          documental y operativa en pipelines empresariales.
         </p>
         <Link to="/" className="xl-btn-secondary mt-8">
           ← Volver al inicio
@@ -37,8 +38,6 @@ export default function ToolkitHubPage() {
       </header>
 
       <ToolkitSection />
-      <MethodologySection />
-      <CVXGeneratorSection />
     </Layout>
   );
 }
