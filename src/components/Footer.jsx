@@ -40,10 +40,10 @@ export default function Footer({ navTo }) {
                 <MessageCircle size={16} className="text-[#00e9fa]" /> +57 313 226 3265
               </a>
               <a
-                href="mailto:contacto@xlerion.com"
+                href="mailto:xlerionultimate@gmail.com"
                 className="flex items-center gap-3 text-white font-mono uppercase tracking-widest hover:text-[#00e9fa] transition-colors"
               >
-                <Mail size={16} className="text-[#00e9fa]" /> contacto@xlerion.com
+                <Mail size={16} className="text-[#00e9fa]" /> xlerionultimate@gmail.com
               </a>
               <div className="flex items-center gap-3 text-gray-400 font-mono text-[11px] uppercase tracking-widest">
                 <MapPin size={14} className="text-[#00e9fa]/50" />
