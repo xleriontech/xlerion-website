@@ -7,13 +7,14 @@ const COPY = {
   es: {
     subtitle: 'Validación en Terreno & ROI Verificado',
     title: 'Proyectos Destacados',
-    intro: 'Tres arquitecturas DeepTech industriales con resultados medidos y auditados en producción.',
+    intro: 'Cuatro arquitecturas DeepTech industriales con resultados medidos y auditados en producción.',
     filterLabel: 'Filtrar por industria',
     filters: [
       { id: 'all', label: 'Todos' },
       { id: 'manufactura', label: 'Manufactura' },
       { id: 'mineria', label: 'Minería' },
       { id: 'smart-cities', label: 'Smart Cities' },
+      { id: 'agroindustria', label: 'Agroindustria' },
     ],
     challengeLabel: 'El Reto',
     solutionLabel: 'La Solución',
@@ -81,18 +82,39 @@ const COPY = {
         ],
         techStack: ['Python (Asyncio)', 'Node.js', 'WebSockets/MQTT', 'PostgreSQL', 'Linux SysAdmin', 'Docker'],
       },
+      {
+        id: 'panelaia',
+        industry: 'agroindustria',
+        industryLabel: 'Agroindustria',
+        title: 'PanelaIA — Mesa de Mando Panelera',
+        tagline: 'Revitalización panelera con gemelo 3D, trazabilidad, fondo de retiro y venta directa.',
+        clientCategory: 'Cooperativa en Constitución / Alcaldía de Nocaima',
+        image: '/images/deeptech/panelaia-microsite.jpg',
+        roiTimeline: 'Mesa operativa en 4 semanas',
+        challenge: 'Trapiche comunitario sin automatización, intermediación en precios, ausencia de trazabilidad digital y sin fondo de retiro para productores.',
+        solution: 'Mesa de mando integral: gemelo 3D del trapiche (Three.js/React Three Fiber), trazabilidad por lote con QR y huella SHA-256 local, fondo de retiro simulado con meta de $76M COP a 15 años, y comercialización directa Bogotá sin intermediarios.',
+        impact: 'Plataforma unificada con telemetría IoT (110-115°C punteo), trazabilidad fase 1, fondo documental y venta directa $7-9K COP/kg. Todo sin cifras inventadas: solo datos del documento base.',
+        metrics: [
+          { value: '110-115°C', label: 'Rango punteo CIMPA' },
+          { value: 'QR + SHA-256', label: 'Trazabilidad fase 1' },
+          { value: '$76M COP', label: 'Meta fondo 15 años' },
+          { value: '$7-9K/kg', label: 'Venta directa Bogotá' },
+        ],
+        techStack: ['Next.js 16', 'React 19', 'Three.js', 'Tailwind', 'PostgreSQL', 'Drizzle ORM'],
+      },
     ],
   },
   en: {
     subtitle: 'Field Validation & Verified ROI',
     title: 'Featured Projects',
-    intro: 'Three industrial DeepTech architectures with measured and audited results in production.',
+    intro: 'Four industrial DeepTech architectures with measured and audited results in production.',
     filterLabel: 'Filter by industry',
     filters: [
       { id: 'all', label: 'All' },
       { id: 'manufactura', label: 'Manufacturing' },
       { id: 'mineria', label: 'Mining' },
       { id: 'smart-cities', label: 'Smart Cities' },
+      { id: 'agroindustria', label: 'Agroindustry' },
     ],
     challengeLabel: 'The Challenge',
     solutionLabel: 'The Solution',
@@ -159,6 +181,26 @@ const COPY = {
           { value: 'Simulated', label: 'Concurrent Traffic' },
         ],
         techStack: ['Python (Asyncio)', 'Node.js', 'WebSockets/MQTT', 'PostgreSQL', 'Linux SysAdmin', 'Docker'],
+      },
+      {
+        id: 'panelaia',
+        industry: 'agroindustria',
+        industryLabel: 'Agroindustry',
+        title: 'PanelaIA — Panel Mill Command Dashboard',
+        tagline: 'Panel mill revitalization with 3D twin, traceability, pension fund & direct sales.',
+        clientCategory: 'Cooperative in Formation / Nocaima Mayor Office',
+        image: '/images/deeptech/u2-smartfactory-twin.jpg',
+        roiTimeline: 'Dashboard operational in 4 weeks',
+        challenge: 'Community trapiche without automation, price intermediation, no digital traceability, no pension fund for producers.',
+        solution: 'Unified command dashboard: 3D trapiche twin (Three.js/React Three Fiber), lot traceability with QR and local SHA-256 hash, pension fund simulation with $76M COP target at 15 years, and direct Bogotá sales without intermediaries.',
+        impact: 'Unified platform with IoT telemetry (110-115°C punteo), phase 1 traceability, pension fund simulation, and direct sales $7-9K COP/kg. No invented figures: only base document data.',
+        metrics: [
+          { value: '110-115°C', label: 'CIMPA punteo range' },
+          { value: 'QR + SHA-256', label: 'Phase 1 traceability' },
+          { value: '$76M COP', label: '15-yr fund target' },
+          { value: '$7-9K/kg', label: 'Direct Bogotá sales' },
+        ],
+        techStack: ['Next.js 16', 'React 19', 'Three.js', 'Tailwind', 'PostgreSQL', 'Drizzle ORM'],
       },
     ],
   },
@@ -263,6 +305,16 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
                     <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500">Stack Tecnológico</p>
                     <p className="mt-2 text-white text-[11px]">{item.techStack.join(' • ')}</p>
                   </div>
+                  {item.id === 'panelaia' && (
+                    <a
+                      href="http://localhost:3002"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#00e9fa] text-black font-semibold text-sm rounded-lg hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] transition-all duration-300"
+                    >
+                      <ArrowUpRight size={14} /> {lang === 'es' ? 'Ver Micrositio PanelaIA' : 'View PanelaIA Microsite'}
+                    </a>
+                  )}
                 </div>
               </div>
             </article>

@@ -26,6 +26,12 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
   }, [mobileMenuOpen]);
 
   const navTo = (id) => {
+    // Handle external link for PanelaIA microsite
+    if (id === 'panelaia') {
+      setMobileMenuOpen(false);
+      window.open('http://localhost:3002', '_blank', 'noopener,noreferrer');
+      return;
+    }
     setMobileMenuOpen(false);
     setShowLoader(true);
 
