@@ -662,3 +662,403 @@
     opacity: 0.3;
   }
 }
+
+/* ========================================
+   PRINT STYLES — FICHA TÉCNICA EJECUTIVA
+   ======================================== */
+@media print {
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  /* Global reset */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  html,
+  body,
+  #root {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Hide all UI chrome */
+  .no-print,
+  nav,
+  footer,
+  .xl-btn-primary,
+  .xl-btn-secondary,
+  button,
+  [role="button"],
+  .modal-backdrop,
+  .fixed.inset-0,
+  .hamburger-line,
+  .mobile-menu,
+  .nav-dropdown,
+  .page-loader,
+  .hero-scroll-indicator,
+  .section-header-border::before,
+  .xl-ready::before,
+  .xl-ready::after,
+  .glow-on-hover::before {
+    display: none !important;
+  }
+
+  /* Force white background on all sections */
+  section,
+  main,
+  .xl-section,
+  [data-reveal],
+  [id^="home"],
+  [id^="metricas"],
+  [id^="proyectos"],
+  [id^="toolkit"],
+  [id^="arquitectura"],
+  [id^="liderazgo"],
+  [id^="contacto"] {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    border: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    color: #111827 !important;
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  h1 { font-size: 22pt !important; line-height: 1.2 !important; margin-bottom: 0.5rem !important; }
+  h2 { font-size: 16pt !important; line-height: 1.3 !important; margin: 1.5rem 0 0.75rem !important; }
+  h3 { font-size: 14pt !important; line-height: 1.3 !important; margin: 1.25rem 0 0.5rem !important; }
+  h4 { font-size: 12pt !important; line-height: 1.3 !important; margin: 1rem 0 0.5rem !important; }
+
+  p, li, span, div, label {
+    color: #374151 !important;
+  }
+
+  .font-mono {
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  /* Links - show URLs */
+  a {
+    color: #111827 !important;
+    text-decoration: none !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  /* Prevent page breaks inside cards and key sections */
+  .card-hover,
+  .glow-on-hover,
+  [class*="stagger-"],
+  .xl-section > div > div,
+  .bg-white,
+  .bg-\[\#0a0a12\],
+  .bg-\[\#050508\],
+  .rounded-lg,
+  .rounded-xl,
+  article,
+  .project-card,
+  .case-study-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Printable sheet container */
+  #printable-sheet,
+  .printable-sheet,
+  [id="printable-sheet"] {
+    display: block !important;
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  /* Executive Brief Modal - print as full document */
+  .executive-brief-modal,
+  [role="dialog"][aria-label*="Ficha T"],
+  [role="dialog"][aria-label*="Executive"] {
+    position: static !important;
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .executive-brief-modal > div,
+  [role="dialog"][aria-label*="Ficha T"] > div,
+  [role="dialog"][aria-label*="Executive"] > div {
+    background: #FFFFFF !important;
+    border: none !important;
+    border-radius: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* Header in print */
+  .executive-brief-header,
+  .print-header {
+    border-bottom: 2px solid #111827 !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .executive-brief-badge {
+    background: #111827 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    font-size: 9pt !important;
+  }
+
+  .executive-brief-doc {
+    color: #6B7280 !important;
+    font-size: 9pt !important;
+  }
+
+  .executive-brief-title {
+    color: #111827 !important;
+    font-size: 20pt !important;
+    font-weight: 700 !important;
+    margin: 0.5rem 0 0.25rem !important;
+  }
+
+  .executive-brief-subtitle {
+    color: #6B7280 !important;
+    font-size: 10pt !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  /* KPI Cards */
+  .executive-brief-kpi,
+  .kpi-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+  }
+
+  .kpi-value {
+    font-size: 18pt !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  .kpi-label {
+    font-size: 9pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .kpi-desc {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Topology / Layers */
+  .topology-card,
+  .layer-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+  }
+
+  .layer-icon {
+    color: #111827 !important;
+  }
+
+  .layer-title {
+    font-size: 10pt !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  .layer-desc {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Roadmap weeks */
+  .roadmap-week {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+  }
+
+  .roadmap-week-label {
+    font-size: 9pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  .roadmap-week-title {
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+    margin-top: 0.5rem !important;
+  }
+
+  .roadmap-week-desc {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    margin-top: 0.25rem !important;
+  }
+
+  /* Signature */
+  .signature-block {
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .signature-name {
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+  }
+
+  .signature-role {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  .signature-company {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  /* ISO note */
+  .iso-note {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #E5E7EB !important;
+  }
+
+  /* Grid layouts - force single column for readability */
+  .grid {
+    display: block !important;
+  }
+
+  .grid > * {
+    margin-bottom: 1rem !important;
+  }
+
+  /* Tables */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1rem 0 !important;
+  }
+
+  th, td {
+    border: 1px solid #E5E7EB !important;
+    padding: 0.5rem !important;
+    font-size: 9.5pt !important;
+    color: #374151 !important;
+  }
+
+  th {
+    background: #F3F4F6 !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+  }
+
+  /* Remove gradients and shadows */
+  * {
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Ensure the printable content is visible */
+  #printable-sheet,
+  .printable-sheet {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: static !important;
+  }
+
+  /* Hide interactive elements in modal */
+  .print-hidden,
+  [class*="print:hidden"] {
+    display: none !important;
+  }
+}
+
+/* Screen-only: hide printable sheet when not printing */
+@media screen {
+  #printable-sheet,
+  .printable-sheet {
+    display: none !important;
+  }
+}
