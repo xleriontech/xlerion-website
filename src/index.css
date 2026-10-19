@@ -709,7 +709,8 @@
   .section-header-border::before,
   .xl-ready::before,
   .xl-ready::after,
-  .glow-on-hover::before {
+  .glow-on-hover::before,
+  .print-hidden {
     display: none !important;
   }
 
@@ -784,30 +785,19 @@
   .rounded-xl,
   article,
   .project-card,
-  .case-study-card {
+  .case-study-card,
+  .executive-brief-kpi,
+  .kpi-card,
+  .topology-card,
+  .layer-card,
+  .roadmap-week,
+  .signature-block {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
   }
 
-  /* Printable sheet container */
-  #printable-sheet,
-  .printable-sheet,
-  [id="printable-sheet"] {
-    display: block !important;
-    background: #FFFFFF !important;
-    color: #111827 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: none !important;
-    width: 100% !important;
-    box-shadow: none !important;
-    border: none !important;
-  }
-
   /* Executive Brief Modal - print as full document */
-  .executive-brief-modal,
-  [role="dialog"][aria-label*="Ficha T"],
-  [role="dialog"][aria-label*="Executive"] {
+  .executive-brief-modal {
     position: static !important;
     background: #FFFFFF !important;
     color: #111827 !important;
@@ -823,9 +813,7 @@
     break-after: page;
   }
 
-  .executive-brief-modal > div,
-  [role="dialog"][aria-label*="Ficha T"] > div,
-  [role="dialog"][aria-label*="Executive"] > div {
+  .executive-brief-modal > div {
     background: #FFFFFF !important;
     border: none !important;
     border-radius: 0 !important;
@@ -835,8 +823,7 @@
   }
 
   /* Header in print */
-  .executive-brief-header,
-  .print-header {
+  .executive-brief-header {
     border-bottom: 2px solid #111827 !important;
     padding-bottom: 1rem !important;
     margin-bottom: 1.5rem !important;
@@ -1004,11 +991,15 @@
   }
 
   /* Grid layouts - force single column for readability */
-  .grid {
+  .executive-brief-kpis,
+  .executive-brief-layers,
+  .executive-brief-weeks {
     display: block !important;
   }
 
-  .grid > * {
+  .executive-brief-kpis > *,
+  .executive-brief-layers > *,
+  .executive-brief-weeks > * {
     margin-bottom: 1rem !important;
   }
 
@@ -1039,26 +1030,8 @@
     text-shadow: none !important;
   }
 
-  /* Ensure the printable content is visible */
-  #printable-sheet,
-  .printable-sheet {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: static !important;
-  }
-
-  /* Hide interactive elements in modal */
-  .print-hidden,
-  [class*="print:hidden"] {
-    display: none !important;
-  }
-}
-
-/* Screen-only: hide printable sheet when not printing */
-@media screen {
-  #printable-sheet,
-  .printable-sheet {
+  /* Modal backdrop hidden */
+  .fixed.inset-0.bg-black\/80 {
     display: none !important;
   }
 }
