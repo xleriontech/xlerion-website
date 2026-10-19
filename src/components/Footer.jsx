@@ -7,6 +7,10 @@ import FooterVisitorCounter from './FooterVisitorCounter';
 export default function Footer({ navTo }) {
   const { lang, t } = useLanguage();
   const go = (id) => {
+    if (id === 'panelaia') {
+      window.open('http://localhost:3002', '_blank', 'noopener,noreferrer');
+      return;
+    }
     if (navTo) navTo(id);
   };
 
@@ -60,7 +64,7 @@ export default function Footer({ navTo }) {
             <ul className="space-y-3 text-[10px] font-mono text-gray-500 uppercase tracking-widest list-none p-0 m-0">
               <li><button onClick={() => go('home')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_home')}</button></li>
               <li><button onClick={() => go('metricas')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_metrics')}</button></li>
-              <li><button onClick={() => go('proyectos')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_projects')}</button></li>
+              <li><button onClick={() => go('panelaia')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_projects')}</button></li>
               <li><button onClick={() => go('toolkit')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_toolkit')}</button></li>
               <li><button onClick={() => go('arquitectura')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_architecture')}</button></li>
               <li><button onClick={() => go('liderazgo')} className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer">{t('footer_access_leadership')}</button></li>
