@@ -673,16 +673,19 @@
     margin: 1.5cm;
   }
 
-  /* Global reset */
+  /* Global reset - force exact color reproduction */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
+  /* ROOT RESET - force white page */
   html,
   body,
-  #root {
+  #root,
+  #root > div {
     background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
     color: #111827 !important;
     font-family: 'Inter', sans-serif !important;
     font-size: 11pt !important;
@@ -691,7 +694,7 @@
     overflow: visible !important;
   }
 
-  /* Hide all UI chrome */
+  /* HIDE ALL UI CHROME - AGGRESSIVE */
   .no-print,
   nav,
   footer,
@@ -700,7 +703,6 @@
   button,
   [role="button"],
   .modal-backdrop,
-  .fixed.inset-0,
   .hamburger-line,
   .mobile-menu,
   .nav-dropdown,
@@ -710,11 +712,28 @@
   .xl-ready::before,
   .xl-ready::after,
   .glow-on-hover::before,
-  .print-hidden {
+  .print-hidden,
+  /* Backdrop - multiple selectors for specificity */
+  div.fixed.inset-0,
+  div.fixed.inset-0.bg-black\/80,
+  div[class*="fixed"][class*="inset-0"],
+  div[style*="fixed"][style*="inset"],
+  /* Footer, header, nav */
+  header,
+  aside {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
   }
 
-  /* Force white background on all sections */
+  /* FORCE WHITE BACKGROUND ON EVERYTHING */
+  html,
+  body,
+  #root,
   section,
   main,
   .xl-section,
@@ -725,8 +744,15 @@
   [id^="toolkit"],
   [id^="arquitectura"],
   [id^="liderazgo"],
-  [id^="contacto"] {
+  [id^="contacto"],
+  div,
+  article,
+  aside,
+  .executive-brief-modal,
+  .executive-brief-modal > div,
+  .executive-brief-modal > div > div {
     background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
     color: #111827 !important;
     box-shadow: none !important;
     border: none !important;
@@ -734,10 +760,16 @@
     break-inside: avoid;
   }
 
-  /* Typography */
-  h1, h2, h3, h4, h5, h6 {
+  /* TYPOGRAPHY - FORCE BLACK TEXT */
+  h1, h2, h3, h4, h5, h6,
+  p, li, span, div, label,
+  a,
+  strong, b,
+  .font-mono,
+  .font-sans {
     color: #111827 !important;
     font-family: 'Inter', sans-serif !important;
+    text-shadow: none !important;
   }
 
   h1 { font-size: 22pt !important; line-height: 1.2 !important; margin-bottom: 0.5rem !important; }
@@ -753,7 +785,7 @@
     font-family: 'Roboto Mono', monospace !important;
   }
 
-  /* Links - show URLs */
+  /* LINKS - show URLs */
   a {
     color: #111827 !important;
     text-decoration: none !important;
@@ -773,7 +805,7 @@
     font-family: 'Roboto Mono', monospace;
   }
 
-  /* Prevent page breaks inside cards and key sections */
+  /* PREVENT PAGE BREAKS */
   .card-hover,
   .glow-on-hover,
   [class*="stagger-"],
@@ -796,10 +828,11 @@
     break-inside: avoid !important;
   }
 
-  /* Executive Brief Modal - print as full document */
+  /* EXECUTIVE BRIEF MODAL - FORCE FULL DOCUMENT */
   .executive-brief-modal {
     position: static !important;
     background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
     color: #111827 !important;
     max-width: none !important;
     max-height: none !important;
@@ -811,22 +844,28 @@
     padding: 0 !important;
     page-break-after: always;
     break-after: page;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .executive-brief-modal > div {
     background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
     border: none !important;
     border-radius: 0 !important;
     max-width: none !important;
     max-height: none !important;
     overflow: visible !important;
+    display: block !important;
   }
 
-  /* Header in print */
+  /* HEADER */
   .executive-brief-header {
     border-bottom: 2px solid #111827 !important;
     padding-bottom: 1rem !important;
     margin-bottom: 1.5rem !important;
+    background: #FFFFFF !important;
   }
 
   .executive-brief-badge {
@@ -834,6 +873,8 @@
     color: #FFFFFF !important;
     border: none !important;
     font-size: 9pt !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 4px !important;
   }
 
   .executive-brief-doc {
@@ -854,7 +895,7 @@
     font-family: 'Roboto Mono', monospace !important;
   }
 
-  /* KPI Cards */
+  /* KPI CARDS */
   .executive-brief-kpi,
   .kpi-card {
     page-break-inside: avoid !important;
@@ -864,6 +905,7 @@
     border-radius: 6px !important;
     padding: 1rem !important;
     margin: 0.5rem 0 !important;
+    display: block !important;
   }
 
   .kpi-value {
@@ -871,6 +913,7 @@
     font-weight: 700 !important;
     color: #111827 !important;
     font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
   }
 
   .kpi-label {
@@ -880,15 +923,17 @@
     color: #111827 !important;
     font-family: 'Roboto Mono', monospace !important;
     margin-top: 0.5rem !important;
+    display: block !important;
   }
 
   .kpi-desc {
     font-size: 9pt !important;
     color: #6B7280 !important;
     margin-top: 0.25rem !important;
+    display: block !important;
   }
 
-  /* Topology / Layers */
+  /* TOPOLOGY / LAYERS */
   .topology-card,
   .layer-card {
     page-break-inside: avoid !important;
@@ -898,6 +943,7 @@
     border-radius: 6px !important;
     padding: 1rem !important;
     margin: 0.5rem 0 !important;
+    display: block !important;
   }
 
   .layer-icon {
@@ -911,15 +957,18 @@
     letter-spacing: 0.08em !important;
     color: #111827 !important;
     font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
+    margin-bottom: 0.25rem !important;
   }
 
   .layer-desc {
     font-size: 9pt !important;
     color: #6B7280 !important;
     margin-top: 0.25rem !important;
+    display: block !important;
   }
 
-  /* Roadmap weeks */
+  /* ROADMAP WEEKS */
   .roadmap-week {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
@@ -928,6 +977,7 @@
     border-radius: 6px !important;
     padding: 1rem !important;
     margin: 0.5rem 0 !important;
+    display: block !important;
   }
 
   .roadmap-week-label {
@@ -937,6 +987,7 @@
     letter-spacing: 0.1em !important;
     color: #111827 !important;
     font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
   }
 
   .roadmap-week-title {
@@ -944,33 +995,40 @@
     font-weight: 600 !important;
     color: #111827 !important;
     margin-top: 0.5rem !important;
+    display: block !important;
   }
 
   .roadmap-week-desc {
     font-size: 9pt !important;
     color: #6B7280 !important;
     margin-top: 0.25rem !important;
+    display: block !important;
   }
 
-  /* Signature */
+  /* SIGNATURE */
   .signature-block {
     background: #F9FAFB !important;
     border: 1px solid #E5E7EB !important;
     border-radius: 6px !important;
     padding: 1rem !important;
     margin-top: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
   }
 
   .signature-name {
     font-size: 12pt !important;
     font-weight: 700 !important;
     color: #111827 !important;
+    display: block !important;
   }
 
   .signature-role {
     font-size: 9pt !important;
     color: #6B7280 !important;
     font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
   }
 
   .signature-company {
@@ -979,7 +1037,7 @@
     font-family: 'Roboto Mono', monospace !important;
   }
 
-  /* ISO note */
+  /* ISO NOTE */
   .iso-note {
     font-size: 9pt !important;
     color: #6B7280 !important;
@@ -988,22 +1046,25 @@
     margin-top: 1.5rem !important;
     padding-top: 1rem !important;
     border-top: 1px solid #E5E7EB !important;
+    display: block !important;
   }
 
-  /* Grid layouts - force single column for readability */
+  /* GRID LAYOUTS - FORCE SINGLE COLUMN */
   .executive-brief-kpis,
   .executive-brief-layers,
-  .executive-brief-weeks {
+  .executive-brief-weeks,
+  .grid {
     display: block !important;
   }
 
   .executive-brief-kpis > *,
   .executive-brief-layers > *,
-  .executive-brief-weeks > * {
+  .executive-brief-weeks > *,
+  .grid > * {
     margin-bottom: 1rem !important;
   }
 
-  /* Tables */
+  /* TABLES */
   table {
     width: 100% !important;
     border-collapse: collapse !important;
@@ -1023,15 +1084,30 @@
     color: #111827 !important;
   }
 
-  /* Remove gradients and shadows */
+  /* REMOVE ALL GRADIENTS, SHADOWS, ANIMATIONS */
   * {
     background-image: none !important;
     box-shadow: none !important;
     text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
   }
 
-  /* Modal backdrop hidden */
-  .fixed.inset-0.bg-black\/80 {
+  /* BACKDROP - HIDE COMPLETELY */
+  div.fixed.inset-0.bg-black\/80,
+  div.fixed.inset-0[style*="rgba(0, 0, 0, 0.8)"],
+  div[class*="fixed"][class*="inset-0"][class*="bg-black"],
+  div[style*="background: rgba(0, 0, 0"],
+  div[style*="background-color: rgba(0, 0, 0"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+
+  /* MODAL WRAPPER - HIDE */
+  div.fixed.inset-0.z-\[100\].bg-black\/80 {
     display: none !important;
   }
 }
