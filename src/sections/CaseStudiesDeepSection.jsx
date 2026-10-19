@@ -307,7 +307,7 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
                   </div>
                   {item.id === 'panelaia' && (
                     <a
-                      href="http://localhost:3002"
+                      href={import.meta.env.VITE_PANELAIA_URL || 'https://panelaia.xlerion.com'}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#00e9fa] text-black font-semibold text-sm rounded-lg hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] transition-all duration-300"

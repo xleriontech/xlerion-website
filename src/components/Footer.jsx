@@ -6,9 +6,10 @@ import FooterVisitorCounter from './FooterVisitorCounter';
 
 export default function Footer({ navTo }) {
   const { lang, t } = useLanguage();
+  const panelaiaUrl = import.meta.env.VITE_PANELAIA_URL || 'https://panelaia.xlerion.com';
   const go = (id) => {
     if (id === 'panelaia') {
-      window.open('http://localhost:3002', '_blank', 'noopener,noreferrer');
+      window.open(panelaiaUrl, '_blank', 'noopener,noreferrer');
       return;
     }
     if (navTo) navTo(id);

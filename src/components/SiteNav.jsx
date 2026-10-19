@@ -26,10 +26,11 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
   }, [mobileMenuOpen]);
 
   const navTo = (id) => {
+    const panelaiaUrl = import.meta.env.VITE_PANELAIA_URL || 'https://panelaia.xlerion.com';
     // Handle external link for PanelaIA microsite
     if (id === 'panelaia') {
       setMobileMenuOpen(false);
-      window.open('http://localhost:3002', '_blank', 'noopener,noreferrer');
+      window.open(panelaiaUrl, '_blank', 'noopener,noreferrer');
       return;
     }
     setMobileMenuOpen(false);
