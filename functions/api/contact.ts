@@ -1,7 +1,7 @@
 export interface Env {
-	RESEND_API_KEY: string;
-	EMAIL_FROM: string;
-	EMAIL_TO: string;
+	RESEND_API_KEY?: string;
+	EMAIL_FROM?: string;
+	EMAIL_TO?: string;
 }
 
 interface ContactFormData {
@@ -13,6 +13,10 @@ interface ContactFormData {
 	interest: string;
 	challenge: string;
 	consent: boolean;
+}
+
+function hasResendConfig(env: Env): boolean {
+	return !!(env.RESEND_API_KEY && env.EMAIL_FROM && env.EMAIL_TO);
 }
 
 export async function onRequestPost(context: { request: Request; env: Env }): Promise<Response> {
@@ -30,43 +34,9 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 		// Generate ticket ID
 		const ticketId = `POC-XLERION-${Math.floor(1000 + Math.random() * 9000)}`;
 
-		// Send email via Resend API (fetch native, no dependencies)
-		const emailResponse = await fetch('https://api.resend.com/emails', {
-			method: 'POST',
-			headers: {
-				'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				from: context.env.EMAIL_FROM,
-				to: [context.env.EMAIL_TO],
-				subject: `Nueva solicitud PoC: ${ticketId} - ${formData.company}`,
-				html: `
-					<h2>Nueva solicitud de Prueba de Concepto</h2>
-					<p><strong>Ticket:</strong> ${ticketId}</p>
-					<p><strong>Nombre:</strong> ${formData.name}</p>
-					<p><strong>Empresa:</strong> ${formData.company}</p>
-					<p><strong>Email:</strong> ${formData.email}</p>
-					<p><strong>Cargo:</strong> ${formData.role || 'No especificado'}</p>
-					<p><strong>Sector:</strong> ${formData.sector}</p>
-					<p><strong>Interés:</strong> ${formData.interest}</p>
-					<p><strong>Desafío:</strong></p>
-					<p>${formData.challenge.replace(/\n/g, '<br>')}</p>
-				`,
-				reply_to: formData.email,
-			}),
-		});
-
-		const emailResult = await emailResponse.json();
-
-		if (!emailResponse.ok) {
-			console.error('Resend error:', emailResult);
-			throw new Error(emailResult.message || 'Failed to send email');
-		}
-
+		// Always log (visible in Cloudflare Workers logs)
 		console.log('=== NUEVA SOLICITUD PoC ===');
 		console.log(`Ticket: ${ticketId}`);
-		console.log(`Resend ID: ${emailResult.id}`);
 		console.log(`Nombre: ${formData.name}`);
 		console.log(`Empresa: ${formData.company}`);
 		console.log(`Email: ${formData.email}`);
@@ -75,6 +45,52 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 		console.log(`Interés: ${formData.interest}`);
 		console.log(`Desafío: ${formData.challenge}`);
 		console.log('============================');
+
+		// Try to send email via Resend if configured
+		if (hasResendConfig(context.env)) {
+			try {
+				const emailResponse = await fetch('https://api.resend.com/emails', {
+					method: 'POST',
+					headers: {
+						'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						from: context.env.EMAIL_FROM,
+						to: [context.env.EMAIL_TO],
+						subject: `Nueva solicitud PoC: ${ticketId} - ${formData.company}`,
+						html: `
+							<h2>Nueva solicitud de Prueba de Concepto</h2>
+							<p><strong>Ticket:</strong> ${ticketId}</p>
+							<p><strong>Nombre:</strong> ${formData.name}</p>
+							<p><strong>Empresa:</strong> ${formData.company}</p>
+							<p><strong>Email:</strong> ${formData.email}</p>
+							<p><strong>Cargo:</strong> ${formData.role || 'No especificado'}</p>
+							<p><strong>Sector:</strong> ${formData.sector}</p>
+							<p><strong>Interés:</strong> ${formData.interest}</p>
+							<p><strong>Desafío:</strong></p>
+							<p>${formData.challenge.replace(/\n/g, '<br>')}</p>
+						`,
+						reply_to: formData.email,
+					}),
+				});
+
+				const emailResult = await emailResponse.json();
+
+				if (!emailResponse.ok) {
+					console.error('Resend error:', emailResult);
+					// Don't fail the request, just log the error
+					// The form submission succeeded, email is secondary
+				} else {
+					console.log(`Resend ID: ${emailResult.id}`);
+				}
+			} catch (emailError) {
+				console.error('Resend fetch error:', emailError);
+				// Don't fail the request
+			}
+		} else {
+			console.warn('Resend not configured - skipping email send. Set RESEND_API_KEY, EMAIL_FROM, EMAIL_TO in Cloudflare Pages env vars.');
+		}
 
 		return Response.json({
 			success: true,
