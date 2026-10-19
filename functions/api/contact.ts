@@ -1,7 +1,7 @@
 export interface Env {
-	// Add your email service credentials as secrets in Cloudflare Pages dashboard
-	// EMAIL_API_KEY: string;
-	// EMAIL_FROM: string;
+	RESEND_API_KEY: string;
+	EMAIL_FROM: string;
+	EMAIL_TO: string;
 }
 
 interface ContactFormData {
@@ -30,42 +30,43 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 		// Generate ticket ID
 		const ticketId = `POC-XLERION-${Math.floor(1000 + Math.random() * 9000)}`;
 
-		// TODO: Integrate with your email service (SendGrid, Mailgun, Resend, etc.)
-		// Example with fetch to email API:
-		/*
-		const emailResponse = await fetch('https://api.sendgrid.com/v3/mail/send', {
+		// Send email via Resend API (fetch native, no dependencies)
+		const emailResponse = await fetch('https://api.resend.com/emails', {
 			method: 'POST',
 			headers: {
-				'Authorization': `Bearer ${context.env.EMAIL_API_KEY}`,
+				'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				personalizations: [{
-					to: [{ email: 'xlerionultimate@gmail.com' }],
-					subject: `Nueva solicitud PoC: ${ticketId} - ${formData.company}`,
-					dynamic_template_data: {
-						ticketId,
-						name: formData.name,
-						company: formData.company,
-						email: formData.email,
-						role: formData.role,
-						sector: formData.sector,
-						interest: formData.interest,
-						challenge: formData.challenge,
-					},
-				}],
-				from: { email: context.env.EMAIL_FROM || 'noreply@xlerion.com' },
+				from: context.env.EMAIL_FROM,
+				to: [context.env.EMAIL_TO],
+				subject: `Nueva solicitud PoC: ${ticketId} - ${formData.company}`,
+				html: `
+					<h2>Nueva solicitud de Prueba de Concepto</h2>
+					<p><strong>Ticket:</strong> ${ticketId}</p>
+					<p><strong>Nombre:</strong> ${formData.name}</p>
+					<p><strong>Empresa:</strong> ${formData.company}</p>
+					<p><strong>Email:</strong> ${formData.email}</p>
+					<p><strong>Cargo:</strong> ${formData.role || 'No especificado'}</p>
+					<p><strong>Sector:</strong> ${formData.sector}</p>
+					<p><strong>Interés:</strong> ${formData.interest}</p>
+					<p><strong>Desafío:</strong></p>
+					<p>${formData.challenge.replace(/\n/g, '<br>')}</p>
+				`,
+				reply_to: formData.email,
 			}),
 		});
 
-		if (!emailResponse.ok) {
-			throw new Error('Failed to send email');
-		}
-		*/
+		const emailResult = await emailResponse.json();
 
-		// For now, log to console (visible in Cloudflare Workers logs)
+		if (!emailResponse.ok) {
+			console.error('Resend error:', emailResult);
+			throw new Error(emailResult.message || 'Failed to send email');
+		}
+
 		console.log('=== NUEVA SOLICITUD PoC ===');
 		console.log(`Ticket: ${ticketId}`);
+		console.log(`Resend ID: ${emailResult.id}`);
 		console.log(`Nombre: ${formData.name}`);
 		console.log(`Empresa: ${formData.company}`);
 		console.log(`Email: ${formData.email}`);
@@ -75,7 +76,6 @@ export async function onRequestPost(context: { request: Request; env: Env }): Pr
 		console.log(`Desafío: ${formData.challenge}`);
 		console.log('============================');
 
-		// Return success
 		return Response.json({
 			success: true,
 			ticketId,
