@@ -144,6 +144,98 @@ export default function ExecutiveBriefModal({ isOpen, onClose, onOpenPoC }) {
       onClick={onClose}
       role="presentation"
     >
+      {/* Print-only full document — hidden on screen, visible on print */}
+      <div id="printable-sheet" className="printable-sheet executive-brief-print print:block hidden">
+        <div className="executive-brief-print-inner">
+          {/* Header */}
+          <header className="executive-brief-header print-header">
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className="executive-brief-badge font-mono text-[9px] uppercase tracking-[0.2em] rounded px-2.5 py-1">
+                {c.badge}
+              </span>
+              <span className="executive-brief-doc font-mono text-[9px] uppercase tracking-[0.2em]">
+                {c.doc}
+              </span>
+            </div>
+            <h1 className="executive-brief-title">{c.title}</h1>
+            <p className="executive-brief-subtitle font-mono">{c.subtitle}</p>
+          </header>
+
+          {/* KPIs */}
+          <section className="mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {c.kpis.map((kpi) => (
+                <div key={kpi.label} className="executive-brief-kpi kpi-card">
+                  <span className="kpi-value">{kpi.value}</span>
+                  <span className="kpi-label">{kpi.label}</span>
+                  <p className="kpi-desc">{kpi.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Topology */}
+          <section className="mb-6">
+            <h2 className="mb-3 pb-2 border-b border-gray-300">{c.topologyTitle}</h2>
+            <p className="mb-4 text-sm leading-relaxed text-gray-700">{c.topologyBody}</p>
+            <div className="space-y-3">
+              {c.layers.map((layer, index) => {
+                const Icon = LAYER_ICONS[index] || Radio;
+                return (
+                  <div key={layer.name} className="topology-card layer-card">
+                    <div className="flex items-center justify-between mb-2">
+                      <Icon size={16} className="layer-icon" />
+                      <span className="font-mono text-[8px] text-gray-500">0{index + 1}</span>
+                    </div>
+                    <span className="layer-title">{layer.name}</span>
+                    <p className="layer-desc">{layer.desc}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          {/* Roadmap */}
+          <section className="mb-6">
+            <h2 className="flex items-center gap-2 mb-3 pb-2 border-b border-gray-300">
+              <CalendarDays size={16} className="text-gray-700" />
+              {c.roadmapTitle}
+            </h2>
+            <p className="mb-4 text-sm leading-relaxed text-gray-700">{c.roadmapBody}</p>
+            <div className="space-y-3">
+              {c.weeks.map((week) => (
+                <div key={week.week} className="roadmap-week">
+                  <span className="roadmap-week-label">{week.week}</span>
+                  <span className="roadmap-week-title">{week.title}</span>
+                  <p className="roadmap-week-desc">{week.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Signature */}
+          <section className="mb-6">
+            <div className="signature-block flex items-center gap-4">
+              <div className="w-8 h-8 rounded-md bg-gray-100 border border-gray-300 flex items-center justify-center shrink-0">
+                <PenLine size={14} className="text-gray-700" />
+              </div>
+              <div className="flex-1">
+                <span className="signature-name">{c.signatureName}</span>
+                <span className="signature-role">{c.signatureRole}</span>
+              </div>
+              <span className="signature-company hidden sm:block">{c.signatureCompany}</span>
+            </div>
+          </section>
+
+          {/* ISO Note */}
+          <footer className="iso-note">
+            <ShieldCheck size={14} className="inline" />
+            {c.isoNote}
+          </footer>
+        </div>
+      </div>
+
+      {/* Screen modal */}
       <div
         className="relative bg-[#0a0a12] border border-[#00e9fa]/20 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto print:max-w-none print:max-h-none print:overflow-visible print:border-0 print:rounded-none print:bg-white print:shadow-none print:text-black"
         onClick={(e) => e.stopPropagation()}
@@ -193,15 +285,15 @@ export default function ExecutiveBriefModal({ isOpen, onClose, onOpenPoC }) {
             {c.kpis.map((kpi) => (
               <div
                 key={kpi.label}
-                className="bg-[#050508] border border-white/[0.08] rounded-lg p-4 print:bg-white print:border-gray-300"
+                className="bg-[#050508] border border-white/[0.08] rounded-lg p-4 print:bg-white print:border-gray-300 executive-brief-kpi kpi-card"
               >
-                <span className="block font-mono text-xl font-bold text-[#00e9fa] print:text-black">
+                <span className="block font-mono text-xl font-bold text-[#00e9fa] print:text-black kpi-value">
                   {kpi.value}
                 </span>
-                <span className="block font-mono text-[11px] uppercase tracking-[0.15em] text-white mt-2 print:text-black">
+                <span className="block font-mono text-[11px] uppercase tracking-[0.15em] text-white mt-2 print:text-black kpi-label">
                   {kpi.label}
                 </span>
-                <p className="text-[11px] text-gray-500 mt-1 leading-relaxed print:text-gray-600">
+                <p className="text-[11px] text-gray-500 mt-1 leading-relaxed print:text-gray-600 kpi-desc">
                   {kpi.desc}
                 </p>
               </div>
@@ -220,18 +312,18 @@ export default function ExecutiveBriefModal({ isOpen, onClose, onOpenPoC }) {
                 return (
                   <div
                     key={layer.name}
-                    className="relative bg-[#050508] border border-[#00e9fa]/20 rounded-lg p-4 print:bg-white print:border-gray-300"
+                    className="relative bg-[#050508] border border-[#00e9fa]/20 rounded-lg p-4 print:bg-white print:border-gray-300 topology-card layer-card"
                   >
                     <div className="flex items-center justify-between mb-3">
-                      <Icon size={18} className="text-[#00e9fa] print:text-gray-700" />
+                      <Icon size={18} className="text-[#00e9fa] print:text-gray-700 layer-icon" />
                       <span className="font-mono text-[10px] text-gray-500 print:text-gray-600">
                         0{index + 1}
                       </span>
                     </div>
-                    <span className="block font-mono text-[11px] uppercase tracking-[0.15em] text-white print:text-black">
+                    <span className="block font-mono text-[11px] uppercase tracking-[0.15em] text-white print:text-black layer-title">
                       {layer.name}
                     </span>
-                    <p className="text-[11px] text-gray-500 mt-1 leading-relaxed print:text-gray-600">
+                    <p className="text-[11px] text-gray-500 mt-1 leading-relaxed print:text-gray-600 layer-desc">
                       {layer.desc}
                     </p>
                   </div>
@@ -253,13 +345,13 @@ export default function ExecutiveBriefModal({ isOpen, onClose, onOpenPoC }) {
               {c.weeks.map((week) => (
                 <div
                   key={week.week}
-                  className="bg-[#050508] border border-white/[0.08] rounded-lg p-4 print:bg-white print:border-gray-300"
+                  className="bg-[#050508] border border-white/[0.08] rounded-lg p-4 print:bg-white print:border-gray-300 roadmap-week"
                 >
-                  <span className="block font-mono text-[11px] font-bold uppercase tracking-[0.15em] text-[#00e9fa] print:text-black">
+                  <span className="block font-mono text-[11px] font-bold uppercase tracking-[0.15em] text-[#00e9fa] print:text-black roadmap-week-label">
                     {week.week}
                   </span>
-                  <span className="block text-sm text-white mt-2 print:text-black">{week.title}</span>
-                  <p className="text-[11px] text-gray-500 mt-1 leading-relaxed print:text-gray-600">
+                  <span className="block text-sm text-white mt-2 print:text-black roadmap-week-title">{week.title}</span>
+                  <p className="text-[11px] text-gray-500 mt-1 leading-relaxed print:text-gray-600 roadmap-week-desc">
                     {week.desc}
                   </p>
                 </div>
@@ -268,21 +360,21 @@ export default function ExecutiveBriefModal({ isOpen, onClose, onOpenPoC }) {
           </div>
 
           {/* Founder signature */}
-          <div className="flex items-center gap-4 bg-[#050508] border border-white/[0.08] rounded-lg p-4 print:bg-white print:border-gray-300">
+          <div className="flex items-center gap-4 bg-[#050508] border border-white/[0.08] rounded-lg p-4 print:bg-white print:border-gray-300 signature-block">
             <div className="w-10 h-10 rounded-md bg-[#00e9fa]/10 border border-[#00e9fa]/30 flex items-center justify-center shrink-0 print:border-gray-400">
               <PenLine size={18} className="text-[#00e9fa] print:text-gray-700" />
             </div>
             <div className="flex-1">
-              <span className="block text-white text-sm font-semibold print:text-black">{c.signatureName}</span>
-              <span className="text-[11px] font-mono text-gray-500 print:text-gray-600">{c.signatureRole}</span>
+              <span className="block text-white text-sm font-semibold print:text-black signature-name">{c.signatureName}</span>
+              <span className="text-[11px] font-mono text-gray-500 print:text-gray-600 signature-role">{c.signatureRole}</span>
             </div>
-            <span className="font-mono text-[11px] text-[#00e9fa] print:text-gray-700 hidden sm:block">
+            <span className="font-mono text-[11px] text-[#00e9fa] print:text-gray-700 hidden sm:block signature-company">
               {c.signatureCompany}
             </span>
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Footer - hidden on print */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-white/[0.08] p-6 md:p-8 print:hidden">
           <span className="flex items-center gap-2 font-mono text-[11px] text-gray-500">
             <ShieldCheck size={15} className="text-[#00e9fa]" />
