@@ -20,7 +20,7 @@ export default function FooterVisitorCounter() {
                 return;
             }
 
-            const response = await fetch('/api/analytics-visitor-count', {
+            const response = await fetch('/api/analytics/visitor-count', {
                 method: 'GET',
                 headers: { 'Accept': 'application/json' }
             });
