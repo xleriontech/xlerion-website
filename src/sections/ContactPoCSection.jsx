@@ -4,8 +4,6 @@ import {
   MapPin,
   Clock,
   ShieldCheck,
-  FileText,
-  Download,
   Send,
   Building2,
   User,
@@ -248,19 +246,6 @@ export default function ContactPoCSection() {
                     </span>
                     <span className="text-gray-400 text-sm leading-relaxed">{c.ndaValue}</span>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Executive brief widget */}
-            <div className="relative bg-white/[0.02] border border-[#00e9fa]/20 rounded-lg p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 card-hover">
-              <div className="flex items-start gap-3">
-                <FileText size={20} className="text-[#00e9fa] shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="text-white text-sm font-semibold">Ficha Técnica Ejecutiva</h3>
-                  <p className="mt-1 text-[11px] font-mono uppercase tracking-[0.15em] text-gray-500">
-                    Documento de arquitectura B2B v4.2
-                  </p>
                 </div>
               </div>
             </div>
