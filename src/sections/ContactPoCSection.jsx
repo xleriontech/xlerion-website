@@ -7,42 +7,31 @@ import {
   FileText,
   Download,
   Send,
-  CheckCircle2,
-  ArrowRight,
   Building2,
   User,
   Briefcase,
   Layers,
   HelpCircle,
+  Check,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionHeader } from '../components/ui';
 
-const SECTORS = [
-  { value: 'manufactura', es: 'Manufactura', en: 'Manufacturing' },
-  { value: 'mineria', es: 'Minería', en: 'Mining' },
-  { value: 'smart-cities', es: 'Smart Cities', en: 'Smart Cities' },
-  { value: 'energia', es: 'Energía', en: 'Energy' },
-  { value: 'logistica', es: 'Logística', en: 'Logistics' },
-  { value: 'otro', es: 'Otro', en: 'Other' },
-];
+const SECTORS_ES = ['Minería', 'Manufactura', 'Smart Cities', 'Energía', 'Otro'];
+const SECTORS_EN = ['Mining', 'Manufacturing', 'Smart Cities', 'Energy', 'Other'];
 
-const INTERESTS = [
-  { value: 'digital-twins', es: 'Gemelos Digitales & 3D', en: 'Digital Twins & 3D' },
-  { value: 'rag', es: 'Plataformas RAG/IA', en: 'RAG/AI Platforms' },
-  { value: 'iot', es: 'Telemetría IoT', en: 'IoT Telemetry' },
-  { value: 'consulting', es: 'Consultoría', en: 'Consulting' },
-];
+const INTERESTS_ES = ['Gemelos Digitales 3D', 'Plataformas RAG/IA', 'Telemetría IoT', 'Consultoría'];
+const INTERESTS_EN = ['Digital Twins 3D', 'RAG/AI Platforms', 'IoT Telemetry', 'Consulting'];
 
 const INITIAL_FORM = {
   name: '',
   company: '',
   email: '',
   role: '',
-  sector: 'manufactura',
-  interest: 'digital-twins',
+  sector: '',
+  interest: '',
   challenge: '',
-  consent: true,
+  consent: false,
 };
 
 const INPUT_CLASS =
@@ -52,132 +41,100 @@ const LABEL_CLASS = 'block text-xs font-mono uppercase tracking-[0.15em] text-gr
 
 const COPY = {
   es: {
-    subtitle: 'Contacto & Prueba de Concepto',
-    title: 'Inicie su Prueba de Concepto Técnica',
+    subtitle: 'Inicie su Prueba de Concepto Técnica',
+    title: 'Solicitud de PoC',
     commitmentTitle: 'Compromiso de respuesta técnica',
     commitmentDesc:
-      'Cada solicitud es analizada directamente por nuestro equipo de arquitectura. Recibirá una respuesta técnica estructurada en menos de 24 horas hábiles.',
-    channelLabel: 'Canal corporativo',
-    channelValue: 'xlerionultimate@gmail.com',
-    hqLabel: 'Sede principal',
+      'Cada solicitud es analizada directamente por nuestra arquitectura. Recibirá una respuesta técnica estructurada en menos de 24 horas hábiles. Firmamos NDA (Acuerdo de Confidencialidad) antes de revisar planos, redes o telemetría de planta.',
+    channelLabel: 'Correo corporativo',
+    channelValue: 'contacto@xlerion.co',
+    hqLabel: 'Ubicación',
     hqValue: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     slaLabel: 'SLA de respuesta',
     slaValue: '< 24 horas hábiles',
-    ndaLabel: 'NDA opcional',
+    ndaLabel: 'NDA',
     ndaValue: 'Firmamos Acuerdo de Confidencialidad mutuo antes de compartir planos, redes o telemetría de planta.',
-    briefTitle: 'Ficha Técnica Ejecutiva',
-    briefDesc: 'Documento de arquitectura B2B v4.2',
-    briefCta: 'Descargar ficha técnica ejecutiva (PDF)',
-    legalNotice: 'Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion',
-    formTitle: 'Formulario de evaluación de proyecto',
-    formSubtitle: 'Campos requeridos para preparar la sesión técnica',
-    name: 'Nombre',
+    formTitle: 'Formulario de solicitud de PoC',
+    formSubtitle: 'Campos requeridos para preparar la evaluación técnica',
+    name: 'Nombre completo',
     company: 'Empresa',
     email: 'Correo corporativo',
     role: 'Cargo',
-    sector: 'Sector',
+    sector: 'Sector de interés',
     interest: 'Línea de interés',
-    challenge: '¿Cuál es su mayor desafío con los datos?',
+    challenge: '¿Cuál es su mayor desafío actual con los datos?',
     namePh: 'Ej. Ing. Carlos Mendoza',
     companyPh: 'Ej. Minera Andina S.A.',
     emailPh: 'nombre@empresa.com',
     rolePh: 'Ej. CTO / Gerente de Planta / Director TI',
-    challengePh: 'Ej. Reportes entre plantas con alta latencia o dificultad para consultar 40.000 manuales técnicos sin alucinaciones...',
-    consent: 'Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012.',
-    submit: 'Solicitar Prueba de Concepto (PoC)',
+    challengePh: 'Describa su desafío actual con los datos industriales...',
+    consent: 'Autorizo el tratamiento de mis datos personales conforme a la Política de Tratamiento de Datos de Xlerion, en cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013 de la República de Colombia.',
+    submit: 'Solicitar Evaluación Técnica y PoC',
     submitting: 'Procesando solicitud técnica...',
-    customerFallback: 'equipo',
     successTicket: 'Ticket generado',
     successTitle: 'Solicitud de PoC registrada exitosamente',
     successThanks: 'Gracias,',
     successArchitect: 'Hemos asignado su desafío técnico al equipo de arquitectura de Xlerion y le contactaremos en menos de 24 horas hábiles.',
-    summaryTitle: 'Resumen del requerimiento',
-    sumSector: 'Sector',
-    sumLine: 'Línea',
-    sumSla: 'SLA de contacto',
-    sumSlaValue: '< 24h hábiles',
-    successBrief: 'Descargar ficha técnica',
-    successNew: 'Nueva consulta',
+    contactEmail: 'contacto@xlerion.co',
+    contactLocation: 'Bogotá / Nocaima, Cundinamarca, Colombia',
+    contactSla: '< 24 horas hábiles',
+    legalNotice: 'Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion',
   },
   en: {
-    subtitle: 'Contact & Proof of Concept',
-    title: 'Start Your Technical Proof of Concept',
+    subtitle: 'Start Your Technical Proof of Concept',
+    title: 'PoC Request',
     commitmentTitle: 'Technical response commitment',
-    commitmentDesc: 'Every request is reviewed directly by our architecture team. You will receive a structured technical response in under 24 business hours.',
-    channelLabel: 'Corporate channel',
-    channelValue: 'xlerionultimate@gmail.com',
-    hqLabel: 'Headquarters',
+    commitmentDesc: 'Each request is analyzed directly by our architecture team. You will receive a structured technical response in under 24 business hours. We sign an NDA (Confidentiality Agreement) before reviewing blueprints, networks or plant telemetry.',
+    channelLabel: 'Corporate email',
+    channelValue: 'contacto@xlerion.co',
+    hqLabel: 'Location',
     hqValue: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     slaLabel: 'Response SLA',
     slaValue: '< 24 business hours',
-    ndaLabel: 'Optional NDA',
+    ndaLabel: 'NDA',
     ndaValue: 'We sign a mutual Confidentiality Agreement before sharing blueprints, network diagrams or plant telemetry.',
-    briefTitle: 'Executive Technical Brief',
-    briefDesc: 'B2B architecture document v4.2',
-    briefCta: 'Download executive technical brief (PDF)',
-    legalNotice: 'Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion',
-    formTitle: 'Project evaluation form',
-    formSubtitle: 'Required fields to prepare the technical session',
-    name: 'Name',
+    formTitle: 'PoC Request Form',
+    formSubtitle: 'Required fields to prepare the technical evaluation',
+    name: 'Full Name',
     company: 'Company',
-    email: 'Corporate email',
+    email: 'Corporate Email',
     role: 'Role',
-    sector: 'Industry',
-    interest: 'Area of interest',
+    sector: 'Industry of Interest',
+    interest: 'Line of Interest',
     challenge: 'What is your biggest data challenge today?',
     namePh: 'E.g. Eng. Carlos Mendoza',
     companyPh: 'E.g. Andean Mining Corp.',
     emailPh: 'name@company.com',
     rolePh: 'E.g. CTO / Plant Manager / IT Director',
-    challengePh: 'E.g. High-latency reports across plants, or querying 40,000 technical manuals without hallucinations...',
-    consent: 'I authorize the processing of my personal data under Colombian Law 1581 of 2012.',
-    submit: 'Request Proof of Concept (PoC)',
+    challengePh: 'Describe your current challenge with industrial data...',
+    consent: 'I authorize the processing of my personal data in accordance with Xlerion Data Processing Policy, complying with Law 1581 of 2012 and Decree 1377 of 2013 of the Republic of Colombia.',
+    submit: 'Request Technical Evaluation and PoC',
     submitting: 'Processing technical request...',
-    customerFallback: 'team',
     successTicket: 'Ticket generated',
     successTitle: 'PoC request successfully registered',
     successThanks: 'Thank you,',
     successArchitect: 'We have assigned your technical challenge to the Xlerion architecture team and will contact you within 24 business hours.',
-    summaryTitle: 'Request summary',
-    sumSector: 'Industry',
-    sumLine: 'Area',
-    sumSla: 'Contact SLA',
-    sumSlaValue: '< 24 business hours',
-    successBrief: 'Download technical brief',
-    successNew: 'New inquiry',
+    contactEmail: 'contacto@xlerion.co',
+    contactLocation: 'Bogotá / Nocaima, Cundinamarca, Colombia',
+    contactSla: '< 24 business hours',
+    legalNotice: 'Data Processing Policy (Law 1581 of 2012) | © 2026 Xlerion',
   },
 };
 
 const matchOption = (options, input) => {
   if (!input) return null;
   const norm = String(input).trim().toLowerCase();
-  const found = options.find(
-    (o) =>
-      o.value.toLowerCase() === norm ||
-      o.es.toLowerCase() === norm ||
-      o.en.toLowerCase() === norm
-  );
-  return found ? found.value : null;
+  const found = options.find((o) => o.toLowerCase() === norm);
+  return found ? found : null;
 };
 
-const labelOf = (options, value, lang) => {
-  const found = options.find((o) => o.value === value);
-  return found ? found[lang] : value;
-};
-
-export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecutiveBrief }) {
+export default function ContactPoCSection() {
   const { lang } = useLanguage();
   const c = COPY[lang] || COPY.es;
+  const sectors = lang === 'en' ? SECTORS_EN : SECTORS_ES;
+  const interests = lang === 'en' ? INTERESTS_EN : INTERESTS_ES;
 
-  const [formData, setFormData] = useState(() => {
-    const initial = { ...INITIAL_FORM };
-    if (prefill) {
-      if (prefill.sector) initial.sector = matchOption(SECTORS, prefill.sector) || 'otro';
-      if (prefill.solutionType) initial.interest = matchOption(INTERESTS, prefill.solutionType) || 'consulting';
-      if (prefill.challenge) initial.challenge = prefill.challenge;
-    }
-    return initial;
-  });
+  const [formData, setFormData] = useState(() => ({ ...INITIAL_FORM }));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [ticketId, setTicketId] = useState('');
@@ -192,9 +149,22 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const isCorporateEmail = (email) => {
+    if (!email) return false;
+    const publicDomains = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'live.com', 'icloud.com'];
+    const domain = email.split('@')[1]?.toLowerCase();
+    return domain && !publicDomains.includes(domain);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting || !formData.consent) return;
+
+    if (!isCorporateEmail(formData.email)) {
+      alert('El correo debe ser corporativo (no se aceptan dominios públicos genéricos como gmail.com, yahoo.com, etc.)');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       const res = await fetch('/api/contact', {
@@ -204,7 +174,7 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
       });
       const data = await res.json();
       if (data.success) {
-        setTicketId(data.ticketId);
+        setTicketId(data.ticketId || 'XLR-' + Date.now());
         setIsSuccess(true);
       } else {
         alert(data.error || 'Error al enviar la solicitud');
@@ -223,9 +193,9 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
   };
 
   const contactRows = [
-    { icon: Mail, label: c.channelLabel, value: c.channelValue, accent: 'text-[#00e9fa]' },
-    { icon: MapPin, label: c.hqLabel, value: c.hqValue, accent: 'text-[#00e9fa]' },
-    { icon: Clock, label: c.slaLabel, value: c.slaValue, accent: 'text-[#00e9fa]' },
+    { icon: Mail, label: c.channelLabel, value: c.contactEmail, accent: 'text-[#00e9fa]' },
+    { icon: MapPin, label: c.hqLabel, value: c.contactLocation, accent: 'text-[#00e9fa]' },
+    { icon: Clock, label: c.slaLabel, value: c.contactSla, accent: 'text-[#00e9fa]' },
   ];
 
   return (
@@ -274,9 +244,9 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
                   </div>
                   <div>
                     <span className="block text-[10px] font-mono uppercase tracking-[0.2em] text-gray-500">
-                      NDA opcional
+                      {c.ndaLabel}
                     </span>
-                    <span className="text-gray-400 text-sm leading-relaxed">Firmamos Acuerdo de Confidencialidad mutuo antes de compartir planos, redes o telemetría de planta.</span>
+                    <span className="text-gray-400 text-sm leading-relaxed">{c.ndaValue}</span>
                   </div>
                 </div>
               </div>
@@ -293,179 +263,194 @@ export default function ContactPoCSection({ prefill, onOpenPrivacy, onOpenExecut
                   </p>
                 </div>
               </div>
-              <button type="button" onClick={onOpenExecutiveBrief} className="xl-btn-secondary shrink-0 text-xs gap-2">
-                <Download size={16} />
-                Descargar ficha técnica ejecutiva (PDF)
-              </button>
             </div>
 
             {/* Data protection notice */}
             <div className="bg-[#050508] border border-white/[0.08] rounded-lg p-4 flex items-start gap-3">
               <ShieldCheck size={16} className="text-[#00e9fa] shrink-0 mt-0.5" />
               <span className="text-[11px] font-mono text-gray-400 leading-relaxed">
-                Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion
+                {c.legalNotice}
               </span>
             </div>
           </div>
 
           {/* Right column: evaluation form */}
           <div data-reveal className="stagger-2">
-            <div className="relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 backdrop-blur-sm glow-on-hover">
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="border-b border-white/[0.08] pb-4">
-                  <h3 className="text-white text-lg font-semibold">Formulario de evaluación de proyecto</h3>
-                  <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500 mt-1">Campos requeridos para preparar la sesión técnica</p>
+            {isSuccess ? (
+              <div className="relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 backdrop-blur-sm glow-on-hover">
+                <div className="text-center">
+                  <div className="w-12 h-12 rounded-full bg-[#00e9fa]/20 flex items-center justify-center mx-auto mb-4">
+                    <Check size={24} className="text-[#00e9fa]" />
+                  </div>
+                  <h3 className="text-white text-lg font-semibold mb-2">{c.successTitle}</h3>
+                  <p className="text-gray-400 text-sm mb-4">{c.successThanks} <span className="text-white font-mono">#{ticketId}</span></p>
+                  <p className="text-sm text-[#00e9fa] mb-6">{c.successArchitect}</p>
+                  <button type="button" onClick={handleNewQuery} className="xl-btn-secondary text-xs">
+                    Nueva consulta
+                  </button>
                 </div>
+              </div>
+            ) : (
+              <div className="relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 backdrop-blur-sm glow-on-hover">
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="border-b border-white/[0.08] pb-4">
+                    <h3 className="text-white text-lg font-semibold">{c.formTitle}</h3>
+                    <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500 mt-1">
+                      {c.formSubtitle}
+                    </p>
+                  </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={LABEL_CLASS} htmlFor="poc-name">
+                        <User size={12} className="inline text-[#00e9fa] mr-1.5" />
+                        {c.name} <span className="text-[#00e9fa]">*</span>
+                      </label>
+                      <input
+                        id="poc-name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={setField('name')}
+                        placeholder={c.namePh}
+                        className={INPUT_CLASS}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={LABEL_CLASS} htmlFor="poc-company">
+                        <Building2 size={12} className="inline text-[#00e9fa] mr-1.5" />
+                        {c.company} <span className="text-[#00e9fa]">*</span>
+                      </label>
+                      <input
+                        id="poc-company"
+                        type="text"
+                        required
+                        value={formData.company}
+                        onChange={setField('company')}
+                        placeholder={c.companyPh}
+                        className={INPUT_CLASS}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={LABEL_CLASS} htmlFor="poc-email">
+                        <Mail size={12} className="inline text-[#00e9fa] mr-1.5" />
+                        {c.email} <span className="text-[#00e9fa]">*</span>
+                      </label>
+                      <input
+                        id="poc-email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={setField('email')}
+                        placeholder={c.emailPh}
+                        className={INPUT_CLASS}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={LABEL_CLASS} htmlFor="poc-role">
+                        <Briefcase size={12} className="inline text-[#00e9fa] mr-1.5" />
+                        {c.role}
+                      </label>
+                      <input
+                        id="poc-role"
+                        type="text"
+                        value={formData.role}
+                        onChange={setField('role')}
+                        placeholder={c.rolePh}
+                        className={INPUT_CLASS}
+                      />
+                    </div>
+
+                    <div>
+                      <label className={LABEL_CLASS} htmlFor="poc-sector">
+                        <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
+                        {c.sector}
+                      </label>
+                      <select
+                        id="poc-sector"
+                        value={formData.sector}
+                        onChange={setField('sector')}
+                        className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
+                      >
+                        <option value="">Seleccionar sector</option>
+                        {sectors.map((option) => (
+                          <option key={option} value={option}>{option}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className={LABEL_CLASS} htmlFor="poc-interest">
+                        <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
+                        {c.interest}
+                      </label>
+                      <select
+                        id="poc-interest"
+                        value={formData.interest}
+                        onChange={setField('interest')}
+                        className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
+                      >
+                        <option value="">Seleccionar línea de interés</option>
+                        {interests.map((option) => (
+                          <option key={option} value={option}>{option}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
                   <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-name">
-                      <User size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      Nombre <span className="text-[#00e9fa]">*</span>
+                    <label className={LABEL_CLASS} htmlFor="poc-challenge">
+                      <HelpCircle size={12} className="inline text-[#00e9fa] mr-1.5" />
+                      {c.challenge} <span className="text-[#00e9fa]">*</span>
                     </label>
-                    <input
-                      id="poc-name"
-                      type="text"
+                    <textarea
+                      id="poc-challenge"
                       required
-                      value={formData.name}
-                      onChange={setField('name')}
-                      placeholder="Ej. Ing. Carlos Mendoza"
-                      className={INPUT_CLASS}
+                      rows={4}
+                      value={formData.challenge}
+                      onChange={setField('challenge')}
+                      placeholder={c.challengePh}
+                      className={`${INPUT_CLASS} resize-none`}
                     />
                   </div>
 
-                  <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-company">
-                      <Building2 size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      Empresa <span className="text-[#00e9fa]">*</span>
-                    </label>
+                  <div className="flex items-start gap-3">
                     <input
-                      id="poc-company"
-                      type="text"
+                      id="poc-consent"
+                      type="checkbox"
                       required
-                      value={formData.company}
-                      onChange={setField('company')}
-                      placeholder="Ej. Minera Andina S.A."
-                      className={INPUT_CLASS}
+                      checked={formData.consent}
+                      onChange={setField('consent')}
+                      className="mt-0.5 accent-[#00e9fa]"
                     />
+                    <p className="text-[11px] font-mono text-gray-400 leading-relaxed">
+                      <label htmlFor="poc-consent" className="cursor-pointer">
+                        {c.consent}
+                      </label>
+                    </p>
                   </div>
 
-                  <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-email">
-                      <Mail size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      Correo corporativo <span className="text-[#00e9fa]">*</span>
-                    </label>
-                    <input
-                      id="poc-email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={setField('email')}
-                      placeholder="nombre@empresa.com"
-                      className={INPUT_CLASS}
-                    />
-                  </div>
-
-                  <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-role">
-                      <Briefcase size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      Cargo
-                    </label>
-                    <input
-                      id="poc-role"
-                      type="text"
-                      value={formData.role}
-                      onChange={setField('role')}
-                      placeholder="Ej. CTO / Gerente de Planta / Director TI"
-                      className={INPUT_CLASS}
-                    />
-                  </div>
-
-                  <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-sector">
-                      <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      Sector
-                    </label>
-                    <select
-                      id="poc-sector"
-                      value={formData.sector}
-                      onChange={setField('sector')}
-                      className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
-                    >
-                      {SECTORS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option[lang]}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className={LABEL_CLASS} htmlFor="poc-interest">
-                      <Layers size={12} className="inline text-[#00e9fa] mr-1.5" />
-                      Línea de interés
-                    </label>
-                    <select
-                      id="poc-interest"
-                      value={formData.interest}
-                      onChange={setField('interest')}
-                      className={`${INPUT_CLASS} cursor-pointer font-mono text-sm`}
-                    >
-                      {INTERESTS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option[lang]}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className={LABEL_CLASS} htmlFor="poc-challenge">
-                    <HelpCircle size={12} className="inline text-[#00e9fa] mr-1.5" />
-                    ¿Cuál es su mayor desafío con los datos? <span className="text-[#00e9fa]">*</span>
-                  </label>
-                  <textarea
-                    id="poc-challenge"
-                    required
-                    rows={4}
-                    value={formData.challenge}
-                    onChange={setField('challenge')}
-                    placeholder="Ej. Reportes entre plantas con alta latencia o dificultad para consultar 40.000 manuales técnicos sin alucinaciones..."
-                    className={`${INPUT_CLASS} resize-none`}
-                  />
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <input
-                    id="poc-consent"
-                    type="checkbox"
-                    required
-                    checked={formData.consent}
-                    onChange={setField('consent')}
-                    className="mt-0.5 accent-[#00e9fa]"
-                  />
-                  <p className="text-[11px] font-mono text-gray-400 leading-relaxed">
-                    <label htmlFor="poc-consent" className="cursor-pointer">
-                      Autorizo el tratamiento de mis datos personales conforme a la Ley 1581 de 2012.
-                    </label>
-                  </p>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="xl-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Procesando solicitud técnica...' : (
-                    <>
-                      Solicitar Prueba de Concepto (PoC)
-                      <Send size={16} />
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="xl-btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        {c.submitting} <Send size={16} />
+                      </>
+                    ) : (
+                      <>
+                        {c.submit} <Send size={16} />
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       </div>
