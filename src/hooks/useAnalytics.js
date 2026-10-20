@@ -75,7 +75,7 @@ export const useAnalytics = (pageTitle, pageType = 'page') => {
         const interval = setInterval(() => {
             const duration = Date.now() - startTimeRef.current;
             // Enviar ping sin cerrar la sesión
-            fetch('/api/analytics-ping', {
+            fetch('/api/analytics/ping', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -93,7 +93,7 @@ export const useAnalytics = (pageTitle, pageType = 'page') => {
     return {
         sessionId: sessionIdRef.current,
         trackEvent: (eventName, eventData = {}) => {
-            fetch('/api/analytics-event', {
+            fetch('/api/analytics/event', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
