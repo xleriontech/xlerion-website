@@ -3,6 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import SectionLoader from './SectionLoader';
 
+const NAV_ITEMS = [
+  { id: 'home', key: 'nav_home', scrollTo: 'home' },
+  { id: 'soluciones', key: 'nav_soluciones', scrollTo: 'soluciones' },
+  { id: 'tecnologia', key: 'nav_tecnologia', scrollTo: 'arquitectura' },
+  { id: 'impacto', key: 'nav_impacto', scrollTo: 'impacto' },
+  { id: 'fundador', key: 'nav_fundador', scrollTo: 'liderazgo' },
+  { id: 'contacto', key: 'nav_contacto', scrollTo: 'contacto' },
+];
+
 export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -26,13 +35,6 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
   }, [mobileMenuOpen]);
 
   const navTo = (id) => {
-    const panelaiaUrl = import.meta.env.VITE_PANELAIA_URL || 'https://panelaia.xlerion.com';
-    // Handle external link for PanelaIA microsite
-    if (id === 'panelaia') {
-      setMobileMenuOpen(false);
-      window.open(panelaiaUrl, '_blank', 'noopener,noreferrer');
-      return;
-    }
     setMobileMenuOpen(false);
     setShowLoader(true);
 
@@ -88,38 +90,27 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
           >
             <img
               src="/LogoX.png"
-              alt="Xlerion"
+              alt="XLERION"
               className="h-9 md:h-10 object-contain transition-transform duration-300 group-hover:scale-105"
             />
+            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#00e9fa] hidden sm:block">
+              XLERION
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           {variant === 'full' && (
             <div className="hidden lg:flex items-center gap-0.5 text-[11px] font-work uppercase tracking-[0.15em] font-medium">
-              {/* Home anchors */}
-              <button data-transition="nav" onClick={() => navTo('home')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                {t('nav_home')}
-              </button>
-
-              <button data-transition="nav" onClick={() => navTo('metricas')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                {t('nav_metrics')}
-              </button>
-
-              <button data-transition="nav" onClick={() => navTo('proyectos')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                {t('nav_projects')}
-              </button>
-
-              <button data-transition="nav" onClick={() => navTo('toolkit')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                {t('nav_toolkit')}
-              </button>
-
-              <button data-transition="nav" onClick={() => navTo('arquitectura')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                {t('nav_architecture')}
-              </button>
-
-              <button data-transition="nav" onClick={() => navTo('liderazgo')} className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5">
-                {t('nav_leadership')}
-              </button>
+              {NAV_ITEMS.map((item) => (
+                <button
+                  key={item.id}
+                  data-transition="nav"
+                  onClick={() => navTo(item.scrollTo)}
+                  className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
+                >
+                  {t(item.key)}
+                </button>
+              ))}
 
               {/* Language Toggle */}
               <div className="flex items-center gap-0.5 border-l border-white/10 pl-3 ml-2">
@@ -142,12 +133,12 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
                 </button>
               </div>
 
-              {/* CTA Button */}
+              {/* CTA Button - Solicitar PoC */}
               <button
                 onClick={() => navTo('contacto')}
                 className="inline-flex items-center h-9 px-5 whitespace-nowrap leading-none bg-[#00e9fa] text-black font-semibold rounded-lg transition-all duration-300 hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] hover:-translate-y-0.5 ml-3"
               >
-                {t('nav_contact')}
+                {t('nav_poc')}
               </button>
             </div>
           )}
@@ -177,48 +168,16 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
         >
           <div className="h-full flex flex-col items-center justify-center px-8 pt-20 pb-8 overflow-y-auto">
             <div className="flex flex-col gap-6 text-center w-full max-w-sm">
-              <button
-                data-transition="nav"
-                onClick={() => navTo('home')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                {t('nav_home')}
-              </button>
-              <button
-                data-transition="nav"
-                onClick={() => navTo('metricas')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                {t('nav_metrics')}
-              </button>
-              <button
-                data-transition="nav"
-                onClick={() => navTo('proyectos')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                {t('nav_projects')}
-              </button>
-              <button
-                data-transition="nav"
-                onClick={() => navTo('toolkit')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                {t('nav_toolkit')}
-              </button>
-              <button
-                data-transition="nav"
-                onClick={() => navTo('arquitectura')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                {t('nav_architecture')}
-              </button>
-              <button
-                data-transition="nav"
-                onClick={() => navTo('liderazgo')}
-                className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
-              >
-                {t('nav_leadership')}
-              </button>
+              {NAV_ITEMS.map((item) => (
+                <button
+                  key={item.id}
+                  data-transition="nav"
+                  onClick={() => navTo(item.scrollTo)}
+                  className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
+                >
+                  {t(item.key)}
+                </button>
+              ))}
 
               <div className="mobile-menu-item border-t border-white/[0.08] pt-6 mt-2">
                 <button
@@ -226,7 +185,7 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
                   onClick={() => navTo('contacto')}
                   className="inline-flex items-center justify-center h-12 px-8 bg-[#00e9fa] text-black font-semibold rounded-lg text-lg uppercase tracking-wider transition-all duration-300 hover:bg-[#00b8c9]"
                 >
-                  {t('nav_contact')}
+                  {t('nav_poc')}
                 </button>
               </div>
 

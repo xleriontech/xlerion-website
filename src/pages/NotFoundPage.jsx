@@ -62,16 +62,16 @@ export default function NotFoundPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-xs font-mono text-gray-400">
               <Link to="#metricas" className="hover:text-[#00e9fa] transition-colors">
-                <span className="text-[#00e9fa] mr-1">></span> {isEn ? 'Metrics' : 'Métricas'}
+                <span className="text-[#00e9fa] mr-1">{'>'}</span> {isEn ? 'Metrics' : 'Métricas'}
               </Link>
               <Link to="/toolkit" className="hover:text-[#00e9fa] transition-colors">
-                <span className="text-[#00e9fa] mr-1">></span> Toolkit
+                <span className="text-[#00e9fa] mr-1">{'>'}</span> Toolkit
               </Link>
               <Link to="/proyectos" className="hover:text-[#00e9fa] transition-colors">
-                <span className="text-[#00e9fa] mr-1">></span> {isEn ? 'Projects' : 'Proyectos'}
+                <span className="text-[#00e9fa] mr-1">{'>'}</span> {isEn ? 'Projects' : 'Proyectos'}
               </Link>
               <Link to="/identidad" className="hover:text-[#00e9fa] transition-colors">
-                <span className="text-[#00e9fa] mr-1">></span> {isEn ? 'Identity' : 'Identidad'}
+                <span className="text-[#00e9fa] mr-1">{'>'}</span> {isEn ? 'Identity' : 'Identidad'}
               </Link>
             </div>
           </div>

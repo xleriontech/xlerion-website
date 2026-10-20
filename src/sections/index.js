@@ -1,6 +1,8 @@
 export { default as HeroSection } from './HeroSection'
 export { default as MetricsSection } from './MetricsSection'
 export { default as CaseStudiesDeepSection } from './CaseStudiesDeepSection'
+export { default as SolucionesSection } from './SolucionesSection'
+export { default as ImpactRoiSection } from './ImpactRoiSection'
 export { default as ToolkitSection } from './ToolkitSection'
 export { default as TechStackSecuritySection } from './TechStackSecuritySection'
 export { default as FounderLeadershipSection } from './FounderLeadershipSection'
