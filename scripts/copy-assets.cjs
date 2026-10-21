@@ -46,6 +46,13 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied renders folder');
   }
 
+  // Copy casos (case studies screenshots)
+  const casosSrc = path.join(__dirname, '..', 'public', 'images', 'casos');
+  if (fs.existsSync(casosSrc)) {
+    copyDir(casosSrc, path.join(__dirname, '..', 'dist', 'images', 'casos'));
+    console.log('Copied casos folder');
+  }
+
   // Copy portfolio folder (for Home.jsx references)
   const portfolioSrc2 = path.join(__dirname, '..', 'public', 'images', 'portfolio');
   if (fs.existsSync(portfolioSrc2)) {

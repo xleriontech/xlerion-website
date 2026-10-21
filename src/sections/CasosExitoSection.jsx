@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ArrowUpRight,
   TreePine,
   Sprout,
   ShoppingBag,
@@ -19,6 +18,7 @@ const COPY = {
     locationLabel: 'Ubicación',
     stackLabel: 'Stack Tecnológico',
     impactLabel: 'Impacto',
+    imageAlt: 'Captura de pantalla del sitio en producción',
   },
   en: {
     subtitle: 'Deployed and operational projects, built and delivered by Xlerion.',
@@ -28,6 +28,7 @@ const COPY = {
     locationLabel: 'Location',
     stackLabel: 'Technology Stack',
     impactLabel: 'Impact',
+    imageAlt: 'Screenshot of the live site',
   },
 };
 
@@ -37,6 +38,7 @@ const CASES_ES = [
     icon: TreePine,
     category: 'Turismo & Agro',
     title: 'Tropical Biohostel',
+    image: '/images/casos/tropical-biohostel.jpg',
     tagline: 'Plataforma de turismo experiencial y hospedaje rural con buscador inteligente y Cosmic Bungalow 3D.',
     description:
       'Sitio web de destino turístico y hospedaje rural en Nocaima, Cundinamarca. Incluye buscador inteligente (Zemisqua), catálogo por categorías (hostales, glamping, actividades, restaurantes, fincas), fichas de propiedad y experiencia de Cosmic Bungalow con visualización 3D.',
@@ -56,6 +58,7 @@ const CASES_ES = [
     icon: Sprout,
     category: 'ONG · Agro-TIC',
     title: 'Fundación Alma y Semilla',
+    image: '/images/casos/alma-semilla.jpg',
     tagline: 'Etnotecnología y saberes ancestrales 5.0: RAG con IA, Realidad Virtual e IoT para el patrimonio inmaterial.',
     description:
       'Sitio institucional y repositorio vivo para una ESAL de Chía, Cundinamarca. Asistente etnográfico con IA (RAG sobre LangChain y pgvector), recorridos de Realidad Virtual y 360° (Three.js / WebXR) e IoT para biocultura (LoRaWAN). Vectorización ética con 3 niveles de acceso y trazabilidad de autoría conforme al Convenio 169 OIT.',
@@ -75,6 +78,7 @@ const CASES_ES = [
     icon: ShoppingBag,
     category: 'E-commerce · Moda circular',
     title: 'El Ropero Mag&co',
+    image: '/images/casos/el-ropero-magco.jpg',
     tagline: 'Tienda de moda circular con catálogo curado, drops, probador virtual 3D y pagos en línea.',
     description:
       'Plataforma e-commerce de ropa y accesorios de segunda mano, curados pieza por pieza en Bogotá. Catálogo, calendario de drops, probador virtual 3D, carrito y pasarela de pagos (Wompi / Bancolombia, PSE, Nequi, Daviplata, tarjeta y contra entrega).',
@@ -97,6 +101,7 @@ const CASES_EN = [
     icon: TreePine,
     category: 'Tourism & Agro',
     title: 'Tropical Biohostel',
+    image: '/images/casos/tropical-biohostel.jpg',
     tagline: 'Experiential tourism and rural lodging platform with smart search and Cosmic Bungalow 3D.',
     description:
       'Tourism destination and rural lodging website in Nocaima, Cundinamarca. Includes smart search (Zemisqua), category catalog (hostels, glamping, activities, restaurants, farms), property listings and a Cosmic Bungalow experience with 3D visualization.',
@@ -116,6 +121,7 @@ const CASES_EN = [
     icon: Sprout,
     category: 'NGO · Agro-TIC',
     title: 'Alma y Semilla Foundation',
+    image: '/images/casos/alma-semilla.jpg',
     tagline: 'Ethnotechnology and ancestral knowledge 5.0: AI RAG, Virtual Reality and IoT for intangible heritage.',
     description:
       'Institutional website and living repository for an ESAL in Chía, Cundinamarca. Ethnographic assistant with AI (RAG over LangChain and pgvector), Virtual Reality and 360° tours (Three.js / WebXR) and IoT for bioculture (LoRaWAN). Ethical vectorization with 3 access levels and authorship traceability under ILO Convention 169.',
@@ -135,6 +141,7 @@ const CASES_EN = [
     icon: ShoppingBag,
     category: 'E-commerce · Circular fashion',
     title: 'El Ropero Mag&co',
+    image: '/images/casos/el-ropero-magco.jpg',
     tagline: 'Circular fashion store with curated catalog, drops, 3D virtual try-on and online payments.',
     description:
       'Second-hand clothing and accessories e-commerce platform, curated piece by piece in Bogotá. Catalog, drops calendar, 3D virtual try-on, cart and payment gateway (Wompi / Bancolombia, PSE, Nequi, Daviplata, card and cash on delivery).',
@@ -185,68 +192,85 @@ export default function CasosExitoSection() {
               <article
                 key={item.id}
                 data-reveal
-                className={`stagger-${index + 1} group relative flex flex-col bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-7 backdrop-blur-sm card-hover`}
+                className={`stagger-${index + 1} group relative flex flex-col bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg overflow-hidden backdrop-blur-sm card-hover`}
               >
-                {/* Header */}
-                <div className="flex items-start justify-between gap-3 mb-5">
-                  <div className="w-11 h-11 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/20 flex items-center justify-center shrink-0">
-                    <Icon size={20} className="text-[#00e9fa]" />
-                  </div>
-                  <span className="px-3 py-1 rounded bg-black/60 border border-[#00e9fa]/20 font-mono text-[9px] uppercase tracking-[0.2em] text-[#00e9fa]">
+                {/* Screenshot del sitio en vivo */}
+                <div className="relative h-48 overflow-hidden border-b border-white/[0.08]">
+                  <img
+                    src={item.image}
+                    alt={`${c.imageAlt} — ${item.title}`}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/70 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute top-3 left-3 px-3 py-1 rounded bg-black/70 border border-[#00e9fa]/20 font-mono text-[9px] uppercase tracking-[0.2em] text-[#00e9fa] backdrop-blur-sm">
                     {item.category}
                   </span>
+                  <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2 py-1 rounded bg-black/70 border border-white/10 font-mono text-[9px] uppercase tracking-[0.15em] text-white/80 backdrop-blur-sm">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Live
+                  </span>
                 </div>
 
-                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-[#00e9fa] font-medium mb-3">{item.tagline}</p>
-                <p className="text-sm text-gray-400 leading-relaxed mb-5">{item.description}</p>
-
-                {/* Metrics */}
-                <div className="grid grid-cols-3 gap-2 mb-5">
-                  {item.metrics.map((m) => (
-                    <div
-                      key={m.label}
-                      className="rounded-lg bg-white/[0.02] border border-white/[0.08] p-2.5 text-center"
-                    >
-                      <span className="block font-mono text-sm font-bold text-[#00e9fa]">{m.value}</span>
-                      <span className="block text-[9px] text-gray-500 uppercase tracking-[0.1em] mt-0.5">
-                        {m.label}
-                      </span>
+                <div className="flex flex-col gap-4 p-5 md:p-6 flex-1">
+                  {/* Header */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/20 flex items-center justify-center shrink-0">
+                      <Icon size={18} className="text-[#00e9fa]" />
                     </div>
-                  ))}
-                </div>
+                    <h3 className="text-lg font-semibold text-white leading-tight">{item.title}</h3>
+                  </div>
 
-                {/* Stack */}
-                <div className="rounded-lg border border-[#00e9fa]/15 bg-black/40 px-3 py-3 mb-5">
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1.5">
-                    {c.stackLabel}
+                  <p className="text-sm text-[#00e9fa] font-medium leading-relaxed">{item.tagline}</p>
+                  <p className="text-sm text-gray-400 leading-relaxed">{item.description}</p>
+
+                  {/* Metrics */}
+                  <div className="grid grid-cols-3 gap-2">
+                    {item.metrics.map((m) => (
+                      <div
+                        key={m.label}
+                        className="rounded-lg bg-white/[0.02] border border-white/[0.08] p-2.5 text-center"
+                      >
+                        <span className="block font-mono text-sm font-bold text-[#00e9fa]">{m.value}</span>
+                        <span className="block text-[9px] text-gray-500 uppercase tracking-[0.1em] mt-0.5">
+                          {m.label}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Stack */}
+                  <div className="rounded-lg border border-[#00e9fa]/15 bg-black/40 px-3 py-3">
+                    <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1.5">
+                      {c.stackLabel}
+                    </p>
+                    <p className="text-[11px] text-white leading-relaxed">{item.techStack}</p>
+                  </div>
+
+                  {/* Impact */}
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    <span className="text-[#00e9fa] font-mono uppercase tracking-[0.15em] text-[9px] block mb-1">
+                      {c.impactLabel}
+                    </span>
+                    {item.impact}
                   </p>
-                  <p className="text-[11px] text-white leading-relaxed">{item.techStack}</p>
-                </div>
 
-                {/* Impact */}
-                <p className="text-[11px] text-gray-400 leading-relaxed mb-6">
-                  <span className="text-[#00e9fa] font-mono uppercase tracking-[0.15em] text-[9px] block mb-1">
-                    {c.impactLabel}
-                  </span>
-                  {item.impact}
-                </p>
-
-                {/* Location + CTA */}
-                <div className="mt-auto pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
-                  <span className="flex items-center gap-2 text-[11px] font-mono text-gray-500">
-                    <MapPin size={12} className="text-[#00e9fa]/60" />
-                    {item.location}
-                  </span>
-                  <a
-                    href={item.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#00e9fa] text-black font-semibold text-xs hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] transition-all duration-300"
-                  >
-                    <ExternalLink size={13} />
-                    {c.liveLabel}
-                  </a>
+                  {/* Location + CTA */}
+                  <div className="mt-auto pt-4 border-t border-white/[0.08] flex items-center justify-between gap-3">
+                    <span className="flex items-center gap-2 text-[11px] font-mono text-gray-500">
+                      <MapPin size={12} className="text-[#00e9fa]/60 shrink-0" />
+                      {item.location}
+                    </span>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#00e9fa] text-black font-semibold text-xs hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] transition-all duration-300"
+                    >
+                      <ExternalLink size={13} />
+                      {c.liveLabel}
+                    </a>
+                  </div>
                 </div>
               </article>
             );
