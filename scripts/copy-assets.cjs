@@ -53,6 +53,19 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied casos folder');
   }
 
+  // Copy root-level files inside public/images/ (og-cover.jpg, share previews, etc.)
+  const imagesRoot = path.join(__dirname, '..', 'public', 'images');
+  const distImagesRoot = path.join(__dirname, '..', 'dist', 'images');
+  if (!fs.existsSync(distImagesRoot)) {
+    fs.mkdirSync(distImagesRoot, { recursive: true });
+  }
+  for (const imgEntry of fs.readdirSync(imagesRoot, { withFileTypes: true })) {
+    if (imgEntry.isFile()) {
+      fs.copyFileSync(path.join(imagesRoot, imgEntry.name), path.join(distImagesRoot, imgEntry.name));
+      console.log(`Copied ${imgEntry.name} to dist/images/`);
+    }
+  }
+
   // Copy portfolio folder (for Home.jsx references)
   const portfolioSrc2 = path.join(__dirname, '..', 'public', 'images', 'portfolio');
   if (fs.existsSync(portfolioSrc2)) {
