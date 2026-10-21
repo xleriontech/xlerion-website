@@ -1,16 +1,24 @@
-const CACHE_NAME = 'xlerion-v2';
-const STATIC_CACHE = 'xlerion-static-v2';
-const DYNAMIC_CACHE = 'xlerion-dynamic-v2';
+const CACHE_NAME = 'xlerion-v3';
+const STATIC_CACHE = 'xlerion-static-v3';
+const DYNAMIC_CACHE = 'xlerion-dynamic-v3';
 
 // El HTML NO se precachea: se sirve siempre con estrategia red-primero para
 // evitar que un despliegue (o un cambio de title/meta) quede oculto tras una
 // copia antigua en caché.
+//
+// IMPORTANTE: /manifest.json e iconos se sirven en caché-primero desde este
+// precache. Si cambian, hay que actualizar CACHE_NAME (v3, v4, ...) para que
+// el SW se reinstale y reemplace la copia; si no, Chrome seguirá instalando
+// la PWA con el manifiesto/iconos viejos.
 const STATIC_ASSETS = [
-  '/LogoX.png',
-  '/logo-512.png',
-  '/logo-1200x1200.png',
+  '/manifest.json',
   '/favicon.ico',
-  '/manifest.json'
+  '/LogoX.png',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
+  '/icons/icon-maskable-192.png',
+  '/icons/icon-maskable-512.png',
+  '/icons/apple-touch-icon.png'
 ];
 
 const EXTERNAL_ASSETS = [
@@ -135,16 +143,16 @@ self.addEventListener('fetch', (event) => {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'Nueva notificación de XLERION',
-    icon: '/LogoX.png',
-    badge: '/LogoX.png',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-maskable-192.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
       primaryKey: 1
     },
     actions: [
-      { action: 'explore', title: 'Ver', icon: '/LogoX.png' },
-      { action: 'close', title: 'Cerrar', icon: '/LogoX.png' }
+      { action: 'explore', title: 'Ver', icon: '/icons/icon-192.png' },
+      { action: 'close', title: 'Cerrar', icon: '/icons/icon-192.png' }
     ]
   };
 
