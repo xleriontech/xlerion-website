@@ -53,6 +53,13 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied casos folder');
   }
 
+  // Copy PWA icons (public/icons -> dist/icons)
+  const iconsSrc = path.join(__dirname, '..', 'public', 'icons');
+  if (fs.existsSync(iconsSrc)) {
+    copyDir(iconsSrc, path.join(__dirname, '..', 'dist', 'icons'));
+    console.log('Copied icons folder');
+  }
+
   // Copy root-level files inside public/images/ (og-cover.jpg, share previews, etc.)
   const imagesRoot = path.join(__dirname, '..', 'public', 'images');
   const distImagesRoot = path.join(__dirname, '..', 'dist', 'images');
@@ -80,8 +87,6 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'favicon.png',
     'LogoX.png',
     'LogoX.svg',
-    'logo-1200x1200.png',
-    'logo-512.png',
     'humans.txt',
     'sitemap.xml',
     'sitemapindex.xml',

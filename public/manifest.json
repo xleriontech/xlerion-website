@@ -1,7 +1,8 @@
 {
-  "name": "Xlerion - Desarrollo de Gemelos Digitales Industriales y Simulación en Tiempo Real",
+  "id": "/",
+  "name": "Xlerion — Inteligencia Visual 3D y Plataformas de IA en Tiempo Real",
   "short_name": "XLERION",
-  "description": "Soluciones modulares, toolkits técnicos de validación, logging y diagnóstico, integración 3D y servicios especializados.",
+  "description": "Gemelos digitales, Inteligencia Visual 3D y plataformas de IA en tiempo real para minería, manufactura y smart cities.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#070710",
@@ -12,63 +13,75 @@
   "categories": ["technology", "business", "developer"],
   "icons": [
     {
-      "src": "/LogoX.png",
-      "sizes": "any",
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/logo-512.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/logo-1200x1200.png",
-      "sizes": "1200x1200",
+      "src": "/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     }
   ],
   "screenshots": [
     {
-      "src": "/LogoX.png",
-      "sizes": "any",
-      "type": "image/png",
+      "src": "/images/og-cover.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "XLERION Dashboard"
+      "label": "Gemelos digitales e IA en tiempo real"
     }
   ],
   "shortcuts": [
     {
-      "name": "Servicios",
-      "short_name": "Servicios",
-      "url": "/#servicios",
-      "description": "Explora nuestros servicios modulares"
+      "name": "Soluciones",
+      "short_name": "Soluciones",
+      "url": "/#soluciones",
+      "description": "Gemelos digitales, IA en tiempo real y arquitectura por capas"
     },
     {
-      "name": "Toolkit",
-      "short_name": "Toolkit",
-      "url": "/#toolkit",
-      "description": "Herramientas técnicas de desarrollo"
+      "name": "Casos de Éxito",
+      "short_name": "Casos",
+      "url": "/#casos",
+      "description": "Proyectos desplegados y operativos en producción"
     },
     {
-      "name": "Proyectos",
-      "short_name": "Proyectos",
-      "url": "/#proyectos",
-      "description": "Nuestros proyectos activos"
-    },
-    {
-      "name": "Jugar",
-      "short_name": "Jugar",
-      "url": "/game",
-      "description": "Juega Data Runner"
+      "name": "Impacto (ROI)",
+      "short_name": "ROI",
+      "url": "/#impacto",
+      "description": "Resultados medidos: −60% detección, −40% costos, 99.9% uptime"
     },
     {
       "name": "Contacto",
       "short_name": "Contacto",
       "url": "/#contacto",
-      "description": "Contáctanos"
+      "description": "Solicita una PoC — respuesta en menos de 24 horas"
+    },
+    {
+      "name": "PanelaIA",
+      "short_name": "PanelaIA",
+      "url": "/panelaia",
+      "description": "Asistente IA para la cadena panelera"
     }
   ],
   "prefer_related_applications": false
