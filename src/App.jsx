@@ -11,6 +11,7 @@ import useSectionTransition from './hooks/useSectionTransition';
 
 import HeroSection from './sections/HeroSection';
 import SolucionesSection from './sections/SolucionesSection';
+import CasosExitoSection from './sections/CasosExitoSection';
 import ImpactRoiSection from './sections/ImpactRoiSection';
 import TechStackSecuritySection from './sections/TechStackSecuritySection';
 import FounderLeadershipSection from './sections/FounderLeadershipSection';
@@ -78,6 +79,7 @@ export default function App() {
         <main>
           <HeroSection onOpenPoC={goToContact} />
           <SolucionesSection />
+          <CasosExitoSection />
           <ImpactRoiSection />
           <TechStackSecuritySection onOpenPoC={goToContact} />
           <FounderLeadershipSection onOpenPoC={goToContact} />
