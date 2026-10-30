@@ -1,0 +1,4 @@
+Contact: mailto:contacto@xlerion.tech
+Expires: 2027-10-29T00:00:00.000Z
+Canonical: https://xlerion.com.co/.well-known/security.txt
+Preferred-Languages: es, en

@@ -1,0 +1,18 @@
+# robots.txt for xlerion.com.co
+# Última actualización: 29 Octubre 2026
+
+User-agent: *
+Allow: /
+
+# Bloquear URLs antiguas que causaban pantalla negra.
+# El .htaccess ya hace 301 de /views/* a la raíz; esto es redundancia deliberada
+# para los enlaces antiguos que aún estén indexados.
+Disallow: /views/
+
+# Endpoint de contacto y sus registros: no deben rastrearse.
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://xlerion.com.co/sitemap.xml
+
+Crawl-delay: 1

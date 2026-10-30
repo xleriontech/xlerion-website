@@ -1,0 +1,89 @@
+/* TEAM */
+
+Founder & Lead Developer: Miguel Rodríguez Martínez
+Site: https://xlerion.com.co
+Email: contacto@xlerion.tech
+Location: Bogotá, Colombia
+LinkedIn: https://www.linkedin.com/in/miguel-rodriguez-xlerion
+
+/* SITE */
+
+Last update: 2026/10/29
+Language: Spanish / English
+Doctype: HTML5
+IDE: Visual Studio Code
+Technologies: React 19, Vite 7, Three.js, Tailwind CSS 3, PHP, SQLite
+
+/* COMPANY */
+
+Name: XLERION
+Type: Technology Solutions & Software Development
+Founded: 2004 (as Redemthor project), 2026 (as tech company)
+Location: Bogotá, Cundinamarca, Colombia
+Services: 
+  - Modular Solutions & Technical Toolkits
+  - 3D Development & Three.js Integration
+  - Total Darkness Backend System
+  - Inclusive Tourism Solutions
+  - Enterprise Web Development
+
+/* PROJECTS */
+
+Redemthor: Colombian Ultimate Metal band website (2004-present)
+  - Tech: HTML5, CSS3, Vanilla JS, i18n (ES/EN)
+  - Features: Discography, history, live streams, interactive game
+
+Total Darkness: Modular backend system
+  - Tech: PHP, SQLite, Vanilla JS
+  - Features: Admin panel, story management, authentication
+
+Turismo Incluyente: Accessible tourism platform
+  - Tech: React, responsive design, accessibility features
+  - Focus: Visual impairment accessibility in Bogotá
+
+3D Portfolio: Three.js showcases
+  - Tech: Three.js, WebGL, GSAP animations
+  - Features: Evolutionary scenes, particles, shaders
+
+/* VERIFICATION */
+
+Google Search Console: Verified
+Sitemap: https://xlerion.com.co/sitemap.xml
+Robots: https://xlerion.com.co/robots.txt
+Structured Data: JSON-LD (Organization, WebSite)
+
+/* CONTACT */
+
+Email: contacto@xlerion.tech
+Website: https://xlerion.com.co
+Instagram: @ultimatexlerion
+Facebook: /xlerionultimate
+Location: Bogotá, Colombia
+
+/* LEGAL */
+
+Privacy Policy: https://xlerion.com.co/legal/privacidad
+Terms of Service: https://xlerion.com.co/legal/terminos
+
+/* CREDITS */
+
+Framework: React 19 + Vite 7
+3D Engine: Three.js
+Styling: Tailwind CSS 3
+Fonts: Inter, Roboto Mono (Google Fonts)
+Icons: Lucide React
+Animations: GSAP
+
+/* THANKS */
+
+Open source community for amazing tools and libraries
+Vercel for hosting inspiration
+Colombian tech community for support
+
+/* META */
+
+This is a real company based in Bogotá, Colombia
+Not a scam, not a portfolio placeholder
+Active development since 2004 (Redemthor era)
+Legitimate business providing tech solutions
+Contact us for services, collaborations or inquiries

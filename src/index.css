@@ -1,0 +1,1113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  #root {
+    @apply h-full bg-black text-white font-sans;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    color-scheme: dark;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-semibold;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl font-medium;
+    font-family: 'Inter', sans-serif;
+  }
+
+  canvas,
+  .webgl-canvas {
+    @apply block m-0 p-0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 233, 250, 0.25);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 233, 250, 0.4);
+  }
+}
+
+@layer components {
+  /* ========================================
+     BOTONES
+     ======================================== */
+  .xl-btn-primary {
+    @apply inline-flex items-center justify-center gap-3 px-8 py-3 bg-[#00e9fa] text-black font-semibold text-sm uppercase tracking-wider rounded-lg cursor-pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .xl-btn-primary:hover {
+    @apply bg-[#00b8c9];
+    box-shadow: 0 0 30px rgba(0, 233, 250, 0.3), 0 0 60px rgba(0, 233, 250, 0.1);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .xl-btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
+  }
+
+  .xl-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3 bg-transparent text-[#00e9fa] font-semibold text-sm uppercase tracking-wider border border-[#00e9fa]/30 rounded-lg cursor-pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .xl-btn-secondary:hover {
+    @apply border-[#00e9fa] bg-[#00e9fa]/5;
+    box-shadow: 0 0 20px rgba(0, 233, 250, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .xl-btn-secondary:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* ========================================
+     INPUTS
+     ======================================== */
+  .xl-input {
+    @apply w-full bg-white/[0.04] border border-white/[0.1] rounded-lg px-4 py-3 text-white text-sm font-sans;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .xl-input::placeholder {
+    @apply text-gray-500;
+  }
+
+  .xl-input:focus {
+    @apply outline-none border-[#00e9fa] bg-[#00e9fa]/5;
+    box-shadow: 0 0 0 3px rgba(0, 233, 250, 0.1), 0 0 20px rgba(0, 233, 250, 0.1);
+  }
+
+  /* ========================================
+     SECCIONES
+     ======================================== */
+  .xl-section {
+    @apply py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto;
+  }
+}
+
+/* ========================================
+   SMOOTH SCROLL
+   ======================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ========================================
+   PAGE TRANSITION OVERLAY
+   ======================================== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ========================================
+   HERO ENTRANCE ANIMATIONS
+   ======================================== */
+.hero-fade-in {
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+.hero-fade-in-delay-1 {
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  opacity: 0;
+}
+
+.hero-fade-in-delay-2 {
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.hero-fade-in-delay-3 {
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  opacity: 0;
+}
+
+.hero-fade-in-delay-4 {
+  animation: heroFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  opacity: 0;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-logo-pulse {
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+@keyframes logoPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 30px rgba(0, 233, 250, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 50px rgba(0, 233, 250, 0.8));
+  }
+}
+
+.hero-scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+    opacity: 0.5;
+  }
+}
+
+/* ========================================
+   SCROLL REVEAL ANIMATIONS
+   ======================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger delays for grid children */
+.stagger-1 { transition-delay: 0ms; }
+.stagger-2 { transition-delay: 80ms; }
+.stagger-3 { transition-delay: 160ms; }
+.stagger-4 { transition-delay: 240ms; }
+.stagger-5 { transition-delay: 320ms; }
+.stagger-6 { transition-delay: 400ms; }
+.stagger-7 { transition-delay: 480ms; }
+.stagger-8 { transition-delay: 560ms; }
+.stagger-9 { transition-delay: 640ms; }
+
+/* ========================================
+   NAVBAR ANIMATIONS
+   ======================================== */
+.nav-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Mobile menu slide */
+.mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-menu.open {
+  transform: translateX(0);
+}
+
+.mobile-menu-item {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu.open .mobile-menu-item {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mobile-menu.open .mobile-menu-item:nth-child(1) { transition-delay: 50ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(2) { transition-delay: 100ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(3) { transition-delay: 150ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(4) { transition-delay: 200ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(5) { transition-delay: 250ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(6) { transition-delay: 300ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(7) { transition-delay: 350ms; }
+.mobile-menu.open .mobile-menu-item:nth-child(8) { transition-delay: 400ms; }
+
+/* Hamburger animation */
+.hamburger-line {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+.hamburger-open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-open .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* ========================================
+   CARD HOVER EFFECTS
+   ======================================== */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(0, 233, 250, 0.08);
+}
+
+.card-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: linear-gradient(135deg, rgba(0, 233, 250, 0.05), transparent);
+  pointer-events: none;
+}
+
+.card-hover:hover::before {
+  opacity: 1;
+}
+
+/* ========================================
+   SECTION HEADER ANIMATIONS
+   ======================================== */
+.section-header-border {
+  position: relative;
+  padding-left: 24px;
+}
+
+.section-header-border::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #00e9fa, transparent);
+  border-radius: 2px;
+}
+
+/* ========================================
+   GLOW EFFECTS
+   ======================================== */
+.glow-on-hover {
+  transition: box-shadow 0.4s ease;
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 20px rgba(0, 233, 250, 0.15), 0 0 40px rgba(0, 233, 250, 0.05);
+}
+
+/* ========================================
+   RIPPLE EFFECT FOR BUTTONS
+   ======================================== */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), rgba(255, 255, 255, 0.3), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.ripple:active::after {
+  opacity: 1;
+  transition: opacity 0s;
+}
+
+/* ========================================
+   TEXT ANIMATIONS
+   ======================================== */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#00e9fa] to-[#33edfb];
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, #00e9fa, #33edfb, #00e9fa);
+  background-size: 200% 100%;
+  @apply bg-clip-text text-transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ========================================
+   FLOATING ANIMATION
+   ======================================== */
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ========================================
+   LOADING DOTS
+   ======================================== */
+.loading-dots span {
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+  }
+
+  .hero-fade-in,
+  .hero-fade-in-delay-1,
+  .hero-fade-in-delay-2,
+  .hero-fade-in-delay-3,
+  .hero-fade-in-delay-4 {
+    opacity: 1;
+    animation: none;
+  }
+
+  .section-animated,
+  .section-child-enter,
+  .section-child-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ========================================
+   SECTION TRANSITIONS (XLERION)
+   Dramatic transitions between sections
+   ======================================== */
+
+/* Ready state */
+.xl-ready {
+  position: relative;
+}
+
+/* Top reveal line */
+.xl-ready::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    #00e9fa 20%, 
+    #00f9b8 50%, 
+    #00e9fa 80%, 
+    transparent 100%
+  );
+  z-index: 10;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.xl-ready.xl-active::before {
+  animation: lineExpand 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes lineExpand {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0.5;
+  }
+}
+
+/* Side glow lines */
+.xl-ready::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(180deg, 
+    #00e9fa 0%, 
+    transparent 30%, 
+    transparent 70%, 
+    #00e9fa 100%
+  );
+  z-index: 10;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.xl-ready.xl-active::after {
+  animation: sideLineExpand 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+}
+
+@keyframes sideLineExpand {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0.3;
+  }
+}
+
+/* Content animation - applied via data-reveal already */
+/* The existing useScrollAnimation hook handles content fade-in */
+
+/* Section Loader Animations */
+@keyframes orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-50px);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateY(-50px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .xl-ready::before,
+  .xl-ready::after {
+    animation: none;
+    transform: none;
+    opacity: 0.3;
+  }
+}
+
+/* ========================================
+   PRINT STYLES — FICHA TÉCNICA EJECUTIVA
+   ======================================== */
+@media print {
+  /* Page setup */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  /* Global reset - force exact color reproduction */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ROOT RESET - force white page */
+  html,
+  body,
+  #root,
+  #root > div {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* HIDE ALL UI CHROME - AGGRESSIVE */
+  .no-print,
+  nav,
+  footer,
+  .xl-btn-primary,
+  .xl-btn-secondary,
+  button,
+  [role="button"],
+  .modal-backdrop,
+  .hamburger-line,
+  .mobile-menu,
+  .nav-dropdown,
+  .page-loader,
+  .hero-scroll-indicator,
+  .section-header-border::before,
+  .xl-ready::before,
+  .xl-ready::after,
+  .glow-on-hover::before,
+  .print-hidden,
+  /* Backdrop - multiple selectors for specificity */
+  div.fixed.inset-0,
+  div.fixed.inset-0.bg-black\/80,
+  div[class*="fixed"][class*="inset-0"],
+  div[style*="fixed"][style*="inset"],
+  /* Footer, header, nav */
+  header,
+  aside {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+
+  /* FORCE WHITE BACKGROUND ON EVERYTHING */
+  html,
+  body,
+  #root,
+  section,
+  main,
+  .xl-section,
+  [data-reveal],
+  [id^="home"],
+  [id^="metricas"],
+  [id^="proyectos"],
+  [id^="toolkit"],
+  [id^="arquitectura"],
+  [id^="liderazgo"],
+  [id^="contacto"],
+  div,
+  article,
+  aside,
+  .executive-brief-modal,
+  .executive-brief-modal > div,
+  .executive-brief-modal > div > div {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    border: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* TYPOGRAPHY - FORCE BLACK TEXT */
+  h1, h2, h3, h4, h5, h6,
+  p, li, span, div, label,
+  a,
+  strong, b,
+  .font-mono,
+  .font-sans {
+    color: #111827 !important;
+    font-family: 'Inter', sans-serif !important;
+    text-shadow: none !important;
+  }
+
+  h1 { font-size: 22pt !important; line-height: 1.2 !important; margin-bottom: 0.5rem !important; }
+  h2 { font-size: 16pt !important; line-height: 1.3 !important; margin: 1.5rem 0 0.75rem !important; }
+  h3 { font-size: 14pt !important; line-height: 1.3 !important; margin: 1.25rem 0 0.5rem !important; }
+  h4 { font-size: 12pt !important; line-height: 1.3 !important; margin: 1rem 0 0.5rem !important; }
+
+  p, li, span, div, label {
+    color: #374151 !important;
+  }
+
+  .font-mono {
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  /* LINKS - show URLs */
+  a {
+    color: #111827 !important;
+    text-decoration: none !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  /* PREVENT PAGE BREAKS */
+  .card-hover,
+  .glow-on-hover,
+  [class*="stagger-"],
+  .xl-section > div > div,
+  .bg-white,
+  .bg-\[\#0a0a12\],
+  .bg-\[\#050508\],
+  .rounded-lg,
+  .rounded-xl,
+  article,
+  .project-card,
+  .case-study-card,
+  .executive-brief-kpi,
+  .kpi-card,
+  .topology-card,
+  .layer-card,
+  .roadmap-week,
+  .signature-block {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* EXECUTIVE BRIEF MODAL - FORCE FULL DOCUMENT */
+  .executive-brief-modal {
+    position: static !important;
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #111827 !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-after: always;
+    break-after: page;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .executive-brief-modal > div {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    border: none !important;
+    border-radius: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* HEADER */
+  .executive-brief-header {
+    border-bottom: 2px solid #111827 !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    background: #FFFFFF !important;
+  }
+
+  .executive-brief-badge {
+    background: #111827 !important;
+    color: #FFFFFF !important;
+    border: none !important;
+    font-size: 9pt !important;
+    padding: 0.25rem 0.5rem !important;
+    border-radius: 4px !important;
+  }
+
+  .executive-brief-doc {
+    color: #6B7280 !important;
+    font-size: 9pt !important;
+  }
+
+  .executive-brief-title {
+    color: #111827 !important;
+    font-size: 20pt !important;
+    font-weight: 700 !important;
+    margin: 0.5rem 0 0.25rem !important;
+  }
+
+  .executive-brief-subtitle {
+    color: #6B7280 !important;
+    font-size: 10pt !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  /* KPI CARDS */
+  .executive-brief-kpi,
+  .kpi-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    display: block !important;
+  }
+
+  .kpi-value {
+    font-size: 18pt !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
+  }
+
+  .kpi-label {
+    font-size: 9pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    margin-top: 0.5rem !important;
+    display: block !important;
+  }
+
+  .kpi-desc {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    margin-top: 0.25rem !important;
+    display: block !important;
+  }
+
+  /* TOPOLOGY / LAYERS */
+  .topology-card,
+  .layer-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    display: block !important;
+  }
+
+  .layer-icon {
+    color: #111827 !important;
+  }
+
+  .layer-title {
+    font-size: 10pt !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .layer-desc {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    margin-top: 0.25rem !important;
+    display: block !important;
+  }
+
+  /* ROADMAP WEEKS */
+  .roadmap-week {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    display: block !important;
+  }
+
+  .roadmap-week-label {
+    font-size: 9pt !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: #111827 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
+  }
+
+  .roadmap-week-title {
+    font-size: 11pt !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+    margin-top: 0.5rem !important;
+    display: block !important;
+  }
+
+  .roadmap-week-desc {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    margin-top: 0.25rem !important;
+    display: block !important;
+  }
+
+  /* SIGNATURE */
+  .signature-block {
+    background: #F9FAFB !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 6px !important;
+    padding: 1rem !important;
+    margin-top: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+
+  .signature-name {
+    font-size: 12pt !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    display: block !important;
+  }
+
+  .signature-role {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    display: block !important;
+  }
+
+  .signature-company {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace !important;
+  }
+
+  /* ISO NOTE */
+  .iso-note {
+    font-size: 9pt !important;
+    color: #6B7280 !important;
+    font-family: 'Roboto Mono', monospace !important;
+    text-align: center !important;
+    margin-top: 1.5rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid #E5E7EB !important;
+    display: block !important;
+  }
+
+  /* GRID LAYOUTS - FORCE SINGLE COLUMN */
+  .executive-brief-kpis,
+  .executive-brief-layers,
+  .executive-brief-weeks,
+  .grid {
+    display: block !important;
+  }
+
+  .executive-brief-kpis > *,
+  .executive-brief-layers > *,
+  .executive-brief-weeks > *,
+  .grid > * {
+    margin-bottom: 1rem !important;
+  }
+
+  /* TABLES */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1rem 0 !important;
+  }
+
+  th, td {
+    border: 1px solid #E5E7EB !important;
+    padding: 0.5rem !important;
+    font-size: 9.5pt !important;
+    color: #374151 !important;
+  }
+
+  th {
+    background: #F3F4F6 !important;
+    font-weight: 600 !important;
+    color: #111827 !important;
+  }
+
+  /* REMOVE ALL GRADIENTS, SHADOWS, ANIMATIONS */
+  * {
+    background-image: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* BACKDROP - HIDE COMPLETELY */
+  div.fixed.inset-0.bg-black\/80,
+  div.fixed.inset-0[style*="rgba(0, 0, 0, 0.8)"],
+  div[class*="fixed"][class*="inset-0"][class*="bg-black"],
+  div[style*="background: rgba(0, 0, 0"],
+  div[style*="background-color: rgba(0, 0, 0"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+
+  /* MODAL WRAPPER - HIDE */
+  div.fixed.inset-0.z-\[100\].bg-black\/80 {
+    display: none !important;
+  }
+}

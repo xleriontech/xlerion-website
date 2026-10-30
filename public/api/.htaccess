@@ -1,0 +1,26 @@
+# Proteger la configuración y los logs del endpoint de contacto.
+# config.local.php contiene credenciales y no debe servirse nunca por HTTP.
+
+<FilesMatch "^(config\.local\.php|\.env)">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.log$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+
+# logs/ guarda el volcado de solicitudes (con datos personales): acceso prohibido.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^logs/ - [F,L]
+</IfModule>
+
+Options -Indexes

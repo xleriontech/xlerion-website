@@ -1,0 +1,88 @@
+{
+  "id": "/",
+  "name": "Xlerion — Inteligencia Visual 3D y Plataformas de IA en Tiempo Real",
+  "short_name": "XLERION",
+  "description": "Gemelos digitales, Inteligencia Visual 3D y plataformas de IA en tiempo real para minería, manufactura y smart cities.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070710",
+  "theme_color": "#00e9fa",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "es",
+  "categories": ["technology", "business", "developer"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/images/og-cover.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Gemelos digitales e IA en tiempo real"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Soluciones",
+      "short_name": "Soluciones",
+      "url": "/#soluciones",
+      "description": "Gemelos digitales, IA en tiempo real y arquitectura por capas"
+    },
+    {
+      "name": "Casos de Éxito",
+      "short_name": "Casos",
+      "url": "/#casos",
+      "description": "Proyectos desplegados y operativos en producción"
+    },
+    {
+      "name": "Impacto (ROI)",
+      "short_name": "ROI",
+      "url": "/#impacto",
+      "description": "Resultados medidos: −60% detección, −40% costos, 99.9% uptime"
+    },
+    {
+      "name": "Contacto",
+      "short_name": "Contacto",
+      "url": "/#contacto",
+      "description": "Solicita una PoC — respuesta en menos de 24 horas"
+    },
+    {
+      "name": "PanelaIA",
+      "short_name": "PanelaIA",
+      "url": "/panelaia",
+      "description": "Asistente IA para la cadena panelera"
+    }
+  ],
+  "prefer_related_applications": false
+}
