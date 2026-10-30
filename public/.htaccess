@@ -18,6 +18,13 @@
   # Redirigir /views a la raíz
   RewriteRule ^views/?$ / [R=301,L]
 
+  # security.txt vivo en /.well-known/ desde la migracion a xlerion.com.co.
+  # El 301 mantiene los escaneos legacy de la ruta antigua sin duplicar el archivo.
+  RewriteRule ^security\.txt$ /.well-known/security.txt [R=301,L]
+
+  # Endpoint de contacto: el front llama a /api/contact (sin extensión)
+  RewriteRule ^api/contact/?$ api/contact.php [L]
+
   # No reescribir archivos PHP en /api/
   RewriteCond %{REQUEST_URI} ^/api/
   RewriteRule ^ - [L]
@@ -138,10 +145,33 @@
 # Desactivar listado de directorios
 Options -Indexes
 
-# Proteger archivos sensibles
-<FilesMatch "(^\.htaccess|^\.env|^\.git|composer\.json|composer\.lock|package\.json|package-lock\.json)$">
-  Order allow,deny
-  Deny from all
+# Proteger archivos sensibles. Dos bloques separados a propósito: en PCRE la
+# alternación binding suelto, así que "(^\.|otra|cosa)$" exigiría que un dotfile
+# se llame exactamente "." y dejaría .env.local sirviéndose con HTTP 200.
+#
+# Bloque 1: TODO dotfile (.env, .env.local, .env.server-template, .git*, .ht*,
+# .DS_Store). <FilesMatch> prueba solo el nombre del archivo, no la ruta:
+# /.well-known/security.txt se llama "security.txt" y sigue servido, igual que
+# los tokens de Let's Encrypt (ACME http-01), que tampoco son dotfiles.
+<FilesMatch "^\.">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Bloque 2: ficheros de configuración de dependencias (names concretos, anclados).
+<FilesMatch "^(config\.local\.php|composer\.(json|lock)|package(-lock)?\.json)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
 </FilesMatch>
 
 # Configuración de tipos MIME adicionales

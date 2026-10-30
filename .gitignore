@@ -1,0 +1,40 @@
+# Ignore all markdown docs (kept locally only)
+*.md
+# Allow our development guide to be tracked
+!DEVELOPMENT_SETUP.md
+
+# Local docs archive
+/docs-md/
+
+# Local sensitive folders
+/LocalAI/
+/media/
+/Prueba01/
+/xlerion-studio/
+
+# Unity generated folders (don't commit Library/ or PackageCache)
+/Projects/game/**/Library/
+/Projects/game/**/Library/PackageCache/
+/Projects/game/**/Temp/
+/Projects/game/**/obj/
+/Projects/game/**/Build/
+
+# Large generated search dumps
+/xlerion-site/form-search-results.txt
+/xlerion-site/email-endpoint-search.txt
+
+# Credenciales del endpoint de contacto y su registro (contiene datos personales)
+public/api/config.local.php
+public/api/logs/
+dist/api/logs/
+
+# Caché local de wrangler (state simulado de KV/D1/R2 y config de deploy)
+.wrangler/
+
+# Entornos locales con credenciales reales. Los .env.example sí se versionan.
+.env
+.env.*
+!.env.example
+public/.env
+public/.env.*
+!public/.env.example

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Copia este archivo como config.local.php y rellena los valores.
+ *
+ * Lo ideal es guardarlo FUERA del webroot (un nivel arriba de public_html),
+ * contact.php lo busca ahí automáticamente. Si lo dejas dentro de api/,
+ * el api/.htaccess ya bloquea su acceso por HTTP.
+ *
+ * NUNCA subas config.local.php al repositorio.
+ */
+
+return [
+    // Correo destino de las solicitudes.
+    'email_to' => 'contacto@xlerion.com.co',
+
+    // Opcional: API key de Resend. Si está vacío se usa mail() del hosting.
+    'resend_key' => '',
+
+    // Obligatorio solo si usas Resend (debe ser un dominio verificado ahí).
+    'email_from' => 'Xlerion Web <web@xlerion.com.co>',
+
+    // Ajusta si tu hosting no deja escribir en api/logs/.
+    // 'log_path'   => __DIR__ . '/../logs/contact.log',
+    // 'rate_store' => __DIR__ . '/../logs/.ratelimit',
+
+    // Ventana del limitador: 5 envíos por IP cada 10 minutos.
+    // 'rate_max'    => 5,
+    // 'rate_window' => 600,
+];

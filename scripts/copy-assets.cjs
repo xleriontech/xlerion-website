@@ -60,6 +60,20 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied icons folder');
   }
 
+  // Copy PHP endpoints (public/api -> dist/api) for Apache/cPanel hosting
+  const apiSrc = path.join(__dirname, '..', 'public', 'api');
+  if (fs.existsSync(apiSrc)) {
+    copyDir(apiSrc, path.join(__dirname, '..', 'dist', 'api'));
+    console.log('Copied api folder');
+  }
+
+  // Copy /.well-known (security.txt segun RFC 9116)
+  const wellKnownSrc = path.join(__dirname, '..', 'public', '.well-known');
+  if (fs.existsSync(wellKnownSrc)) {
+    copyDir(wellKnownSrc, path.join(__dirname, '..', 'dist', '.well-known'));
+    console.log('Copied .well-known folder');
+  }
+
   // Copy root-level files inside public/images/ (og-cover.jpg, share previews, etc.)
   const imagesRoot = path.join(__dirname, '..', 'public', 'images');
   const distImagesRoot = path.join(__dirname, '..', 'dist', 'images');
@@ -89,7 +103,6 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'LogoX.svg',
     'humans.txt',
     'sitemap.xml',
-    'sitemapindex.xml',
     'robots.txt',
     'service-worker.js',
     '.htaccess'

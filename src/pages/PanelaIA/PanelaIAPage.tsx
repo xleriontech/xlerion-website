@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useChat } from './PanelaIAChatHook';
 
 /* -------------------------------------------------
@@ -8,6 +8,18 @@ import { useChat } from './PanelaIAChatHook';
 export const PanelaIAPage = function PanelaIAPage() {
   const { messages, sendMessage, isLoading, clearMessages } = useChat();
   const [typing, setTyping] = useState(false);
+
+  // El <meta name="robots"> vive en index.html y es compartido por toda la SPA:
+  // sin la restauracion del cleanup, el noindex se quedaria en las demas rutas.
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="robots"]');
+    if (!meta) return;
+    const previous = meta.getAttribute('content');
+    meta.setAttribute('content', 'noindex, follow');
+    return () => {
+      if (previous !== null) meta.setAttribute('content', previous);
+    };
+  }, []);
 
   const handleSend = async (content: string) => {
     if (!content.trim()) return;

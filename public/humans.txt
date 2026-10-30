@@ -1,14 +1,14 @@
 /* TEAM */
 
 Founder & Lead Developer: Miguel Rodríguez Martínez
-Site: https://xlerion.com
+Site: https://xlerion.com.co
 Email: contacto@xlerion.tech
 Location: Bogotá, Colombia
 LinkedIn: https://www.linkedin.com/in/miguel-rodriguez-xlerion
 
 /* SITE */
 
-Last update: 2026/01/20
+Last update: 2026/10/29
 Language: Spanish / English
 Doctype: HTML5
 IDE: Visual Studio Code
@@ -30,12 +30,10 @@ Services:
 /* PROJECTS */
 
 Redemthor: Colombian Ultimate Metal band website (2004-present)
-  - URL: https://xlerion.com/redemthor/
   - Tech: HTML5, CSS3, Vanilla JS, i18n (ES/EN)
   - Features: Discography, history, live streams, interactive game
 
 Total Darkness: Modular backend system
-  - URL: https://xlerion.com/total-darkness/
   - Tech: PHP, SQLite, Vanilla JS
   - Features: Admin panel, story management, authentication
 
@@ -50,23 +48,22 @@ Turismo Incluyente: Accessible tourism platform
 /* VERIFICATION */
 
 Google Search Console: Verified
-Sitemap: https://xlerion.com/sitemap.xml
-Robots: https://xlerion.com/robots.txt
+Sitemap: https://xlerion.com.co/sitemap.xml
+Robots: https://xlerion.com.co/robots.txt
 Structured Data: JSON-LD (Organization, WebSite)
 
 /* CONTACT */
 
 Email: contacto@xlerion.tech
-Website: https://xlerion.com
+Website: https://xlerion.com.co
 Instagram: @ultimatexlerion
 Facebook: /xlerionultimate
 Location: Bogotá, Colombia
 
 /* LEGAL */
 
-Privacy Policy: https://xlerion.com/legal/privacidad
-Terms of Service: https://xlerion.com/legal/terminos
-Licenses: https://xlerion.com/legal/licencias
+Privacy Policy: https://xlerion.com.co/legal/privacidad
+Terms of Service: https://xlerion.com.co/legal/terminos
 
 /* CREDITS */
 

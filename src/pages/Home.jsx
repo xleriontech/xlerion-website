@@ -94,7 +94,7 @@ function ShowcaseSection({
                     <div
                         className="absolute inset-0 z-0"
                         style={{
-                            backgroundImage: "url('/soluciones-parallax.jpg')",
+                            backgroundImage: "url('/images/soluciones-parallax.jpg')",
                             backgroundAttachment: 'fixed',
                             backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat',
@@ -142,7 +142,7 @@ function ShowcaseSection({
                         {id === 'identidad' && (
                             <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
                                 <button className={`${cardClass} relative text-left`}>
-                                    <img src="/soluciones-parallax.jpg" alt="Preview proyecto" className="h-20 w-full object-cover opacity-85" />
+                                    <img src="/images/soluciones-parallax.jpg" alt="Preview proyecto" className="h-20 w-full object-cover opacity-85" />
                                     <span className="absolute inset-0 flex items-center justify-center">
                                         <span className="rounded-full border border-[#00e9fa] p-2 bg-black/70">
                                             <Play size={14} className="text-[#00e9fa]" />
@@ -153,7 +153,7 @@ function ShowcaseSection({
                                     <img src="/LogoX.png" alt="Marca Xlerion" className="h-20 w-full object-contain opacity-90" />
                                 </div>
                                 <div className={`${cardClass} hidden sm:block`}>
-                                    <img src="/soluciones-parallax.jpg" alt="Vista previa" className="h-20 w-full object-cover opacity-75" />
+                                    <img src="/images/soluciones-parallax.jpg" alt="Vista previa" className="h-20 w-full object-cover opacity-75" />
                                 </div>
                             </div>
                         )}

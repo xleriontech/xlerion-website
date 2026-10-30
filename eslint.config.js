@@ -7,6 +7,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores([
     'dist',
+    '.archive-cloudflare/**',
     'public/total-darkness/**',
     'public/redemthor/**',
     'public/el-ropero/**',

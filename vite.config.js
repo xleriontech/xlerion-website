@@ -1,8 +1,18 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
+import fs from 'node:fs'
+import path from 'node:path'
 
-import { cloudflare } from "@cloudflare/vite-plugin";
+// `publicDir: false` evita que Vite publique los dotfiles de public/ (.env.local,
+// .env.example) en dist/. Esta capa replica el acceso a public/ solo en dev.
+const DEV_MIME = {
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml', '.webp': 'image/webp', '.gif': 'image/gif',
+  '.ico': 'image/x-icon', '.json': 'application/json', '.txt': 'text/plain',
+  '.css': 'text/css', '.js': 'text/javascript', '.html': 'text/html',
+  '.mp4': 'video/mp4', '.webm': 'video/webm', '.woff2': 'font/woff2',
+}
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -22,15 +32,27 @@ export default defineConfig({
         });
       }
     },
-    cloudflare(),
+    {
+      name: 'serve-public-in-dev',
+      configureServer(server) {
+        const publicRoot = path.resolve(server.config.root, 'public')
+        server.middlewares.use((req, res, next) => {
+          const publicFile = path.join(publicRoot, req.url.split('?')[0].replace(/^\/+/, ''))
+          if (!publicFile.startsWith(publicRoot + path.sep)) return next()
+          if (path.basename(publicFile).startsWith('.')) return next()
+          if (!fs.existsSync(publicFile) || !fs.statSync(publicFile).isFile()) return next()
+          res.setHeader('Content-Type', DEV_MIME[path.extname(publicFile).toLowerCase()] ?? 'application/octet-stream')
+          fs.createReadStream(publicFile).pipe(res)
+        });
+      }
+    },
     // Copiar assets al root de dist/ preservando estructura de directorios
     viteStaticCopy({
       targets: [
         { src: 'public/images/*', dest: 'images' },
         { src: 'public/videos/*', dest: 'videos' },
       ]
-    }),
-    cloudflare()
+    })
   ],
   // Deshabilitar copia automática de public/
   publicDir: false,
