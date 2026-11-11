@@ -56,6 +56,7 @@ const WALLET_FONDERS = [
         'email'     => 'juliette@xlerion.com.co',
         'linkedin'  => 'https://www.linkedin.com/in/juliette-gt/',
         'web'       => 'https://xlerion.com.co',
+        'calendly'  => 'https://calendly.com/juliettexlerion',
         'nit'       => '',
         'location'  => 'Chía, Cundinamarca, Colombia',
     ],
@@ -323,6 +324,9 @@ function google_pass_objects(array $f, array $google, string $baseUrl): array
 
     if ($f['nit'] !== '') {
         $object['textSections'][0]['data'][] = ['label' => 'NIT Empresa', 'value' => $f['nit']];
+    }
+    if (!empty($f['calendly'])) {
+        $object['textSections'][0]['data'][] = ['label' => 'Agendar 15 min', 'value' => $f['calendly']];
     }
 
     return ['class' => $class, 'object' => $object];

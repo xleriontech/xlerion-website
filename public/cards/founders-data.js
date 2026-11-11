@@ -5,6 +5,18 @@
  * NO inventar copy: leer siempre desde aquí.
  * ============================================================= */
 
+/**
+ * Dominio público de las tarjetas.
+ *
+ * Es el destino del QR con tracking. En producción el sitio vive en
+ * xlerion.com.co, asi que el QR escaneado apunta a
+ * https://xlerion.com.co/api/scan/{id} y el 302 devuelve a /mike o /juliette.
+ *
+ * En local (localhost) se usa el origen actual para poder probar el circuito
+ * completo de tracking sin subir nada.
+ */
+const XLERION_PUBLIC_BASE = 'https://xlerion.com.co';
+
 const foundersData = {
   /* ================= MIGUEL E. RODRÍGUEZ ================= */
   miguel: {
@@ -197,7 +209,7 @@ const foundersData = {
         label: 'Explorar Alianzas',
         hint: '15 min',
         kind: 'secondary',
-        href: 'https://calendly.com/xlerion/15min',
+        href: 'https://calendly.com/juliettexlerion',
       },
       {
         icon: 'bi-file-earmark-arrow-down',
@@ -227,7 +239,7 @@ const foundersData = {
     links: {
       portfolio: 'https://xlerion.com.co',
       linkedin: 'https://www.linkedin.com/in/juliette-gt/',
-      calendly: 'https://calendly.com/xlerion/15min',
+      calendly: 'https://calendly.com/juliettexlerion',
       onePager: '/Xlerion_OnePager.pdf',
       // WhatsApp: se abre el chat con el numero, sin mensaje prellenado
       // (no hay copy aprobado para Juliette).
@@ -254,6 +266,7 @@ if (typeof ACTIVE_FOUNDER === 'undefined') {
 if (typeof window !== 'undefined') {
   window.foundersData = foundersData;
   window.ACTIVE_FOUNDER = ACTIVE_FOUNDER;
+  window.XLERION_PUBLIC_BASE = XLERION_PUBLIC_BASE;
 }
 
 if (typeof module !== 'undefined' && module.exports) {

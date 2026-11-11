@@ -334,13 +334,22 @@
 
   /**
    * Destino del QR: el endpoint de TRACKING, no la tarjeta.
-   * Escanearlo registra el evento y devuelve un 302 hacia /mike o /juliette.
-   * En local se usa el origen actual para poder probar el circuito entero.
+   *
+   * En produccion (xlerion.com.co) el QR escaneado apunta a
+   * https://xlerion.com.co/api/scan/{id}, que registra el escaneo y responde
+   * 302 hacia /mike o /juliette.
+   *
+   * En local se usa el origen actual (localhost:5173) para poder probar el
+   * circuito completo de tracking sin subir nada.
    */
   function qrTarget() {
     var origin = window.location.origin || '';
     var local = /^(https?:\/\/)?(localhost|127\.0\.0\.1|\[::1\])/i.test(origin);
-    return (local ? origin.replace(/\/+$/, '') : 'https://xlerion.com.co') + '/api/scan/' + D.id;
+    var base =
+      typeof XLERION_PUBLIC_BASE !== 'undefined' && XLERION_PUBLIC_BASE
+        ? XLERION_PUBLIC_BASE
+        : 'https://xlerion.com.co';
+    return (local ? origin.replace(/\/+$/, '') : base) + '/api/scan/' + D.id;
   }
 
   function buildQR() {

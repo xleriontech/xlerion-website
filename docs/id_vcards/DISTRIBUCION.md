@@ -123,6 +123,27 @@ GET /api/scan/{founder_id}
 
 Registra y responde **302** a `https://xlerion.com.co/{slug}`.
 
+**El destino del QR.** El dominio vive en una constante, no escondido en el
+código:
+
+```js
+// public/cards/founders-data.js
+const XLERION_PUBLIC_BASE = 'https://xlerion.com.co';
+```
+
+- En **producción** el QR escaneado apunta a
+  `https://xlerion.com.co/api/scan/{id}` → registra → 302 → `/mike` o `/juliette`
+- En **local** (`localhost:5173`) se usa el origen actual para poder probar el
+  circuito completo de tracking sin subir nada
+
+Los QR **impresos** (`qr-*.png` / `qr-*.svg`) y los payloads **NFC** ya se
+generan siempre con el dominio de producción:
+
+```bash
+python scripts/generate_qr.py                          # base por defecto
+python scripts/generate_qr.py --base https://otro.dominio
+```
+
 Campos registrados (JSONL, una línea por escaneo):
 
 | Campo | Notas |
