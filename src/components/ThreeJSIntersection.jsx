@@ -4841,7 +4841,7 @@ export default function ThreeJSIntersection() {
             <div className="absolute top-0 left-0 right-0 bg-black/70 backdrop-blur-md border-b border-cyan-500/30 px-4 py-3 flex items-center justify-between gap-4 shadow-lg shadow-cyan-500/10">
                 {/* Logo a la izquierda */}
                 <img
-                    src="/LogoX.png"
+                    src="/LogoX.svg"
                     alt="Xlerion GreenWave"
                     className="h-10 object-contain"
                 />

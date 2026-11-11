@@ -12,6 +12,9 @@ const NAV_ITEMS = [
   { id: 'contacto', key: 'nav_contacto', scrollTo: 'contacto' },
 ];
 
+/* Enlaces a paginas propias (no son secciones de scroll). */
+const NAV_PAGES = [{ to: '/cards/', key: 'nav_tarjetas' }];
+
 export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -89,9 +92,9 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
             }}
           >
             <img
-              src="/LogoX.png"
+              src="/LogoX.svg"
               alt="XLERION"
-              className="h-9 md:h-10 object-contain transition-transform duration-300 group-hover:scale-105"
+              className="h-11 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
             />
             <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#00e9fa] hidden sm:block">
               XLERION
@@ -110,6 +113,19 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
                 >
                   {t(item.key)}
                 </button>
+              ))}
+
+              {/* Paginas propias: tarjetas digitales */}
+              {NAV_PAGES.map((page) => (
+                <Link
+                  key={page.to}
+                  to={page.to}
+                  data-transition="nav"
+                  className="inline-flex items-center gap-1.5 h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
+                >
+                  {t(page.key)}
+                  <i className="bi bi-arrow-up-right text-[9px] opacity-60" />
+                </Link>
               ))}
 
               {/* Language Toggle */}
@@ -177,6 +193,18 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
                 >
                   {t(item.key)}
                 </button>
+              ))}
+
+              {NAV_PAGES.map((page) => (
+                <Link
+                  key={page.to}
+                  to={page.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300 inline-flex items-center gap-2"
+                >
+                  {t(page.key)}
+                  <i className="bi bi-arrow-up-right text-base opacity-60" />
+                </Link>
               ))}
 
               <div className="mobile-menu-item border-t border-white/[0.08] pt-6 mt-2">

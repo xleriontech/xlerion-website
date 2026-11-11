@@ -78,7 +78,7 @@ export default function SectionLoader({ onComplete }) {
           }}
         >
           <img
-            src="/LogoX.png"
+            src="/LogoX.svg"
             alt="Xlerion"
             className="w-20 h-20 object-contain"
             style={{

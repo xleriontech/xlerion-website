@@ -32,7 +32,7 @@ export default function Loader({ onComplete }) {
             <div className="mb-12 text-center">
                 <div className="relative flex flex-col items-center">
                     <img
-                        src="/LogoX.png"
+                        src="/LogoX.svg"
                         alt="Xlerion Logo"
                         className="w-32 h-32 md:w-48 md:h-48 animate-pulse"
                         style={{

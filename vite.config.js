@@ -50,6 +50,17 @@ export default defineConfig({
           const publicFile = path.join(publicRoot, relative)
           if (!publicFile.startsWith(publicRoot + path.sep)) return next()
           if (path.basename(publicFile).startsWith('.')) return next()
+
+          // Un directorio con index.html se sirve como el Apache DirectoryIndex
+          // (p.ej. /cards/ -> public/cards/index.html).
+          if (fs.existsSync(publicFile) && fs.statSync(publicFile).isDirectory()) {
+            const indexFile = path.join(publicFile, 'index.html')
+            if (!fs.existsSync(indexFile)) return next()
+            res.setHeader('Content-Type', DEV_MIME['.html'])
+            fs.createReadStream(indexFile).pipe(res)
+            return
+          }
+
           if (!fs.existsSync(publicFile) || !fs.statSync(publicFile).isFile()) return next()
           res.setHeader('Content-Type', DEV_MIME[path.extname(publicFile).toLowerCase()] ?? 'application/octet-stream')
           fs.createReadStream(publicFile).pipe(res)
@@ -143,6 +154,14 @@ export default defineConfig({
   ],
   // Deshabilitar copia automática de public/
   publicDir: false,
+  server: {
+    watch: {
+      // docs/site-example/ contiene maquetas estaticas que no necesitan HMR.
+      // Ademas el IDE (Qoder) deja marcadores bloqueados ahi y el watcher
+      // revienta con EBUSY, tumbando el servidor de desarrollo.
+      ignored: ['**/docs/site-example/**', '**/dist/**', '**/.git/**'],
+    },
+  },
   build: {
     // Optimizaciones para producción
     target: 'es2020',

@@ -13,7 +13,7 @@ export default function Hero({ onNavigate }) {
       {/* Contenido */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
         <img
-          src="/LogoX.png"
+          src="/LogoX.svg"
           alt="Xlerion"
           className="mx-auto mb-8 h-32 md:h-40 lg:h-56 object-contain"
           style={{ filter: 'drop-shadow(0 0 30px rgba(0, 233, 250, 0.6))' }}

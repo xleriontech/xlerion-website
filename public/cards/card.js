@@ -132,14 +132,35 @@
     ctaWrap.appendChild(ctas);
 
     /* --- 5. Contacto + QR --- */
+    // Acceso dual al telefono: el numero marca (tel:) y el icono abre WhatsApp.
+    var waHref = D.links && D.links.whatsapp
+      ? 'https://wa.me/' +
+        D.links.whatsapp +
+        (D.links.whatsappMessage
+          ? '?text=' + encodeURIComponent(D.links.whatsappMessage)
+          : '')
+      : '';
+
     var contact = el('div', 'region region-contact');
     contact.innerHTML =
       '<ul class="contact-list">' +
       '<li><i class="bi bi-geo-alt-fill"></i><span>' + esc(D.contact.location) + '</span></li>' +
       '<li><i class="bi bi-envelope-fill"></i><a href="mailto:' + esc(D.contact.email) + '">' + esc(D.contact.email) + '</a></li>' +
-      '<li><i class="bi bi-phone-fill"></i><a href="tel:' + esc(D.contact.phoneTel) + '">' + esc(D.contact.phone) + '</a></li>' +
+      '<li class="contact-phone">' +
+      '<i class="bi bi-phone-fill"></i>' +
+      '<a href="tel:' + esc(D.contact.phoneTel) + '">' + esc(D.contact.phone) + '</a>' +
+      (waHref
+        ? '<a class="contact-wa" href="' + esc(waHref) + '" target="_blank" rel="noopener noreferrer" ' +
+          'aria-label="Hablar por WhatsApp" title="Hablar por WhatsApp">' +
+          '<i class="bi bi-whatsapp"></i></a>'
+        : '') +
+      '</li>' +
       '</ul>' +
-      '<span class="qr-wrap"><span id="qrcode"></span><span class="qr-cap">ESCANEA</span></span>';
+      '<button class="qr-wrap qr-trigger" id="qr-trigger" type="button" ' +
+      'aria-label="Ampliar el código QR para escanear">' +
+      '<span class="qr-frame"><span id="qrcode"></span>' +
+      '<span class="qr-expand"><i class="bi bi-arrows-fullscreen"></i></span></span>' +
+      '<span class="qr-cap">ESCANEA</span></button>';
 
     /* --- 5. Barra de canales de distribucion --- */
     var utils = el('div', 'region region-utils');
@@ -254,17 +275,82 @@
   /* =============================================================
    * 3. QR
    * ============================================================= */
+
+  /**
+   * Destino del QR: el endpoint de TRACKING, no la tarjeta.
+   * Escanearlo registra el evento y devuelve un 302 hacia /mike o /juliette.
+   * En local se usa el origen actual para poder probar el circuito entero.
+   */
+  function qrTarget() {
+    var origin = window.location.origin || '';
+    var local = /^(https?:\/\/)?(localhost|127\.0\.0\.1|\[::1\])/i.test(origin);
+    return (local ? origin.replace(/\/+$/, '') : 'https://xlerion.com.co') + '/api/scan/' + D.id;
+  }
+
+  /**
+   * Genera el QR a una resolucion EXACTA: el tamano en pixeles del canvas es
+   * multiplo del numero de modulos, asi que cada modulo cae en pixeles
+   * enteros y el codigo se lee sin borde difuminado a ningun tamano.
+   */
+  function renderQr(container, url, cssSize) {
+    if (typeof QRCode === 'undefined' || !container) return null;
+
+    // Render de sondeo para conocer el numero de modulos del simbolo.
+    var probe = document.createElement('div');
+    new QRCode(probe, {
+      text: url,
+      width: 120,
+      height: 120,
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+
+    var modules = 0;
+    try {
+      if (probe._oQRCode && typeof probe._oQRCode.getModuleCount === 'function') {
+        modules = probe._oQRCode.getModuleCount();
+      } else if (probe._iQRCodeLength) {
+        modules = probe._iQRCodeLength;
+      }
+    } catch (e) {
+      modules = 0;
+    }
+    if (!modules) modules = 33;
+
+    var cells = modules + 8; // + 4 modulos de zona de silencio por lado
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    var target = Math.round(cssSize * dpr);
+    var cell = Math.max(2, Math.floor(target / cells));
+    var px = cell * cells; // multiplo exacto -> modulos nitidos
+
+    container.innerHTML = '';
+    new QRCode(container, {
+      text: url,
+      width: px,
+      height: px,
+      colorDark: '#050508',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+
+    // qrcodejs deja un <canvas> oculto (superficie de dibujo) y un <img>
+    // visible con el PNG ya renderizado: se usa el <img>.
+    var node = container.querySelector('img') || container.firstElementChild;
+    if (!node) return null;
+
+    // El tamano se aplica por variable CSS: una regla con !important vence al
+    // style="display:none" inline que pone qrcodejs en el canvas.
+    container.style.setProperty('--qr-w', px / dpr + 'px');
+    container.style.setProperty('--qr-h', px / dpr + 'px');
+    node.style.setProperty('width', px / dpr + 'px', 'important');
+    node.style.setProperty('height', px / dpr + 'px', 'important');
+    node.setAttribute('role', 'img');
+    node.setAttribute('aria-label', 'Código QR de ' + (D.fullName || D.name));
+    return node;
+  }
+
   function buildQR() {
     var box = $('#qrcode');
     if (!box) return;
-
-    // El QR de la tarjeta apunta al endpoint de TRACKING, no a la tarjeta:
-    // escanearlo registra el evento y devuelve un 302 hacia /mike o /juliette.
-    // En local se usa el origen actual para poder probar el circuito entero.
-    var origin = window.location.origin || '';
-    var local = /^(https?:\/\/)?(localhost|127\.0\.0\.1|\[::1\])/i.test(origin);
-    var base = local ? origin.replace(/\/+$/, '') : 'https://xlerion.com.co';
-    var href = base + '/api/scan/' + D.id;
 
     if (typeof QRCode === 'undefined') {
       box.style.background = 'transparent';
@@ -272,12 +358,114 @@
       return;
     }
     new QRCode(box, {
-      text: href,
+      text: qrTarget(),
       width: 132,
       height: 132,
       colorDark: '#050508',
       colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.M,
+    });
+  }
+
+  /* =============================================================
+   * 3b. QR ampliado (lightbox)
+   * ============================================================= */
+  function buildLightbox() {
+    var box = document.createElement('div');
+    box.className = 'qr-zoom';
+    box.id = 'qr-zoom';
+    box.hidden = true;
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.setAttribute('aria-label', 'Código QR ampliado de ' + (D.fullName || D.name));
+    box.innerHTML =
+      '<div class="qr-zoom-backdrop" data-qr-close></div>' +
+      '<div class="qr-zoom-panel">' +
+      '<span class="qr-zoom-corner qr-zoom-corner--tl"></span>' +
+      '<span class="qr-zoom-corner qr-zoom-corner--tr"></span>' +
+      '<span class="qr-zoom-corner qr-zoom-corner--bl"></span>' +
+      '<span class="qr-zoom-corner qr-zoom-corner--br"></span>' +
+      '<div class="qr-zoom-frame">' +
+      '<div class="qr-zoom-img" id="qr-zoom-img"></div>' +
+      '<span class="qr-zoom-scan"></span>' +
+      '</div>' +
+      '<div class="qr-zoom-meta">' +
+      '<span class="qr-zoom-name">' + esc(D.fullName || D.name) + '</span>' +
+      '<span class="qr-zoom-hint">ESCANEA PARA ABRIR LA TARJETA</span>' +
+      '</div>' +
+      '<button class="qr-zoom-close" type="button" data-qr-close aria-label="Cerrar">' +
+      '<i class="bi bi-x-lg"></i></button>' +
+      '</div>';
+    document.body.appendChild(box);
+    return box;
+  }
+
+  function openLightbox(trigger) {
+    var box = document.getElementById('qr-zoom');
+    if (!box) box = buildLightbox();
+
+    var img = box.querySelector('#qr-zoom-img');
+    // El QR se hace tan grande como quepa sin comerse los bordes ni el alto.
+    // El panel añade 64px de cromado horizontal (40 de padding + 24 de la
+    // placa) y 106px vertical, mas 32px de margen de seguridad.
+    var size = Math.min(
+      Math.max(window.innerWidth - 100, 180),
+      Math.max(window.innerHeight - 190, 170),
+      380
+    );
+    renderQr(img, qrTarget(), size);
+
+    // El panel crece desde la posicion del QR pulsado. transform-origin es
+    // relativo a la propia caja del panel, asi que hay que medirlo SIN
+    // transform y con el lightbox ya visible (si esta oculto, el rect es 0).
+    var panel = box.querySelector('.qr-zoom-panel');
+    box.hidden = false;
+    if (trigger && panel) {
+      panel.classList.add('is-measuring');
+      var pr = panel.getBoundingClientRect();
+      panel.classList.remove('is-measuring');
+      var r = trigger.getBoundingClientRect();
+      panel.style.setProperty(
+        '--qr-origin',
+        (r.left + r.width / 2 - pr.left) + 'px ' + (r.top + r.height / 2 - pr.top) + 'px'
+      );
+    }
+
+    // Forzar reflow: sin una lectura de layout el navegador fusiona el cambio
+    // de estado y la transicion no se dispara (y dentro de un iframe
+    // requestAnimationFrame puede no correr en headless).
+    void box.offsetWidth;
+    box.classList.add('is-open');
+    // Red de seguridad por si algun frame se omite.
+    setTimeout(function () {
+      box.classList.add('is-open');
+    }, 60);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    var box = document.getElementById('qr-zoom');
+    if (!box || box.hidden) return;
+    box.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(function () {
+      box.hidden = true;
+    }, 340);
+  }
+
+  function initQrZoom() {
+    var trigger = $('#qr-trigger');
+    if (trigger) {
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openLightbox(trigger);
+      });
+    }
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-qr-close]')) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeLightbox();
     });
   }
 
@@ -542,10 +730,41 @@
   /* =============================================================
    * 6. Boot
    * ============================================================= */
+  /* =============================================================
+   * 5. Brillo que sigue al cursor
+   * ============================================================= */
+  function initGlow() {
+    var card = $('#card');
+    if (!card) return;
+
+    var glow = el('div', 'card-glow');
+    card.appendChild(glow);
+
+    function move(e) {
+      var r = card.getBoundingClientRect();
+      var x = ((e.clientX - r.left) / r.width) * 100;
+      var y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--gx', x + '%');
+      card.style.setProperty('--gy', y + '%');
+    }
+
+    card.addEventListener('pointermove', move, { passive: true });
+    // En tactil el brillo se fija en la zona tocada (sin cursor no hay hover).
+    card.addEventListener(
+      'touchmove',
+      function (e) {
+        if (e.touches && e.touches[0]) move(e.touches[0]);
+      },
+      { passive: true }
+    );
+  }
+
   function boot() {
     render();
     initTilt();
     initNeuralBg();
+    initQrZoom();
+    initGlow();
     document.documentElement.setAttribute('data-founder', D.id);
     /* Superficie de test/debug: permite verificar el vCard desde consola o QA */
     window.__xlerion = {

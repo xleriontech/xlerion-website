@@ -150,7 +150,7 @@ function ShowcaseSection({
                                     </span>
                                 </button>
                                 <div className={cardClass}>
-                                    <img src="/LogoX.png" alt="Marca Xlerion" className="h-20 w-full object-contain opacity-90" />
+                                    <img src="/LogoX.svg" alt="Marca Xlerion" className="h-20 w-full object-contain opacity-90" />
                                 </div>
                                 <div className={`${cardClass} hidden sm:block`}>
                                     <img src="/images/soluciones-parallax.jpg" alt="Vista previa" className="h-20 w-full object-cover opacity-75" />

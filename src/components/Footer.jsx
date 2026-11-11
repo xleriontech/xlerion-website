@@ -21,11 +21,11 @@ export default function Footer({ navTo }) {
   return (
     <footer className="bg-[#050508] pt-20 pb-10 border-t border-white/[0.05]">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:gap-12 mb-16">
           {/* Brand */}
           <div className="space-y-5">
             <div className="flex items-center gap-3">
-              <img src="/LogoX.png" alt="XLERION Logo" className="h-8 object-contain" />
+              <img src="/LogoX.svg" alt="XLERION Logo" className="h-11 object-contain" />
               <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#00e9fa]">
                 XLERION
               </span>
@@ -88,6 +88,45 @@ export default function Footer({ navTo }) {
                   className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer"
                 >
                   {t('footer_legal_terms')}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Tarjetas digitales */}
+          <div className="space-y-5">
+            <h4 className="text-[#00e9fa] font-mono text-xs uppercase tracking-[0.2em] font-semibold">
+              {t('footer_cards')}
+            </h4>
+            <ul className="space-y-3 text-[10px] font-mono text-gray-500 uppercase tracking-widest list-none p-0 m-0">
+              <li>
+                <a
+                  href="/cards/tarjeta-miguel.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#00e9fa] transition-colors"
+                >
+                  Miguel E. Rodríguez
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/cards/tarjeta-juliette.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#00e9fa] transition-colors"
+                >
+                  Juliette González
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/cards/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#00e9fa] transition-colors"
+                >
+                  {t('nav_tarjetas')} →
                 </a>
               </li>
             </ul>

@@ -220,8 +220,8 @@ const foundersData = {
     contact: {
       location: 'Chía, Cundinamarca, Colombia',
       email: 'juliette@xlerion.com.co',
-      phone: '+57 300 000 0000',
-      phoneTel: '+573000000000',
+      phone: '+57 3008744650',
+      phoneTel: '+573008744650',
     },
 
     links: {
@@ -229,6 +229,10 @@ const foundersData = {
       linkedin: 'https://www.linkedin.com/in/juliette-gt/',
       calendly: 'https://calendly.com/xlerion/15min',
       onePager: '/Xlerion_OnePager.pdf',
+      // WhatsApp: se abre el chat con el numero, sin mensaje prellenado
+      // (no hay copy aprobado para Juliette).
+      whatsapp: '573008744650',
+      whatsappMessage: '',
     },
 
     disclaimer:

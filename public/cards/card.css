@@ -135,17 +135,59 @@ body {
   -webkit-mask-image: radial-gradient(120% 90% at 50% 0%, #000 25%, transparent 78%);
 }
 
-/* Halo superior */
+/* Halo superior + marco con gradiente animado */
 .card::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 160px;
-  z-index: 0;
+  inset: 0;
+  z-index: 3;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--xlerion-angle),
+    transparent 0deg,
+    rgba(0, 233, 250, 0.95) 45deg,
+    rgba(0, 184, 201, 0.85) 100deg,
+    transparent 165deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: xlerionSpin 7s linear infinite;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(0, 233, 250, 0.09), transparent 100%);
+}
+
+@keyframes xlerionSpin {
+  to {
+    --xlerion-angle: 360deg;
+  }
+}
+
+@property --xlerion-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Brillo que sigue al cursor */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    340px circle at var(--gx, 50%) var(--gy, 40%),
+    rgba(0, 233, 250, 0.14),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.card:hover .card-glow {
+  opacity: 1;
 }
 
 /* ---------- Grid principal ---------- */
@@ -279,6 +321,29 @@ body {
   position: relative;
 }
 
+/* Anillo HUD giratorio alrededor de la foto */
+.region-photo::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  padding: 1.5px;
+  border-radius: 7px;
+  background: conic-gradient(
+    from var(--xlerion-angle),
+    transparent 0deg,
+    rgba(0, 233, 250, 0.95) 55deg,
+    transparent 125deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: xlerionSpin 4.5s linear infinite;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
 .photo-frame {
   position: relative;
   width: var(--photo);
@@ -290,7 +355,8 @@ body {
   background: var(--x-panel-2);
   box-shadow:
     0 0 0 1px rgba(0, 0, 0, 0.6),
-    0 14px 34px -18px rgba(0, 233, 250, 0.45);
+    0 14px 34px -18px rgba(0, 233, 250, 0.45),
+    0 0 28px -8px rgba(0, 233, 250, 0.4);
 }
 
 /*
@@ -703,6 +769,34 @@ body {
   color: var(--x-primary);
 }
 
+/* Telefono: el numero marca (tel:) y el icono abre WhatsApp */
+.contact-phone a {
+  flex-shrink: 1;
+}
+
+.contact-wa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.1);
+  color: #25d366;
+  font-size: 10px;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-wa:hover {
+  background: rgba(37, 211, 102, 0.24);
+  border-color: #25d366;
+  color: #25d366;
+  transform: scale(1.08);
+}
+
 .qr-wrap {
   flex-shrink: 0;
   display: flex;
@@ -711,17 +805,32 @@ body {
   gap: 3px;
 }
 
+/*
+ * qrcodejs deja dos hijos: un <canvas> oculto (superficie de dibujo) y un
+ * <img> visible con el PNG ya renderizado. Se muestra el <img> y se oculta
+ * el canvas para que no se dibuje dos veces.
+ *
+ * #qrcode va dentro de .qr-frame (un bloque), no de un flex item: sin
+ * display:block su width se ignoraria (los inline ignoran width) y el QR
+ * se saldria del tamano del marco.
+ */
 #qrcode {
+  display: block;
   width: clamp(38px, 6vh, 52px);
   height: clamp(38px, 6vh, 52px);
   padding: 3px;
   background: #fff;
   border-radius: 2px;
   line-height: 0;
+  overflow: hidden;
 }
 
-#qrcode img,
 #qrcode canvas {
+  display: none !important;
+}
+
+#qrcode img {
+  display: block !important;
   width: 100% !important;
   height: 100% !important;
 }
@@ -896,6 +1005,262 @@ body {
 
 .toast--info i {
   color: var(--x-primary);
+}
+
+/* ============ QR AMPLIADO (lightbox) ============ */
+.qr-trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.qr-trigger:focus-visible {
+  outline: 2px solid var(--x-primary);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.qr-frame {
+  position: relative;
+  display: block;
+  line-height: 0;
+  border-radius: 2px;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.qr-trigger:hover .qr-frame {
+  box-shadow: 0 0 0 1px var(--x-primary), 0 0 18px rgba(0, 233, 250, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Afordance de ampliar */
+.qr-expand {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 8, 0.55);
+  color: var(--x-primary);
+  font-size: 15px;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.qr-trigger:hover .qr-expand,
+.qr-trigger:focus-visible .qr-expand {
+  opacity: 1;
+}
+
+.qr-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.qr-zoom[hidden] {
+  display: none;
+}
+
+/* Fondo difuminado: el card y la red neuronal quedan en bokeh */
+.qr-zoom-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.74);
+  backdrop-filter: blur(22px) saturate(0.7) brightness(0.55);
+  -webkit-backdrop-filter: blur(22px) saturate(0.7) brightness(0.55);
+  opacity: 0;
+  transition: opacity 0.38s ease;
+}
+
+.qr-zoom.is-open .qr-zoom-backdrop {
+  opacity: 1;
+}
+
+.qr-zoom-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 20px 16px;
+  border: 1px solid var(--x-line-cyan);
+  border-radius: 6px;
+  background:
+    linear-gradient(160deg, rgba(26, 26, 46, 0.97) 0%, rgba(5, 5, 8, 0.99) 100%);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.7),
+    0 50px 110px -40px rgba(0, 233, 250, 0.5),
+    0 0 70px -30px rgba(0, 233, 250, 0.55);
+  /* El origen lo fija JS para que el panel crezca desde el QR pulsado. */
+  transform: scale(0.2);
+  transform-origin: var(--qr-origin, 50% 50%);
+  opacity: 0;
+  transition:
+    transform 0.52s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.28s ease;
+}
+
+/* Estado de medicion: sin transform para leer el rect real del panel. */
+.qr-zoom-panel.is-measuring {
+  transform: none !important;
+}
+
+.qr-zoom.is-open .qr-zoom-panel {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.qr-zoom-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--x-primary);
+  border-style: solid;
+  border-width: 0;
+  opacity: 0.8;
+}
+
+.qr-zoom-corner--tl {
+  top: 6px;
+  left: 6px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.qr-zoom-corner--tr {
+  top: 6px;
+  right: 6px;
+  border-top-width: 2px;
+  border-right-width: 2px;
+}
+
+.qr-zoom-corner--bl {
+  bottom: 6px;
+  left: 6px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+}
+
+.qr-zoom-corner--br {
+  bottom: 6px;
+  right: 6px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+/* Placa blanca con zona de silencio */
+.qr-zoom-frame {
+  position: relative;
+  padding: 12px;
+  background: #fff;
+  border-radius: 3px;
+  line-height: 0;
+  overflow: hidden;
+}
+
+.qr-zoom-img {
+  display: block;
+  line-height: 0;
+}
+
+/* El tamano lo fija JS como multiplo exacto de modulos (pixel-perfect). */
+.qr-zoom-img canvas {
+  display: none !important;
+}
+
+.qr-zoom-img img {
+  display: block !important;
+  width: var(--qr-w, 240px) !important;
+  height: var(--qr-h, 240px) !important;
+}
+
+/* Laser de escaneo */
+.qr-zoom-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--x-primary), transparent);
+  box-shadow: 0 0 14px rgba(0, 233, 250, 0.9);
+  animation: qrScan 2.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes qrScan {
+  0%,
+  100% {
+    top: 4px;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: calc(100% - 6px);
+    opacity: 0;
+  }
+}
+
+.qr-zoom-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.qr-zoom-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.qr-zoom-hint {
+  font-family: var(--f-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--x-primary);
+}
+
+.qr-zoom-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--x-line-cyan);
+  border-radius: 50%;
+  background: rgba(5, 5, 8, 0.92);
+  color: var(--x-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.qr-zoom-close:hover {
+  background: rgba(0, 233, 250, 0.16);
+  transform: rotate(90deg);
 }
 
 /* ================= 7. FOOT · compliance ================= */
