@@ -131,7 +131,7 @@ const foundersData = {
     initials: 'JG',
     name: 'Juliette González',
     fullName: 'Juliette González',
-    role: 'Co-Founder & Sourcing Strategy',
+    role: 'Co-Founder & Business Strategy',
     tagline:
       'Viabilidad comercial · Alianzas estratégicas · Escalabilidad y confianza para ecosistemas DeepTech en LATAM.',
     photo: '/images/juliette-vcard.jpg',
@@ -171,7 +171,7 @@ const foundersData = {
         {
           index: '02',
           icon: 'bi-people',
-          title: 'Sourcing Tecnológico LATAM',
+          title: 'Sourcing Estratégico',
           desc: 'Red de talento y partners de hardware/software en la región.',
         },
         {
