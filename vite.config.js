@@ -37,13 +37,100 @@ export default defineConfig({
       configureServer(server) {
         const publicRoot = path.resolve(server.config.root, 'public')
         server.middlewares.use((req, res, next) => {
-          const publicFile = path.join(publicRoot, req.url.split('?')[0].replace(/^\/+/, ''))
+          // Alias de las tarjetas digitales: en produccion los resuelve el
+          // .htaccess (RewriteRule ^mike/?$ cards/tarjeta-miguel.html).
+          // Aqui se replica para que dev y prod se comporten igual.
+          const cardAlias = {
+            '/mike': 'cards/tarjeta-miguel.html',
+            '/juliette': 'cards/tarjeta-juliette.html',
+          }
+          const alias = cardAlias[req.url.split('?')[0].replace(/\/+$/, '')]
+          const relative = alias || req.url.split('?')[0].replace(/^\/+/, '')
+
+          const publicFile = path.join(publicRoot, relative)
           if (!publicFile.startsWith(publicRoot + path.sep)) return next()
           if (path.basename(publicFile).startsWith('.')) return next()
           if (!fs.existsSync(publicFile) || !fs.statSync(publicFile).isFile()) return next()
           res.setHeader('Content-Type', DEV_MIME[path.extname(publicFile).toLowerCase()] ?? 'application/octet-stream')
           fs.createReadStream(publicFile).pipe(res)
         });
+      }
+    },
+    {
+      name: 'serve-cards-tracking-in-dev',
+      configureServer(server) {
+        // En produccion el tracking lo hace public/api/scan.php (Apache + PHP).
+        // En dev este middleware replica el circuito completo para poder
+        // probar el QR, el contador y la redireccion sin subir nada.
+        const devLog = path.resolve(server.config.root, 'public', 'api', 'logs', 'scans.dev.jsonl')
+        const slugs = { miguel: 'mike', juliette: 'juliette' }
+
+        server.middlewares.use((req, res, next) => {
+          const match = /^\/api\/scan\/([a-z0-9_-]+)\/?$/.exec(req.url.split('?')[0])
+          if (!match) return next()
+
+          const founder = match[1]
+          if (!slugs[founder]) {
+            res.statusCode = 400
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
+            res.end(JSON.stringify({ ok: false, error: 'founder_id invalido' }))
+            return
+          }
+
+          const ua = req.headers['user-agent'] || ''
+          const device = /bot|crawler|spider/i.test(ua)
+            ? 'bot'
+            : /ipad|tablet/i.test(ua)
+              ? 'tablet'
+              : /mobile|iphone|android/i.test(ua)
+                ? 'mobile'
+                : 'desktop'
+
+          const record = {
+            founder_id: founder,
+            timestamp: new Date().toISOString(),
+            ip_address: '127.0.0.1',
+            ip_hash: 'dev',
+            user_agent: ua.slice(0, 400),
+            referer: (req.headers.referer || '').slice(0, 500),
+            device_type: device,
+            source: 'dev',
+          }
+
+          try {
+            fs.mkdirSync(path.dirname(devLog), { recursive: true })
+            fs.appendFileSync(devLog, JSON.stringify(record) + '\n')
+          } catch {
+            /* el log de dev es opcional */
+          }
+
+          const stats = req.url.includes('stats=1')
+          if (stats) {
+            let total = 0
+            try {
+              const raw = fs.readFileSync(devLog, 'utf8')
+              total = raw
+                .split('\n')
+                .filter(Boolean)
+                .map((l) => JSON.parse(l))
+                .filter((r) => r.founder_id === founder).length
+            } catch {
+              /* sin log todavia */
+            }
+            res.setHeader('Content-Type', 'application/json; charset=utf-8')
+            res.end(
+              JSON.stringify({
+                ok: true,
+                stats: { founder, total, unique: total, by_device: {}, by_source: {}, by_day: {} },
+              })
+            )
+            return
+          }
+
+          res.statusCode = 302
+          res.setHeader('Location', '/' + slugs[founder])
+          res.end()
+        })
       }
     },
     // Copiar assets al root de dist/ preservando estructura de directorios

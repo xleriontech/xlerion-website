@@ -25,6 +25,20 @@
   # Endpoint de contacto: el front llama a /api/contact (sin extensión)
   RewriteRule ^api/contact/?$ api/contact.php [L]
 
+  # Tarjetas digitales — tracking de escaneos, vCard y Wallet.
+  # /api/scan/{id}   -> registra y responde 302 hacia /mike o /juliette
+  # /api/vcard/{id}  -> .vcf generado al vuelo
+  # /api/wallet/{id} -> pase Apple/Google
+  RewriteRule ^api/scan/([a-z0-9_-]+)/?$ api/scan.php?founder=$1 [L,QSA]
+  RewriteRule ^api/vcard/([a-z0-9_-]+)/?$ api/vcard.php?founder=$1 [L,QSA]
+  RewriteRule ^api/wallet/([a-z0-9_-]+)/?$ api/wallet.php?founder=$1 [L,QSA]
+
+  # Tarjetas digitales — rutas públicas cortas.
+  # Se sirven como documento principal (no iframe) para que la PWA sea
+  # instalable, el service worker las controle y el inicio_url sea limpio.
+  RewriteRule ^mike/?$ cards/tarjeta-miguel.html [L]
+  RewriteRule ^juliette/?$ cards/tarjeta-juliette.html [L]
+
   # No reescribir archivos PHP en /api/
   RewriteCond %{REQUEST_URI} ^/api/
   RewriteRule ^ - [L]

@@ -1,6 +1,6 @@
-const CACHE_NAME = 'xlerion-v3';
-const STATIC_CACHE = 'xlerion-static-v3';
-const DYNAMIC_CACHE = 'xlerion-dynamic-v3';
+const CACHE_NAME = 'xlerion-v4';
+const STATIC_CACHE = 'xlerion-static-v4';
+const DYNAMIC_CACHE = 'xlerion-dynamic-v4';
 
 // El HTML NO se precachea: se sirve siempre con estrategia red-primero para
 // evitar que un despliegue (o un cambio de title/meta) quede oculto tras una
@@ -18,7 +18,19 @@ const STATIC_ASSETS = [
   '/icons/icon-512.png',
   '/icons/icon-maskable-192.png',
   '/icons/icon-maskable-512.png',
-  '/icons/apple-touch-icon.png'
+  '/icons/apple-touch-icon.png',
+  // Tarjetas digitales: el HTML entra por la rama de navegacion (red primero),
+  // pero sus assets deben estar disponibles sin conexion.
+  '/cards/card.css',
+  '/cards/card.js',
+  '/cards/distribution.js',
+  '/cards/founders-data.js',
+  '/cards/manifest-miguel.webmanifest',
+  '/cards/manifest-juliette.webmanifest',
+  '/cards/icons/icon-192-miguel.png',
+  '/cards/icons/icon-512-miguel.png',
+  '/cards/icons/icon-192-juliette.png',
+  '/cards/icons/icon-512-juliette.png'
 ];
 
 const EXTERNAL_ASSETS = [

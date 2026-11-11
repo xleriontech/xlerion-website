@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>diag</title>
+<style>
+  body{margin:0;background:#0b0b12;color:#d8d8e0;font:13px/1.5 Consolas,monospace;padding:14px}
+  iframe{border:0;position:absolute;left:-9999px;top:0}
+  #out{white-space:pre-wrap;word-break:break-word;margin:0}
+  .bad{color:#ff6b6b;font-weight:700}
+  .ok{color:#2ee6a8}
+  h3{color:#00e9fa;margin:0 0 8px;font-size:14px}
+</style>
+</head>
+<body>
+<iframe id="f"></iframe>
+<pre id="out">pending…</pre>
+<script>
+const params = new URLSearchParams(location.search);
+const card = params.get('card') || 'tarjeta-miguel.html';
+const W = +params.get('w') || 390;
+const H = +params.get('h') || 844;
+const f = document.getElementById('f');
+f.src = card; f.width = W; f.height = H;
+f.style.width = W + 'px'; f.style.height = H + 'px';
+
+function cls(el){ const c = el.className; return (c && c.baseVal!==undefined?c.baseVal:c||'').toString().replace(/\s+/g,'.'); }
+
+function run() {
+  const d = f.contentDocument, w = f.contentWindow;
+  if (!d || !d.querySelector('.card-grid')) { document.getElementById('out').textContent = 'NO_RENDER'; return; }
+  const L = [];
+  const de = d.documentElement, b = d.body;
+  L.push('== ' + card + ' @ ' + W + 'x' + H + ' ==');
+  L.push('viewport     : ' + w.innerWidth + 'x' + w.innerHeight);
+  L.push('doc scrollW  : ' + de.scrollWidth + '  (viewport ' + w.innerWidth + ')  ' + (de.scrollWidth > w.innerWidth ? '<<< OVERFLOW' : 'ok'));
+  L.push('body scrollW : ' + b.scrollWidth + ' / clientW ' + b.clientWidth);
+  const cardEl = d.querySelector('.card'), grid = d.querySelector('.card-grid');
+  const cr = cardEl.getBoundingClientRect(), gr = grid.getBoundingClientRect();
+  L.push('card         : w=' + Math.round(cr.width) + ' scrollW=' + cardEl.scrollWidth + ' clientW=' + cardEl.clientWidth + ' h=' + Math.round(cr.height) + ' scrollH=' + cardEl.scrollHeight);
+  L.push('grid         : w=' + Math.round(gr.width) + ' scrollW=' + grid.scrollWidth + ' clientW=' + grid.clientWidth + ' h=' + Math.round(gr.height) + ' scrollH=' + grid.scrollHeight + ' clientH=' + grid.clientHeight);
+  L.push('grid columns : ' + getComputedStyle(grid).gridTemplateColumns);
+  L.push('grid rows    : ' + getComputedStyle(grid).gridTemplateRows);
+  L.push('grid align   : ' + getComputedStyle(grid).alignContent);
+  const off = [];
+  d.querySelectorAll('*').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (!r.width && !r.height) return;
+    if (r.right > w.innerWidth + 0.5) off.push(el.tagName + '.' + cls(el) + ' L=' + Math.round(r.left) + ' R=' + Math.round(r.right) + ' W=' + Math.round(r.width) + ' :: "' + (el.textContent||'').trim().slice(0,30) + '"');
+  });
+  L.push('');
+  L.push('== OVERFLOW right>' + w.innerWidth + ' : ' + off.length + ' ==');
+  off.slice(0,20).forEach(o => L.push('  ' + o));
+  L.push('');
+  L.push('== REGIONS ==');
+  d.querySelectorAll('.region').forEach(r => {
+    const rr = r.getBoundingClientRect();
+    L.push('  ' + r.className.replace('region region-','').padEnd(9) + ' x=' + String(Math.round(rr.left)).padStart(4) + ' y=' + String(Math.round(rr.top)).padStart(4) + ' w=' + String(Math.round(rr.width)).padStart(4) + ' h=' + String(Math.round(rr.height)).padStart(4) + (rr.bottom > cr.bottom+0.5 ? '  <<< CLIP' : ''));
+  });
+  L.push('');
+  L.push('== FONTS ==');
+  L.push('  document.fonts.status : ' + d.fonts.status + '  size=' + d.fonts.size);
+  L.push('  Inter loaded         : ' + d.fonts.check('12px Inter'));
+  L.push('  Roboto Mono loaded   : ' + d.fonts.check('12px "Roboto Mono"'));
+  const probe = ['.founder-role','.founder-name','.founder-tagline','.cta','.chip','.contact-list li','.status'];
+  L.push('');
+  L.push('== ELEMENT SCROLL vs CLIENT ==');
+  probe.forEach(sel => {
+    const e = d.querySelector(sel);
+    if (!e) { L.push('  ' + sel + ' : (none)'); return; }
+    const cs = getComputedStyle(e);
+    L.push('  ' + sel.padEnd(20) + ' scrollW=' + String(e.scrollWidth).padStart(4) + ' clientW=' + String(e.clientWidth).padStart(4) + ' rectW=' + String(Math.round(e.getBoundingClientRect().width)).padStart(4) + ' font=' + cs.fontSize + ' ' + cs.fontFamily.split(',')[0] + ' ws=' + cs.whiteSpace);
+  });
+  const out = document.getElementById('out');
+  out.innerHTML = L.join('\n');
+}
+f.addEventListener('load', () => setTimeout(run, 1000));
+setTimeout(run, 2600);
+</script>
+</body>
+</html>

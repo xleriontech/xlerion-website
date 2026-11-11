@@ -1,0 +1,44 @@
+{
+  "id": "/mike",
+  "name": "Xlerion | Miguel E. Rodriguez Martinez",
+  "short_name": "Xlerion Card",
+  "description": "Tarjeta digital de Miguel E. Rodriguez Martinez — undefined. Xlerion // DEEPTECH_INDUSTRIAL.",
+  "start_url": "/mike",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00d4ff",
+  "lang": "es",
+  "categories": [
+    "business",
+    "productivity",
+    "social"
+  ],
+  "icons": [
+    {
+      "src": "/cards/icons/icon-192-miguel.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cards/icons/icon-512-miguel.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cards/icons/icon-maskable-192-miguel.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/cards/icons/icon-maskable-512-miguel.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

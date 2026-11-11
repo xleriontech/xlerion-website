@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA · Viewports de teléfono — XLERION</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { background: #0b0b12; color: #ccc; font-family: 'Roboto Mono', ui-monospace, monospace; padding: 16px; margin: 0; }
+        h1 { font-size: 14px; color: #00e9fa; margin: 0 0 10px; letter-spacing: .06em; }
+        .nav { margin-bottom: 12px; }
+        .nav a { color: #00e9fa; margin-right: 16px; font-size: 12px; text-decoration: none; }
+        .nav a.on { color: #050508; background: #00e9fa; padding: 3px 8px; border-radius: 3px; }
+        .row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+        .item { display: flex; flex-direction: column; gap: 6px; }
+        .frame { overflow: hidden; border: 2px solid #00e9fa; border-radius: 8px; position: relative; background: #050508; }
+        .frame iframe { transform-origin: top left; border: 0; display: block; }
+        .label { font-size: 11px; color: #00e9fa; display: flex; gap: 8px; align-items: center; }
+        .badge { font-size: 10px; padding: 1px 6px; border-radius: 3px; font-weight: 700; }
+        .badge.pass { background: #10331f; color: #2ee6a8; border: 1px solid #2ee6a8; }
+        .badge.fail { background: #3a1010; color: #ff6b6b; border: 1px solid #ff6b6b; }
+        .metrics { font-size: 9.5px; color: #7a7a8a; letter-spacing: .02em; }
+        #audit { margin-top: 18px; border: 1px solid #1e1e2c; border-radius: 6px; padding: 10px 12px; background: #0f0f1a; }
+        #audit table { border-collapse: collapse; font-size: 10.5px; width: 100%; }
+        #audit th, #audit td { text-align: left; padding: 4px 8px 4px 0; border-bottom: 1px solid #1a1a24; white-space: nowrap; }
+        #audit th { color: #00e9fa; font-weight: 600; }
+        #audit td.ok { color: #2ee6a8; }
+        #audit td.bad { color: #ff6b6b; }
+        #summary { margin-top: 10px; font-size: 12px; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <h1>QA DE VIEWPORTS — TARJETAS XLERION</h1>
+    <div class="nav">
+        <a href="?card=tarjeta-miguel.html" id="nav-miguel">Miguel</a>
+        <a href="?card=tarjeta-juliette.html" id="nav-juliette">Juliette</a>
+    </div>
+    <div class="row" id="row"></div>
+    <div id="audit">
+        <div id="summary">Auditando…</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Viewport</th><th>Card overflow</th><th>Grid overflow</th>
+                    <th>Body overflow</th><th>Compliance</th><th>Foto</th><th>CTAs</th><th>QR</th>
+                </tr>
+            </thead>
+            <tbody id="audit-body"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const params = new URLSearchParams(location.search);
+        const card = params.get('card') || 'tarjeta-miguel.html';
+        const only = params.has('only') ? parseInt(params.get('only'), 10) : -1;
+
+        document.getElementById('nav-miguel').className = card.includes('miguel') ? 'on' : '';
+        document.getElementById('nav-juliette').className = card.includes('juliette') ? 'on' : '';
+
+        const sizes = [
+            { w: 390, h: 844, name: 'iPhone 14 · VERTICAL' },
+            { w: 844, h: 390, name: 'iPhone 14 · HORIZONTAL' },
+            { w: 360, h: 640, name: 'Android compacto · VERTICAL' },
+            { w: 568, h: 320, name: 'iPhone SE · HORIZONTAL (mín)' },
+            { w: 320, h: 568, name: 'iPhone SE · VERTICAL (mín)' },
+            { w: 412, h: 915, name: 'Pixel 8 Pro · VERTICAL' },
+            { w: 915, h: 412, name: 'Pixel 8 Pro · HORIZONTAL' },
+            { w: 912, h: 568, name: 'Teléfono grande · HORIZONTAL' },
+            { w: 1024, h: 768, name: 'Tablet · HORIZONTAL' }
+        ];
+        let list = only >= 0 ? [sizes[only]] : sizes;
+        const scale = only >= 0 ? 1 : 0.55;
+
+        const frames = [];
+        list.forEach(s => {
+            const item = document.createElement('div');
+            item.className = 'item';
+            const label = document.createElement('div');
+            label.className = 'label';
+            label.innerHTML = `<span>${s.name} (${s.w}×${s.h})</span>`;
+            const badge = document.createElement('span');
+            badge.className = 'badge';
+            badge.textContent = '…';
+            label.appendChild(badge);
+            const frame = document.createElement('div');
+            frame.className = 'frame';
+            frame.style.width = (s.w * scale) + 'px';
+            frame.style.height = (s.h * scale) + 'px';
+            const f = document.createElement('iframe');
+            f.src = card;
+            f.width = s.w;
+            f.height = s.h;
+            f.style.transform = `scale(${scale})`;
+            frame.appendChild(f);
+            item.appendChild(label);
+            item.appendChild(frame);
+            document.getElementById('row').appendChild(item);
+            frames.push({ s, badge, f });
+        });
+
+        function auditOne(frame) {
+            const d = frame.contentDocument;
+            const w = frame.contentWindow;
+            if (!d || !d.querySelector('.card-grid')) return null;
+
+            const grid = d.querySelector('.card-grid');
+            const cardEl = d.querySelector('.card');
+            const body = d.body;
+
+            const cardOv = cardEl.scrollHeight - cardEl.clientHeight;
+            const gridOv = grid.scrollHeight - grid.clientHeight;
+            const bodyOv = body.scrollHeight - body.clientHeight;
+
+            const cardRect = cardEl.getBoundingClientRect();
+            const comp = d.querySelector('.compliance');
+            const compOk = comp
+                ? comp.getBoundingClientRect().bottom <= cardRect.bottom + 1
+                : false;
+
+            const ph = d.querySelector('.photo-img');
+            const photoOk = !!ph && getComputedStyle(ph).backgroundImage !== 'none';
+
+            const ctas = d.querySelectorAll('.cta');
+            const ctasOk = ctas.length >= 4 &&
+                Array.from(ctas).every(c => {
+                    const r = c.getBoundingClientRect();
+                    return r.width > 4 && r.height > 4 &&
+                        r.bottom <= cardRect.bottom + 1 && r.right <= cardRect.right + 1;
+                });
+
+            const qr = d.querySelector('#qrcode');
+            const qrOk = !!qr && qr.querySelector('img, canvas') !== null;
+
+            return { cardOv, gridOv, bodyOv, compOk, photoOk, ctasOk, qrOk, ctas: ctas.length };
+        }
+
+        function renderAudit() {
+            const tb = document.getElementById('audit-body');
+            tb.innerHTML = '';
+            let pass = 0, total = 0;
+
+            frames.forEach(fr => {
+                const r = auditOne(fr.f);
+                total++;
+                const tr = document.createElement('tr');
+                if (!r) {
+                    tr.innerHTML = `<td>${fr.s.name}</td><td class="bad" colspan="7">No renderizó</td>`;
+                    tb.appendChild(tr);
+                    fr.badge.className = 'badge fail';
+                    fr.badge.textContent = 'FAIL';
+                    return;
+                }
+                const ok = r.cardOv <= 1 && r.gridOv <= 1 && r.bodyOv <= 1 &&
+                    r.compOk && r.photoOk && r.ctasOk && r.qrOk;
+                if (ok) pass++;
+
+                const cell = (v, good) => `<td class="${good ? 'ok' : 'bad'}">${v}</td>`;
+                tr.innerHTML =
+                    `<td>${fr.s.name}</td>` +
+                    cell(r.cardOv, r.cardOv <= 1) +
+                    cell(r.gridOv, r.gridOv <= 1) +
+                    cell(r.bodyOv, r.bodyOv <= 1) +
+                    cell(r.compOk ? 'visible' : 'CORTADA', r.compOk) +
+                    cell(r.photoOk ? 'ok' : 'NO', r.photoOk) +
+                    cell(r.ctas + (r.ctasOk ? ' ok' : ' MAL'), r.ctasOk) +
+                    cell(r.qrOk ? 'ok' : 'NO', r.qrOk);
+                tb.appendChild(tr);
+
+                fr.badge.className = 'badge ' + (ok ? 'pass' : 'fail');
+                fr.badge.textContent = ok ? 'PASS' : 'FAIL';
+            });
+
+            const s = document.getElementById('summary');
+            s.textContent = `RESULTADO: ${pass}/${total} viewports PASS`;
+            s.style.color = pass === total ? '#2ee6a8' : '#ff6b6b';
+        }
+
+        frames.forEach(fr => {
+            fr.f.addEventListener('load', () => setTimeout(renderAudit, 700));
+        });
+        setTimeout(renderAudit, 2500);
+    </script>
+</body>
+</html>

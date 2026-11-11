@@ -12,12 +12,13 @@
 </FilesMatch>
 
 <IfModule mod_authz_core.c>
-  <FilesMatch "\.log$">
+  <FilesMatch "\.(log|jsonl)$">
     Require all denied
   </FilesMatch>
 </IfModule>
 
 # logs/ guarda el volcado de solicitudes (con datos personales): acceso prohibido.
+# Incluye los registros de escaneo de las tarjetas digitales (scans.jsonl).
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^logs/ - [F,L]

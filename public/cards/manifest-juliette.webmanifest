@@ -1,0 +1,44 @@
+{
+  "id": "/juliette",
+  "name": "Xlerion | Juliette González",
+  "short_name": "Xlerion Card",
+  "description": "Tarjeta digital de Juliette González — undefined. Xlerion // DEEPTECH_INDUSTRIAL.",
+  "start_url": "/juliette",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00d4ff",
+  "lang": "es",
+  "categories": [
+    "business",
+    "productivity",
+    "social"
+  ],
+  "icons": [
+    {
+      "src": "/cards/icons/icon-192-juliette.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cards/icons/icon-512-juliette.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/cards/icons/icon-maskable-192-juliette.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/cards/icons/icon-maskable-512-juliette.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

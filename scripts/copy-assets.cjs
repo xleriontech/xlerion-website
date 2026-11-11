@@ -94,6 +94,25 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied portfolio folder (second pass)');
   }
 
+  // Copy digital business cards (public/cards -> dist/cards).
+  // Los archivos que empiezan con "_" son tooling interno de QA y NO se publican.
+  const cardsSrc = path.join(__dirname, '..', 'public', 'cards');
+  const cardsDest = path.join(__dirname, '..', 'dist', 'cards');
+  if (fs.existsSync(cardsSrc)) {
+    fs.mkdirSync(cardsDest, { recursive: true });
+    for (const entry of fs.readdirSync(cardsSrc, { withFileTypes: true })) {
+      if (entry.isFile()) {
+        if (entry.name.startsWith('_')) continue;
+        fs.copyFileSync(path.join(cardsSrc, entry.name), path.join(cardsDest, entry.name));
+        console.log(`Copied cards/${entry.name} to dist/cards/`);
+      } else if (entry.isDirectory()) {
+        // Subcarpetas (icons/) si contienen assets publicables.
+        copyDir(path.join(cardsSrc, entry.name), path.join(cardsDest, entry.name));
+        console.log(`Copied cards/${entry.name}/ to dist/cards/`);
+      }
+    }
+  }
+
   // Copy root-level files from public/ to dist/
   const rootFiles = [
     'manifest.json',
@@ -105,7 +124,8 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'sitemap.xml',
     'robots.txt',
     'service-worker.js',
-    '.htaccess'
+    '.htaccess',
+    'Xlerion_OnePager.pdf'
   ];
 
   const srcPublicDir = path.join(__dirname, '..', 'public');

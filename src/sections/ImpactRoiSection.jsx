@@ -63,14 +63,14 @@ export default function ImpactRoiSection() {
 
   const titles = {
     es: {
-      title: 'Resultados Medibles, No Solo Promesas',
-      subtitle: 'Basado en métricas auditadas de implementaciones reales en sectores industriales.',
-      note: 'Ofrecemos una calculadora de ROI personalizada para su operación específica durante la fase de PoC.',
+      title: 'Resultados Medibles y Servicios de Consultoría',
+      subtitle: 'Ofrecemos mediciones auditadas de implementaciones reales, junto con servicios de consultoría de IA y cumplimiento (Ley 1581).',
+      note: 'Ofrecemos una calculadora de ROI personalizada para su operación específica durante la fase de PoC, y auditorías de cumplimiento normativo para departamentos legales.',
     },
     en: {
-      title: 'Measurable Results, Not Just Promises',
-      subtitle: 'Based on audited metrics from real implementations in industrial sectors.',
-      note: 'We offer a customized ROI calculator for your specific operation during the PoC phase.',
+      title: 'Measurable Results and Consulting Services',
+      subtitle: 'Audited metrics from real implementations, along with AI and compliance consulting services (Law 1581).',
+      note: 'We offer a customized ROI calculator for your specific operation during the PoC phase, and norm compliance audits for legal departments.',
     },
   };
 

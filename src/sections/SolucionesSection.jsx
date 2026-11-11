@@ -16,6 +16,9 @@ const SOLUTIONS_ES = [
       { label: 'Detección anomalías', value: 'Z-score' },
     ],
     stack: 'React 18 · Three.js · FastAPI · Docker',
+    // Productized option: PoC de 4 semanas para una máquina específica
+    productized: 'PoC 4 semanas: monitoreo de una máquina crítica',
+    productizedPrice: 'USD 3,000',
   },
   {
     id: 'enterprise-rag',
@@ -29,6 +32,9 @@ const SOLUTIONS_ES = [
       { label: 'Re-ranking', value: 'Anti-alucinaciones' },
     ],
     stack: 'Python · LangChain · PostgreSQL (pgvector) · Celery + Redis',
+    // Productized option: Audiencia específica
+    productized: 'Auditoría de cumplimiento IA (Ley 1581) para firmas legales',
+    productizedPrice: 'USD 5,000',
   },
   {
     id: 'iot-resilient',
@@ -42,6 +48,9 @@ const SOLUTIONS_ES = [
       { label: 'Reconciliación', value: 'Atómica' },
     ],
     stack: 'Python (Asyncio) · MQTT · TimescaleDB · Linux Edge (Arm64)',
+    // Productized option: Configurador para palma en zonas sin cobertura
+    productized: 'Configurador 3G/LoRaWAN para palma en Casanare',
+    productizedPrice: 'USD 4,000',
   },
 ];
 
@@ -58,6 +67,9 @@ const SOLUTIONS_EN = [
       { label: 'Anomaly Detection', value: 'Z-score' },
     ],
     stack: 'React 18 · Three.js · FastAPI · Docker',
+    // Productized option: PoC for single machine
+    productized: 'PoC 4 weeks: critical machine monitoring',
+    productizedPrice: 'USD 3,000',
   },
   {
     id: 'enterprise-rag',
@@ -71,6 +83,9 @@ const SOLUTIONS_EN = [
       { label: 'Re-ranking', value: 'Anti-Hallucination' },
     ],
     stack: 'Python · LangChain · PostgreSQL (pgvector) · Celery + Redis',
+    // Productized option: AI compliance audit (Law 1581)
+    productized: 'IA compliance audit (Law 1581) for legal firms',
+    productizedPrice: 'USD 5,000',
   },
   {
     id: 'iot-resilient',
@@ -84,6 +99,9 @@ const SOLUTIONS_EN = [
       { label: 'Reconciliation', value: 'Atomic' },
     ],
     stack: 'Python (Asyncio) · MQTT · TimescaleDB · Linux Edge (Arm64)',
+    // Productized option: 3G/LoRaWAN configurator for palm oil in Casanare
+    productized: '3G/LoRaWAN configurator for palm oil in Casanare',
+    productizedPrice: 'USD 4,000',
   },
 ];
 
@@ -93,12 +111,12 @@ export default function SolucionesSection() {
 
   const titles = {
     es: {
-      title: 'Arquitecturas de Nivel Empresarial para Entornos Críticos',
-      subtitle: 'Tres líneas de solución validadas en producción, diseñadas para operar en nube privada, on-premise o entornos air-gapped.',
+      title: 'Soluciones DeepTech: Dos Frentes de Valor',
+      subtitle: '1) Servicios DeepTech enterprise (ciclos 6-18 meses) 2) Productos productizados de flujo de caja rápido (PoC, nichos verticales, auditorías IA).',
     },
     en: {
-      title: 'Enterprise-Grade Architectures for Critical Environments',
-      subtitle: 'Three production-validated solution lines, designed to operate in private cloud, on-premise, or air-gapped environments.',
+      title: 'DeepTech Solutions: Two Value Fronts',
+      subtitle: '1) Enterprise DeepTech solutions (6-18 month cycles) 2) Quick-cash-flow packaged products (PoC, vertical niches, AI audits).',
     },
   };
 

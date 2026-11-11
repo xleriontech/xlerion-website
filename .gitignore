@@ -2,6 +2,13 @@
 *.md
 # Allow our development guide to be tracked
 !DEVELOPMENT_SETUP.md
+# La documentacion del sistema de distribucion de las tarjetas digitales si se versiona
+!docs/id_vcards/DISTRIBUCION.md
+
+# Dependencias y artefactos de build (nunca se versionan)
+node_modules/
+dist/
+.vite/
 
 # Local docs archive
 /docs-md/

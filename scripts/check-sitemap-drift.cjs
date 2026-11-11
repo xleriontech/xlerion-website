@@ -56,6 +56,44 @@ function esRutaNoEstatica(r) {
   return r.includes('*') || /:[A-Za-z0-9_$]/.test(r);
 }
 
+/**
+ * ¿La ruta del sitemap resuelve a un archivo real dentro de public/?
+ *
+ * Las tarjetas de presentación digital (public/cards/*.html) son páginas
+ * estáticas reales, no rutas del router de React. Indexar una URL que sirve
+ * un archivo existente no es un soft-404, así que el comprobador las acepta.
+ */
+const PUBLIC_DIR = path.join(ROOT, 'public');
+
+/**
+ * Aliases públicos que sirven una página estática real y que no aparecen
+ * como archivo con ese nombre (el .htaccess los reescribe).
+ * Formato: ruta pública -> archivo real dentro de public/.
+ */
+const ALIAS_PUBLICOS = {
+  '/mike': 'cards/tarjeta-miguel.html',
+  '/juliette': 'cards/tarjeta-juliette.html',
+};
+
+function esArchivoEnPublic(ruta) {
+  const rel = ruta.replace(/^\/+/, '');
+  if (!rel) return false;
+
+  if (ALIAS_PUBLICOS[ruta]) {
+    const abs = path.join(PUBLIC_DIR, ALIAS_PUBLICOS[ruta]);
+    return abs.startsWith(PUBLIC_DIR + path.sep) && fs.existsSync(abs) && fs.statSync(abs).isFile();
+  }
+
+  const abs = path.join(PUBLIC_DIR, rel);
+  if (!abs.startsWith(PUBLIC_DIR + path.sep)) return false;
+  if (fs.existsSync(abs) && fs.statSync(abs).isFile()) return true;
+  // Un directorio con index.html se sirve igual (DirectoryIndex de Apache).
+  if (fs.existsSync(abs) && fs.statSync(abs).isDirectory()) {
+    return fs.existsSync(path.join(abs, 'index.html'));
+  }
+  return false;
+}
+
 /** Lee src/main.jsx y devuelve { rutas, componentes } . */
 function parsearRouter() {
   const src = fs.readFileSync(ROUTER, 'utf8');
@@ -277,6 +315,12 @@ function origenDe(loc, archivo) {
 
   for (const ruta of rutasSitemap.keys()) {
     if (!estaticas.some((r) => r.path === ruta)) {
+      // Página estática real servida desde public/ (tarjetas de presentación):
+      // no es un soft-404, es un archivo que existe.
+      if (esArchivoEnPublic(ruta)) {
+        verificadas++;
+        continue;
+      }
       errors.push(`URL del sitemap sin ruta en el router: ${rutasSitemap.get(ruta).loc} — es una URL muerta (soft-404)`);
     }
   }

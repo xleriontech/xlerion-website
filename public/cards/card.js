@@ -1,0 +1,567 @@
+/* =============================================================
+ * XLERION — Digital Business Card · Runtime
+ *  · Render dinámico desde foundersData
+ *  · vCard (.vcf) generado al vuelo
+ *  · Tilt 3D (puntero + giroscopio)
+ *  · Fondo Three.js: red neuronal de partículas reactiva al giroscopio
+ * ============================================================= */
+
+(function () {
+  'use strict';
+
+  var D = foundersData[ACTIVE_FOUNDER];
+  if (!D) {
+    console.error('[XLERION] Fundador no encontrado:', ACTIVE_FOUNDER);
+    return;
+  }
+
+  var $ = function (sel, root) {
+    return (root || document).querySelector(sel);
+  };
+
+  /* ---------- Helpers ---------- */
+  function esc(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function el(tag, className, html) {
+    var n = document.createElement(tag);
+    if (className) n.className = className;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+
+  /* =============================================================
+   * 1. RENDER
+   * ============================================================= */
+  function render() {
+    var grid = $('#card-grid');
+    if (!grid) return;
+
+    /* --- 1. Header / Status --- */
+    var top = el('div', 'region region-top');
+    top.innerHTML =
+      '<div class="brandbar">' +
+      '<span class="brand-mark">X</span>' +
+      '<span class="brand-name">' + esc(D.brand) + '</span>' +
+      '<span class="brand-sub">' + esc(D.brandSub) + '</span>' +
+      '</div>' +
+      '<span class="status"><span class="dot"></span>' + esc(D.status) + '</span>';
+
+    /* --- 2. Foto + iniciales --- */
+    var photo = el('div', 'region region-photo');
+    photo.innerHTML =
+      '<figure class="photo-frame">' +
+      '<span class="photo-img" role="img" aria-label="' + esc(D.photoAlt) + '" style="--src:url(' +
+      esc(D.photo) + ');--zoom:' + esc(D.photoZoom || '130%') +
+      ';--focus:' + esc(D.photoFocus || '50% 30%') + '"></span>' +
+      '<span class="initials-badge">' + esc(D.initials) + '</span>' +
+      '<span class="hint">Inclina</span>' +
+      '</figure>';
+
+    /* --- 2b. Identidad --- */
+    var hero = el('div', 'region region-hero');
+    hero.innerHTML =
+      '<h1 class="founder-name">' + esc(D.name) + '</h1>' +
+      '<p class="founder-role">' + esc(D.role) + '</p>' +
+      '<p class="founder-tagline">' + esc(D.tagline) + '</p>';
+
+    /* --- 3. Sección: stack / valor --- */
+    var body = el('div', 'region region-body');
+    var label = '<h2 class="block-label">' + esc(D.section.label) + '</h2>';
+
+    if (D.section.kind === 'metrics') {
+      var ml = el('ul', 'metric-list');
+      D.section.items.forEach(function (m) {
+        var li = el('li', 'metric');
+        li.innerHTML =
+          '<span class="metric-ico"><i class="bi ' + esc(m.icon) + '"></i>' +
+          '<span class="metric-idx">' + esc(m.index) + '</span></span>' +
+          '<span class="metric-txt">' +
+          '<p class="metric-title">' + esc(m.title) + '</p>' +
+          '<p class="metric-desc">' + esc(m.desc) + '</p>' +
+          '</span>';
+        ml.appendChild(li);
+      });
+      body.innerHTML = label;
+      body.appendChild(ml);
+    } else {
+      var cg = el('ul', 'chip-grid');
+      D.section.items.forEach(function (c) {
+        var li = el('li', 'chip');
+        li.innerHTML = '<i class="bi ' + esc(c.icon) + '"></i><span>' + esc(c.text) + '</span>';
+        cg.appendChild(li);
+      });
+      body.innerHTML = label;
+      body.appendChild(cg);
+    }
+
+    /* --- 4. CTAs --- */
+    var ctaWrap = el('div', 'region region-cta');
+    var ctas = el('div', 'ctas');
+
+    D.ctas.forEach(function (c) {
+      var a = el('a', 'cta cta--' + c.kind);
+      a.setAttribute('role', 'button');
+      a.innerHTML =
+        '<i class="bi ' + esc(c.icon) + '"></i>' +
+        '<span class="cta-lbl"><b>' + esc(c.label) + '</b><small>' + esc(c.hint) + '</small></span>';
+
+      if (c.action === 'vcard') {
+        a.setAttribute('href', '#');
+        a.addEventListener('click', function (e) {
+          e.preventDefault();
+          downloadVCard(D);
+          flashSuccess(a);
+        });
+      } else if (c.action === 'whatsapp') {
+        var msg = encodeURIComponent(D.links.whatsappMessage);
+        a.setAttribute('href', 'https://wa.me/' + D.links.whatsapp + '?text=' + msg);
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      } else {
+        a.setAttribute('href', c.href);
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+        if (c.download) a.setAttribute('download', '');
+      }
+      ctas.appendChild(a);
+    });
+    ctaWrap.appendChild(ctas);
+
+    /* --- 5. Contacto + QR --- */
+    var contact = el('div', 'region region-contact');
+    contact.innerHTML =
+      '<ul class="contact-list">' +
+      '<li><i class="bi bi-geo-alt-fill"></i><span>' + esc(D.contact.location) + '</span></li>' +
+      '<li><i class="bi bi-envelope-fill"></i><a href="mailto:' + esc(D.contact.email) + '">' + esc(D.contact.email) + '</a></li>' +
+      '<li><i class="bi bi-phone-fill"></i><a href="tel:' + esc(D.contact.phoneTel) + '">' + esc(D.contact.phone) + '</a></li>' +
+      '</ul>' +
+      '<span class="qr-wrap"><span id="qrcode"></span><span class="qr-cap">ESCANEA</span></span>';
+
+    /* --- 5. Barra de canales de distribucion --- */
+    var utils = el('div', 'region region-utils');
+    utils.id = 'utils';
+    utils.innerHTML =
+      '<div class="utils">' +
+      '<button class="util" id="btn-install" type="button" hidden aria-label="Instalar app" title="Instalar app">' +
+      '<i class="bi bi-phone"></i></button>' +
+      '<button class="util" id="btn-share" type="button" aria-label="Compartir" title="Compartir">' +
+      '<i class="bi bi-share"></i></button>' +
+      '<button class="util" id="btn-wallet" type="button" hidden aria-label="Agregar a Wallet" title="Agregar a Wallet">' +
+      '<i class="bi bi-wallet2"></i></button>' +
+      '<button class="util" id="btn-nfc" type="button" hidden aria-label="Leer NFC" title="NFC disponible">' +
+      '<i class="bi bi-broadcast-pin"></i></button>' +
+      '<span class="counter" id="counter" hidden><i class="bi bi-bar-chart-line"></i>' +
+      '<b data-count>0</b> escaneos</span>' +
+      '</div>';
+
+    /* --- 6. Footer: compliance --- */
+    var foot = el('div', 'region region-foot');
+    foot.innerHTML =
+      '<p class="compliance"><i class="bi bi-shield-lock-fill"></i>' + esc(D.disclaimer) + '</p>';
+
+    /* --- Paneles ---
+     * En vertical los paneles se disuelven (display:contents) y cada bloque
+     * ocupa su propia fila del grid. En horizontal cada panel se convierte en
+     * una columna propia: identidad a la izquierda, contenido a la derecha.
+     */
+    var id = el('div', 'region region-id');
+    id.appendChild(top);
+    id.appendChild(photo);
+    id.appendChild(contact);
+
+    var main = el('div', 'region region-main');
+    main.appendChild(hero);
+    main.appendChild(body);
+    main.appendChild(ctaWrap);
+    main.appendChild(utils);
+
+    grid.appendChild(id);
+    grid.appendChild(main);
+    grid.appendChild(foot);
+
+    /* --- Marcas de esquina --- */
+    ['tl', 'tr', 'bl', 'br'].forEach(function (p) {
+      grid.parentElement.appendChild(el('span', 'corner corner--' + p));
+    });
+
+    /* --- Toast de confirmacion --- */
+    grid.parentElement.appendChild(el('div', 'toast'));
+
+    buildQR();
+  }
+
+  /* =============================================================
+   * 2. vCard dinámico (.vcf)
+   * ============================================================= */
+  function buildVCard(d) {
+    var c = d.contact;
+    var lines = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:' + d.vcard.last + ';' + d.vcard.first + ';;;',
+      'FN:' + (d.fullName || d.name),
+      'ORG:Xlerion',
+      'TITLE:' + d.role,
+      'TEL;TYPE=CELL:' + c.phoneTel,
+      'EMAIL:' + c.email,
+      'URL:' + d.links.portfolio,
+      'URL:' + d.links.linkedin,
+      'X-SOCIALPROFILE;TYPE=linkedin:' + d.links.linkedin,
+      'ADR;TYPE=WORK:;;' + c.location + ';;;Colombia',
+      'NOTE:' + (d.vcardNote || d.tagline),
+      'REV:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+      'END:VCARD',
+    ];
+    return lines.join('\r\n');
+  }
+
+  /* Confirmación visual: el icono del botón pasa a check y vuelve. */
+  function flashSuccess(node) {
+    if (!node) return;
+    var icon = node.querySelector('i');
+    if (!icon) return;
+    var original = icon.className;
+    icon.className = 'bi bi-check-lg';
+    node.classList.add('is-success');
+    setTimeout(function () {
+      icon.className = original;
+      node.classList.remove('is-success');
+    }, 1600);
+  }
+
+  function downloadVCard(d) {
+    var vcf = buildVCard(d);
+    var blob = new Blob([vcf], { type: 'text/vcard;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = d.name
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-zA-Z0-9]+/g, '_') + '.vcf';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () {
+      URL.revokeObjectURL(url);
+    }, 1500);
+  }
+
+  /* =============================================================
+   * 3. QR
+   * ============================================================= */
+  function buildQR() {
+    var box = $('#qrcode');
+    if (!box) return;
+
+    // El QR de la tarjeta apunta al endpoint de TRACKING, no a la tarjeta:
+    // escanearlo registra el evento y devuelve un 302 hacia /mike o /juliette.
+    // En local se usa el origen actual para poder probar el circuito entero.
+    var origin = window.location.origin || '';
+    var local = /^(https?:\/\/)?(localhost|127\.0\.0\.1|\[::1\])/i.test(origin);
+    var base = local ? origin.replace(/\/+$/, '') : 'https://xlerion.com.co';
+    var href = base + '/api/scan/' + D.id;
+
+    if (typeof QRCode === 'undefined') {
+      box.style.background = 'transparent';
+      box.innerHTML = '<span style="font-size:6px;color:#888;font-family:monospace">QR</span>';
+      return;
+    }
+    new QRCode(box, {
+      text: href,
+      width: 132,
+      height: 132,
+      colorDark: '#050508',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M,
+    });
+  }
+
+  /* =============================================================
+   * 4. Tilt 3D (puntero + giroscopio)
+   * ============================================================= */
+  function initTilt() {
+    var card = $('#card');
+    if (!card) return;
+    var stage = $('.stage');
+    var MAX = 7; // grados
+
+    function apply(rx, ry) {
+      card.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    }
+
+    function reset() {
+      card.style.transform = '';
+    }
+
+    /* Puntero fino (desktop) */
+    if (window.matchMedia && window.matchMedia('(pointer: fine)').matches) {
+      stage.addEventListener('mousemove', function (e) {
+        var r = stage.getBoundingClientRect();
+        var nx = (e.clientX - r.left) / r.width - 0.5;
+        var ny = (e.clientY - r.top) / r.height - 0.5;
+        apply(-ny * MAX * 2, nx * MAX * 2);
+      });
+      stage.addEventListener('mouseleave', reset);
+    }
+
+    /* Giroscopio (móvil) — permiso iOS en el primer touch */
+    var gyroActive = false;
+
+    function onOrient(e) {
+      if (e.gamma == null || e.beta == null) return;
+      gyroActive = true;
+      var gy = Math.max(-28, Math.min(28, e.gamma || 0));
+      var gx = Math.max(-28, Math.min(28, (e.beta || 0) - 45));
+      apply(-gx * 0.22, gy * 0.26);
+    }
+
+    function attachOrient() {
+      window.addEventListener('deviceorientation', onOrient, true);
+    }
+
+    if (typeof DeviceOrientationEvent !== 'undefined') {
+      var needsPermission =
+        typeof DeviceOrientationEvent.requestPermission === 'function';
+      if (!needsPermission) {
+        attachOrient();
+      } else {
+        var ask = function () {
+          attachOrient();
+          window.removeEventListener('touchend', ask);
+        };
+        window.addEventListener('touchend', ask, { once: true, passive: true });
+      }
+    }
+
+    /* Touch: arrastre horizontal suave */
+    var tx = 0;
+    var ty = 0;
+    stage.addEventListener(
+      'touchmove',
+      function (e) {
+        if (gyroActive) return;
+        var t = e.touches[0];
+        if (!t) return;
+        var r = stage.getBoundingClientRect();
+        var nx = (t.clientX - r.left) / r.width - 0.5;
+        var ny = (t.clientY - r.top) / r.height - 0.5;
+        tx = nx * MAX * 2;
+        ty = -ny * MAX * 2;
+        apply(ty, tx);
+      },
+      { passive: true }
+    );
+
+    stage.addEventListener(
+      'touchend',
+      function () {
+        if (!gyroActive) reset();
+      },
+      { passive: true }
+    );
+  }
+
+  /* =============================================================
+   * 5. Fondo Three.js — red neuronal reactiva al giroscopio
+   * ============================================================= */
+  function initNeuralBg() {
+    var canvas = $('#bg-canvas');
+    if (!canvas) return;
+
+    if (typeof THREE === 'undefined') {
+      canvas.remove();
+      if (!$('.bg-fallback')) {
+        document.body.insertBefore(el('div', 'bg-fallback'), document.body.firstChild);
+      }
+      return;
+    }
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.1, 100);
+    camera.position.z = 42;
+
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    var COUNT = window.innerWidth < 600 ? 78 : 130;
+    var CONNECT = window.innerWidth < 600 ? 13 : 17;
+
+    var pos = new Float32Array(COUNT * 3);
+    var vel = new Float32Array(COUNT * 3);
+    for (var i = 0; i < COUNT; i++) {
+      pos[i * 3] = (Math.random() - 0.5) * 76;
+      pos[i * 3 + 1] = (Math.random() - 0.5) * 48;
+      pos[i * 3 + 2] = (Math.random() - 0.5) * 34;
+      vel[i * 3] = (Math.random() - 0.5) * 0.16;
+      vel[i * 3 + 1] = (Math.random() - 0.5) * 0.16;
+      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
+    }
+
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+
+    var nodes = new THREE.Points(
+      geo,
+      new THREE.PointsMaterial({
+        size: 0.34,
+        color: 0x00e9fa,
+        transparent: true,
+        opacity: 0.72,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      })
+    );
+    scene.add(nodes);
+
+    /* Aristas */
+    var lineMat = new THREE.LineBasicMaterial({
+      color: 0x00b8c9,
+      transparent: true,
+      opacity: 0.11,
+    });
+    var group = new THREE.Group();
+    scene.add(group);
+
+    function rebuildLines() {
+      for (var g = group.children.length - 1; g >= 0; g--) {
+        var child = group.children[g];
+        group.remove(child);
+        if (child.geometry) child.geometry.dispose();
+      }
+      for (var a = 0; a < COUNT; a++) {
+        for (var b = a + 1; b < COUNT; b++) {
+          var dx = pos[a * 3] - pos[b * 3];
+          var dy = pos[a * 3 + 1] - pos[b * 3 + 1];
+          var dz = pos[a * 3 + 2] - pos[b * 3 + 2];
+          var dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          if (dist < CONNECT) {
+            var lg = new THREE.BufferGeometry().setFromPoints([
+              new THREE.Vector3(pos[a * 3], pos[a * 3 + 1], pos[a * 3 + 2]),
+              new THREE.Vector3(pos[b * 3], pos[b * 3 + 1], pos[b * 3 + 2]),
+            ]);
+            group.add(new THREE.Line(lg, lineMat));
+          }
+        }
+      }
+    }
+    rebuildLines();
+
+    /* Parallax por giroscopio / puntero */
+    var targetRX = 0;
+    var targetRY = 0;
+    var curRX = 0;
+    var curRY = 0;
+
+    function onOrient(e) {
+      if (e.gamma == null || e.beta == null) return;
+      targetRY = Math.max(-22, Math.min(22, e.gamma || 0));
+      targetRX = Math.max(-16, Math.min(16, ((e.beta || 0) - 45) * 0.7));
+    }
+
+    if (typeof DeviceOrientationEvent !== 'undefined') {
+      if (typeof DeviceOrientationEvent.requestPermission !== 'function') {
+        window.addEventListener('deviceorientation', onOrient, true);
+      } else {
+        window.addEventListener(
+          'touchend',
+          function once() {
+            window.removeEventListener('touchend', once);
+            DeviceOrientationEvent.requestPermission().then(function (r) {
+              if (r === 'granted') {
+                window.addEventListener('deviceorientation', onOrient, true);
+              }
+            });
+          },
+          { once: true, passive: true }
+        );
+      }
+    }
+
+    window.addEventListener('mousemove', function (e) {
+      if (typeof DeviceOrientationEvent !== 'undefined') return;
+      targetRY = (e.clientX / window.innerWidth - 0.5) * 22;
+      targetRX = (e.clientY / window.innerHeight - 0.5) * -14;
+    });
+
+    function resize() {
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    /* Loop */
+    var t0 = performance.now();
+    function animate() {
+      requestAnimationFrame(animate);
+      var now = performance.now();
+      var dt = Math.min(0.05, (now - t0) / 1000);
+      t0 = now;
+
+      curRX += (targetRX - curRX) * 0.06;
+      curRY += (targetRY - curRY) * 0.06;
+
+      for (var i = 0; i < COUNT; i++) {
+        pos[i * 3] += vel[i * 3] * dt * 60;
+        pos[i * 3 + 1] += vel[i * 3 + 1] * dt * 60;
+        pos[i * 3 + 2] += vel[i * 3 + 2] * dt * 60;
+
+        if (pos[i * 3] > 38) pos[i * 3] = -38;
+        if (pos[i * 3] < -38) pos[i * 3] = 38;
+        if (pos[i * 3 + 1] > 24) pos[i * 3 + 1] = -24;
+        if (pos[i * 3 + 1] < -24) pos[i * 3 + 1] = 24;
+        if (pos[i * 3 + 2] > 17) pos[i * 3 + 2] = -17;
+        if (pos[i * 3 + 2] < -17) pos[i * 3 + 2] = 17;
+      }
+      geo.attributes.position.needsUpdate = true;
+
+      if (Math.floor(now / 320) !== Math.floor((now - dt * 1000) / 320)) {
+        rebuildLines();
+      }
+
+      group.rotation.x = curRX * 0.012;
+      group.rotation.y = curRY * 0.012;
+      nodes.rotation.x = curRX * 0.016;
+      nodes.rotation.y = curRY * 0.016;
+      nodes.rotation.z = now * 0.00004;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+  }
+
+  /* =============================================================
+   * 6. Boot
+   * ============================================================= */
+  function boot() {
+    render();
+    initTilt();
+    initNeuralBg();
+    document.documentElement.setAttribute('data-founder', D.id);
+    /* Superficie de test/debug: permite verificar el vCard desde consola o QA */
+    window.__xlerion = {
+      data: D,
+      buildVCard: function () {
+        return buildVCard(D);
+      },
+      downloadVCard: function () {
+        downloadVCard(D);
+      },
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();

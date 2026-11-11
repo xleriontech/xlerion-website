@@ -7,20 +7,20 @@ const COPY = {
   es: {
     badge: 'DEEPTECH INDUSTRIAL: MINERÍA • MANUFACTURA • SMART CITIES',
     title: 'Transforme sus datos industriales en Inteligencia Visual 3D y Plataformas de IA en Tiempo Real.',
-    subtitle: 'Arquitecturas de software escalables y tolerantes a fallos. Más de 10 años de experiencia integrando visualización 3D interactiva (WebGL/Three.js) e Inteligencia Artificial (RAG/LangChain) para operaciones críticas.',
-    ctaPrimary: 'Solicitar Prueba de Concepto (PoC)',
-    ctaSecondary: 'Explorar Arquitectura Técnica',
-    scroll: 'Explorar proyectos',
+    subtitle: 'Soluciones DeepTech de nivel empresarial con ciclos de 6-18 meses. También ofrecemos productos productizados de "pie de entrada" para ciclos de venta de 30-90 días.',
+    ctaPrimary: 'Solicitar Evaluación Gratuita',
+    ctaSecondary: 'Conocer Nuestros Productos',
+    scroll: 'Explorar soluciones',
     cornerTop: '+ XLERION_VIEWPORT // WEBGL_ACTIVE',
     cornerBottom: "COORD_LATAM [04°42'N 74°04'W]",
   },
   en: {
     badge: 'INDUSTRIAL DEEPTECH: MINING • MANUFACTURING • SMART CITIES',
     title: 'Transform Your Industrial Data into 3D Visual Intelligence and Real-Time AI Platforms.',
-    subtitle: 'Scalable and fault-tolerant software architectures. Over 10 years of experience integrating interactive 3D visualization (WebGL/Three.js) and Artificial Intelligence (RAG/LangChain) for critical operations.',
-    ctaPrimary: 'Request Proof of Concept (PoC)',
-    ctaSecondary: 'Explore Technical Architecture',
-    scroll: 'Explore Projects',
+    subtitle: 'Enterprise-level DeepTech solutions with 6-18 month cycles. We also offer packaged "foot-in-the-door" products for 30-90 day sales cycles.',
+    ctaPrimary: 'Free Evaluation',
+    ctaSecondary: 'Explore Our Products',
+    scroll: 'Explore Solutions',
     cornerTop: '+ XLERION_VIEWPORT // WEBGL_ACTIVE',
     cornerBottom: "COORD_LATAM [04°42'N 74°04'W]",
   },
@@ -87,6 +87,12 @@ export default function HeroSection({ onOpenPoC }) {
 
             <p className="text-base sm:text-lg text-gray-400 leading-relaxed max-w-xl">
               {c.subtitle}
+            </p>
+
+            <p className="text-sm text-gray-400 font-mono uppercase tracking-[0.2em] mb-6">
+              {lang === 'es'
+                ? 'Ofrecemos dos frentes: (1) Servicios DeepTech a largo plazo para contratos empresariales y (2) Productos productizados de flujo de caja rápido ( PoC, configuradores 3D, auditorías IA).'
+                : 'We offer two fronts: (1) Long-term DeepTech enterprise solutions and (2) Quick-cash-flow packaged products (PoC, 3D configurators, AI audits).'}
             </p>
 
             {/* CTAs */}

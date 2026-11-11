@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>test vcard</title>
+<style>
+ body{margin:0;background:#0b0b12;color:#d8d8e0;font:12.5px/1.5 Consolas,monospace;padding:14px}
+ iframe{border:0;position:absolute;left:-9999px;top:0}
+ pre{white-space:pre-wrap;word-break:break-all;margin:0 0 16px;padding:9px;border:1px solid #222;border-radius:5px;font-size:11.5px}
+ h3{color:#00e9fa;margin:14px 0 6px;font-size:13px}
+ .ok{color:#2ee6a8;font-weight:700}
+ .bad{color:#ff6b6b;font-weight:700}
+</style>
+</head>
+<body>
+<iframe id="f" width="390" height="844"></iframe>
+<div id="out">pending…</div>
+<script>
+var out = document.getElementById('out');
+var f = document.getElementById('f');
+
+function ready(cb) {
+  var n = 0;
+  var iv = setInterval(function () {
+    n++;
+    try {
+      if (f.contentWindow && f.contentWindow.__xlerion && f.contentDocument.querySelectorAll('.cta').length === 4) {
+        clearInterval(iv); cb(f.contentWindow.__xlerion, f.contentDocument); return;
+      }
+    } catch (e) {}
+    if (n > 80) { clearInterval(iv); cb(null, null); }
+  }, 100);
+}
+
+function check(list, label, cond, got) { list.push({label: label, ok: !!cond, got: got || ''}); }
+
+async function run(card, exp) {
+  var L = [];
+  var X, d;
+  await new Promise(function (res) {
+    f.src = '/cards/' + card + '?t=' + Date.now();
+    ready(function (x, doc) { X = x; d = doc; res(); });
+  });
+  await new Promise(function (r) { setTimeout(r, 1500); });
+
+  if (!X) {
+    out.innerHTML += '<h3>' + card + ' — ERROR: no cargo</h3>';
+    return;
+  }
+
+  var vcf = X.buildVCard();
+  var data = X.data;
+
+  check(L, 'vCard empieza con BEGIN:VCARD', vcf.indexOf('BEGIN:VCARD') === 0);
+  check(L, 'vCard termina con END:VCARD', vcf.trim().slice(-9) === 'END:VCARD');
+  check(L, 'VERSION:3.0', vcf.indexOf('VERSION:3.0') > 0);
+  check(L, 'FN: nombre completo', vcf.indexOf('FN:' + (data.fullName || data.name)) > 0);
+  check(L, 'N: ' + data.vcard.last + ';' + data.vcard.first, vcf.indexOf('N:' + data.vcard.last + ';' + data.vcard.first) > 0);
+  check(L, 'ORG:Xlerion', vcf.indexOf('ORG:Xlerion') > 0);
+  check(L, 'TITLE: ' + data.role, vcf.indexOf('TITLE:' + data.role) > 0);
+  check(L, 'NOTE exacto del spec', vcf.indexOf('NOTE:' + data.vcardNote) > 0);
+  check(L, 'EMAIL exacto', vcf.indexOf('EMAIL:' + data.contact.email) > 0);
+  check(L, 'TEL exacto', vcf.indexOf('TEL;TYPE=CELL:' + data.contact.phoneTel) > 0);
+  check(L, 'ADR ubicacion', vcf.indexOf(data.contact.location) > 0);
+  check(L, 'URL portafolio', vcf.indexOf('URL:' + data.links.portfolio) > 0);
+  check(L, 'URL linkedin', vcf.indexOf('URL:' + data.links.linkedin) > 0);
+  check(L, 'Separadores CRLF', vcf.indexOf('\r\n') > 0);
+
+  var ctas = [].slice.call(d.querySelectorAll('.cta'));
+  var labels = ctas.map(function (c) { return c.querySelector('b').textContent.trim(); });
+  check(L, '4 CTAs renderizados (' + ctas.length + ')', ctas.length === 4);
+  check(L, 'Labels CTA exactos', JSON.stringify(labels) === JSON.stringify(exp.ctas), labels.join(' | '));
+
+  var primary = ctas.filter(function (c) { return c.className.indexOf('cta--primary') >= 0; })[0];
+  check(L, 'CTA primario onclick vCard', primary && primary.getAttribute('href') === '#');
+
+  var wa = ctas.filter(function (c) { return c.getAttribute('href') && c.getAttribute('href').indexOf('wa.me') >= 0; })[0];
+  if (exp.whatsapp) {
+    var expectHref = 'https://wa.me/' + data.links.whatsapp + '?text=' + encodeURIComponent(exp.whatsapp);
+    check(L, 'WhatsApp href exacto (mensaje prellenado)', wa && wa.getAttribute('href') === expectHref, wa ? wa.getAttribute('href') : 'sin boton wa');
+  }
+  var cal = ctas.filter(function (c) { return c.getAttribute('href') && c.getAttribute('href').indexOf('calendly') >= 0; })[0];
+  if (exp.calendly) check(L, 'Calendly href exacto', cal && cal.getAttribute('href') === exp.calendly, cal ? cal.getAttribute('href') : 'no');
+  var pdf = ctas.filter(function (c) { return c.getAttribute('href') && c.getAttribute('href').indexOf('.pdf') >= 0; })[0];
+  if (exp.pdf) check(L, 'One-Pager PDF href exacto', pdf && pdf.getAttribute('href') === exp.pdf, pdf ? pdf.getAttribute('href') : 'no');
+
+  var icons = [].slice.call(d.querySelectorAll('.cta i, .chip i, .metric i, .contact-list i, .compliance i, .metric-ico i, .util i'));
+  var broken = icons.filter(function (i) {
+    var cs = getComputedStyle(i, ':before');
+    return !cs.content || cs.content === 'none' || cs.content === 'normal';
+  });
+  check(L, 'Iconos bootstrap OK (' + icons.length + ')', broken.length === 0, broken.length + ' rotos');
+
+  var ph = d.querySelector('.photo-img');
+  check(L, 'Foto con recorte aplicado', ph && getComputedStyle(ph).backgroundImage !== 'none' &&
+    getComputedStyle(ph).backgroundPosition !== '50% 50%', ph ? getComputedStyle(ph).backgroundPosition : 'no');
+  check(L, 'Foto: aria-label correcto', ph && ph.getAttribute('aria-label') === data.photoAlt,
+    ph ? ph.getAttribute('aria-label') : 'no');
+
+  // --- Canales de distribucion ---
+  var utils = d.querySelector('#utils');
+  check(L, 'Barra de canales presente', !!utils);
+  var install = d.querySelector('#btn-install');
+  var share = d.querySelector('#btn-share');
+  var wallet = d.querySelector('#btn-wallet');
+  var nfc = d.querySelector('#btn-nfc');
+  var counter = d.querySelector('#counter');
+  check(L, 'Boton instalar app', !!install);
+  check(L, 'Boton compartir', !!share);
+  check(L, 'Boton wallet', !!wallet);
+  check(L, 'Boton NFC', !!nfc);
+  check(L, 'Contador de escaneos', !!counter);
+  var isDesktop = !/mobile|iphone|android/i.test(navigator.userAgent);
+  check(L, 'Wallet oculto en escritorio', isDesktop ? (wallet && wallet.hidden === true) : true, 'hidden=' + (wallet ? wallet.hidden : 'n/a'));
+  check(L, 'NFC oculto sin soporte', nfc ? nfc.hidden === true : false, 'hidden=' + (nfc ? nfc.hidden : 'n/a'));
+  check(L, 'Contador revelado por el endpoint de stats', counter && counter.hidden === false,
+    counter ? 'hidden=' + counter.hidden + ' valor=' + counter.querySelector('[data-count]').textContent : 'no');
+
+  var manifestLink = d.querySelector('link[rel="manifest"]');
+  check(L, 'Manifest por fundador enlazado', manifestLink && manifestLink.getAttribute('href') === '/cards/manifest-' + data.id + '.webmanifest',
+    manifestLink ? manifestLink.getAttribute('href') : 'no');
+  check(L, 'apple-touch-icon enlazado', !!d.querySelector('link[rel="apple-touch-icon"]'));
+
+  var qr = d.querySelector('#qrcode');
+  check(L, 'QR renderizado', qr && qr.querySelector('img, canvas'));
+
+  exp.strings.forEach(function (s) {
+    check(L, 'Texto presente: "' + (s.length > 44 ? s.slice(0, 44) + '…' : s) + '"', d.body.textContent.indexOf(s) >= 0);
+  });
+
+  // El endpoint de stats, consultado directamente desde la pagina de test.
+  var diag = { status: 'sin ejecutar' };
+  try {
+    var res = await fetch('/api/scan/' + data.id + '?stats=1', { headers: { Accept: 'application/json' } });
+    diag.status = res.status;
+    diag.body = (await res.text()).slice(0, 140);
+  } catch (e) {
+    diag.status = 'ERROR: ' + e.message;
+  }
+  check(L, 'Endpoint /api/scan/' + data.id + '?stats=1 responde 200', diag.status === 200, JSON.stringify(diag));
+
+  var pass = L.filter(function (c) { return c.ok; }).length;
+  out.innerHTML +=
+    '<h3>' + card + ' — ' + pass + '/' + L.length + ' checks OK</h3>' +
+    '<pre>' + L.map(function (c) {
+      return (c.ok ? '<span class="ok">PASS</span> ' : '<span class="bad">FAIL</span> ') + c.label + (c.ok ? '' : '  -> got: ' + c.got);
+    }).join('\n') + '</pre>' +
+    '<h3>VCF GENERADO (' + card + ')</h3><pre>' + vcf.replace(/\r\n/g, ' | \n') + '</pre>';
+}
+
+(async function () {
+  await run('tarjeta-miguel.html', {
+    ctas: ['Agregar a Contactos', 'Hablar por WhatsApp', 'Ver Portafolio', 'LinkedIn'],
+    whatsapp: 'Hola Miguel, escaneé tu tarjeta digital de Xlerion y me interesa su stack de IA/3D.',
+    strings: ['XLERION', 'SYSTEM_ACTIVE / DISPONIBLE PARA PROYECTOS', 'Miguel E. Rodríguez',
+      'Founder & Lead Technical Architect', 'STACK DE CONFIANZA', 'React 18', 'Three.js / WebGL',
+      'Python / FastAPI', 'LangChain / RAG', 'ISO/IEC 27001', 'Ley 1581 (Habeas Data)',
+      'Bogotá, Colombia', 'miguelxlerion@gmail.com', '+57 313 226 3265',
+      'Tus datos de interacción son procesados bajo la Ley 1581 de 2012']
+  });
+  await run('tarjeta-juliette.html', {
+    ctas: ['Agregar a Contactos', 'Explorar Alianzas', 'Descargar One-Pager', 'LinkedIn'],
+    calendly: 'https://calendly.com/xlerion/15min',
+    pdf: '/Xlerion_OnePager.pdf',
+    strings: ['XLERION', 'ALIANZAS_ABIERTAS / NETWORK_ACTIVE', 'Juliette González',
+      'Co-Founder & Sourcing Strategy', 'VALOR DE NEGOCIO', '01', 'Optimización de Costos',
+      'Eficiencia operativa en sourcing y contratación tecnológica.',
+      'Sourcing Tecnológico LATAM', 'Red de talento y partners de hardware/software en la región.',
+      'Escalabilidad de Modelos', 'Del PoC a la producción empresarial defendible en costos.',
+      'Chía, Cundinamarca, Colombia', 'juliette@xlerion.com.co', '+57 300 000 0000',
+      'Tus datos de interacción son procesados bajo la Ley 1581 de 2012']
+  });
+})();
+</script>
+</body>
+</html>

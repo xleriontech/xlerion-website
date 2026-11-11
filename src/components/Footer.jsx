@@ -30,8 +30,8 @@ export default function Footer({ navTo }) {
                 XLERION
               </span>
             </div>
-            <p className="text-[11px] text-gray-500 font-mono uppercase leading-relaxed tracking-wider">
-              {t('footer_tagline')}
+            <p className="text-xs text-gray-400 font-mono uppercase tracking-[0.2em]">
+              {lang === 'es' ? 'Ofrecemos dos frentes de valor: servicios DeepTech enterprise y productos productizados.' : 'We offer two value fronts: DeepTech enterprise solutions and quick-cash-flow packaged products.'}
             </p>
           </div>
 
