@@ -274,7 +274,63 @@
 
   /* =============================================================
    * 3. QR
+   *
+   * qrcodejs deja dos hijos en el contenedor (un <canvas> oculto usado como
+   * superficie de dibujo y un <img> con la imagen ya exportada), y cual de
+   * los dos queda visible depende del navegador. Para no depender de eso se
+   * dibuja la matriz de modulos directamente sobre un canvas propio: un solo
+   * elemento, con el tamano en pixeles exactos (multiplo del numero de
+   * modulos) para que los bordes caigan en pixeles enteros y el codigo se
+   * escanee sin difuminado, a cualquier tamano.
    * ============================================================= */
+  var QR_QUIET = 4; // zona de silencio en modulos (la misma que usa qrcodejs)
+
+  /** Devuelve la matriz de modulos del simbolo, o null si no se pudo. */
+  function qrMatrix(url) {
+    var probe = document.createElement('div');
+    var qr = new QRCode(probe, {
+      text: url,
+      width: 120,
+      height: 120,
+      correctLevel: QRCode.CorrectLevel.H,
+    });
+    var m = qr._oQRCode && qr._oQRCode.modules;
+    return m && m.length ? m : null;
+  }
+
+  /** Pinta la matriz en un canvas y devuelve su medida en pixeles. */
+  function drawQr(canvas, matrix, cssSize, dpr) {
+    var cells = matrix.length + QR_QUIET * 2;
+    var cell = Math.max(1, Math.floor((cssSize * dpr) / cells));
+    var px = cell * cells; // multiplo exacto -> modulos nitidos
+
+    canvas.width = px;
+    canvas.height = px;
+    canvas.style.width = px / dpr + 'px';
+    canvas.style.height = px / dpr + 'px';
+    // Nunca debe rebasar el marco: si el multiplo exacto no cabe, el
+    // navegador lo reduce lo justo (imperceptible) en vez de recortarlo.
+    canvas.style.maxWidth = cssSize + 'px';
+    canvas.style.maxHeight = cssSize + 'px';
+    // Metadatos del render: permiten verificar el codigo desde el QA.
+    canvas.dataset.qrCell = String(cell);
+    canvas.dataset.qrModules = String(matrix.length);
+    canvas.dataset.qrCells = String(cells);
+    canvas.dataset.qrPixels = String(px);
+
+    var ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, px, px);
+    ctx.fillStyle = '#050508';
+    for (var r = 0; r < matrix.length; r++) {
+      for (var c = 0; c < matrix.length; c++) {
+        if (matrix[r][c]) {
+          ctx.fillRect((c + QR_QUIET) * cell, (r + QR_QUIET) * cell, cell, cell);
+        }
+      }
+    }
+    return px;
+  }
 
   /**
    * Destino del QR: el endpoint de TRACKING, no la tarjeta.
@@ -287,84 +343,44 @@
     return (local ? origin.replace(/\/+$/, '') : 'https://xlerion.com.co') + '/api/scan/' + D.id;
   }
 
-  /**
-   * Genera el QR a una resolucion EXACTA: el tamano en pixeles del canvas es
-   * multiplo del numero de modulos, asi que cada modulo cae en pixeles
-   * enteros y el codigo se lee sin borde difuminado a ningun tamano.
-   */
+  function buildQR() {
+    var box = $('#qrcode');
+    if (!box || typeof QRCode === 'undefined') return;
+
+    var matrix = qrMatrix(qrTarget());
+    if (!matrix) return;
+
+    box.innerHTML = '';
+    var canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Código QR de ' + (D.fullName || D.name));
+    box.appendChild(canvas);
+
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    var cs = window.getComputedStyle(box);
+    var inner = box.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var size = inner > 8 ? inner : 44;
+    drawQr(canvas, matrix, size, dpr);
+  }
+
+  /** Render del QR ampliado para el lightbox. */
   function renderQr(container, url, cssSize) {
     if (typeof QRCode === 'undefined' || !container) return null;
 
-    // Render de sondeo para conocer el numero de modulos del simbolo.
-    var probe = document.createElement('div');
-    new QRCode(probe, {
-      text: url,
-      width: 120,
-      height: 120,
-      correctLevel: QRCode.CorrectLevel.H,
-    });
-
-    var modules = 0;
-    try {
-      if (probe._oQRCode && typeof probe._oQRCode.getModuleCount === 'function') {
-        modules = probe._oQRCode.getModuleCount();
-      } else if (probe._iQRCodeLength) {
-        modules = probe._iQRCodeLength;
-      }
-    } catch (e) {
-      modules = 0;
-    }
-    if (!modules) modules = 33;
-
-    var cells = modules + 8; // + 4 modulos de zona de silencio por lado
-    var dpr = Math.min(window.devicePixelRatio || 1, 3);
-    var target = Math.round(cssSize * dpr);
-    var cell = Math.max(2, Math.floor(target / cells));
-    var px = cell * cells; // multiplo exacto -> modulos nitidos
+    var matrix = qrMatrix(url);
+    if (!matrix) return null;
 
     container.innerHTML = '';
-    new QRCode(container, {
-      text: url,
-      width: px,
-      height: px,
-      colorDark: '#050508',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H,
-    });
+    var canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', 'Código QR de ' + (D.fullName || D.name));
+    container.appendChild(canvas);
 
-    // qrcodejs deja un <canvas> oculto (superficie de dibujo) y un <img>
-    // visible con el PNG ya renderizado: se usa el <img>.
-    var node = container.querySelector('img') || container.firstElementChild;
-    if (!node) return null;
-
-    // El tamano se aplica por variable CSS: una regla con !important vence al
-    // style="display:none" inline que pone qrcodejs en el canvas.
+    var dpr = Math.min(window.devicePixelRatio || 1, 3);
+    var px = drawQr(canvas, matrix, cssSize, dpr);
     container.style.setProperty('--qr-w', px / dpr + 'px');
     container.style.setProperty('--qr-h', px / dpr + 'px');
-    node.style.setProperty('width', px / dpr + 'px', 'important');
-    node.style.setProperty('height', px / dpr + 'px', 'important');
-    node.setAttribute('role', 'img');
-    node.setAttribute('aria-label', 'Código QR de ' + (D.fullName || D.name));
-    return node;
-  }
-
-  function buildQR() {
-    var box = $('#qrcode');
-    if (!box) return;
-
-    if (typeof QRCode === 'undefined') {
-      box.style.background = 'transparent';
-      box.innerHTML = '<span style="font-size:6px;color:#888;font-family:monospace">QR</span>';
-      return;
-    }
-    new QRCode(box, {
-      text: qrTarget(),
-      width: 132,
-      height: 132,
-      colorDark: '#050508',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.M,
-    });
+    return canvas;
   }
 
   /* =============================================================

@@ -806,18 +806,15 @@ body {
 }
 
 /*
- * qrcodejs deja dos hijos: un <canvas> oculto (superficie de dibujo) y un
- * <img> visible con el PNG ya renderizado. Se muestra el <img> y se oculta
- * el canvas para que no se dibuje dos veces.
- *
- * #qrcode va dentro de .qr-frame (un bloque), no de un flex item: sin
- * display:block su width se ignoraria (los inline ignoran width) y el QR
- * se saldria del tamano del marco.
+ * El QR es un <canvas> propio (dibujado desde la matriz de modulos).
+ * Su medida en pixeles la fija drawQr() y la css la fija el propio elemento:
+ * hay que dejar de forzar width/height con CSS, porque eso reescalaria el
+ * canvas y difuminaria los bordes de los modulos.
  */
 #qrcode {
   display: block;
-  width: clamp(38px, 6vh, 52px);
-  height: clamp(38px, 6vh, 52px);
+  width: clamp(44px, 6.5vh, 56px);
+  height: clamp(44px, 6.5vh, 56px);
   padding: 3px;
   background: #fff;
   border-radius: 2px;
@@ -826,13 +823,9 @@ body {
 }
 
 #qrcode canvas {
-  display: none !important;
-}
-
-#qrcode img {
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
+  display: block;
+  margin: 0 auto;
+  image-rendering: pixelated;
 }
 
 .qr-cap {
@@ -1175,15 +1168,11 @@ body {
   line-height: 0;
 }
 
-/* El tamano lo fija JS como multiplo exacto de modulos (pixel-perfect). */
+/* El tamano lo fija drawQr() como multiplo exacto de modulos (pixel-perfect). */
 .qr-zoom-img canvas {
-  display: none !important;
-}
-
-.qr-zoom-img img {
-  display: block !important;
-  width: var(--qr-w, 240px) !important;
-  height: var(--qr-h, 240px) !important;
+  display: block;
+  margin: 0 auto;
+  image-rendering: pixelated;
 }
 
 /* Laser de escaneo */

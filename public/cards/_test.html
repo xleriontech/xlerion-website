@@ -124,6 +124,49 @@ async function run(card, exp) {
   var qr = d.querySelector('#qrcode');
   check(L, 'QR renderizado', qr && qr.querySelector('img, canvas'));
 
+  // El QR debe estar PINTADO: se leen los pixeles del canvas.
+  var qcanvas = qr && qr.querySelector('canvas');
+  if (qcanvas) {
+    var ctx = qcanvas.getContext('2d');
+    var px = ctx.getImageData(0, 0, qcanvas.width, qcanvas.height).data;
+    var dark = 0, light = 0;
+    for (var pi = 0; pi < px.length; pi += 4) {
+      if (px[pi] < 128) dark++; else light++;
+    }
+    check(L, 'QR pintado (pixeles oscuros y claros)', dark > 200 && light > 200,
+      'dark=' + dark + ' light=' + light);
+
+    // Los 3 patrones de localizacion (finder 7x7) deben estar en su sitio.
+    // Centro del finder (modulo 3,3) -> pixel (3+quiet)*cell; el separador
+    // (modulo 7,7) debe ser claro.
+    function isDark(x, y) {
+      var i = (y * qcanvas.width + x) * 4;
+      return px[i] < 128;
+    }
+    var cell = parseInt(qcanvas.dataset.qrCell || '0', 10);
+    var modules = parseInt(qcanvas.dataset.qrModules || '0', 10);
+    var cells = parseInt(qcanvas.dataset.qrCells || '0', 10);
+    // Centro de los 3 finders en pixeles (quiet = 4).
+    var finders = [
+      [7 * cell, 7 * cell],
+      [modules * cell, 7 * cell],
+      [7 * cell, modules * cell]
+    ];
+    var findersOk = cell > 0 && modules > 0 && finders.every(function (p) {
+      // centro oscuro + separador (modulo 7,7) claro
+      return isDark(p[0], p[1]) && !isDark(p[0] + 4 * cell, p[1] + 4 * cell);
+    });
+    check(L, 'QR con 3 patrones de localizacion correctos', findersOk,
+      'cell=' + cell + ' modules=' + modules + ' total=' + qcanvas.width);
+
+    // La medida en pixeles debe ser multiplo exacto del numero de celdas.
+    check(L, 'QR con celdas enteras (pixel-perfect)',
+      cell > 0 && qcanvas.width === cells * cell && qcanvas.width === qcanvas.height,
+      qcanvas.width + 'x' + qcanvas.height + ' cell=' + cell + ' cells=' + cells);
+  } else {
+    check(L, 'QR pintado (pixeles oscuros y claros)', false, 'sin canvas');
+  }
+
   // --- QR ampliado (lightbox) ---
   var trigger = d.querySelector('#qr-trigger');
   check(L, 'QR es un boton (disparador de ampliación)', trigger && trigger.tagName === 'BUTTON');
@@ -138,16 +181,17 @@ async function run(card, exp) {
     check(L, 'Lightbox se abre al hacer clic', zoom && zoom.hidden === false && zoom.classList.contains('is-open'),
       zoom ? 'hidden=' + zoom.hidden + ' class=' + zoom.className : 'no existe');
     var zimg = zoom && zoom.querySelector('#qr-zoom-img');
-    var znode = zimg && (zimg.querySelector('img') || zimg.firstElementChild);
+    var znode = zimg && zimg.querySelector('canvas');
     if (znode) {
       var zw = znode.getBoundingClientRect().width;
       check(L, 'QR ampliado >= 150px', zw >= 150, Math.round(zw) + 'px');
-      var nat = parseInt(znode.getAttribute('width') || '0', 10) || znode.naturalWidth || 0;
-      var cells = nat ? nat / 7 : 0;
-      check(L, 'QR ampliado con modulos enteros (pixel-perfect)', cells > 0 && Math.abs(cells - Math.round(cells)) < 0.02,
-        'natural=' + nat + ' celdas=' + cells.toFixed(3));
+      var zcell = parseInt(znode.dataset.qrCell || '0', 10);
+      var zcells = parseInt(znode.dataset.qrCells || '0', 10);
+      check(L, 'QR ampliado con modulos enteros (pixel-perfect)',
+        zcell > 0 && znode.width === zcells * zcell && znode.width === znode.height,
+        znode.width + 'x' + znode.height + ' cell=' + zcell + ' cells=' + zcells);
     } else {
-      check(L, 'QR ampliado con modulos enteros (pixel-perfect)', false, 'sin nodo');
+      check(L, 'QR ampliado con modulos enteros (pixel-perfect)', false, 'sin canvas');
     }
     var backdrop = zoom && zoom.querySelector('.qr-zoom-backdrop');
     var bcs = backdrop && w.getComputedStyle(backdrop);
