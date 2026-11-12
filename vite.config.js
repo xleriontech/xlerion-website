@@ -164,7 +164,8 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         { src: 'public/images/*', dest: 'images' },
-        { src: 'public/videos/*', dest: 'videos' },
+        // No se copia public/videos/: el video intro se elimino y el sitio
+        // carga su valor con la red neuronal de Three.js.
       ]
     })
   ],

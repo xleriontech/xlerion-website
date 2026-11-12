@@ -67,3 +67,6 @@ dist/api/logs/
 public/.env
 public/.env.*
 !public/.env.example
+
+# Artefactos del IDE (Qoder) generados en docs/
+/docs/site-example/

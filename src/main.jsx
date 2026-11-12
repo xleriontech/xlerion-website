@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
-import VideoIntro from './components/VideoIntro.jsx'
+import Loader from './components/Loader.jsx'
 import { LanguageProvider } from './context/LanguageContext.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import TermsPage from './pages/TermsPage.jsx'
@@ -16,18 +16,12 @@ import PanelaIAPage from './pages/PanelaIA'
 import DigitalCardRedirect from './pages/DigitalCardRedirect'
 
 function Root() {
-  // In development (localhost) skip the intro so the nav is accessible immediately.
-  const seen = sessionStorage.getItem('xlerion_intro_seen') || (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'true' : null);
-  const [showIntro, setShowIntro] = useState(!seen);
-
-  const handleIntroComplete = () => {
-    sessionStorage.setItem('xlerion_intro_seen', 'true');
-    setShowIntro(false);
-  };
+  // Loader de arranque del sitio (sustituye al video intro).
+  const [booting, setBooting] = useState(true);
 
   return (
     <>
-      {showIntro && <VideoIntro onComplete={handleIntroComplete} />}
+      {booting && <Loader onComplete={() => setBooting(false)} />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />

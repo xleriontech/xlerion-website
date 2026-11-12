@@ -126,14 +126,23 @@ function analytics_truncate(string $value, int $max): string
     return $value;
 }
 
-function analytics_read_json(): array
+/**
+ * Lee el cuerpo JSON de la peticion.
+ * Devuelve null si el cuerpo no es JSON valido (no se puede distinguir de
+ * un objeto vacio "{}" usando solo el array, asi que se valida con
+ * json_last_error()).
+ */
+function analytics_read_json(): ?array
 {
     $raw = file_get_contents('php://input', false, null, 0, ANALYTICS_MAX_BODY);
-    if (!is_string($raw) || $raw === '') {
-        return [];
+    if (!is_string($raw) || trim($raw) === '') {
+        return null;
     }
     $decoded = json_decode($raw, true);
-    return is_array($decoded) ? $decoded : [];
+    if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded)) {
+        return null;
+    }
+    return $decoded;
 }
 
 function analytics_append_jsonl(string $path, array $record): bool
@@ -297,7 +306,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
 }
 
 $data = analytics_read_json();
-if ($data === []) {
+if ($data === null) {
     analytics_respond(['success' => false, 'error' => 'Invalid JSON body'], 400);
 }
 

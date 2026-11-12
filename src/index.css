@@ -644,6 +644,40 @@
   }
 }
 
+/* ========================================
+   LOADER DE ARRANQUE (Loader.jsx)
+   Orbita con radio variable: el keyframe "orbit" general tiene un
+   translateY fijo (-50px) que sobrescribe el transform inline, asi que el
+   loader usa su propio keyframe con la variable --orbit-r.
+   ======================================== */
+@keyframes xlerion-orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(calc(-1 * var(--orbit-r, 52px)));
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg) translateY(calc(-1 * var(--orbit-r, 52px)));
+  }
+}
+
+/* Barrido vertical: mueve el "top" (un translateY sobre una linea de 2px
+   apenas se perceivedia). */
+@keyframes xlerion-scan-y {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
 @keyframes scanline {
   0% {
     transform: translateX(-100%);
