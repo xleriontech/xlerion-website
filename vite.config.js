@@ -159,7 +159,13 @@ export default defineConfig({
       // docs/site-example/ contiene maquetas estaticas que no necesitan HMR.
       // Ademas el IDE (Qoder) deja marcadores bloqueados ahi y el watcher
       // revienta con EBUSY, tumbando el servidor de desarrollo.
-      ignored: ['**/docs/site-example/**', '**/dist/**', '**/.git/**'],
+      // Los .zip de despliegue tampoco: se generan en la raiz y bloquean.
+      ignored: [
+        '**/docs/site-example/**',
+        '**/dist/**',
+        '**/.git/**',
+        '**/*.zip',
+      ],
     },
   },
   build: {
