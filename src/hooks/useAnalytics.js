@@ -47,7 +47,7 @@ export const useAnalytics = (pageTitle, pageType = 'page') => {
         };
 
         try {
-            const response = await fetch('/api/analytics', {
+            const response = await fetch('/api/analytics.php?action=pageview', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -75,7 +75,7 @@ export const useAnalytics = (pageTitle, pageType = 'page') => {
         const interval = setInterval(() => {
             const duration = Date.now() - startTimeRef.current;
             // Enviar ping sin cerrar la sesión
-            fetch('/api/analytics/ping', {
+            fetch('/api/analytics.php?action=ping', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -93,7 +93,7 @@ export const useAnalytics = (pageTitle, pageType = 'page') => {
     return {
         sessionId: sessionIdRef.current,
         trackEvent: (eventName, eventData = {}) => {
-            fetch('/api/analytics/event', {
+            fetch('/api/analytics.php?action=event', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

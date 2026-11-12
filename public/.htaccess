@@ -28,6 +28,14 @@
   # contra el directorio actual y acaba pidiendo /api/api/contact.php (404).
   RewriteRule ^api/contact/?$ /api/contact.php [L]
 
+  # Analitica del sitio: un unico front-controller con sub-path opcional.
+  # El front llama a /api/analytics.php?action=... (no depende de reglas),
+  # pero estas reglas mantienen el contrato original /api/analytics/ping, etc.
+  RewriteRule ^api/analytics/ping/?$ /api/analytics.php?action=ping [L,QSA]
+  RewriteRule ^api/analytics/event/?$ /api/analytics.php?action=event [L,QSA]
+  RewriteRule ^api/analytics/visitor-count/?$ /api/analytics.php?action=visitor-count [L,QSA]
+  RewriteRule ^api/analytics/?$ /api/analytics.php?action=pageview [L,QSA]
+
   # Tarjetas digitales — tracking de escaneos, vCard y Wallet.
   # /api/scan/{id}   -> registra y responde 302 hacia /mike o /juliette
   # /api/vcard/{id}  -> .vcf generado al vuelo
