@@ -35,6 +35,28 @@ public/api/config.local.php
 public/api/logs/
 dist/api/logs/
 
+# Artefactos de deploy copiados en la raiz del proyecto (algunas herramientas
+# de IDE los dejan ahi al publicar). Los originales viven en public/.
+/.htaccess
+/.well-known/
+/LogoX.png
+/LogoX.svg
+/Xlerion_OnePager.pdf
+/api/
+/cards/
+/css/
+/favicon.ico
+/favicon.png
+/humans.txt
+/icons/
+/images/
+/js/
+/manifest.json
+/robots.txt
+/service-worker.js
+/sitemap.xml
+/videos/
+
 # Caché local de wrangler (state simulado de KV/D1/R2 y config de deploy)
 .wrangler/
 
