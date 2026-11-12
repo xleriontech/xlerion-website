@@ -264,7 +264,11 @@
   function initCounter(el) {
     if (!el) return;
 
-    fetch('/api/scan/' + D.id + '?stats=1', { headers: { Accept: 'application/json' } })
+    // Misma ruta con parametro que usa el QR: sin dependencia de las reglas
+    // de reescritura del .htaccess.
+    fetch('/api/scan.php?founder=' + D.id + '&stats=1', {
+      headers: { Accept: 'application/json' },
+    })
       .then(function (res) {
         return res.ok ? res.json() : null;
       })

@@ -214,13 +214,13 @@ async function run(card, exp) {
   // El endpoint de stats, consultado directamente desde la pagina de test.
   var diag = { status: 'sin ejecutar' };
   try {
-    var res = await fetch('/api/scan/' + data.id + '?stats=1', { headers: { Accept: 'application/json' } });
+    var res = await fetch('/api/scan.php?founder=' + data.id + '&stats=1', { headers: { Accept: 'application/json' } });
     diag.status = res.status;
     diag.body = (await res.text()).slice(0, 140);
   } catch (e) {
     diag.status = 'ERROR: ' + e.message;
   }
-  check(L, 'Endpoint /api/scan/' + data.id + '?stats=1 responde 200', diag.status === 200, JSON.stringify(diag));
+  check(L, 'Endpoint /api/scan.php?founder=' + data.id + '&stats=1 responde 200', diag.status === 200, JSON.stringify(diag));
 
   var pass = L.filter(function (c) { return c.ok; }).length;
   out.innerHTML +=

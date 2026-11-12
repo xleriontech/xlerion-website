@@ -1,1 +1,1 @@
-https://xlerion.com.co/api/scan/miguel
+https://xlerion.com.co/api/scan.php?founder=miguel

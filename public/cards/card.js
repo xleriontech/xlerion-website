@@ -335,12 +335,16 @@
   /**
    * Destino del QR: el endpoint de TRACKING, no la tarjeta.
    *
-   * En produccion (xlerion.com.co) el QR escaneado apunta a
-   * https://xlerion.com.co/api/scan/{id}, que registra el escaneo y responde
-   * 302 hacia /mike o /juliette.
+   * Se usa el PARAMETRO y no una ruta reescrita (/api/scan.php?founder=x)
+   * porque asi no depende de las reglas de reescritura del .htaccess, que en
+   * LiteSpeed exigen sustituciones absolutas. Funciona en cualquier servidor.
    *
-   * En local se usa el origen actual (localhost:5173) para poder probar el
-   * circuito completo de tracking sin subir nada.
+   * En produccion (xlerion.com.co) el QR escaneado apunta a
+   * https://xlerion.com.co/api/scan.php?founder=juliette, que registra el
+   * escaneo y responde 302 hacia /mike o /juliette.
+   *
+   * En local se usa el origen actual para poder probar el circuito completo
+   * de tracking sin subir nada.
    */
   function qrTarget() {
     var origin = window.location.origin || '';
@@ -349,7 +353,7 @@
       typeof XLERION_PUBLIC_BASE !== 'undefined' && XLERION_PUBLIC_BASE
         ? XLERION_PUBLIC_BASE
         : 'https://xlerion.com.co';
-    return (local ? origin.replace(/\/+$/, '') : base) + '/api/scan/' + D.id;
+    return (local ? origin.replace(/\/+$/, '') : base) + '/api/scan.php?founder=' + D.id;
   }
 
   function buildQR() {

@@ -79,7 +79,12 @@ def main() -> int:
     os.makedirs(OUT_DIR, exist_ok=True)
 
     for key, meta in FOUNDERS.items():
-        track_url = f"{base}/api/scan/{key}"
+        # El payload usa el PARAMETRO, no una ruta reescrita:
+        #   /api/scan.php?founder=miguel
+        # Asi no depende de las reglas de reescritura del .htaccess (que en
+        # LiteSpeed necesitan sustituciones absolutas) y funciona en cualquier
+        # servidor: Apache, LiteSpeed o nginx.
+        track_url = f"{base}/api/scan.php?founder={key}"
         card_url = f"{base}/{meta['slug']}"
 
         qr = build_qr(track_url)

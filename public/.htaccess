@@ -23,7 +23,10 @@
   RewriteRule ^security\.txt$ /.well-known/security.txt [R=301,L]
 
   # Endpoint de contacto: el front llama a /api/contact (sin extensión)
-  RewriteRule ^api/contact/?$ api/contact.php [L]
+  # IMPORTANTE: la sustitucion debe ser ABSOLUTA (empezar por /).
+  # En LiteSpeed una sustitucion relativa ("api/contact.php") se resuelve
+  # contra el directorio actual y acaba pidiendo /api/api/contact.php (404).
+  RewriteRule ^api/contact/?$ /api/contact.php [L]
 
   # Tarjetas digitales — tracking de escaneos, vCard y Wallet.
   # /api/scan/{id}   -> registra y responde 302 hacia /mike o /juliette

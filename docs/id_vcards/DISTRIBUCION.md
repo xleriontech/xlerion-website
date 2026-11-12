@@ -68,11 +68,11 @@ scripts/
 | `https://xlerion.com.co/mike` | Tarjeta de Miguel (**documento principal**, no iframe) |
 | `https://xlerion.com.co/juliette` | Tarjeta de Juliette |
 | `https://xlerion.com.co/cards/` | Vitrina con las dos tarjetas |
-| `https://xlerion.com.co/api/scan/miguel` | Tracking → **302** a `/mike` |
+| `https://xlerion.com.co/api/scan.php?founder=miguel` | Tracking → **302** a `/mike` |
 | `https://xlerion.com.co/api/scan/juliette` | Tracking → **302** a `/juliette` |
-| `https://xlerion.com.co/api/vcard/miguel` | `.vcf` generado al vuelo |
-| `https://xlerion.com.co/api/wallet/miguel?platform=apple` | Pase `.pkpass` |
-| `https://xlerion.com.co/api/wallet/miguel?platform=google` | JWT de Google Wallet |
+| `https://xlerion.com.co/api/vcard.php?founder=miguel` | `.vcf` generado al vuelo |
+| `https://xlerion.com.co/api/wallet.php?founder=miguel&platform=apple` | Pase `.pkpass` |
+| `https://xlerion.com.co/api/wallet.php?founder=miguel&platform=google` | JWT de Google Wallet |
 
 Las rutas `/mike` y `/juliette` se sirven como **documento principal** (no un
 iframe dentro de la SPA) por tres razones:
@@ -132,7 +132,12 @@ const XLERION_PUBLIC_BASE = 'https://xlerion.com.co';
 ```
 
 - En **producción** el QR escaneado apunta a
-  `https://xlerion.com.co/api/scan/{id}` → registra → 302 → `/mike` o `/juliette`
+  `https://xlerion.com.co/api/scan.php?founder={id}` → registra → 302 → `/mike` o `/juliette`
+- Se usa el **parámetro** y no una ruta reescrita (`/api/scan/{id}`): asi no
+  depende de las reglas de reescritura del `.htaccess`, que en LiteSpeed
+  exigen sustituciones absolutas. Las rutas reescritas (`/api/scan/{id}`,
+  `/api/vcard/{id}`, `/api/wallet/{id}`) tambien funcionan, pero no hacen
+  falta para que el QR funcione.
 - En **local** (`localhost:5173`) se usa el origen actual para poder probar el
   circuito completo de tracking sin subir nada
 

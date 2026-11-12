@@ -62,6 +62,12 @@ export default defineConfig({
           }
 
           if (!fs.existsSync(publicFile) || !fs.statSync(publicFile).isFile()) return next()
+
+          // Los .php NO se sirven como estaticos en dev: el server integrado de
+          // Vite no ejecuta PHP, asi que se expondría el codigo fuente. En
+          // produccion los ejecuta Apache/LiteSpeed.
+          if (path.extname(publicFile).toLowerCase() === '.php') return next()
+
           res.setHeader('Content-Type', DEV_MIME[path.extname(publicFile).toLowerCase()] ?? 'application/octet-stream')
           fs.createReadStream(publicFile).pipe(res)
         });
@@ -77,10 +83,20 @@ export default defineConfig({
         const slugs = { miguel: 'mike', juliette: 'juliette' }
 
         server.middlewares.use((req, res, next) => {
-          const match = /^\/api\/scan\/([a-z0-9_-]+)\/?$/.exec(req.url.split('?')[0])
-          if (!match) return next()
+          // El tracking usa el PARAMETRO: /api/scan.php?founder=miguel
+          // (asi no depende de las reglas de reescritura del .htaccess).
+          const [pathname, query] = req.url.split('?')
+          const params = new URLSearchParams(query || '')
 
-          const founder = match[1]
+          let founder = null
+          if (pathname === '/api/scan.php' || pathname === '/api/scan') {
+            founder = params.get('founder')
+          } else {
+            const m = /^\/api\/scan\/([a-z0-9_-]+)\/?$/.exec(pathname)
+            if (m) founder = m[1]
+          }
+          if (!founder) return next()
+
           if (!slugs[founder]) {
             res.statusCode = 400
             res.setHeader('Content-Type', 'application/json; charset=utf-8')
@@ -154,20 +170,6 @@ export default defineConfig({
   ],
   // Deshabilitar copia automática de public/
   publicDir: false,
-  server: {
-    watch: {
-      // docs/site-example/ contiene maquetas estaticas que no necesitan HMR.
-      // Ademas el IDE (Qoder) deja marcadores bloqueados ahi y el watcher
-      // revienta con EBUSY, tumbando el servidor de desarrollo.
-      // Los .zip de despliegue tampoco: se generan en la raiz y bloquean.
-      ignored: [
-        '**/docs/site-example/**',
-        '**/dist/**',
-        '**/.git/**',
-        '**/*.zip',
-      ],
-    },
-  },
   build: {
     // Optimizaciones para producción
     target: 'es2020',
@@ -211,6 +213,14 @@ export default defineConfig({
     host: 'localhost',
     port: 5173,
     open: false,
+    watch: {
+      // docs/site-example/ contiene maquetas estaticas que no necesitan HMR.
+      // Ademas el IDE (Qoder) deja marcadores bloqueados ahi y el watcher
+      // revienta con EBUSY, tumbando el servidor de desarrollo.
+      // Los .zip de despliegue tampoco: se generan junto al proyecto y
+      // bloquean el watcher mientras se escriben.
+      ignored: ['**/docs/site-example/**', '**/dist/**', '**/.git/**', '**/*.zip'],
+    },
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
