@@ -113,6 +113,16 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     }
   }
 
+  // Limpieza de basura de deploy.
+  // Algunas herramientas de deploy (el IDE) dejan copias de public/ dentro de
+  // public/images/ mientras compila; el glob "public/images/*" las arrastra a
+  // dist/images/public/ (una copia anidada de ~7MB que no debe desplegarse).
+  const anidado = path.join(__dirname, '..', 'dist', 'images', 'public');
+  if (fs.existsSync(anidado)) {
+    fs.rmSync(anidado, { recursive: true, force: true });
+    console.log('Removed dist/images/public (nested deploy artifact)');
+  }
+
   // Copy root-level files from public/ to dist/
   const rootFiles = [
     'manifest.json',

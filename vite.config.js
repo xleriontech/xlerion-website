@@ -214,12 +214,31 @@ export default defineConfig({
     port: 5173,
     open: false,
     watch: {
-      // docs/site-example/ contiene maquetas estaticas que no necesitan HMR.
-      // Ademas el IDE (Qoder) deja marcadores bloqueados ahi y el watcher
-      // revienta con EBUSY, tumbando el servidor de desarrollo.
-      // Los .zip de despliegue tampoco: se generan junto al proyecto y
-      // bloquean el watcher mientras se escriben.
-      ignored: ['**/docs/site-example/**', '**/dist/**', '**/.git/**', '**/*.zip'],
+      /*
+       * Vite CRUZA el proceso si el watcher emite un error (EBUSY en
+       * Windows cuando otro proceso tiene el fichero abierto). Hay que
+       *sacarlo de en medio lo que lo provoke:
+       *
+       *  1. docs/site-example/ -> maquetas estaticas que no necesitan HMR
+       *     (y el IDE deja marcadores bloqueados ahi).
+       *  2. Las carpetas de deploy que algunas herramientas dejan en la RAIZ
+       *     del proyecto (api/, cards/, css/, icons/, images/, js/, videos/,
+       *     .well-known/): son copias de public/ y Vite las vigila.
+       */
+      ignored: (file) => {
+        // El root de Vite es el cwd (no hay "root" en la config).
+        const abs = path.resolve(file)
+        const rel = path.relative(process.cwd(), abs).replace(/\\/g, '/')
+        if (rel.startsWith('..')) return false
+        if (rel.startsWith('docs/site-example/')) return true
+        if (rel.startsWith('dist/')) return true
+        if (rel.startsWith('.git/')) return true
+        if (rel.endsWith('.zip')) return true
+        const first = rel.split('/')[0]
+        const artefactos = ['api', 'cards', 'css', 'icons', 'images', 'js', 'videos', '.well-known']
+        // Solo las de la raiz: las de public/ si deben vigilarse.
+        return artefactos.includes(first) && !rel.startsWith('public/')
+      },
     },
     proxy: {
       '/api': {
