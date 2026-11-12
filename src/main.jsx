@@ -13,6 +13,7 @@ import IdentityHubPage from './pages/IdentityHubPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import FounderPage from './pages/FounderPage.jsx'
 import PanelaIAPage from './pages/PanelaIA'
+import DigitalCardRedirect from './pages/DigitalCardRedirect'
 
 function Root() {
   // In development (localhost) skip the intro so the nav is accessible immediately.
@@ -37,6 +38,11 @@ function Root() {
           <Route path="/identidad" element={<IdentityHubPage />} />
           <Route path="/fundador" element={<FounderPage />} />
           <Route path="/panelaia" element={<PanelaIAPage />} />
+          {/* Tarjetas digitales: el .htaccess las sirve directamente; esta ruta
+              es el respaldo si el hosting aun no tiene las reglas de reescritura. */}
+          <Route path="/mike" element={<DigitalCardRedirect founder="mike" />} />
+          <Route path="/juliette" element={<DigitalCardRedirect founder="juliette" />} />
+          <Route path="/cards" element={<Navigate to="/cards/" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
