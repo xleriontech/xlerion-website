@@ -83,7 +83,7 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-3 cursor-pointer relative z-50 group"
+            className="flex shrink-0 items-center gap-3 cursor-pointer relative z-50 group"
             onClick={(e) => {
               if (variant === 'logo-only') {
                 e.preventDefault();
@@ -96,20 +96,20 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
               alt="XLERION"
               className="h-11 md:h-12 object-contain transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#00e9fa] hidden sm:block">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#00e9fa] hidden sm:block lg:hidden xl:block">
               XLERION
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           {variant === 'full' && (
-            <div className="hidden lg:flex items-center gap-0.5 text-[11px] font-work uppercase tracking-[0.15em] font-medium">
+            <div className="hidden lg:flex items-center gap-0.5 text-[10px] xl:text-[11px] font-work uppercase tracking-[0.15em] font-medium">
               {NAV_ITEMS.map((item) => (
                 <button
                   key={item.id}
                   data-transition="nav"
                   onClick={() => navTo(item.scrollTo)}
-                  className="inline-flex items-center h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
+                  className="inline-flex items-center h-10 px-2 xl:px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
                 >
                   {t(item.key)}
                 </button>
@@ -125,7 +125,7 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
                   key={page.to}
                   href={page.to}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="inline-flex items-center gap-1.5 h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
+                  className="inline-flex items-center gap-1.5 h-10 px-2 xl:px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
                 >
                   {t(page.key)}
                   <i className="bi bi-arrow-up-right text-[9px] opacity-60" />
