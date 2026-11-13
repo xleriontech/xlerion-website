@@ -7,7 +7,7 @@ const translations = {
         nav_soluciones: 'SOLUCIONES',
         nav_tecnologia: 'TECNOLOGÍA Y SEGURIDAD',
         nav_impacto: 'IMPACTO (ROI)',
-        nav_fundador: 'FUNDADOR',
+        nav_fundador: 'FUNDADORES',
         nav_contacto: 'CONTACTO',
         nav_tarjetas: 'TARJETAS',
         lang_es: 'ES',
@@ -26,7 +26,7 @@ const translations = {
         footer_access_soluciones: 'Soluciones',
         footer_access_tecnologia: 'Tecnología y Seguridad',
         footer_access_impacto: 'Impacto (ROI)',
-        footer_access_fundador: 'Fundador',
+        footer_access_fundador: 'Fundadores',
         footer_access_contacto: 'Contacto',
         footer_legal_privacy: 'Política de Tratamiento de Datos (Ley 1581 de 2012)',
         footer_legal_terms: 'Términos y Condiciones de Servicio',
@@ -107,8 +107,10 @@ const translations = {
         impacto_note: 'Ofrecemos una calculadora de ROI personalizada para su operación específica durante la fase de PoC.',
 
         // Founder
-        founder_title: 'Liderazgo Técnico y Founder-Market Fit',
-        founder_subtitle: 'Sobre el Fundador',
+        // Los perfiles viven en src/data/founders.js (ver FounderLeadershipSection).
+        // Estas claves se conservan como respaldo; mantenlas alineadas.
+        founder_title: 'Liderazgo Técnico y de Negocio',
+        founder_subtitle: 'Sobre los Fundadores',
         founder_intro: 'Xlerion es liderada por Miguel E. Rodriguez Martinez, Ingeniero Full-Stack Senior con más de 10 años de experiencia diseñando arquitecturas donde los datos en tiempo real cobran vida. Mi enfoque no es solo entregar código, sino garantizar la resiliencia de los datos, la optimización de pipelines y la alineación estratégica del proyecto con los objetivos de negocio.',
         founder_name: 'Miguel E. Rodriguez Martinez',
         founder_role: 'Fundador & Lead Technical Architect',
@@ -162,7 +164,7 @@ const translations = {
         nav_soluciones: 'SOLUTIONS',
         nav_tecnologia: 'TECHNOLOGY & SECURITY',
         nav_impacto: 'IMPACT (ROI)',
-        nav_fundador: 'FOUNDER',
+        nav_fundador: 'FOUNDERS',
         nav_contacto: 'CONTACT',
         nav_tarjetas: 'CARDS',
         lang_es: 'ES',
@@ -181,7 +183,7 @@ const translations = {
         footer_access_soluciones: 'Solutions',
         footer_access_tecnologia: 'Technology & Security',
         footer_access_impacto: 'Impact (ROI)',
-        footer_access_fundador: 'Founder',
+        footer_access_fundador: 'Founders',
         footer_access_contacto: 'Contact',
         footer_legal_privacy: 'Data Processing Policy (Law 1581 of 2012)',
         footer_legal_terms: 'Terms and Conditions of Service',
@@ -262,8 +264,10 @@ const translations = {
         impacto_note: 'We offer a customized ROI calculator for your specific operation during the PoC phase.',
 
         // Founder
-        founder_title: 'Technical Leadership and Founder-Market Fit',
-        founder_subtitle: 'About the Founder',
+        // Los perfiles viven en src/data/founders.js (ver FounderLeadershipSection).
+        // Estas claves se conservan como respaldo; mantenlas alineadas.
+        founder_title: 'Technical and Business Leadership',
+        founder_subtitle: 'About the Founders',
         founder_intro: 'Xlerion is led by Miguel E. Rodriguez Martinez, Senior Full-Stack Engineer with over 10 years of experience designing architectures where real-time data comes alive. My focus is not just delivering code, but ensuring data resilience, pipeline optimization, and strategic alignment of the project with business objectives.',
         founder_name: 'Miguel E. Rodriguez Martinez',
         founder_role: 'Founder & Lead Technical Architect',
