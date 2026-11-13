@@ -130,6 +130,8 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'favicon.png',
     'LogoX.png',
     'LogoX.svg',
+    'LogoX_mark.svg',
+    'LogoX_wordmark.svg',
     'humans.txt',
     'sitemap.xml',
     'robots.txt',

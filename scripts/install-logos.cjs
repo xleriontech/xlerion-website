@@ -76,6 +76,76 @@ async function inlineImages(svg, report) {
   return out;
 }
 
+/**
+ * Construye la version "mark" del logo: SOLO el circuito, sin el wordmark
+ * "XLERION" ni el simbolo (R).
+ *
+ * Es la version que usan el favicon y los iconos PWA: a 32 o 192 px el
+ * wordmark es ilegible y el sistema operativo recorta el icono en circulo.
+ *
+ * El SVG de Illustrator esta ordenado por capas:
+ *   [simbolo (R)] [sombra del circuito] [trazados] [trazo aqua] [chips]
+ *   [raster del wordmark] [letterforms del wordmark]
+ * Todo desde el bloque "st3" (raster del wordmark) en adelante se descarta,
+ * y la primera capa (simbolo (R)) tambien.
+ */
+function buildMarkSvg(svg) {
+  const cut = svg.indexOf('<g class="st3"');
+  if (cut === -1) throw new Error('No se encontro el bloque del wordmark (st3)');
+
+  // "head" ya contiene la cabecera, los <defs> y las capas hasta el wordmark.
+  let head = svg.slice(0, cut);
+  // Fuera el simbolo (R) (primera capa).
+  head = head.replace(/<g class="st4">[\s\S]*?<\/g>\s*/, '');
+
+  return `${head}</svg>`;
+}
+
+/**
+ * Calcula el viewBox ajustado al contenido real (bounding box de los
+ * pixeles con alfa) para que el mark quede encuadrado sin aire extra.
+ */
+async function tightenViewBox(svg) {
+  const box = svg.match(/viewBox="([^"]+)"/)[1].split(/\s+/).map(Number);
+  const [, , vbW, vbH] = box;
+
+  // Se renderiza con un ancho conocido para poder convertir pixxeles -> unidades.
+  const RENDER = 1200;
+  const probe = svg.replace(/<svg([^>]*)>/, `<svg$1 width="${RENDER}" height="${Math.round((RENDER * vbH) / vbW)}">`);
+  const { data, info } = await sharp(Buffer.from(probe), { density: 72 })
+    .png()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+
+  let minX = info.width;
+  let minY = info.height;
+  let maxX = 0;
+  let maxY = 0;
+  for (let y = 0; y < info.height; y++) {
+    for (let x = 0; x < info.width; x++) {
+      if (data[(y * info.width + x) * 4 + 3] > 8) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+    }
+  }
+  if (maxX <= minX || maxY <= minY) throw new Error('El mark quedo vacio');
+
+  const sx = vbW / info.width;
+  const sy = vbH / info.height;
+  const x = minX * sx;
+  const y = minY * sy;
+  const w = (maxX - minX + 1) * sx;
+  const h = (maxY - minY + 1) * sy;
+
+  return svg.replace(
+    /viewBox="[^"]+"/,
+    `viewBox="${x.toFixed(2)} ${y.toFixed(2)} ${w.toFixed(2)} ${h.toFixed(2)}"`
+  );
+}
+
 (async () => {
   const report = [];
 
@@ -83,6 +153,12 @@ async function inlineImages(svg, report) {
   const clearRaw = fs.readFileSync(path.join(SRC, 'LogoX_Web_clear-01.svg'), 'utf8');
   const clear = minifySvg(await inlineImages(clearRaw, report));
   fs.writeFileSync(path.join(OUT, 'LogoX.svg'), clear);
+
+  // --- Variante "mark": solo el circuito (favicon + iconos PWA) ---
+  const mark = await tightenViewBox(
+    minifySvg(await inlineImages(buildMarkSvg(clearRaw), report))
+  );
+  fs.writeFileSync(path.join(OUT, 'LogoX_mark.svg'), mark);
 
   // --- Variante para fondos claros ---
   const darkRaw = fs.readFileSync(path.join(SRC, 'LogoX_Web_dark-02.svg'), 'utf8');
@@ -103,7 +179,7 @@ async function inlineImages(svg, report) {
   }
 
   console.log('  salida:');
-  for (const f of ['LogoX.svg', 'LogoX_Dark.svg', 'LogoX.png']) {
+  for (const f of ['LogoX.svg', 'LogoX_mark.svg', 'LogoX_Dark.svg', 'LogoX.png']) {
     console.log(`    ${f.padEnd(16)} ${String(fs.statSync(path.join(OUT, f)).size).padStart(7)} bytes`);
   }
 

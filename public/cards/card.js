@@ -44,8 +44,8 @@
     var top = el('div', 'region region-top');
     top.innerHTML =
       '<div class="brandbar">' +
-      '<span class="brand-mark">X</span>' +
-      '<span class="brand-name">' + esc(D.brand) + '</span>' +
+      '<img src="/LogoX_mark.svg" alt="" class="brand-mark" />' +
+      '<img src="/LogoX_wordmark.svg" alt="' + esc(D.brand) + '" class="brand-wordmark" />' +
       '<span class="brand-sub">' + esc(D.brandSub) + '</span>' +
       '</div>' +
       '<span class="status"><span class="dot"></span>' + esc(D.status) + '</span>';
