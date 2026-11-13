@@ -67,6 +67,15 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied api folder');
   }
 
+  // Widget del Asistente RAG: solo ese archivo de public/js se publica.
+  const widgetSrc = path.join(__dirname, '..', 'public', 'js', 'widget-xlerion.js');
+  if (fs.existsSync(widgetSrc)) {
+    const widgetDestDir = path.join(__dirname, '..', 'dist', 'js');
+    fs.mkdirSync(widgetDestDir, { recursive: true });
+    fs.copyFileSync(widgetSrc, path.join(widgetDestDir, 'widget-xlerion.js'));
+    console.log('Copied widget-xlerion.js to dist/js/');
+  }
+
   // Copy /.well-known (security.txt segun RFC 9116)
   const wellKnownSrc = path.join(__dirname, '..', 'public', '.well-known');
   if (fs.existsSync(wellKnownSrc)) {

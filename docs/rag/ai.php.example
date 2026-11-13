@@ -1,0 +1,39 @@
+<?php
+/**
+ * Plantilla de configuracion del Asistente Xlerion.
+ *
+ * Copiar fuera de public_html, por ejemplo:
+ *   /home/USUARIO/xlerion-secrets/ai.php        (este archivo, ya rellenado)
+ *   /home/USUARIO/xlerion-secrets/ai.php.prompt (copia de system-prompt.txt)
+ *
+ * Permisos: chmod 600, propietario de la cuenta. Nunca versionar valores reales.
+ *
+ * El proxy solo se activa cuando "enabled" es true y todas las claves tienen
+ * valor. Mientras siga en false, el widget no aparece en el sitio.
+ */
+return [
+    'enabled'  => false,
+    'provider' => 'groq', // 'groq' (directo) o 'gateway' (RAG externo)
+
+    // --- Proveedor directo Groq (sin retrieval vectorial) ---
+    'groq_api_key'  => 'REEMPLAZAR_CON_CLAVE_GROQ',
+    'groq_model'    => 'openai/gpt-oss-120b',
+    'groq_endpoint' => 'https://api.groq.com/openai/v1/chat/completions',
+    'groq_json_mode' => true,
+
+    // --- Proveedor gateway (RAG con base vectorial externa) ---
+    'gateway'   => 'https://gateway.ejemplo.dev/chat',
+    'token'     => 'REEMPLAZAR_CON_TOKEN_DEL_GATEWAY',
+
+    // Base MariaDB creada desde cPanel > MySQL Databases.
+    'db_dsn'    => 'mysql:host=localhost;dbname=USUARIO_chat;charset=utf8mb4',
+    'db_user'   => 'USUARIO_chat',
+    'db_pass'   => 'REEMPLAZAR_CON_CONTRASENA',
+
+    // Cadena larga y aleatoria para los hashes de auditoria.
+    'ip_pepper' => 'REEMPLAZAR_CON_CADENA_ALEATORIA_DE_64_CARACTERES',
+
+    // Opcional: origenes extra permitidos (los de produccion y localhost ya
+    // vienen por defecto en el proxy).
+    'allowed_origins' => [],
+];

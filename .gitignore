@@ -70,3 +70,9 @@ public/.env.*
 
 # Artefactos del IDE (Qoder) generados en docs/
 /docs/site-example/
+
+# Configuracion local del Asistente RAG (contiene credenciales, nunca se versiona)
+/xlerion-secrets/
+
+# Guia de despliegue del Asistente RAG (si se versiona)
+!docs/rag/README.md

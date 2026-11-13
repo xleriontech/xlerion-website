@@ -28,6 +28,9 @@
   # contra el directorio actual y acaba pidiendo /api/api/contact.php (404).
   RewriteRule ^api/contact/?$ /api/contact.php [L]
 
+  # Asistente RAG: health y consultas del widget.
+  RewriteRule ^api/chat/?$ /api/chat-proxy.php [L,QSA]
+
   # Analitica del sitio: un unico front-controller con sub-path opcional.
   # El front llama a /api/analytics.php?action=... (no depende de reglas),
   # pero estas reglas mantienen el contrato original /api/analytics/ping, etc.
