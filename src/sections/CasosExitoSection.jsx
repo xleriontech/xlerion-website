@@ -39,6 +39,8 @@ const CASES_ES = [
     category: 'Turismo & Agro',
     title: 'Tropical Biohostel',
     image: '/images/casos/tropical-biohostel.jpg',
+    imageAlt:
+      'Tropical Biohostel en Nocaima, Cundinamarca: portada del sitio de turismo experiencial y hospedaje rural con Cosmic Bungalow 3D',
     tagline: 'Plataforma de turismo experiencial y hospedaje rural con buscador inteligente y Cosmic Bungalow 3D.',
     description:
       'Sitio web de destino turístico y hospedaje rural en Nocaima, Cundinamarca. Incluye buscador inteligente (Zemisqua), catálogo por categorías (hostales, glamping, actividades, restaurantes, fincas), fichas de propiedad y experiencia de Cosmic Bungalow con visualización 3D.',
@@ -59,6 +61,8 @@ const CASES_ES = [
     category: 'ONG · Agro-TIC',
     title: 'Fundación Alma y Semilla',
     image: '/images/casos/alma-semilla.jpg',
+    imageAlt:
+      'Fundación Alma y Semilla en Chía, Cundinamarca: portada del repositorio etnográfico con IA RAG, realidad virtual y sensores IoT',
     tagline: 'Etnotecnología y saberes ancestrales 5.0: RAG con IA, Realidad Virtual e IoT para el patrimonio inmaterial.',
     description:
       'Sitio institucional y repositorio vivo para una ESAL de Chía, Cundinamarca. Asistente etnográfico con IA (RAG sobre LangChain y pgvector), recorridos de Realidad Virtual y 360° (Three.js / WebXR) e IoT para biocultura (LoRaWAN). Vectorización ética con 3 niveles de acceso y trazabilidad de autoría conforme al Convenio 169 OIT.',
@@ -79,6 +83,8 @@ const CASES_ES = [
     category: 'E-commerce · Moda circular',
     title: 'El Ropero Mag&co',
     image: '/images/casos/el-ropero-magco.jpg',
+    imageAlt:
+      'El Ropero Mag&co en Bogotá: portada de la tienda e-commerce de moda circular con probador virtual 3D y pagos en línea',
     tagline: 'Tienda de moda circular con catálogo curado, drops, probador virtual 3D y pagos en línea.',
     description:
       'Plataforma e-commerce de ropa y accesorios de segunda mano, curados pieza por pieza en Bogotá. Catálogo, calendario de drops, probador virtual 3D, carrito y pasarela de pagos (Wompi / Bancolombia, PSE, Nequi, Daviplata, tarjeta y contra entrega).',
@@ -102,6 +108,8 @@ const CASES_EN = [
     category: 'Tourism & Agro',
     title: 'Tropical Biohostel',
     image: '/images/casos/tropical-biohostel.jpg',
+    imageAlt:
+      'Tropical Biohostel in Nocaima, Cundinamarca: homepage of the experiential tourism and rural lodging site with Cosmic Bungalow 3D',
     tagline: 'Experiential tourism and rural lodging platform with smart search and Cosmic Bungalow 3D.',
     description:
       'Tourism destination and rural lodging website in Nocaima, Cundinamarca. Includes smart search (Zemisqua), category catalog (hostels, glamping, activities, restaurants, farms), property listings and a Cosmic Bungalow experience with 3D visualization.',
@@ -122,6 +130,8 @@ const CASES_EN = [
     category: 'NGO · Agro-TIC',
     title: 'Alma y Semilla Foundation',
     image: '/images/casos/alma-semilla.jpg',
+    imageAlt:
+      'Alma y Semilla Foundation in Chía, Cundinamarca: homepage of the ethnographic repository with AI RAG, virtual reality and IoT sensors',
     tagline: 'Ethnotechnology and ancestral knowledge 5.0: AI RAG, Virtual Reality and IoT for intangible heritage.',
     description:
       'Institutional website and living repository for an ESAL in Chía, Cundinamarca. Ethnographic assistant with AI (RAG over LangChain and pgvector), Virtual Reality and 360° tours (Three.js / WebXR) and IoT for bioculture (LoRaWAN). Ethical vectorization with 3 access levels and authorship traceability under ILO Convention 169.',
@@ -142,6 +152,8 @@ const CASES_EN = [
     category: 'E-commerce · Circular fashion',
     title: 'El Ropero Mag&co',
     image: '/images/casos/el-ropero-magco.jpg',
+    imageAlt:
+      'El Ropero Mag&co in Bogotá: homepage of the circular fashion e-commerce store with 3D virtual try-on and online payments',
     tagline: 'Circular fashion store with curated catalog, drops, 3D virtual try-on and online payments.',
     description:
       'Second-hand clothing and accessories e-commerce platform, curated piece by piece in Bogotá. Catalog, drops calendar, 3D virtual try-on, cart and payment gateway (Wompi / Bancolombia, PSE, Nequi, Daviplata, card and cash on delivery).',
@@ -198,7 +210,7 @@ export default function CasosExitoSection() {
                 <div className="relative h-48 overflow-hidden border-b border-white/[0.08]">
                   <img
                     src={item.image}
-                    alt={`${c.imageAlt} — ${item.title}`}
+                    alt={item.imageAlt || c.imageAlt}
                     loading="lazy"
                     className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
                   />
