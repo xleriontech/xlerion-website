@@ -5513,7 +5513,7 @@ export default function ThreeJSIntersection() {
                                             } else if (algorithmPassword.length === 0) {
                                                 setAlgorithmAuthError('Por favor ingrese la contraseña');
                                             } else {
-                                                setAlgorithmAuthError('Contraseña incorrecta. Contacte a XLERION (contacto@xlerion.com)');
+                                                setAlgorithmAuthError('Contraseña incorrecta. Contacte a XLERION (contacto@xlerion.com.co)');
                                             }
                                         }}
                                         disabled={algorithmPassword.length === 0}
@@ -5522,7 +5522,7 @@ export default function ThreeJSIntersection() {
                                         <span className="text-2xl">🔓</span>Ver Algoritmo
                                     </button>
                                     <div className="text-xs text-gray-500 text-center pt-2">
-                                        ¿No tiene acceso? Contacte a <a href="mailto:contacto@xlerion.com" className="text-indigo-400 hover:text-indigo-300 underline">contacto@xlerion.com</a>
+                                        ¿No tiene acceso? Contacte a <a href="mailto:contacto@xlerion.com.co" className="text-indigo-400 hover:text-indigo-300 underline">contacto@xlerion.com.co</a>
                                     </div>
                                 </div>
                             </div>
@@ -5585,7 +5585,7 @@ export default function ThreeJSIntersection() {
                                             } else if (techDocPassword.length === 0) {
                                                 setTechDocAuthError('Por favor ingrese la contraseña');
                                             } else {
-                                                setTechDocAuthError('Contraseña incorrecta. Contacte a XLERION (contacto@xlerion.com)');
+                                                setTechDocAuthError('Contraseña incorrecta. Contacte a XLERION (contacto@xlerion.com.co)');
                                             }
                                         }}
                                         disabled={techDocPassword.length === 0}
@@ -5594,7 +5594,7 @@ export default function ThreeJSIntersection() {
                                         <Lock size={24} strokeWidth={2} />Acceder al Documento
                                     </button>
                                     <div className="text-xs text-gray-500 text-center pt-2">
-                                        ¿No tiene acceso? Contacte a <a href="mailto:contacto@xlerion.com" className="text-blue-400 hover:text-blue-300 underline">contacto@xlerion.com</a>
+                                        ¿No tiene acceso? Contacte a <a href="mailto:contacto@xlerion.com.co" className="text-blue-400 hover:text-blue-300 underline">contacto@xlerion.com.co</a>
                                     </div>
                                 </div>
                             </div>
@@ -5718,7 +5718,7 @@ emitMetrics({ dir: target.dir, batch, wait: target.age, released: releasedCount[
                                     </div>
                                 </section>
                                 <div className="text-center text-xs text-gray-500 pt-4">
-                                    © 2015-2026 XLERION | contacto@xlerion.com | US/UE/COL Patent Pending
+                                    © 2015-2026 XLERION | contacto@xlerion.com.co | US/UE/COL Patent Pending
                                 </div>
                             </div>
                         </div>
@@ -5825,7 +5825,7 @@ emitMetrics({ dir: target.dir, batch, wait: target.age, released: releasedCount[
                                     </div>
                                 </section>
                                 <div className="text-center text-xs text-gray-500 pt-4">
-                                    © 2015-2026 XLERION | Confidencial | Patent Pending | contacto@xlerion.com
+                                    © 2015-2026 XLERION | Confidencial | Patent Pending | contacto@xlerion.com.co
                                 </div>
                             </div>
                         </div>
@@ -5926,7 +5926,7 @@ emitMetrics({ dir: target.dir, batch, wait: target.age, released: releasedCount[
                                         <p className="font-mono text-cyan-400">
                                             <strong>XLERION</strong><br />
                                             <Globe size={14} className="inline mr-1" /> <a href="https://xlerion.com" target="_blank" rel="noopener" className="underline hover:text-cyan-300">www.xlerion.com</a><br />
-                                            📧 contacto@xlerion.com<br />
+                                            📧 contacto@xlerion.com.co<br />
                                             📍 Colombia | Global Patent Pending
                                         </p>
                                     </div>

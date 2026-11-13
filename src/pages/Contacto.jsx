@@ -105,7 +105,7 @@ export default function Contacto() {
 
                         <div className="space-y-3 text-gray-200">
                             <p>
-                                <span className="text-[#00e9fa]">Email:</span> contacto@xlerion.tech
+                                <span className="text-[#00e9fa]">Email:</span> contacto@xlerion.com.co
                             </p>
                             <p>Respuesta en menos de 24 horas hábiles</p>
                             <p>Lunes a viernes, 8am - 6pm (COT)</p>

@@ -30,7 +30,7 @@ const translations = {
         footer_access_contacto: 'Contacto',
         footer_legal_privacy: 'Política de Tratamiento de Datos (Ley 1581 de 2012)',
         footer_legal_terms: 'Términos y Condiciones de Servicio',
-        footer_email: 'contacto@xlerion.co',
+        footer_email: 'contacto@xlerion.com.co',
         footer_location: 'Bogotá / Nocaima, Cundinamarca, Colombia',
 
         // Hero Section
@@ -140,7 +140,7 @@ const translations = {
         contact_form_consent: 'Autorizo el tratamiento de mis datos personales conforme a la Política de Tratamiento de Datos de Xlerion, en cumplimiento de la Ley 1581 de 2012 y el Decreto 1377 de 2013 de la República de Colombia.',
         contact_form_submit: 'Solicitar Evaluación Técnica y PoC',
         contact_email_label: 'Correo',
-        contact_email_value: 'contacto@xlerion.co',
+        contact_email_value: 'contacto@xlerion.com.co',
         contact_location_label: 'Ubicación',
         contact_location_value: 'Bogotá / Nocaima, Cundinamarca, Colombia',
         contact_sla_label: 'SLA de respuesta',
@@ -187,7 +187,7 @@ const translations = {
         footer_access_contacto: 'Contact',
         footer_legal_privacy: 'Data Processing Policy (Law 1581 of 2012)',
         footer_legal_terms: 'Terms and Conditions of Service',
-        footer_email: 'contacto@xlerion.co',
+        footer_email: 'contacto@xlerion.com.co',
         footer_location: 'Bogotá / Nocaima, Cundinamarca, Colombia',
 
         // Hero Section
@@ -297,7 +297,7 @@ const translations = {
         contact_form_consent: 'I authorize the processing of my personal data in accordance with Xlerion Data Processing Policy, complying with Law 1581 of 2012 and Decree 1377 of 2013 of the Republic of Colombia.',
         contact_form_submit: 'Request Technical Evaluation and PoC',
         contact_email_label: 'Email',
-        contact_email_value: 'contacto@xlerion.co',
+        contact_email_value: 'contacto@xlerion.com.co',
         contact_location_label: 'Location',
         contact_location_value: 'Bogotá / Nocaima, Cundinamarca, Colombia',
         contact_sla_label: 'Response SLA',

@@ -1917,7 +1917,7 @@ export default function XlerionGreenWave() {
                                         } else if (algorithmPassword.length === 0) {
                                             setAlgorithmAuthError('Por favor ingrese la contraseña');
                                         } else {
-                                            setAlgorithmAuthError('Contraseña incorrecta. Contacte a XLERION (contacto@xlerion.com)');
+                                            setAlgorithmAuthError('Contraseña incorrecta. Contacte a XLERION (contacto@xlerion.com.co)');
                                         }
                                     }}
                                     disabled={algorithmPassword.length === 0}
@@ -1929,8 +1929,8 @@ export default function XlerionGreenWave() {
 
                                 <div className="text-xs text-gray-500 text-center pt-2">
                                     ¿No tiene acceso? Contacte a{' '}
-                                    <a href="mailto:contacto@xlerion.com" className="text-indigo-400 hover:text-indigo-300 underline">
-                                        contacto@xlerion.com
+                                    <a href="mailto:contacto@xlerion.com.co" className="text-indigo-400 hover:text-indigo-300 underline">
+                                        contacto@xlerion.com.co
                                     </a>
                                 </div>
                             </div>
@@ -2015,7 +2015,7 @@ export default function XlerionGreenWave() {
                                         } else if (techDocPassword.length === 0) {
                                             setTechDocAuthError('Por favor ingrese la contraseña');
                                         } else {
-                                            setTechDocAuthError('Contraseña incorrecta. Contacte a XLERION para obtener acceso (contacto@xlerion.com)');
+                                            setTechDocAuthError('Contraseña incorrecta. Contacte a XLERION para obtener acceso (contacto@xlerion.com.co)');
                                         }
                                     }}
                                     disabled={techDocPassword.length === 0}
@@ -2027,8 +2027,8 @@ export default function XlerionGreenWave() {
 
                                 <div className="text-xs text-gray-500 text-center pt-2">
                                     ¿No tiene acceso? Contacte a{' '}
-                                    <a href="mailto:contacto@xlerion.com" className="text-blue-400 hover:text-blue-300 underline">
-                                        contacto@xlerion.com
+                                    <a href="mailto:contacto@xlerion.com.co" className="text-blue-400 hover:text-blue-300 underline">
+                                        contacto@xlerion.com.co
                                     </a>
                                 </div>
                             </div>
@@ -2324,7 +2324,7 @@ export default function XlerionGreenWave() {
                                     <div className="bg-gray-800/50 border border-blue-600/20 rounded p-3">
                                         <strong className="text-blue-400">📜 Licenciamiento:</strong>
                                         <p className="text-gray-400 mt-1">Disponible para gobiernos municipales y empresas de movilidad.
-                                            Contacto: contacto@xlerion.com</p>
+                                            Contacto: contacto@xlerion.com.co</p>
                                     </div>
                                     <div className="bg-gray-800/50 border border-blue-600/20 rounded p-3">
                                         <strong className="text-blue-400">🔒 Privacidad:</strong>
@@ -2423,7 +2423,7 @@ Fecha Generación:    ${new Date().toLocaleString('es-CO')}
 Hash Digital:        ${uniqueHash}
 Empresa:             XLERION
 Sitio Web:           https://xlerion.com
-Email:               contacto@xlerion.com
+Email:               contacto@xlerion.com.co
 Copyright:           © 2015-2026 XLERION. Todos los derechos reservados.
 
 ═══════════════════════════════════════════════════════════════
@@ -2594,7 +2594,7 @@ Accesibilidad:      ARIA labels, keyboard nav, screen reader
     • Empresas de movilidad y transporte
     • Centros de investigación académica
     
-    Contacto: contacto@xlerion.com
+    Contacto: contacto@xlerion.com.co
 
 🔒  PRIVACIDAD
     Cumplimiento:
@@ -2614,7 +2614,7 @@ Accesibilidad:      ARIA labels, keyboard nav, screen reader
 🏢  XLERION
     Ingeniería Creativa Modular
     
-    📧  contacto@xlerion.com
+    📧  contacto@xlerion.com.co
     🌐  https://xlerion.com
     📍  Colombia
     
@@ -2654,7 +2654,7 @@ Este documento contiene información confidencial y propietaria.
                                                 } else if (pdfPassword.length === 0) {
                                                     setPdfError('Por favor ingrese una clave de acceso');
                                                 } else {
-                                                    setPdfError('❌ Clave incorrecta. Contacte a XLERION para obtener acceso autorizado (contacto@xlerion.com)');
+                                                    setPdfError('❌ Clave incorrecta. Contacte a XLERION para obtener acceso autorizado (contacto@xlerion.com.co)');
                                                 }
                                             }}
                                             disabled={pdfPassword.length === 0}
@@ -2666,8 +2666,8 @@ Este documento contiene información confidencial y propietaria.
 
                                         <div className="text-xs text-gray-500 text-center">
                                             ¿No tiene clave de acceso? Contacte a{' '}
-                                            <a href="mailto:contacto@xlerion.com" className="text-blue-400 hover:text-blue-300 underline">
-                                                contacto@xlerion.com
+                                            <a href="mailto:contacto@xlerion.com.co" className="text-blue-400 hover:text-blue-300 underline">
+                                                contacto@xlerion.com.co
                                             </a>
                                         </div>
                                     </div>
@@ -2833,7 +2833,7 @@ Este documento contiene información confidencial y propietaria.
                                         <p className="font-mono text-green-400">
                                             <strong>XLERION</strong><br />
                                             🌐 Web: <a href="https://xlerion.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-green-300">www.xlerion.com</a><br />
-                                            📧 Email: contacto@xlerion.com<br />
+                                            📧 Email: contacto@xlerion.com.co<br />
                                             📍 Colombia<br />
                                             🛡️ Soluciones modulares para ingeniería creativa
                                         </p>

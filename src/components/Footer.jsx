@@ -42,10 +42,10 @@ export default function Footer({ navTo }) {
             </h4>
             <div className="space-y-3 text-sm font-sans">
               <a
-                href={`mailto:${t('contact_email') || 'contacto@xlerion.co'}`}
+                href={`mailto:${t('contact_email') || 'contacto@xlerion.com.co'}`}
                 className="flex items-center gap-3 text-white font-mono uppercase tracking-widest hover:text-[#00e9fa] transition-colors"
               >
-                <Mail size={16} className="text-[#00e9fa]" /> contacto@xlerion.co
+                <Mail size={16} className="text-[#00e9fa]" /> contacto@xlerion.com.co
               </a>
               <div className="flex items-center gap-3 text-gray-400 font-mono text-[11px] uppercase tracking-widest">
                 <MapPin size={14} className="text-[#00e9fa]/50" />

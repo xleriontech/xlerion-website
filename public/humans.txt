@@ -2,7 +2,7 @@
 
 Founder & Lead Developer: Miguel Rodríguez Martínez
 Site: https://xlerion.com.co
-Email: contacto@xlerion.tech
+Email: contacto@xlerion.com.co
 Location: Bogotá, Colombia
 LinkedIn: https://www.linkedin.com/in/miguel-rodriguez-xlerion
 
@@ -54,7 +54,7 @@ Structured Data: JSON-LD (Organization, WebSite)
 
 /* CONTACT */
 
-Email: contacto@xlerion.tech
+Email: contacto@xlerion.com.co
 Website: https://xlerion.com.co
 Instagram: @ultimatexlerion
 Facebook: /xlerionultimate
