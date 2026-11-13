@@ -200,15 +200,16 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
               ))}
 
               {NAV_PAGES.map((page) => (
-                <a
+                <button
                   key={page.to}
-                  href={page.to}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300 inline-flex items-center gap-2"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    window.location.href = page.to;
+                  }}
+                  className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300"
                 >
                   {t(page.key)}
-                  <i className="bi bi-arrow-up-right text-base opacity-60" />
-                </a>
+                </button>
               ))}
 
               <div className="mobile-menu-item border-t border-white/[0.08] pt-6 mt-2">
