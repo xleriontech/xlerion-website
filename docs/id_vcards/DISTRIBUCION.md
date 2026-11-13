@@ -262,7 +262,7 @@ FN:Miguel E. Rodriguez Martinez
 ORG:Xlerion
 TITLE:Founder & Lead Technical Architect
 TEL;TYPE=CELL:+573132263265
-EMAIL:miguelxlerion@gmail.com
+EMAIL:mike@xlerion.com.co
 URL:https://xlerion.com.co
 URL:https://www.linkedin.com/in/mikerodriguez84
 X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/mikerodriguez84

@@ -110,7 +110,7 @@ const foundersData = {
     /* --- 5. Footer / Datos de Contacto --- */
     contact: {
       location: 'Bogotá, Colombia',
-      email: 'miguelxlerion@gmail.com',
+      email: 'mike@xlerion.com.co',
       phone: '+57 313 226 3265',
       phoneTel: '+573132263265',
     },
