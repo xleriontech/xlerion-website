@@ -243,21 +243,18 @@ body {
 }
 
 .brand-mark {
-  font-family: var(--f-mono);
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--x-primary);
-  text-shadow: 0 0 18px rgba(0, 233, 250, 0.45);
+  display: block;
+  height: clamp(20px, 4vh, 32px);
+  width: auto;
   flex-shrink: 0;
+  filter: drop-shadow(0 0 12px rgba(0, 233, 250, 0.3));
 }
 
-.brand-name {
-  font-family: var(--f-mono);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: var(--x-text);
-  text-transform: uppercase;
+.brand-wordmark {
+  display: block;
+  height: clamp(11px, 2vh, 16px);
+  width: auto;
+  flex-shrink: 0;
 }
 
 .brand-sub {
@@ -1365,6 +1362,9 @@ body {
   .card-grid {
     grid-template-columns: minmax(180px, 27%) minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr) auto;
+    /* Sin esto, las 7 áreas del modo vertical crean filas vacías al fondo
+       y el contenido no aprovecha el alto disponible. */
+    grid-template-areas: none;
     column-gap: clamp(14px, 2.2vw, 24px);
     row-gap: 10px;
   }
@@ -1418,11 +1418,11 @@ body {
   }
 
   .brand-mark {
-    font-size: 13px;
+    height: clamp(18px, 3.6vh, 28px);
   }
 
-  .brand-name {
-    font-size: 10px;
+  .brand-wordmark {
+    height: clamp(10px, 1.9vh, 14px);
   }
 
   .brand-sub {
@@ -1455,12 +1455,13 @@ body {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
-    align-content: center;
+    align-content: stretch;
     flex: 1;
   }
 
   .metric {
     grid-template-columns: 28px minmax(0, 1fr);
+    align-items: center;
     gap: 10px;
     padding: clamp(10px, 2.2vh, 16px);
   }
@@ -1518,12 +1519,13 @@ body {
 /* ---------- Landscape compacto (iPhone SE 568×320, etc.) ---------- */
 @media (orientation: landscape) and (max-height: 430px) {
   :root {
-    --photo: 68px;
-    --fz-name: 16px;
-    --fz-tag: 9px;
-    --fz-chip: 9px;
-    --fz-cta: 10px;
-    --fz-contact: 9px;
+    --photo: clamp(84px, 30vh, 132px);
+    --fz-name: 19px;
+    --fz-role: 9.5px;
+    --fz-tag: 10px;
+    --fz-chip: 9.5px;
+    --fz-cta: 10.5px;
+    --fz-contact: 9.5px;
     --pad: 9px;
     --gap: 6px;
   }
@@ -1550,19 +1552,19 @@ body {
   }
 
   .metric {
-    padding: 5px 7px;
+    padding: 8px 9px;
   }
 
   .metric-title {
-    font-size: 9.5px;
+    font-size: 12px;
   }
 
   .metric-desc {
-    font-size: 8px;
+    font-size: 9.5px;
   }
 
   .cta {
-    padding: 6px 8px;
+    padding: 7px 9px;
   }
 
   .contact-list {
@@ -1570,6 +1572,61 @@ body {
   }
 
   .hint {
+    display: none;
+  }
+}
+
+/* ---------- Landscape mínimo (≤360 px de alto) ---------- */
+@media (orientation: landscape) and (max-height: 360px) {
+  :root {
+    --photo: clamp(70px, 26vh, 92px);
+    --fz-name: 15px;
+    --fz-role: 8.5px;
+    --fz-tag: 8.5px;
+    --fz-cta: 9.5px;
+    --fz-contact: 8.5px;
+    --pad: 8px;
+    --gap: 5px;
+  }
+
+  .card-grid {
+    column-gap: 10px;
+    row-gap: 5px;
+  }
+
+  .region-main {
+    gap: 5px;
+  }
+
+  .founder-tagline {
+    display: none;
+  }
+
+  .metric {
+    grid-template-columns: 20px minmax(0, 1fr);
+    gap: 7px;
+    padding: 5px 7px;
+  }
+
+  .metric-ico {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  .metric-title {
+    font-size: 9px;
+  }
+
+  .metric-desc {
+    display: none;
+  }
+
+  .cta {
+    padding: 5px 7px;
+  }
+
+  .cta small {
     display: none;
   }
 }
@@ -1646,11 +1703,11 @@ body {
   }
 
   .brand-mark {
-    font-size: 17px;
+    height: 34px;
   }
 
-  .brand-name {
-    font-size: 13px;
+  .brand-wordmark {
+    height: 17px;
   }
 
   .brand-sub {
