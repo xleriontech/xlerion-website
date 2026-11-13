@@ -115,17 +115,21 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
                 </button>
               ))}
 
-              {/* Paginas propias: tarjetas digitales */}
+              {/* Paginas propias: tarjetas digitales.
+                  <a> y no <Link>: /cards/ es una pagina ESTATICA servida por el
+                  servidor. Con <Link> el router haria una navegacion
+                  client-side, el servidor no recibiria la peticion y la SPA
+                  caeria en su ruta 404 (pantalla en blanco). */}
               {NAV_PAGES.map((page) => (
-                <Link
+                <a
                   key={page.to}
-                  to={page.to}
-                  data-transition="nav"
+                  href={page.to}
+                  onClick={() => setMobileMenuOpen(false)}
                   className="inline-flex items-center gap-1.5 h-10 px-3 whitespace-nowrap leading-none text-gray-300 hover:text-[#00e9fa] transition-colors duration-200 rounded-lg hover:bg-[#00e9fa]/5"
                 >
                   {t(page.key)}
                   <i className="bi bi-arrow-up-right text-[9px] opacity-60" />
-                </Link>
+                </a>
               ))}
 
               {/* Language Toggle */}
@@ -196,15 +200,15 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
               ))}
 
               {NAV_PAGES.map((page) => (
-                <Link
+                <a
                   key={page.to}
-                  to={page.to}
+                  href={page.to}
                   onClick={() => setMobileMenuOpen(false)}
                   className="mobile-menu-item text-2xl font-work uppercase tracking-[0.2em] font-light text-gray-300 hover:text-[#00e9fa] transition-colors duration-300 inline-flex items-center gap-2"
                 >
                   {t(page.key)}
                   <i className="bi bi-arrow-up-right text-base opacity-60" />
-                </Link>
+                </a>
               ))}
 
               <div className="mobile-menu-item border-t border-white/[0.08] pt-6 mt-2">

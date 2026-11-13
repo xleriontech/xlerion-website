@@ -190,16 +190,24 @@ function FounderCard({ founder, locale, revealDelay }) {
               {link.label[locale]}
             </>
           );
-          return link.internal ? (
-            <Link key={link.href + link.label.es} to={link.href} className={cls}>
-              {inner}
-            </Link>
-          ) : (
+
+          // 'static' -> documento del servidor (tarjeta digital): recarga real.
+          // 'spa'    -> ruta de la SPA: navegacion client-side.
+          if (link.kind === 'spa') {
+            return (
+              <Link key={link.href + link.label.es} to={link.href} className={cls}>
+                {inner}
+              </Link>
+            );
+          }
+
+          return (
             <a
               key={link.href + link.label.es}
               href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(link.kind === 'static'
+                ? {}
+                : { target: '_blank', rel: 'noopener noreferrer' })}
               className={cls}
             >
               {inner}

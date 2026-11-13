@@ -35,7 +35,11 @@ export const FOUNDER_SECTION = {
  * Los dos fundadores, en el orden en que aparecen en la sección.
  *
  * - focus: los 3 items de cada uno (credenciales / valor de negocio).
- * - links: acciones secundarias; las internas usan react-router Link.
+ * - links: acciones secundarias. El tipo decide como se abre:
+ *     'spa'     -> ruta de la SPA (navegacion client-side, react-router)
+ *     'static'  -> documento estatico servido por el servidor (tarjetas):
+ *                  deben abrirse con una recarga real, no con el router
+ *     (sin tipo)-> enlace externo
  */
 export const FOUNDERS = [
   {
@@ -106,13 +110,13 @@ export const FOUNDERS = [
         icon: 'user',
         label: { es: 'Ver perfil', en: 'View profile' },
         href: '/fundador',
-        internal: true,
+        kind: 'spa',
       },
       {
         icon: 'card',
         label: { es: 'Tarjeta digital', en: 'Digital card' },
         href: '/mike',
-        internal: true,
+        kind: 'static',
       },
       {
         icon: 'linkedin',
@@ -190,7 +194,7 @@ export const FOUNDERS = [
         icon: 'card',
         label: { es: 'Tarjeta digital', en: 'Digital card' },
         href: '/juliette',
-        internal: true,
+        kind: 'static',
       },
       {
         icon: 'calendar',
