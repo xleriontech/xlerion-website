@@ -7,7 +7,7 @@ const COPY = {
   es: {
     badge: 'DEEPTECH INDUSTRIAL: MINERÍA • MANUFACTURA • SMART CITIES',
     title: 'Transforme sus datos industriales en Inteligencia Visual 3D y Plataformas de IA en Tiempo Real.',
-    subtitle: 'Soluciones DeepTech de nivel empresarial con ciclos de 6-18 meses. También ofrecemos productos productizados de "pie de entrada" para ciclos de venta de 30-90 días.',
+    subtitle: 'Adaptamos nuestro enfoque a su ritmo de innovación: implementamos arquitecturas DeepTech empresariales a medida (ciclos de 6 a 18 meses) o entregamos soluciones empaquetadas de validación rápida, como PoC, configuradores 3D y auditorías de IA, para demostrar valor en 30 a 90 días.',
     ctaPrimary: 'Solicitar Evaluación Gratuita',
     ctaSecondary: 'Conocer Nuestros Productos',
     scroll: 'Explorar soluciones',
@@ -17,7 +17,7 @@ const COPY = {
   en: {
     badge: 'INDUSTRIAL DEEPTECH: MINING • MANUFACTURING • SMART CITIES',
     title: 'Transform Your Industrial Data into 3D Visual Intelligence and Real-Time AI Platforms.',
-    subtitle: 'Enterprise-level DeepTech solutions with 6-18 month cycles. We also offer packaged "foot-in-the-door" products for 30-90 day sales cycles.',
+    subtitle: 'We adapt our approach to your innovation pace: we implement tailored enterprise DeepTech architectures (6 to 18 month cycles) or deliver packaged rapid-validation solutions, such as PoCs, 3D configurators and AI audits, to demonstrate value in 30 to 90 days.',
     ctaPrimary: 'Free Evaluation',
     ctaSecondary: 'Explore Our Products',
     scroll: 'Explore Solutions',
@@ -89,12 +89,6 @@ export default function HeroSection({ onOpenPoC }) {
               {c.subtitle}
             </p>
 
-            <p className="text-sm text-gray-400 font-mono uppercase tracking-[0.2em] mb-6">
-              {lang === 'es'
-                ? 'Ofrecemos dos frentes: (1) Servicios DeepTech a largo plazo para contratos empresariales y (2) Productos productizados de flujo de caja rápido ( PoC, configuradores 3D, auditorías IA).'
-                : 'We offer two fronts: (1) Long-term DeepTech enterprise solutions and (2) Quick-cash-flow packaged products (PoC, 3D configurators, AI audits).'}
-            </p>
-
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
               <button type="button" onClick={onOpenPoC} className="xl-btn-primary">
@@ -106,6 +100,12 @@ export default function HeroSection({ onOpenPoC }) {
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
+
+            <p className="text-[10px] sm:text-xs text-gray-500 font-mono uppercase tracking-[0.15em]">
+              {lang === 'es'
+                ? 'Alineados con ISO/IEC 27001 · Ley 1581 de 2012 (Habeas Data) · On-Premise o nube privada'
+                : 'Aligned with ISO/IEC 27001 · Law 1581 of 2012 (Data Protection) · On-Premise or private cloud'}
+            </p>
           </div>
 
           {/* Columna derecha: gemelo digital interactivo */}

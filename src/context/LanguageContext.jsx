@@ -47,7 +47,7 @@ const translations = {
         soluciones_title: 'Arquitecturas de Nivel Empresarial para Entornos Críticos',
         soluciones_subtitle: 'Tres líneas de solución validadas en producción, diseñadas para operar en nube privada, on-premise o entornos air-gapped.',
         solucion1_title: 'Gemelos Digitales 3D (SmartFactory)',
-        solucion1_desc: 'Monitoreo de telemetría industrial y mantenimiento predictivo con renderizado acelerado por GPU en el navegador.',
+        solucion1_desc: 'Anticipe fallas y optimice el mantenimiento de sus activos críticos. Replicamos sus operaciones físicas en un entorno 3D interactivo en el navegador, sincronizado con telemetría en tiempo real para decisiones predictivas.',
         solucion1_metrics: [
             { label: 'Throughput WebSockets', value: '>100 msg/s' },
             { label: 'Renderizado 3D', value: '60 FPS' },
@@ -55,7 +55,7 @@ const translations = {
         ],
         solucion1_stack: 'React 18 · Three.js · FastAPI · Docker',
         solucion2_title: 'Asistentes Corporativos RAG (Enterprise AI)',
-        solucion2_desc: 'Reducción del tiempo de búsqueda en bases de conocimiento no estructuradas (manuales técnicos, legales, operaciones) mediante IA generativa controlada.',
+        solucion2_desc: 'Centralice y haga consultable el conocimiento de su organización. Nuestros asistentes RAG permiten a sus equipos hallar respuestas precisas en segundos dentro de manuales técnicos, normativas legales y protocolos operativos, con trazabilidad y respuestas ancladas a sus fuentes.',
         solucion2_metrics: [
             { label: 'Chunking semántico', value: 'Semántico' },
             { label: 'Búsqueda híbrida', value: 'Vectorial + Léxica' },
@@ -63,7 +63,7 @@ const translations = {
         ],
         solucion2_stack: 'Python · LangChain · PostgreSQL (pgvector) · Celery + Redis',
         solucion3_title: 'Backend de Telemetría Resiliente (IoT Industrial)',
-        solucion3_desc: 'Ingesta de datos de sensores en entornos con conectividad intermitente o de baja calidad.',
+        solucion3_desc: 'Garantice la continuidad operativa en campo. Nuestro backend de telemetría asegura la ingesta, el almacenamiento local (buffering) y la reconciliación atómica de datos de sensores, incluso en zonas remotas con conectividad intermitente.',
         solucion3_metrics: [
             { label: 'Uptime', value: '99.9%' },
             { label: 'Persistencia local', value: 'Buffering' },
@@ -204,7 +204,7 @@ const translations = {
         soluciones_title: 'Enterprise-Grade Architectures for Critical Environments',
         soluciones_subtitle: 'Three production-validated solution lines, designed to operate in private cloud, on-premise, or air-gapped environments.',
         solucion1_title: 'Digital Twins 3D (SmartFactory)',
-        solucion1_desc: 'Industrial telemetry monitoring and predictive maintenance with GPU-accelerated rendering in the browser.',
+        solucion1_desc: 'Anticipate failures and optimize maintenance of your critical assets. We replicate your physical operations in an interactive 3D environment in the browser, synchronized with real-time telemetry for predictive decisions.',
         solucion1_metrics: [
             { label: 'WebSocket Throughput', value: '>100 msg/s' },
             { label: '3D Rendering', value: '60 FPS' },
@@ -212,7 +212,7 @@ const translations = {
         ],
         solucion1_stack: 'React 18 · Three.js · FastAPI · Docker',
         solucion2_title: 'Enterprise RAG Assistants',
-        solucion2_desc: 'Reduced search time in unstructured knowledge bases (technical manuals, legal, operations) through controlled generative AI.',
+        solucion2_desc: 'Centralize and make your organization\u2019s knowledge searchable. Our RAG assistants help your teams find precise answers in seconds across technical manuals, legal regulations and operating procedures, with traceability and answers anchored to your sources.',
         solucion2_metrics: [
             { label: 'Semantic Chunking', value: 'Semantic' },
             { label: 'Hybrid Search', value: 'Vector + Lexical' },
@@ -220,7 +220,7 @@ const translations = {
         ],
         solucion2_stack: 'Python · LangChain · PostgreSQL (pgvector) · Celery + Redis',
         solucion3_title: 'Resilient Telemetry Backend (Industrial IoT)',
-        solucion3_desc: 'Sensor data ingestion in environments with intermittent or low-quality connectivity.',
+        solucion3_desc: 'Ensure operational continuity in the field. Our telemetry backend guarantees sensor data ingestion, local buffering and atomic reconciliation, even in remote areas with intermittent connectivity.',
         solucion3_metrics: [
             { label: 'Uptime', value: '99.9%' },
             { label: 'Local Persistence', value: 'Buffering' },

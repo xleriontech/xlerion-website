@@ -9,7 +9,7 @@ const SOLUTIONS_ES = [
     number: '01',
     icon: Monitor,
     title: 'Gemelos Digitales 3D (SmartFactory)',
-    desc: 'Monitoreo de telemetría industrial y mantenimiento predictivo con renderizado acelerado por GPU en el navegador.',
+    desc: 'Anticipe fallas y optimice el mantenimiento de sus activos críticos. Replicamos sus operaciones físicas en un entorno 3D interactivo en el navegador, sincronizado con telemetría en tiempo real para decisiones predictivas.',
     metrics: [
       { label: 'Throughput WebSockets', value: '>100 msg/s' },
       { label: 'Renderizado 3D', value: '60 FPS' },
@@ -25,7 +25,7 @@ const SOLUTIONS_ES = [
     number: '02',
     icon: Database,
     title: 'Asistentes Corporativos RAG (Enterprise AI)',
-    desc: 'Reducción del tiempo de búsqueda en bases de conocimiento no estructuradas (manuales técnicos, legales, operaciones) mediante IA generativa controlada.',
+    desc: 'Centralice y haga consultable el conocimiento de su organización. Nuestros asistentes RAG permiten a sus equipos hallar respuestas precisas en segundos dentro de manuales técnicos, normativas legales y protocolos operativos, con trazabilidad y respuestas ancladas a sus fuentes.',
     metrics: [
       { label: 'Chunking semántico', value: 'Semántico' },
       { label: 'Búsqueda híbrida', value: 'Vectorial + Léxica' },
@@ -41,7 +41,7 @@ const SOLUTIONS_ES = [
     number: '03',
     icon: Activity,
     title: 'Backend de Telemetría Resiliente (IoT Industrial)',
-    desc: 'Ingesta de datos de sensores en entornos con conectividad intermitente o de baja calidad.',
+    desc: 'Garantice la continuidad operativa en campo. Nuestro backend de telemetría asegura la ingesta, el almacenamiento local (buffering) y la reconciliación atómica de datos de sensores, incluso en zonas remotas con conectividad intermitente.',
     metrics: [
       { label: 'Uptime', value: '99.9%' },
       { label: 'Persistencia local', value: 'Buffering' },
@@ -60,7 +60,7 @@ const SOLUTIONS_EN = [
     number: '01',
     icon: Monitor,
     title: 'Digital Twins 3D (SmartFactory)',
-    desc: 'Industrial telemetry monitoring and predictive maintenance with GPU-accelerated rendering in the browser.',
+    desc: 'Anticipate failures and optimize maintenance of your critical assets. We replicate your physical operations in an interactive 3D environment in the browser, synchronized with real-time telemetry for predictive decisions.',
     metrics: [
       { label: 'WebSocket Throughput', value: '>100 msg/s' },
       { label: '3D Rendering', value: '60 FPS' },
@@ -76,7 +76,7 @@ const SOLUTIONS_EN = [
     number: '02',
     icon: Database,
     title: 'Enterprise RAG Assistants',
-    desc: 'Reduced search time in unstructured knowledge bases (technical manuals, legal, operations) through controlled generative AI.',
+    desc: 'Centralize and make your organization\u2019s knowledge searchable. Our RAG assistants help your teams find precise answers in seconds across technical manuals, legal regulations and operating procedures, with traceability and answers anchored to your sources.',
     metrics: [
       { label: 'Semantic Chunking', value: 'Semantic' },
       { label: 'Hybrid Search', value: 'Vector + Lexical' },
@@ -92,7 +92,7 @@ const SOLUTIONS_EN = [
     number: '03',
     icon: Activity,
     title: 'Resilient Telemetry Backend (Industrial IoT)',
-    desc: 'Sensor data ingestion in environments with intermittent or low-quality connectivity.',
+    desc: 'Ensure operational continuity in the field. Our telemetry backend guarantees sensor data ingestion, local buffering and atomic reconciliation, even in remote areas with intermittent connectivity.',
     metrics: [
       { label: 'Uptime', value: '99.9%' },
       { label: 'Local Persistence', value: 'Buffering' },
@@ -111,12 +111,12 @@ export default function SolucionesSection() {
 
   const titles = {
     es: {
-      title: 'Soluciones DeepTech: Dos Frentes de Valor',
-      subtitle: '1) Servicios DeepTech enterprise (ciclos 6-18 meses) 2) Productos productizados de flujo de caja rápido (PoC, nichos verticales, auditorías IA).',
+      title: 'Soluciones DeepTech de Punta a Punta',
+      subtitle: 'Gemelos digitales, asistentes RAG y telemetría IoT, disponibles a medida (ciclos de 6 a 18 meses) o empaquetados para validación rápida (30 a 90 días): PoC, configuradores 3D y auditorías de IA.',
     },
     en: {
-      title: 'DeepTech Solutions: Two Value Fronts',
-      subtitle: '1) Enterprise DeepTech solutions (6-18 month cycles) 2) Quick-cash-flow packaged products (PoC, vertical niches, AI audits).',
+      title: 'End-to-End DeepTech Solutions',
+      subtitle: 'Digital twins, RAG assistants and IoT telemetry, available tailored (6 to 18 month cycles) or packaged for rapid validation (30 to 90 days): PoCs, 3D configurators and AI audits.',
     },
   };
 
@@ -156,9 +156,9 @@ export default function SolucionesSection() {
               <div className="space-y-3 mb-6">
                 <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-3">Métricas clave</h4>
                 {sol.metrics.map((m, i) => (
-                  <div key={m.label} className="flex justify-between items-center py-2 border-b border-white/[0.05] last:border-0">
+                  <div key={m.label} className="flex justify-between items-center gap-3 py-2 border-b border-white/[0.05] last:border-0">
                     <span className="text-sm text-gray-400 font-mono">{m.label}</span>
-                    <span className="text-sm font-semibold text-[#00e9fa] font-mono">{m.value}</span>
+                    <span className="text-sm font-semibold text-[#00e9fa] font-mono text-right">{m.value}</span>
                   </div>
                 ))}
               </div>

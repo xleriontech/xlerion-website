@@ -31,7 +31,7 @@ export default function Footer({ navTo }) {
               </span>
             </div>
             <p className="text-xs text-gray-400 font-mono uppercase tracking-[0.2em]">
-              {lang === 'es' ? 'Ofrecemos dos frentes de valor: servicios DeepTech enterprise y productos productizados.' : 'We offer two value fronts: DeepTech enterprise solutions and quick-cash-flow packaged products.'}
+              {lang === 'es' ? 'Arquitecturas DeepTech a medida y soluciones empaquetadas de validación rápida.' : 'Tailored DeepTech architectures and packaged rapid-validation solutions.'}
             </p>
           </div>
 
