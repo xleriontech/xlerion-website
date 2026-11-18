@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manual de Imagen — Xlerion</title>
+  <meta name="description" content="Manual de manejo de imagen de Xlerion: logo, isotipo, paleta de color, tipografía, usos correctos e incorrectos y activos descargables." />
+  <meta name="theme-color" content="#070710" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cyan: #00e9fa;
+      --ink: #070710;
+      --ink-2: #0f0f1a;
+      --line: rgba(255, 255, 255, .1);
+      --muted: #9aa3b2;
+      --ok: #38e08d;
+      --bad: #ff5b6e;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--ink);
+      color: #e8edf5;
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Header ---------- */
+    header.top {
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 7, 16, .92);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .top .wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      height: 64px;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { height: 30px; width: auto; display: block; }
+    .brand .txt { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand .name { font-weight: 800; letter-spacing: .22em; font-size: 13px; }
+    .brand .tag {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 9px;
+      letter-spacing: .3em;
+      color: var(--cyan);
+      text-transform: uppercase;
+    }
+    nav.toc { display: flex; gap: 18px; flex-wrap: wrap; font-family: 'Roboto Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    nav.toc a { color: var(--muted); }
+    nav.toc a:hover { color: var(--cyan); text-decoration: none; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 72px 0 48px; border-bottom: 1px solid var(--line); }
+    .kicker {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin: 0 0 14px;
+    }
+    h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.02;
+      letter-spacing: -.03em;
+      font-weight: 800;
+      margin: 0 0 18px;
+      text-transform: uppercase;
+    }
+    h1 em { font-style: italic; color: var(--cyan); }
+    .lead { color: var(--muted); max-width: 720px; font-size: 17px; margin: 0; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 28px;
+      font-family: 'Roboto Mono', monospace; font-size: 11px;
+      letter-spacing: .1em; color: var(--muted); text-transform: uppercase;
+    }
+    .meta b { color: #fff; font-weight: 400; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+    .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 28px; }
+    .sec-num {
+      font-family: 'Roboto Mono', monospace; color: var(--cyan);
+      font-size: 12px; letter-spacing: .2em;
+    }
+    h2 {
+      font-size: clamp(24px, 3.4vw, 36px); margin: 0;
+      text-transform: uppercase; letter-spacing: -.02em; font-weight: 800;
+    }
+    h3 {
+      font-family: 'Roboto Mono', monospace; font-size: 12px;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--cyan);
+      margin: 34px 0 14px; font-weight: 700;
+    }
+    p { color: #c3cbd8; }
+    .note {
+      border-left: 2px solid var(--cyan);
+      background: rgba(0, 233, 250, .05);
+      padding: 14px 18px; color: #c3cbd8; font-size: 14px; border-radius: 0 4px 4px 0;
+    }
+
+    /* ---------- Grids ---------- */
+    .grid { display: grid; gap: 20px; }
+    .g2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+    .g3 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .g4 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+    .card {
+      background: var(--ink-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .card .body { padding: 18px; }
+    .card .title {
+      font-family: 'Roboto Mono', monospace; font-size: 11px;
+      letter-spacing: .16em; text-transform: uppercase; color: #fff; margin: 0 0 6px;
+    }
+    .card .desc { font-size: 13px; color: var(--muted); margin: 0; }
+    .card .file {
+      font-family: 'Roboto Mono', monospace; font-size: 10px; color: var(--cyan);
+      word-break: break-all; margin-top: 10px; display: block;
+    }
+
+    .stage {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 190px; padding: 26px;
+    }
+    .stage.light { background: #ffffff; }
+    .stage.dark { background: #070710; }
+    .stage.grad { background: linear-gradient(135deg, #00e9fa 0%, #0f0f1a 100%); }
+    .stage img { max-width: 100%; height: auto; display: block; }
+    .stage .mark { height: 108px; width: auto; }
+
+    /* ---------- Colors ---------- */
+    .swatch { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--ink-2); }
+    .swatch .chip { height: 108px; }
+    .swatch .info { padding: 14px 16px; }
+    .swatch .nm { font-weight: 700; font-size: 14px; margin: 0 0 4px; }
+    .swatch .hx {
+      font-family: 'Roboto Mono', monospace; font-size: 12px; color: var(--cyan); margin: 0;
+    }
+    .swatch .use { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+
+    /* ---------- Typography ---------- */
+    .type-box { background: var(--ink-2); border: 1px solid var(--line); border-radius: 8px; padding: 24px; }
+    .type-box .spec {
+      font-family: 'Roboto Mono', monospace; font-size: 10px;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--cyan); margin: 0 0 12px;
+    }
+    .sample-display { font-size: clamp(30px, 5vw, 52px); font-weight: 800; letter-spacing: -.03em; margin: 0; line-height: 1.05; }
+    .sample-head { font-size: 26px; font-weight: 600; margin: 0; }
+    .sample-body { font-size: 15px; color: #c3cbd8; margin: 0; }
+    .sample-mono { font-family: 'Roboto Mono', monospace; font-size: 14px; color: var(--cyan); margin: 0; letter-spacing: .06em; }
+    .scale { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 16px; font-family: 'Roboto Mono', monospace; font-size: 11px; color: var(--muted); }
+
+    /* ---------- Do / Don't ---------- */
+    .do, .dont { border-radius: 8px; padding: 20px; border: 1px solid var(--line); background: var(--ink-2); }
+    .do h4, .dont h4 {
+      margin: 0 0 12px; font-family: 'Roboto Mono', monospace; font-size: 11px;
+      letter-spacing: .18em; text-transform: uppercase;
+    }
+    .do h4 { color: var(--ok); }
+    .dont h4 { color: var(--bad); }
+    .do ul, .dont ul { margin: 0; padding-left: 18px; }
+    .do li, .dont li { font-size: 14px; color: #c3cbd8; margin-bottom: 8px; }
+
+    .bad-demo {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 150px; background: #070710; border-bottom: 1px solid var(--line); padding: 20px;
+    }
+    .bad-demo .stretch { width: 100%; height: 60px; object-fit: fill; }
+    .bad-demo .rot { transform: rotate(-14deg); height: 74px; }
+    .bad-demo .low { opacity: .18; height: 74px; }
+    .bad-demo .outline { filter: drop-shadow(0 0 3px #ff5b6e); height: 74px; }
+
+    /* ---------- Clear space ---------- */
+    .clearspace {
+      background: var(--ink-2); border: 1px solid var(--line); border-radius: 8px;
+      padding: 34px; display: flex; align-items: center; justify-content: center;
+    }
+    .cs-frame {
+      position: relative; padding: 46px; border: 1px dashed rgba(0, 233, 250, .55);
+      background: #070710; border-radius: 4px;
+    }
+    .cs-frame img { height: 120px; display: block; }
+    .cs-tag {
+      position: absolute; font-family: 'Roboto Mono', monospace; font-size: 10px;
+      color: var(--cyan); letter-spacing: .1em;
+    }
+    .cs-tag.t { top: 12px; left: 50%; transform: translateX(-50%); }
+    .cs-tag.b { bottom: 12px; left: 50%; transform: translateX(-50%); }
+    .cs-tag.l { left: 10px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+    .cs-tag.r { right: 10px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+    /* ---------- Min sizes ---------- */
+    .sizes { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-end; }
+    .size-item { text-align: center; }
+    .size-item img { display: block; margin: 0 auto 10px; }
+    .size-item span { font-family: 'Roboto Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: .1em; }
+
+    /* ---------- Applications ---------- */
+    .app-row { display: flex; flex-wrap: wrap; gap: 18px; }
+    .app-card {
+      flex: 1 1 240px; background: var(--ink-2); border: 1px solid var(--line);
+      border-radius: 8px; padding: 22px; text-align: center;
+    }
+    .app-card img { display: block; margin: 0 auto 14px; }
+    .app-card .cap { font-family: 'Roboto Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th {
+      font-family: 'Roboto Mono', monospace; font-size: 10px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--cyan); font-weight: 700;
+    }
+    td { color: #c3cbd8; }
+    td code { font-family: 'Roboto Mono', monospace; font-size: 12px; color: #fff; }
+
+    footer { padding: 40px 0 70px; color: var(--muted); font-size: 13px; }
+    footer .row { display: flex; flex-wrap: wrap; gap: 18px; justify-content: space-between; align-items: center; }
+    footer .legal { font-family: 'Roboto Mono', monospace; font-size: 10px; letter-spacing: .08em; }
+
+    @media (max-width: 720px) {
+      nav.toc { display: none; }
+      .cs-frame { padding: 34px; }
+      .cs-frame img { height: 84px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Xlerion, ir al inicio">
+      <img src="/LogoX_mark.svg" alt="" width="30" height="44" />
+      <span class="txt">
+        <span class="name">XLERION</span>
+        <span class="tag">Manual de imagen</span>
+      </span>
+    </a>
+    <nav class="toc" aria-label="Índice del manual">
+      <a href="#logo">Logo</a>
+      <a href="#isotipo">Isotipo</a>
+      <a href="#espacio">Espacio libre</a>
+      <a href="#color">Color</a>
+      <a href="#tipografia">Tipografía</a>
+      <a href="#usos">Usos</a>
+      <a href="#aplicaciones">Aplicaciones</a>
+      <a href="#descargas">Descargas</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="kicker">// Manual de manejo de imagen</p>
+    <h1>Identidad<br /><em>Visual</em> Xlerion</h1>
+    <p class="lead">
+      Guía de referencia para el uso correcto del logotipo, el isotipo, la paleta cromática y la
+      tipografía oficial de Xlerion. Aplica a piezas digitales, impresas, redes sociales,
+      presentaciones y documentación comercial de la empresa.
+    </p>
+    <div class="meta">
+      <span>Versión <b>1.0</b></span>
+      <span>Marca <b>XLERION — DeepTech Industrial</b></span>
+      <span>Colombia <b>Cundinamarca</b></span>
+      <span>Actualizado <b>Noviembre 2026</b></span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= 01 LOGO ================= -->
+<section id="logo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2>Logotipo principal</h2>
+    </div>
+    <p>
+      El logotipo completo combina el <strong>isotipo</strong> (marca del circuito) con el
+      <strong>wordmark</strong> vectorial “XLERION”. Es el elemento primario de la identidad y
+      debe usarse siempre que el tamaño lo permita.
+    </p>
+
+    <div class="grid g3">
+      <div class="card">
+        <div class="stage light">
+          <img src="/LogoX.svg" alt="Logotipo Xlerion sobre fondo claro" style="max-height:96px" />
+        </div>
+        <div class="body">
+          <p class="title">Versión sobre claro</p>
+          <p class="desc">Fondos blancos o muy claros. Logotipo en su versión oscura.</p>
+          <span class="file">/LogoX.svg</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stage dark">
+          <img src="/LogoX.svg" alt="Logotipo Xlerion sobre fondo oscuro" style="max-height:96px; filter: brightness(0) invert(1);" />
+        </div>
+        <div class="body">
+          <p class="title">Versión sobre oscuro</p>
+          <p class="desc">Fondos negros o azul noche. Logotipo en blanco.</p>
+          <span class="file">/LogoX_Dark.svg · /LogoX.svg</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stage grad">
+          <img src="/LogoX.svg" alt="Logotipo Xlerion sobre degradado corporativo" style="max-height:96px; filter: brightness(0) invert(1);" />
+        </div>
+        <div class="body">
+          <p class="title">Versión sobre color</p>
+          <p class="desc">Sobre el cian corporativo o degradados oscuros. Siempre en blanco.</p>
+          <span class="file">/LogoX.svg</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Proporción oficial</h3>
+    <div class="note">
+      El logotipo conserva una proporción fija entre isotipo y wordmark.
+      <strong>Nunca</strong> debe separarse, reordenarse ni alterarse la distancia entre ambos elementos.
+      Para usos reducidos (favicon, app icon, avatar) se emplea únicamente el isotipo.
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 ISOTIPO ================= -->
+<section id="isotipo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2>Isotipo (símbolo)</h2>
+    </div>
+    <p>
+      El isotipo es la forma del <strong>circuito hexagonal</strong> de Xlerion, sin la palabra
+      de la marca. Es el elemento obligatorio para espacios reducidos: favicon, iconos PWA,
+      avatares, marca de agua y las tarjetas digitales.
+    </p>
+
+    <div class="grid g3">
+      <div class="card">
+        <div class="stage dark">
+          <img class="mark" src="/LogoX_mark.svg" alt="Isotipo Xlerion en cian sobre fondo oscuro" />
+        </div>
+        <div class="body">
+          <p class="title">Principal</p>
+          <p class="desc">Cian sobre fondo oscuro. Uso por defecto en pantalla.</p>
+          <span class="file">/LogoX_mark.svg</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stage light">
+          <img class="mark" src="/LogoX_mark.svg" alt="Isotipo Xlerion sobre fondo claro" style="filter: brightness(0);" />
+        </div>
+        <div class="body">
+          <p class="title">Monocromo negro</p>
+          <p class="desc">Fondos claros, impresión a una tinta, documentos legales.</p>
+          <span class="file">/LogoX_mark.svg (filter: brightness(0))</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stage dark">
+          <img class="mark" src="/LogoX_mark.svg" alt="Isotipo Xlerion en blanco" style="filter: brightness(0) invert(1);" />
+        </div>
+        <div class="body">
+          <p class="title">Monocromo blanco</p>
+          <p class="desc">Fotografías, video, marca de agua y fondos con imagen.</p>
+          <span class="file">/LogoX_mark.svg (filter: brightness(0) invert(1))</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>Espacio de protección</h3>
+    <p>Reserva alrededor del isotipo un margen mínimo igual a <strong>25% del ancho de la marca</strong>
+      en todos los lados. Ningún texto, borde o elemento gráfico debe invadirlo.</p>
+
+    <div class="clearspace">
+      <div class="cs-frame">
+        <span class="cs-tag t">25%</span>
+        <span class="cs-tag b">25%</span>
+        <span class="cs-tag l">25%</span>
+        <span class="cs-tag r">25%</span>
+        <img src="/LogoX_mark.svg" alt="Diagrama de espacio libre alrededor del isotipo Xlerion" />
+      </div>
+    </div>
+
+    <h3>Tamaños mínimos</h3>
+    <div class="sizes">
+      <div class="size-item">
+        <img src="/LogoX_mark.svg" alt="Isotipo a 16 píxeles" style="height:16px" />
+        <span>16 px · favicon</span>
+      </div>
+      <div class="size-item">
+        <img src="/LogoX_mark.svg" alt="Isotipo a 32 píxeles" style="height:32px" />
+        <span>32 px · pestaña</span>
+      </div>
+      <div class="size-item">
+        <img src="/LogoX_mark.svg" alt="Isotipo a 48 píxeles" style="height:48px" />
+        <span>48 px · avatar</span>
+      </div>
+      <div class="size-item">
+        <img src="/LogoX_mark.svg" alt="Isotipo a 120 píxeles" style="height:96px" />
+        <span>120 px · app / redes</span>
+      </div>
+      <div class="size-item">
+        <img src="/LogoX.svg" alt="Logotipo completo a tamaño mínimo" style="height:34px" />
+        <span>140 px · logotipo completo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 COLOR ================= -->
+<section id="color">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2>Paleta de color</h2>
+    </div>
+    <p>El cian es el color de marca y debe ser el acento dominante. Los neutros oscuros
+      sostienen la interfaz; el blanco se reserva para texto de alta jerarquía.</p>
+
+    <div class="grid g4">
+      <div class="swatch">
+        <div class="chip" style="background:#00e9fa"></div>
+        <div class="info">
+          <p class="nm">Xlerion Cyan</p>
+          <p class="hx">#00E9FA</p>
+          <p class="use">Color primario. Acentos, enlaces, iconos, CTA.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#070710"></div>
+        <div class="info">
+          <p class="nm">Ink</p>
+          <p class="hx">#070710</p>
+          <p class="use">Fondo principal del sitio y de las tarjetas.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#0f0f1a"></div>
+        <div class="info">
+          <p class="nm">Surface</p>
+          <p class="hx">#0F0F1A</p>
+          <p class="use">Superficies, tarjetas y paneles elevados.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#ffffff"></div>
+        <div class="info">
+          <p class="nm">Blanco</p>
+          <p class="hx">#FFFFFF</p>
+          <p class="use">Texto principal y versiones del logo sobre oscuro.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#9aa3b2"></div>
+        <div class="info">
+          <p class="nm">Gris texto</p>
+          <p class="hx">#9AA3B2</p>
+          <p class="use">Textos secundarios y descripciones.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#38e08d"></div>
+        <div class="info">
+          <p class="nm">Éxito</p>
+          <p class="hx">#38E08D</p>
+          <p class="use">Estados activos, disponibilidad y confirmaciones.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:#ff5b6e"></div>
+        <div class="info">
+          <p class="nm">Alerta</p>
+          <p class="hx">#FF5B6E</p>
+          <p class="use">Errores, restricciones y estados de fallo.</p>
+        </div>
+      </div>
+
+      <div class="swatch">
+        <div class="chip" style="background:linear-gradient(135deg,#00e9fa,#0f0f1a)"></div>
+        <div class="info">
+          <p class="nm">Degradado corporativo</p>
+          <p class="hx">#00E9FA → #0F0F1A</p>
+          <p class="use">Portadas, heroes y textos destacados.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Relación de uso</h3>
+    <table>
+      <thead>
+        <tr><th>Proporción</th><th>Color</th><th>Función</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>~70%</code></td><td><code>#070710 / #0F0F1A</code></td><td>Fondos y superficies</td></tr>
+        <tr><td><code>~20%</code></td><td><code>#FFFFFF / #9AA3B2</code></td><td>Texto y contenido</td></tr>
+        <tr><td><code>~10%</code></td><td><code>#00E9FA</code></td><td>Acentos, CTAs e iconografía</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 04 TIPOGRAFÍA ================= -->
+<section id="tipografia">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2>Tipografía</h2>
+    </div>
+
+    <div class="grid g2">
+      <div class="type-box">
+        <p class="spec">Principal · Inter</p>
+        <p class="sample-display">Gemelos Digitales 3D</p>
+        <div class="scale">
+          <span>300 Light</span><span>400 Regular</span><span>600 SemiBold</span><span>800 ExtraBold</span>
+        </div>
+        <p class="sample-body" style="margin-top:16px">
+          Uso para títulos, párrafos y toda la interfaz. En titulares se emplea
+          mayúsculas con tracking negativo para reforzar el tono industrial.
+        </p>
+      </div>
+
+      <div class="type-box">
+        <p class="spec">Técnica · Roboto Mono</p>
+        <p class="sample-mono">// SYSTEM_STATUS: ACTIVE</p>
+        <div class="scale">
+          <span>400 Regular</span><span>400 Italic</span><span>700 Bold</span>
+        </div>
+        <p class="sample-body" style="margin-top:16px">
+          Uso para etiquetas, códigos, métricas, navegación y textos de datos.
+          Siempre en mayúsculas con letter-spacing amplio cuando funciona como etiqueta.
+        </p>
+      </div>
+    </div>
+
+    <h3>Escala recomendada</h3>
+    <div class="type-box">
+      <p class="sample-display" style="font-size:44px">Título Display</p>
+      <p class="sample-head" style="margin-top:14px">Encabezado de sección</p>
+      <p class="sample-body" style="margin-top:12px">
+        Párrafos de lectura en Inter 400, tamaño base de 16 px con interlineado 1.6.
+        Este es el cuerpo estándar del sitio y de la documentación.
+      </p>
+      <p class="sample-mono" style="margin-top:14px">ETIQUETA_TECNICA · 11 PX · TRACKING 0.3EM</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 05 USOS ================= -->
+<section id="usos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2>Usos correctos e incorrectos</h2>
+    </div>
+
+    <div class="grid g2">
+      <div class="do">
+        <h4>✓ Sí</h4>
+        <ul>
+          <li>Usar los archivos originales en SVG para pantalla y PNG/ICO para sistemas.</li>
+          <li>Respetar el espacio de protección y los tamaños mínimos.</li>
+          <li>Usar el isotipo solo en espacios reducidos (favicon, avatar, marca de agua).</li>
+          <li>Aplicar la versión en blanco sobre fondos oscuros o fotografías.</li>
+          <li>Mantener la proporción original al escalar (nunca de forma independiente).</li>
+          <li>Usar el cian <code>#00E9FA</code> como único color de acento de marca.</li>
+        </ul>
+      </div>
+
+      <div class="dont">
+        <h4>✗ No</h4>
+        <ul>
+          <li>No deformar, estirar ni comprimir el logotipo.</li>
+          <li>No rotar ni inclinar la marca.</li>
+          <li>No cambiar los colores de la marca ni añadir sombras o contornos.</li>
+          <li>No reducir la opacidad por debajo del 70% sobre fondos con imagen.</li>
+          <li>No recortar el isotipo ni quitarle partes del trazo.</li>
+          <li>No colocarlo sobre fondos de bajo contraste ni sobre texturas ocupadas.</li>
+          <li>No reconstruir el wordmark con fuentes distintas a la original.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:20px">
+      <div class="card">
+        <div class="bad-demo">
+          <img class="stretch" src="/LogoX.svg" alt="Ejemplo incorrecto: logotipo deformado" />
+        </div>
+        <div class="body">
+          <p class="title" style="color:#ff5b6e">✗ Deformado</p>
+          <p class="desc">Escala horizontal o vertical no uniforme.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="bad-demo">
+          <img class="rot" src="/LogoX.svg" alt="Ejemplo incorrecto: logotipo rotado" />
+        </div>
+        <div class="body">
+          <p class="title" style="color:#ff5b6e">✗ Rotado</p>
+          <p class="desc">La marca siempre se coloca en horizontal.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="bad-demo">
+          <img class="low" src="/LogoX.svg" alt="Ejemplo incorrecto: logotipo con baja opacidad" />
+        </div>
+        <div class="body">
+          <p class="title" style="color:#ff5b6e">✗ Baja opacidad</p>
+          <p class="desc">Nunca por debajo del 70% de opacidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 APLICACIONES ================= -->
+<section id="aplicaciones">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2>Aplicaciones</h2>
+    </div>
+
+    <h3>Iconografía PWA y favicon</h3>
+    <p>Todos los iconos de aplicación y el favicon se generan <strong>exclusivamente desde el
+      isotipo</strong> (<code>LogoX_mark.svg</code>), sin la palabra “Xlerion”.</p>
+
+    <div class="app-row">
+      <div class="app-card">
+        <img src="/favicon.png" alt="Favicon de Xlerion a 32 píxeles" width="64" height="64" style="image-rendering:auto" />
+        <span class="cap">favicon.png · 32 px</span>
+      </div>
+      <div class="app-card">
+        <img src="/icons/icon-192.png" alt="Icono PWA de Xlerion a 192 píxeles" width="96" height="96" />
+        <span class="cap">icon-192 · any</span>
+      </div>
+      <div class="app-card">
+        <img src="/icons/icon-512.png" alt="Icono PWA de Xlerion a 512 píxeles" width="112" height="112" />
+        <span class="cap">icon-512 · any</span>
+      </div>
+      <div class="app-card">
+        <img src="/icons/icon-maskable-512.png" alt="Icono maskable de Xlerion" width="112" height="112" />
+        <span class="cap">maskable · safe area</span>
+      </div>
+      <div class="app-card">
+        <img src="/icons/apple-touch-icon.png" alt="Apple touch icon de Xlerion" width="96" height="96" />
+        <span class="cap">apple-touch · 180 px</span>
+      </div>
+    </div>
+
+    <h3>Tarjetas digitales</h3>
+    <p>Las tarjetas de los fundadores usan el isotipo en la barra de marca, sobre fondo
+      <code>#050508</code>, con acentos en cian. No se sustituye por el logotipo completo
+      para conservar legibilidad en pantallas pequeñas.</p>
+
+    <div class="app-row">
+      <div class="app-card">
+        <div style="background:#050508;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:16px;display:flex;align-items:center;gap:10px;justify-content:center">
+          <img src="/LogoX_mark.svg" alt="Isotipo en tarjeta digital" style="height:34px" />
+          <span style="font-family:'Roboto Mono',monospace;font-size:10px;letter-spacing:.2em;color:#00e9fa">XLERION</span>
+        </div>
+        <span class="cap" style="display:block;margin-top:12px">Barra de marca · cards</span>
+      </div>
+      <div class="app-card">
+        <div style="background:#070710;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:16px;text-align:center">
+          <img src="/LogoX.svg" alt="Logotipo en presentación" style="height:44px;filter:brightness(0) invert(1);margin:0 auto;display:block" />
+        </div>
+        <span class="cap" style="display:block;margin-top:12px">Presentaciones · documento</span>
+      </div>
+    </div>
+
+    <h3>Reglas de archivo</h3>
+    <table>
+      <thead>
+        <tr><th>Archivo</th><th>Uso</th><th>Formato</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>/LogoX.svg</code></td><td>Logotipo completo sobre fondo claro</td><td>SVG vectorial</td></tr>
+        <tr><td><code>/LogoX_Dark.svg</code></td><td>Logotipo completo sobre fondo oscuro</td><td>SVG vectorial</td></tr>
+        <tr><td><code>/LogoX_mark.svg</code></td><td>Isotipo: favicon, iconos, avatares, cards</td><td>SVG vectorial</td></tr>
+        <tr><td><code>/LogoX_wordmark.svg</code></td><td>Solo la palabra de la marca</td><td>SVG vectorial</td></tr>
+        <tr><td><code>/LogoX.png</code></td><td>Logotipo en rasters para ofimática</td><td>PNG con transparencia</td></tr>
+        <tr><td><code>/favicon.ico</code></td><td>Favicon multi-tamaño 16/32/48</td><td>ICO</td></tr>
+        <tr><td><code>/icons/icon-*.png</code></td><td>Iconos PWA (any y maskable)</td><td>PNG 192 / 512</td></tr>
+        <tr><td><code>/images/og-cover.jpg</code></td><td>Portada para compartir en redes</td><td>JPG 1200×630</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 07 DESCARGAS ================= -->
+<section id="descargas">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">07</span>
+      <h2>Descargas</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <div class="stage dark"><img src="/LogoX.svg" alt="Vista previa del logotipo completo" style="max-height:80px" /></div>
+        <div class="body">
+          <p class="title">Logotipo completo</p>
+          <p class="desc">Versión clara y oscura para pantalla e impresión.</p>
+          <a class="file" href="/LogoX.svg" download>↓ LogoX.svg</a>
+          <a class="file" href="/LogoX_Dark.svg" download>↓ LogoX_Dark.svg</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stage dark"><img class="mark" src="/LogoX_mark.svg" alt="Vista previa del isotipo" style="height:80px" /></div>
+        <div class="body">
+          <p class="title">Isotipo</p>
+          <p class="desc">Símbolo del circuito para usos reducidos.</p>
+          <a class="file" href="/LogoX_mark.svg" download>↓ LogoX_mark.svg</a>
+          <a class="file" href="/LogoX_wordmark.svg" download>↓ LogoX_wordmark.svg</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="stage light"><img src="/LogoX.png" alt="Vista previa del logotipo en PNG" style="max-height:80px" /></div>
+        <div class="body">
+          <p class="title">Raster y favicon</p>
+          <p class="desc">Para correo, documentos y sistemas operativos.</p>
+          <a class="file" href="/LogoX.png" download>↓ LogoX.png</a>
+          <a class="file" href="/favicon.ico" download>↓ favicon.ico</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:24px">
+      Para piezas de marca no incluidas aquí, solicitar los archivos originales al equipo de
+      Xlerion antes de reproducir o recrear la identidad.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <div class="brand">
+        <img src="/LogoX_mark.svg" alt="" height="30" />
+        <span class="txt">
+          <span class="name" style="font-weight:800;letter-spacing:.22em;font-size:13px">XLERION</span>
+          <span class="tag" style="font-family:'Roboto Mono',monospace;font-size:9px;letter-spacing:.3em;color:#00e9fa;text-transform:uppercase">DeepTech Industrial</span>
+        </span>
+      </div>
+      <div class="legal">
+        NIT 81720164 · Cundinamarca, Colombia ·
+        <a href="/">xlerion.com.co</a> ·
+        <a href="/legal/privacidad">Privacidad</a> ·
+        <a href="/legal/terminos">Términos</a>
+      </div>
+    </div>
+    <p class="legal" style="margin-top:18px;color:#5f6875">
+      © 2026 Xlerion. Manual de manejo de imagen v1.0. Todos los derechos reservados.
+      Los activos de marca no pueden modificarse ni usarse sin autorización.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

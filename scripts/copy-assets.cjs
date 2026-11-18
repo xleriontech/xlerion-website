@@ -139,6 +139,7 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'favicon.png',
     'LogoX.png',
     'LogoX.svg',
+    'LogoX_Dark.svg',
     'LogoX_mark.svg',
     'LogoX_wordmark.svg',
     'humans.txt',
@@ -146,7 +147,8 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'robots.txt',
     'service-worker.js',
     '.htaccess',
-    'Xlerion_OnePager.pdf'
+    'Xlerion_OnePager.pdf',
+    'manual-de-imagen.html'
   ];
 
   const srcPublicDir = path.join(__dirname, '..', 'public');
