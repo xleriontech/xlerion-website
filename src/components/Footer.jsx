@@ -71,6 +71,14 @@ export default function Footer({ navTo }) {
                 </li>
               ))}
               <li>
+                <Link
+                  to="/corporativo"
+                  className="hover:text-[#00e9fa] transition-colors text-left p-0 bg-transparent border-none cursor-pointer"
+                >
+                  {lang === 'es' ? 'Información corporativa' : 'Corporate information'}
+                </Link>
+              </li>
+              <li>
                 <a
                   href="/legal/privacidad"
                   target="_blank"
@@ -161,10 +169,15 @@ export default function Footer({ navTo }) {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-white/[0.05] flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] font-mono text-gray-600 tracking-[0.3em] uppercase text-center md:text-left">
+        <div className="pt-8 border-t border-white/[0.05] flex flex-col gap-3 text-[9px] font-mono text-gray-600 tracking-[0.3em] uppercase text-center md:text-left">
           <div>
             {t('footer_rights')}
           </div>
+          <p className="max-w-4xl m-0 leading-relaxed tracking-[0.12em]">
+            {lang === 'es'
+              ? 'XLERION S.A.S. (NIT 817.201.64) · Cundinamarca, Colombia · Empresa inscrita en el Banco de Postulación de Empresas de la Industria Digital del MinTIC (documento público GDO-TIC-FM-025 V 9, 19/08/2025).'
+              : 'XLERION S.A.S. (NIT 817.201.64) · Cundinamarca, Colombia · Registered in the MinTIC Digital Industry Companies Application Bank (public document GDO-TIC-FM-025 V 9, 08/19/2025).'}
+          </p>
         </div>
       </div>
     </footer>

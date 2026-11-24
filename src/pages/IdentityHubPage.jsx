@@ -27,19 +27,81 @@ export default function IdentityHubPage() {
         </h1>
         <p className="text-gray-400 text-sm md:text-base leading-relaxed mt-4 max-w-3xl">
           {lang === 'es'
-            ? 'Información legal, ubicación y certificaciones del fundador de Xlerion.'
-            : 'Legal information, location, and founder certifications for Xlerion.'}
+            ? 'Misión, visión, valores, información legal y certificaciones del fundador de Xlerion. El documento completo (estatutos, políticas y marco legal) está publicado en Información Corporativa.'
+            : 'Mission, vision, values, legal information and founder certifications for Xlerion. The full document (bylaws, policies and legal framework) is published under Corporate Information.'}
         </p>
-        <Link to="/" className="xl-btn-secondary mt-8">
-          ← {lang === 'es' ? 'Volver al inicio' : 'Back to home'}
-        </Link>
+        <div className="flex flex-wrap gap-3 mt-8">
+          <Link to="/" className="xl-btn-secondary">
+            ← {lang === 'es' ? 'Volver al inicio' : 'Back to home'}
+          </Link>
+          <Link to="/corporativo" className="xl-btn-secondary">
+            {lang === 'es' ? 'Documento corporativo →' : 'Corporate document →'}
+          </Link>
+        </div>
       </header>
 
       <main className="px-6 md:px-8 max-w-7xl mx-auto py-16">
-        {/* Founder Certifications */}
+        {/* Mission / Vision / Values */}
         <section className="mb-16" data-reveal>
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
             <span className="text-[#00e9fa] font-mono text-sm">01</span>
+            {lang === 'es' ? 'Misión, Visión y Valores' : 'Mission, Vision and Values'}
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="bg-[#0a0a12]/80 border border-white/[0.08] border-t-2 border-t-[#00e9fa] rounded-lg p-6 backdrop-blur-sm">
+              <h3 className="text-[#00e9fa] font-mono text-xs uppercase tracking-[0.2em] mb-3">Misión</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {lang === 'es'
+                  ? 'Transformar datos industriales complejos en inteligencia visual 3D, plataformas de IA en tiempo real y experiencias interactivas gamificadas, proporcionando a las empresas colombianas y latinoamericanas soluciones tecnológicas de clase mundial que anticipen fallas, optimicen procesos, aceleren la toma de decisiones operativas y transformen el aprendizaje corporativo mediante simuladores y videojuegos serios, con arquitecturas robustas, seguras y alineadas con los más altos estándares internacionales de calidad y cumplimiento normativo.'
+                  : 'We transform complex industrial data into 3D visual intelligence, real-time AI platforms and gamified interactive experiences, providing Colombian and Latin American companies with world-class technological solutions that anticipate failures, optimize processes, accelerate operational decision-making and transform corporate learning through simulators and serious games, with robust, secure architectures aligned with the highest international standards of quality and regulatory compliance.'}
+              </p>
+            </div>
+            <div className="bg-[#0a0a12]/80 border border-white/[0.08] border-t-2 border-t-white/40 rounded-lg p-6 backdrop-blur-sm">
+              <h3 className="text-white font-mono text-xs uppercase tracking-[0.2em] mb-3">Visión</h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {lang === 'es'
+                  ? 'Para 2030, ser la empresa líder en Colombia y referente en Latinoamérica en el desarrollo de soluciones DeepTech industriales y videojuegos serios (Serious Games), reconocida por nuestra capacidad de implementar gemelos digitales 3D, sistemas de IA generativa controlada, redes IoT resilientes y simuladores de entrenamiento gamificados en sectores críticos como minería, manufactura, smart cities y educación corporativa, con presencia en al menos 5 países de la región y un portafolio de 50+ clientes empresariales activos.'
+                  : 'By 2030, to be the leading company in Colombia and a reference in Latin America for the development of industrial DeepTech solutions and serious games, recognized for our ability to implement 3D digital twins, controlled generative AI systems, resilient IoT networks and gamified training simulators in critical sectors such as mining, manufacturing, smart cities and corporate education, with presence in at least 5 countries in the region and a portfolio of 50+ active enterprise clients.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {(lang === 'es'
+              ? [
+                  { t: 'Excelencia Técnica', d: 'Soluciones con los más altos estándares de ingeniería y mejores prácticas internacionales (ISO 27001, ISO 25010).' },
+                  { t: 'Transparencia y Ética', d: 'Comunicaciones veraces y cumplimiento estricto de la normativa colombiana (Ley 1581 de 2012), sin publicidad engañosa.' },
+                  { t: 'Innovación Responsable', d: 'Tecnología que resuelve problemas reales, con sostenibilidad e impacto social positivo.' },
+                  { t: 'Orientación al Cliente', d: 'Soluciones adaptadas al ritmo de innovación de cada cliente: de 30-90 días a transformaciones de 6-18 meses.' },
+                  { t: 'Seguridad y Confiabilidad', d: 'Cifrado AES-256, TLS 1.3 y despliegues on-premise o en nube privada, con estándares de seguridad bancaria.' },
+                  { t: 'Colaboración y Aprendizaje', d: 'Aprendizaje continuo, equipos multidisciplinarios y alianzas con el ecosistema tecnológico colombiano e internacional.' },
+                  { t: 'Creatividad Gamificada', d: 'Videojuegos serios, simuladores y gamificación que convierten procesos complejos en experiencias memorables.' },
+                  { t: 'Propiedad Intelectual Protegida', d: 'Contratos claros de cesión de derechos, registro de obras ante la DNDA y respeto por la autoría original.' },
+                ]
+              : [
+                  { t: 'Technical Excellence', d: 'Solutions built to the highest engineering standards and international best practices (ISO 27001, ISO 25010).' },
+                  { t: 'Transparency & Ethics', d: 'Truthful communications and strict compliance with Colombian regulations (Law 1581 of 2012), with no misleading advertising.' },
+                  { t: 'Responsible Innovation', d: 'Technology that solves real problems, with sustainability and positive social impact at its core.' },
+                  { t: 'Customer Orientation', d: 'Solutions adapted to each client’s pace of innovation: from 30-90 days to 6-18 month transformations.' },
+                  { t: 'Security & Reliability', d: 'AES-256 encryption, TLS 1.3 and on-premise or private-cloud deployments, meeting banking-grade security standards.' },
+                  { t: 'Collaboration & Learning', d: 'Continuous learning, multidisciplinary teams and alliances with the Colombian and international tech ecosystem.' },
+                  { t: 'Gamified Creativity', d: 'Serious games, simulators and gamification that turn complex processes into memorable experiences.' },
+                  { t: 'Protected Intellectual Property', d: 'Clear assignment agreements, works registered with the DNDA and respect for original authorship.' },
+                ]
+            ).map((v) => (
+              <div key={v.t} className="bg-[#0a0a12]/80 border border-white/[0.08] border-l-2 border-l-[#00e9fa] rounded-lg p-5 backdrop-blur-sm">
+                <h4 className="text-white text-sm font-semibold mb-2">{v.t}</h4>
+                <p className="text-gray-400 text-xs leading-relaxed">{v.d}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Founder Certifications */}
+        <section className="mb-16" data-reveal>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+            <span className="text-[#00e9fa] font-mono text-sm">02</span>
             {lang === 'es' ? 'Certificaciones del Fundador' : "Founder's Certifications"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -83,11 +145,37 @@ export default function IdentityHubPage() {
         {/* Legal Info */}
         <section className="mb-16" data-reveal>
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="text-[#00e9fa] font-mono text-sm">02</span>
+            <span className="text-[#00e9fa] font-mono text-sm">03</span>
             {lang === 'es' ? 'Información Legal' : 'Legal Information'}
           </h2>
           <div className="bg-[#0a0a12]/80 border border-white/[0.08] rounded-lg p-6 md:p-8 backdrop-blur-sm">
             <dl className="space-y-4 text-sm">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 py-3 border-b border-white/[0.05]">
+                <dt className="text-gray-500 text-[10px] uppercase font-mono tracking-widest">
+                  {lang === 'es' ? 'Razón Social' : 'Legal Name'}
+                </dt>
+                <dd className="text-white font-mono">XLERION S.A.S.</dd>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 py-3 border-b border-white/[0.05]">
+                <dt className="text-gray-500 text-[10px] uppercase font-mono tracking-widest">
+                  {lang === 'es' ? 'NIT' : 'Tax ID'}
+                </dt>
+                <dd className="text-white font-mono">817.201.64</dd>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 py-3 border-b border-white/[0.05]">
+                <dt className="text-gray-500 text-[10px] uppercase font-mono tracking-widest">
+                  {lang === 'es' ? 'Naturaleza Jurídica' : 'Legal Nature'}
+                </dt>
+                <dd className="text-white font-mono">
+                  {lang === 'es' ? 'Sociedad por Acciones Simplificada (S.A.S.)' : 'Simplified Joint-Stock Company (S.A.S.)'}
+                </dd>
+              </div>
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 py-3 border-b border-white/[0.05]">
+                <dt className="text-gray-500 text-[10px] uppercase font-mono tracking-widest">
+                  {lang === 'es' ? 'Constitución' : 'Incorporated'}
+                </dt>
+                <dd className="text-white font-mono">2023</dd>
+              </div>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 py-3 border-b border-white/[0.05]">
                 <dt className="text-gray-500 text-[10px] uppercase font-mono tracking-widest">
                   {lang === 'es' ? 'Ubicación' : 'Location'}
@@ -108,9 +196,9 @@ export default function IdentityHubPage() {
               </div>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 py-3">
                 <dt className="text-gray-500 text-[10px] uppercase font-mono tracking-widest">
-                  {lang === 'es' ? 'NIT' : 'Tax ID'}
+                  {lang === 'es' ? 'División Especial' : 'Special Division'}
                 </dt>
-                <dd className="text-white font-mono">[En Trámite]</dd>
+                <dd className="text-white font-mono">Xlerion Game Studio</dd>
               </div>
             </dl>
           </div>
@@ -119,7 +207,7 @@ export default function IdentityHubPage() {
         {/* Data Protection */}
         <section data-reveal>
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
-            <span className="text-[#00e9fa] font-mono text-sm">03</span>
+            <span className="text-[#00e9fa] font-mono text-sm">04</span>
             {lang === 'es' ? 'Protección de Datos' : 'Data Protection'}
           </h2>
           <div className="bg-[#0a0a12]/80 border border-white/[0.08] rounded-lg p-6 md:p-8 backdrop-blur-sm">

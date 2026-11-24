@@ -1,5 +1,6 @@
 import React from 'react';
-import { Monitor, Database, ShieldCheck, Activity, Zap, Layers } from 'lucide-react';
+import { Monitor, Database, ShieldCheck, Activity, Zap, Layers, Gamepad2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionHeader } from '../components/ui';
 
@@ -112,11 +113,11 @@ export default function SolucionesSection() {
   const titles = {
     es: {
       title: 'Soluciones DeepTech de Punta a Punta',
-      subtitle: 'Gemelos digitales, asistentes RAG y telemetría IoT, disponibles a medida (ciclos de 6 a 18 meses) o empaquetados para validación rápida (30 a 90 días): PoC, configuradores 3D y auditorías de IA.',
+      subtitle: 'Gemelos digitales, asistentes RAG y telemetría IoT, disponibles a medida (ciclos de 6 a 18 meses) o empaquetados para validación rápida (30 a 90 días): PoC, configuradores 3D y auditorías de IA. Más la división Xlerion Game Studio (serious games y simuladores).',
     },
     en: {
       title: 'End-to-End DeepTech Solutions',
-      subtitle: 'Digital twins, RAG assistants and IoT telemetry, available tailored (6 to 18 month cycles) or packaged for rapid validation (30 to 90 days): PoCs, 3D configurators and AI audits.',
+      subtitle: 'Digital twins, RAG assistants and IoT telemetry, available tailored (6 to 18 month cycles) or packaged for rapid validation (30 to 90 days): PoCs, 3D configurators and AI audits. Plus the Xlerion Game Studio division (serious games and simulators).',
     },
   };
 
@@ -171,6 +172,62 @@ export default function SolucionesSection() {
             </div>
           );
         })}
+      </div>
+
+      {/* División Xlerion Game Studio */}
+      <div
+        data-reveal
+        className="stagger-4 mt-6 lg:mt-8 relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 card-hover"
+      >
+        <div className="flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-10">
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/20 flex items-center justify-center shrink-0">
+                <Gamepad2 size={18} className="text-[#00e9fa]" />
+              </div>
+              <h3 className="text-lg font-semibold text-white">
+                {lang === 'es' ? 'Xlerion Game Studio' : 'Xlerion Game Studio'}
+              </h3>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#00e9fa] border border-[#00e9fa]/30 rounded px-2 py-1">
+                {lang === 'es' ? 'División' : 'Division'}
+              </span>
+            </div>
+            <p className="text-sm text-gray-400 leading-relaxed mb-4">
+              {lang === 'es'
+                ? 'Nuestra división de videojuegos serios y simuladores: formación de operarios en minería, manufactura y seguridad industrial (SST) sin riesgos reales, con la misma tecnología de los gemelos digitales, más experiencias interactivas 3D que demuestran nuestras capacidades de motor.'
+                : 'Our serious games and simulators division: training for operators in mining, manufacturing and industrial safety (OSH) with no real-world risk, built on the same digital-twin technology, plus interactive 3D experiences that showcase our engine capabilities.'}
+            </p>
+            <Link
+              to="/corporativo#game-studio"
+              className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-[#00e9fa] hover:text-white transition-colors"
+            >
+              {lang === 'es' ? 'Ver el pipeline y el modelo de negocio →' : 'See the pipeline and business model →'}
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:w-[46%] shrink-0">
+            <div className="bg-white/[0.02] border border-white/[0.08] rounded-lg p-4">
+              <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#00e9fa] block mb-2">
+                {lang === 'es' ? 'Línea B2B · Alto margen' : 'B2B line · High margin'}
+              </span>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                {lang === 'es'
+                  ? 'Simuladores de entrenamiento y gamificación de procesos: licencia anual por usuario, pago por proyecto o suscripción SaaS (ciclos de venta de 1 a 6 meses).'
+                  : 'Training simulators and process gamification: annual license per user, project-based payment or SaaS subscription (sales cycles of 1 to 6 months).'}
+              </p>
+            </div>
+            <div className="bg-white/[0.02] border border-white/[0.08] rounded-lg p-4">
+              <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#00e9fa] block mb-2">
+                {lang === 'es' ? 'Línea B2C · Marca y portafolio' : 'B2C line · Brand & portfolio'}
+              </span>
+              <p className="text-xs text-gray-400 leading-relaxed">
+                {lang === 'es'
+                  ? 'Juegos indie y experiencias interactivas 3D (walking simulator, VR/AR) como demostración de capacidades gráficas y de motor.'
+                  : 'Indie games and interactive 3D experiences (walking simulator, VR/AR) as a demonstration of graphics and engine capabilities.'}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

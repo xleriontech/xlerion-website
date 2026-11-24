@@ -10,6 +10,7 @@ import TermsPage from './pages/TermsPage.jsx'
 import ToolkitHubPage from './pages/ToolkitHubPage.jsx'
 import ProjectsHubPage from './pages/ProjectsHubPage.jsx'
 import IdentityHubPage from './pages/IdentityHubPage.jsx'
+import CorporatePage from './pages/CorporatePage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import FounderPage from './pages/FounderPage.jsx'
 import PanelaIAPage from './pages/PanelaIA'
@@ -31,6 +32,7 @@ function Root() {
           <Route path="/toolkit" element={<ToolkitHubPage />} />
           <Route path="/proyectos" element={<ProjectsHubPage />} />
           <Route path="/identidad" element={<IdentityHubPage />} />
+          <Route path="/corporativo" element={<CorporatePage />} />
           <Route path="/fundador" element={<FounderPage />} />
           <Route path="/panelaia" element={<PanelaIAPage />} />
           {/* Tarjetas digitales: el .htaccess las sirve directamente; esta ruta
