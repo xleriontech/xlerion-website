@@ -1,154 +1,81 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+const LINES = ['Sincronizando sección...', 'Ensamblando módulos...', 'Listo'];
 
 export default function SectionLoader({ onComplete }) {
-  const [phase, setPhase] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const doneRef = useRef(false);
 
   useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 100),
-      setTimeout(() => setPhase(2), 400),
-      setTimeout(() => setPhase(3), 800),
-      setTimeout(() => setPhase(4), 1200),
-      setTimeout(() => {
-        if (onComplete) onComplete();
-      }, 1500),
-    ];
-    return () => timers.forEach(clearTimeout);
+    const fine = window.matchMedia?.('(pointer: fine)').matches;
+    if (!fine) return undefined;
+    const onMove = (e) => setMouse({ x: (e.clientX / window.innerWidth - 0.5) * 2, y: (e.clientY / window.innerHeight - 0.5) * 2 });
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
+
+  useEffect(() => {
+    const steps = 40;
+    let i = 0;
+    const iv = setInterval(() => {
+      i += 1;
+      const p = Math.min(100, Math.round((i / steps) * 100));
+      setProgress(p);
+      if (i >= steps) {
+        clearInterval(iv);
+        setTimeout(() => { if (!doneRef.current) { doneRef.current = true; onComplete?.(); } }, 180);
+      }
+    }, 28);
+    return () => clearInterval(iv);
   }, [onComplete]);
 
+  const pct = progress;
+  const phase = pct >= 80 ? 2 : pct >= 35 ? 1 : 0;
+
   return (
-    <div className="fixed inset-0 z-[99998] pointer-events-none flex items-center justify-center bg-[#070710]">
-      {/* Background glow */}
+    <div className="fixed inset-0 z-[99998] bg-[#050508]/95 backdrop-blur-sm flex items-center justify-center overflow-hidden">
       <div
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at center, rgba(0,233,250,0.15) 0%, transparent 60%)',
-          transition: 'opacity 0.5s ease',
+          backgroundImage: 'linear-gradient(rgba(0,233,250,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,233,250,0.05) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+          maskImage: 'radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(circle at 50% 50%, #000 0%, rgba(0,0,0,0.35) 45%, transparent 75%)',
+          transform: `translate(${mouse.x * -6}px, ${mouse.y * -6}px)`,
         }}
       />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(420px circle at ${50 + mouse.x * 10}% ${50 + mouse.y * 10}%, rgba(0,233,250,0.12), transparent 65%)` }} />
 
-      {/* Orbiting particles */}
-      <div className="absolute w-64 h-64">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute left-1/2 top-1/2 w-2 h-2"
-            style={{
-              transform: `translate(-50%, -50%) rotate(${i * 60}deg) translateY(-${40 + i * 8}px)`,
-              animation: `orbit ${1.5 + i * 0.2}s linear infinite`,
-              animationDelay: `${i * 0.1}s`,
-            }}
-          >
-            <div
-              className="w-1.5 h-1.5 rounded-full"
-              style={{
-                background: i % 2 === 0 ? '#00e9fa' : '#00f9b8',
-                boxShadow: `0 0 ${6 + i * 2}px ${i % 2 === 0 ? '#00e9fa' : '#00f9b8'}`,
-                opacity: phase >= 1 ? 1 : 0,
-                transition: 'opacity 0.3s ease',
-              }}
-            />
+      <div className="relative flex flex-col items-center px-6">
+        <div className="relative w-[180px] h-[180px] md:w-[220px] md:h-[220px] flex items-center justify-center" style={{ transform: `perspective(700px) rotateY(${mouse.x * 3}deg) rotateX(${mouse.y * -3}deg)` }}>
+          <div className="absolute inset-0 rounded-full border border-dashed border-[#00e9fa]/20" style={{ animation: 'spin 20s linear infinite reverse' }} />
+          <div className="absolute inset-[22px] rounded-full border border-[#00e9fa]/25" style={{ animation: 'spin 14s linear infinite' }} />
+          <div className="absolute inset-[44px] rounded-full border border-dotted border-[#00e9fa]/35" style={{ opacity: phase >= 1 ? 1 : 0.3, transition: 'opacity .4s ease' }} />
+          <div className="absolute inset-[14px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,233,250,0.14) 0%, transparent 70%)', animation: phase >= 1 ? 'pulse-ring 2.2s ease-out infinite' : 'none' }} />
+
+          <div className="relative w-20 h-20 md:w-24 md:h-24">
+            <div className="absolute inset-0" style={{ clipPath: `inset(${100 - pct}% 0 0 0)`, transition: 'clip-path .2s linear', filter: phase >= 1 ? 'drop-shadow(0 0 14px rgba(0,233,250,0.5))' : 'none' }}>
+              <img src="/LogoX.svg" alt="Xlerion" className="w-full h-full object-contain" style={{ animation: phase >= 1 ? 'float 3s ease-in-out infinite' : 'none' }} />
+            </div>
+            <img src="/LogoX.svg" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-contain opacity-[0.08] grayscale" />
+            <div className="absolute inset-x-[-10%] h-[2px]" style={{ top: `${100 - pct}%`, opacity: pct < 100 ? 1 : 0, background: 'linear-gradient(90deg, transparent, #00e9fa 50%, transparent)', boxShadow: '0 0 12px rgba(0,233,250,0.8)', transition: 'top .2s linear' }} />
           </div>
-        ))}
-      </div>
 
-      {/* Logo container */}
-      <div
-        className="relative z-10 flex flex-col items-center"
-        style={{
-          transform: phase >= 1 ? 'scale(1)' : 'scale(0.8)',
-          opacity: phase >= 1 ? 1 : 0,
-          transition: 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)',
-        }}
-      >
-        {/* Glowing ring */}
-        <div
-          className="absolute w-32 h-32 rounded-full border-2 border-[#00e9fa]/30"
-          style={{
-            animation: phase >= 2 ? 'pulse-ring 1.5s ease-out infinite' : 'none',
-            opacity: phase >= 2 ? 1 : 0,
-          }}
-        />
-
-        {/* Logo */}
-        <div
-          className="relative"
-          style={{
-            animation: phase >= 2 ? 'float 2s ease-in-out infinite' : 'none',
-          }}
-        >
-          <img
-            src="/LogoX.svg"
-            alt="Xlerion"
-            className="w-20 h-20 object-contain"
-            style={{
-              filter: phase >= 2
-                ? 'drop-shadow(0 0 20px rgba(0,233,250,0.6)) drop-shadow(0 0 40px rgba(0,233,250,0.3))'
-                : 'none',
-              transition: 'filter 0.5s ease',
-            }}
-          />
-
-          {/* Scan line effect */}
-          <div
-            className="absolute inset-0 overflow-hidden rounded-full"
-            style={{
-              opacity: phase >= 3 ? 1 : 0,
-            }}
-          >
-            <div
-              className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00e9fa]/20 to-transparent"
-              style={{
-                animation: phase >= 3 ? 'scan 1s ease-in-out infinite' : 'none',
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Loading text */}
-        <div
-          className="mt-8 text-[10px] font-mono uppercase tracking-[0.4em] text-[#00e9fa]/70"
-          style={{
-            opacity: phase >= 3 ? 1 : 0,
-            transition: 'opacity 0.3s ease',
-          }}
-        >
-          <span className="inline-block" style={{ animation: phase >= 3 ? 'blink 1s step-end infinite' : 'none' }}>
-            CARGANDO
-          </span>
-        </div>
-
-        {/* Progress dots */}
-        <div className="flex gap-2 mt-4">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              className="w-1.5 h-1.5 rounded-full"
-              style={{
-                background: phase > i + 1 ? '#00e9fa' : 'rgba(0,233,250,0.2)',
-                boxShadow: phase > i + 1 ? '0 0 8px #00e9fa' : 'none',
-                transition: 'all 0.3s ease',
-              }}
-            />
+          {['left-0 top-0 border-l border-t', 'right-0 top-0 border-r border-t', 'left-0 bottom-0 border-l border-b', 'right-0 bottom-0 border-r border-b'].map((c) => (
+            <span key={c} className={`absolute w-5 h-5 border-[#00e9fa]/45 ${c}`} />
           ))}
         </div>
-      </div>
 
-      {/* Horizontal scan lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(3)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute left-0 right-0 h-px"
-            style={{
-              top: `${30 + i * 20}%`,
-              background: 'linear-gradient(90deg, transparent, rgba(0,233,250,0.1), transparent)',
-              opacity: phase >= 2 ? 1 : 0,
-              animation: phase >= 2 ? `scanline ${2 + i * 0.5}s linear infinite` : 'none',
-              animationDelay: `${i * 0.3}s`,
-            }}
-          />
-        ))}
+        <div className="mt-6 w-[min(84vw,340px)]">
+          <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-gray-400 mb-3">
+            <span>{LINES[phase]}</span>
+            <span className="text-[#00e9fa] tabular-nums">{String(pct).padStart(3, '0')}%</span>
+          </div>
+          <div className="h-1.5 w-full bg-white/[0.06] rounded-full overflow-hidden">
+            <div className="h-full rounded-full bg-gradient-to-r from-[#00e9fa] to-[#00b8c9] shadow-[0_0_14px_rgba(0,233,250,0.45)] transition-[width] duration-150 linear" style={{ width: `${pct}%` }} />
+          </div>
+        </div>
       </div>
     </div>
   );
