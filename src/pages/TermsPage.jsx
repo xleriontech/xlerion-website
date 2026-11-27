@@ -3,10 +3,16 @@ import { Info, ShieldCheck, Scale, FileText } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useLanguage } from '../context/LanguageContext';
 import { useAnalytics } from '../hooks/useAnalytics';
+import usePageSEO from '../hooks/usePageSEO';
 
 export default function TermsPage() {
     const { lang } = useLanguage();
     useAnalytics('Términos y Condiciones', 'page');
+    usePageSEO({
+        title: 'Términos y Condiciones',
+        description: 'Términos y condiciones de uso del sitio y servicios de Xlerion S.A.S.',
+        path: '/legal/terminos',
+    });
 
     const t = {
         es: {

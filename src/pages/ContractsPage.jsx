@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import usePageSEO from '../hooks/usePageSEO';
 
 const ACCESS_KEY = 'xlerion-2026-contratos';
 const SESSION_KEY = 'xlerion_contracts_access';
@@ -442,6 +443,12 @@ function renderTemplate(text, values, onChange) {
 
 export default function ContractsPage() {
   const { lang } = useLanguage();
+  usePageSEO({
+    title: 'Contratos y Plantillas',
+    description: 'Plantillas contractuales internas de Xlerion.',
+    path: '/legal/contratos',
+    robots: 'noindex, nofollow',
+  });
   const [authed, setAuthed] = useState(() => sessionStorage.getItem(SESSION_KEY) === '1');
   const [keyInput, setKeyInput] = useState('');
   const [keyError, setKeyError] = useState(false);
@@ -457,11 +464,7 @@ export default function ContractsPage() {
     return () => { if (previous !== null) meta.setAttribute('content', previous); };
   }, []);
 
-  useEffect(() => {
-    const prev = document.title;
-    document.title = lang === 'es' ? 'Contratos | XLERION' : 'Contracts | XLERION';
-    return () => { document.title = prev; };
-  }, [lang]);
+
 
   useEffect(() => {
     setValues((prev) => ({ ...getDefaultValues(template.fields), ...prev }));

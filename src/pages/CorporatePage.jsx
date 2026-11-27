@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useLanguage } from '../context/LanguageContext';
 import { useAnalytics } from '../hooks/useAnalytics';
+import usePageSEO from '../hooks/usePageSEO';
 
 /**
  * /corporativo — Documento Corporativo Integral de XLERION S.A.S.
@@ -272,13 +273,12 @@ const NORMATIVA = [
 export default function CorporatePage() {
   const { lang } = useLanguage();
   useAnalytics('Corporativo', 'page');
+  usePageSEO({
+    title: 'Documento Corporativo — XLERION S.A.S.',
+    description: 'Estatutos sociales, misión, visión, valores, estructura organizacional, políticas y marco legal de XLERION S.A.S.',
+    path: '/corporativo',
+  });
   const c = CH[lang] || CH.es;
-
-  useEffect(() => {
-    const prev = document.title;
-    document.title = 'Documento Corporativo — XLERION S.A.S.';
-    return () => { document.title = prev; };
-  }, []);
 
   return (
     <Layout>

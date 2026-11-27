@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useAnalytics } from '../hooks/useAnalytics';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import usePageSEO from '../hooks/usePageSEO';
 import { BIO } from '../sections/biohostels-docs/ui';
 import { IdentidadMarca, LibroMaestro, ModeloNegocio, OportunidadInversion, ResumenEjecutivo } from '../sections/biohostels-docs/PartA';
 import { BlockchainTransparencia, DashboardIoT, EcosistemaIoT } from '../sections/biohostels-docs/PartB';
@@ -95,14 +96,13 @@ function DownloadCard({ doc }) {
 
 export default function BiohostelsDocPage() {
   useAnalytics('Biohostels Documentación', 'proyecto');
+  usePageSEO({
+    title: 'Biohostels · Documentación Completa',
+    description: 'Documentación completa del ecosistema Biohostels: IoT, blockchain, inversión, BioCoin, BioQuest gamificación, marco legal y roadmap.',
+    path: '/proyectos/biohostels',
+  });
   useScrollAnimation({ enabled: true, selector: 'section' });
   const [active, setActive] = useState(INDEX[0].id);
-
-  useEffect(() => {
-    const prev = document.title;
-    document.title = 'Biohostels · Documentación Completa | Xlerion';
-    return () => { document.title = prev; };
-  }, []);
 
   useEffect(() => {
     const ids = INDEX.map((i) => i.id);

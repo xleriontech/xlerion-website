@@ -4,10 +4,17 @@ import { AlertTriangle, Home, Compass, ArrowLeft } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useLanguage } from '../context/LanguageContext';
 import { useAnalytics } from '../hooks/useAnalytics';
+import usePageSEO from '../hooks/usePageSEO';
 
 export default function NotFoundPage() {
   const { lang } = useLanguage();
   useAnalytics('404_NotFound', 'error');
+  usePageSEO({
+    title: '404 - Página no encontrada',
+    description: 'La ruta solicitada no existe en Xlerion.',
+    path: '/404',
+    robots: 'noindex, nofollow',
+  });
 
   const isEn = lang === 'en';
 

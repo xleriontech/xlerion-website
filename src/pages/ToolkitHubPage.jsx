@@ -4,6 +4,7 @@ import Layout from '../components/Layout';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { useAnalytics } from '../hooks/useAnalytics';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import usePageSEO from '../hooks/usePageSEO';
 import { ToolkitSection } from '../sections';
 
 /**
@@ -11,6 +12,11 @@ import { ToolkitSection } from '../sections';
  */
 export default function ToolkitHubPage() {
   useAnalytics('Toolkit', 'hub');
+  usePageSEO({
+    title: 'Xlerion Core Toolkit',
+    description: 'Toolkit modular de Xlerion para diagnóstico, logging estructurado, validación y escalabilidad operativa en pipelines empresariales.',
+    path: '/toolkit',
+  });
 
   // Activa el reveal por scroll en los <section> de la página.
   useScrollAnimation({ enabled: true, selector: 'section' });

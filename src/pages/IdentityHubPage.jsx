@@ -5,6 +5,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { useLanguage } from '../context/LanguageContext';
 import { useAnalytics } from '../hooks/useAnalytics';
 import useScrollAnimation from '../hooks/useScrollAnimation';
+import usePageSEO from '../hooks/usePageSEO';
 
 /**
  * Hub /identidad — información legal y de contacto de Xlerion.
@@ -12,6 +13,11 @@ import useScrollAnimation from '../hooks/useScrollAnimation';
 export default function IdentityHubPage() {
   const { t, lang } = useLanguage();
   useAnalytics('Identidad', 'hub');
+  usePageSEO({
+    title: 'Identidad Empresarial',
+    description: 'Misión, visión, valores, información legal y certificaciones de Xlerion S.A.S., empresa DeepTech en Colombia.',
+    path: '/identidad',
+  });
   useScrollAnimation({ enabled: true, selector: 'section' });
 
   return (

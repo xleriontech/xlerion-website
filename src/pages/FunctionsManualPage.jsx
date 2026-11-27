@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import usePageSEO from '../hooks/usePageSEO';
 
 function Section({ id, n, title, children }) {
   return (
@@ -59,12 +60,11 @@ function Ul({ items }) {
 
 export default function FunctionsManualPage() {
   const { lang } = useLanguage();
-
-  useEffect(() => {
-    const prev = document.title;
-    document.title = lang === 'es' ? 'Manual de Funciones | XLERION' : 'Functions Manual | XLERION';
-    return () => { document.title = prev; };
-  }, [lang]);
+  usePageSEO({
+    title: 'Manual de Funciones y Servicios',
+    description: 'Funciones operativas, arquitectura técnica, RACI, KPIs y SLA de las líneas de servicio de Xlerion.',
+    path: '/legal/manual-de-funciones',
+  });
 
   const toc = [
     ['#marco', '1. Marco general'],

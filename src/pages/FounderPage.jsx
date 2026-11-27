@@ -3,10 +3,16 @@ import { User, Linkedin, Github, Globe, Award, GraduationCap, Shield, Briefcase 
 import Layout from '../components/Layout';
 import { useLanguage } from '../context/LanguageContext';
 import { useAnalytics } from '../hooks/useAnalytics';
+import usePageSEO from '../hooks/usePageSEO';
 
 export default function FounderPage() {
     const { t, lang } = useLanguage();
     useAnalytics('Fundador', 'page');
+    usePageSEO({
+        title: 'Miguel E. Rodríguez Martinez | Fundador Xlerion',
+        description: 'Perfil de Miguel E. Rodríguez Martinez, CEO & Lead Technical Architect de Xlerion. Experiencia en arquitecturas escalables, 3D, IoT e IA.',
+        path: '/fundador',
+    });
 
     const certs = [
         {

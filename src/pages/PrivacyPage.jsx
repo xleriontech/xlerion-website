@@ -3,10 +3,16 @@ import { Shield, CheckCircle2, Eye, Lock } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useLanguage } from '../context/LanguageContext';
 import { useAnalytics } from '../hooks/useAnalytics';
+import usePageSEO from '../hooks/usePageSEO';
 
 export default function PrivacyPage() {
     const { lang } = useLanguage();
     useAnalytics('Privacidad', 'page');
+    usePageSEO({
+        title: 'Política de Tratamiento de Datos',
+        description: 'Política de privacidad y tratamiento de datos personales de Xlerion, conforme a Ley 1581 de 2012.',
+        path: '/legal/privacidad',
+    });
 
     const t = {
         es: {

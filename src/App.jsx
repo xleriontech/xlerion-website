@@ -11,6 +11,7 @@ import { useAnalytics } from './hooks/useAnalytics';
 import useScrollAnimation from './hooks/useScrollAnimation';
 import useSectionTransition from './hooks/useSectionTransition';
 import { initLenis, scrollToTarget } from './lib/scroll';
+import usePageSEO from './hooks/usePageSEO';
 
 import HeroWithDemos from './sections/HeroWithDemos';
 import Marquee from './components/Marquee';
@@ -51,6 +52,11 @@ export default function App() {
 
   // Analytics: rastrear la vista del Home
   useAnalytics('Home', 'page');
+  usePageSEO({
+    title: 'Xlerion | Gemelos digitales e IoT en tiempo real, Colombia',
+    description: 'Modelado 3D, IoT y visualización web para ver tu operación en tiempo real. PoC sobre tus datos. Cundinamarca, Colombia.',
+    path: '/',
+  });
 
   // Animaciones de aparición y transiciones entre secciones
   useScrollAnimation({ enabled: true, selector: 'section' });

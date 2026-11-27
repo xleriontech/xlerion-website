@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import usePageSEO from '../hooks/usePageSEO';
 
 export default function LegalIndexPage() {
   const { lang } = useLanguage();
-
-  useEffect(() => {
-    const prev = document.title;
-    document.title = lang === 'es' ? 'Legal | XLERION' : 'Legal | XLERION';
-    return () => { document.title = prev; };
-  }, [lang]);
+  usePageSEO({
+    title: 'Centro Legal',
+    description: 'Documentos legales, plantillas contractuales y recursos de marca de XLERION S.A.S.',
+    path: '/legal',
+  });
 
   const items = [
     {
