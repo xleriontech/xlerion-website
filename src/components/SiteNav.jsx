@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import SectionLoader from './SectionLoader';
+import { scrollToTarget } from '../lib/scroll';
 
 const NAV_ITEMS = [
   { id: 'home', key: 'nav_home', scrollTo: 'home' },
@@ -41,24 +42,16 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
     setMobileMenuOpen(false);
     setShowLoader(true);
 
-    const safeScrollTo = (top, attempt = 0) => {
-      const native = window.__XLERION_ORIG_SCROLL_TO || window.scrollTo;
-      if (window.__XLERION_BLOCK_SCROLL && attempt < 8) {
-        setTimeout(() => safeScrollTo(top, attempt + 1), 300);
-        return;
-      }
-      try { native({ top, behavior: 'smooth' }); } catch { try { native(0, top); } catch { /* fallback */ } }
+    const doScroll = () => {
+      const el = document.getElementById(id);
+      if (el) scrollToTarget(el, { offset: -80 });
     };
 
     if (window.location.pathname !== '/') {
       navigate('/');
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) safeScrollTo(el.offsetTop - 80);
-      }, 100);
+      setTimeout(doScroll, 100);
     } else {
-      const el = document.getElementById(id);
-      if (el) safeScrollTo(el.offsetTop - 80);
+      doScroll();
     }
   };
 
@@ -71,15 +64,15 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
   }, [onNavReady]);
 
   const navBg = scrolled
-    ? 'bg-black/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.4)] border-b border-white/[0.05]'
-    : 'bg-black/60 backdrop-blur-md border-b border-transparent';
+    ? 'bg-black/80 backdrop-blur-xl border-b border-white/[0.06]'
+    : 'bg-transparent border-b border-transparent';
 
   return (
     <>
       {showLoader && <SectionLoader onComplete={handleLoaderComplete} />}
       
       <nav className={`fixed top-0 w-full z-50 h-16 transition-all duration-500 ${navBg}`}>
-        <div className="w-full h-16 px-4 md:px-8 flex items-center justify-between max-w-7xl mx-auto">
+        <div className="w-full h-16 md:h-20 px-6 md:px-10 lg:px-14 flex items-center justify-between max-w-[90rem] mx-auto">
           {/* Logo */}
           <Link
             to="/"
@@ -156,7 +149,7 @@ export default function SiteNav({ onNavReady, variant = 'full', onLogoClick }) {
               {/* CTA Button - Solicitar PoC */}
               <button
                 onClick={() => navTo('contacto')}
-                className="inline-flex items-center h-9 px-5 whitespace-nowrap leading-none bg-[#00e9fa] text-black font-semibold rounded-lg transition-all duration-300 hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] hover:-translate-y-0.5 ml-3"
+                className="inline-flex items-center h-10 px-6 whitespace-nowrap leading-none bg-[#00e9fa] text-black font-semibold rounded-full transition-all duration-300 hover:bg-white ml-4 text-[11px] tracking-[0.08em]"
               >
                 {t('nav_poc')}
               </button>

@@ -9,6 +9,7 @@ import PrivacyPage from './pages/PrivacyPage.jsx'
 import TermsPage from './pages/TermsPage.jsx'
 import ToolkitHubPage from './pages/ToolkitHubPage.jsx'
 import ProjectsHubPage from './pages/ProjectsHubPage.jsx'
+import BiohostelsDocPage from './pages/BiohostelsDocPage.jsx'
 import IdentityHubPage from './pages/IdentityHubPage.jsx'
 import CorporatePage from './pages/CorporatePage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
@@ -16,6 +17,9 @@ import FounderPage from './pages/FounderPage.jsx'
 import PanelaIAPage from './pages/PanelaIA'
 import DigitalCardRedirect from './pages/DigitalCardRedirect'
 import HardRedirect from './components/HardRedirect'
+import ContractsPage from './pages/ContractsPage.jsx'
+import LegalIndexPage from './pages/LegalIndexPage.jsx'
+import FunctionsManualPage from './pages/FunctionsManualPage.jsx'
 
 function Root() {
   // Loader de arranque del sitio (sustituye al video intro).
@@ -27,12 +31,16 @@ function Root() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/legal" element={<LegalIndexPage />} />
           <Route path="/legal/privacidad" element={<PrivacyPage />} />
           <Route path="/legal/terminos" element={<TermsPage />} />
           <Route path="/toolkit" element={<ToolkitHubPage />} />
           <Route path="/proyectos" element={<ProjectsHubPage />} />
+          <Route path="/proyectos/biohostels" element={<BiohostelsDocPage />} />
           <Route path="/identidad" element={<IdentityHubPage />} />
           <Route path="/corporativo" element={<CorporatePage />} />
+          <Route path="/legal/contratos" element={<ContractsPage />} />
+          <Route path="/legal/manual-de-funciones" element={<FunctionsManualPage />} />
           <Route path="/fundador" element={<FounderPage />} />
           <Route path="/panelaia" element={<PanelaIAPage />} />
           {/* Tarjetas digitales: el .htaccess las sirve directamente; esta ruta

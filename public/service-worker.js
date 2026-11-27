@@ -1,6 +1,6 @@
-const CACHE_NAME = 'xlerion-v5';
-const STATIC_CACHE = 'xlerion-static-v5';
-const DYNAMIC_CACHE = 'xlerion-dynamic-v5';
+const CACHE_NAME = 'xlerion-v6';
+const STATIC_CACHE = 'xlerion-static-v6';
+const DYNAMIC_CACHE = 'xlerion-dynamic-v6';
 
 // El HTML NO se precachea: se sirve siempre con estrategia red-primero para
 // evitar que un despliegue (o un cambio de title/meta) quede oculto tras una

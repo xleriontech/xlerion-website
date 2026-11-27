@@ -121,7 +121,7 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
   return (
     <section
       id="arquitectura"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div data-reveal>
         <SectionHeader title={c.title} subtitle={c.subtitle} />
@@ -129,7 +129,7 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mt-12">
         {/* Columna 1: Arquitectura por Capas */}
-        <div data-reveal className="stagger-1 relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 card-hover">
+        <div data-reveal className="stagger-1 relative bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 card-hover">
           <div className="flex items-center gap-3 mb-6">
             <span className="w-10 h-10 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/20 flex items-center justify-center shrink-0">
               <Layers size={18} className="text-[#00e9fa]" />
@@ -159,7 +159,7 @@ export default function TechStackSecuritySection({ onOpenPoC }) {
         </div>
 
         {/* Columna 2: Seguridad y Cumplimiento */}
-        <div data-reveal className="stagger-2 relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 card-hover">
+        <div data-reveal className="stagger-2 relative bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 card-hover">
           <div className="flex items-center gap-3 mb-6">
             <span className="w-10 h-10 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/20 flex items-center justify-center shrink-0">
               <ShieldCheck size={18} className="text-[#00e9fa]" />

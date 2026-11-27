@@ -1,304 +1,210 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
-/**
- * Loader principal del sitio (arranque).
- *
- * Sustituye al video intro. Es la pieza de entrada de la experiencia, asi que
- * es deliberadamente MAS RICA que los loaders de cambio de seccion:
- *   - 3 anillos concentricos que giran en sentidos y velocidades distintos
- *   - 12 particulas en orbita elipseada
- *   - logo con triple halo y barrido de escaneo
- *   - marco HUD con escuadras y marcas tecnicas
- *   - barra de progreso segmentada con shimmer y porcentaje real
- *   - lineas de escaneo sobre el fondo grid
- */
+const BOOT_LINES = [
+  { at: 8, text: 'Iniciando núcleo visual...' },
+  { at: 24, text: 'Montando escena 3D...' },
+  { at: 42, text: 'Conectando módulos interactivos...' },
+  { at: 62, text: 'Sincronizando interfaz...' },
+  { at: 82, text: 'Preparando experiencia...' },
+];
+
 export default function Loader({ onComplete }) {
-    const [progress, setProgress] = useState(0);
-    const [canSkip, setCanSkip] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [canSkip, setCanSkip] = useState(false);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const doneRef = useRef(false);
 
-    const finish = useCallback(() => {
-        if (onComplete) onComplete();
-    }, [onComplete]);
+  const finish = useCallback(() => {
+    if (doneRef.current) return;
+    doneRef.current = true;
+    onComplete?.();
+  }, [onComplete]);
 
-    useEffect(() => {
-        // Permite saltar a partir del segundo 1.
-        const skipTimer = setTimeout(() => setCanSkip(true), 1000);
+  useEffect(() => {
+    const skipTimer = setTimeout(() => setCanSkip(true), 900);
+    const duration = 2400;
+    const steps = 96;
+    const increment = 100 / steps;
+    let current = 0;
+    const interval = setInterval(() => {
+      current += increment;
+      if (current >= 100) {
+        setProgress(100);
+        clearInterval(interval);
+        setTimeout(finish, 320);
+      } else {
+        setProgress(current);
+      }
+    }, duration / steps);
+    return () => { clearTimeout(skipTimer); clearInterval(interval); };
+  }, [finish]);
 
-        // Progreso simulado: ~2,2 s hasta el 100%.
-        const duration = 2200;
-        const steps = 88;
-        const increment = 100 / steps;
-        let current = 0;
+  useEffect(() => {
+    const fine = window.matchMedia?.('(pointer: fine)').matches;
+    if (!fine) return undefined;
+    const onMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      setMouse({ x, y });
+    };
+    window.addEventListener('mousemove', onMove, { passive: true });
+    return () => window.removeEventListener('mousemove', onMove);
+  }, []);
 
-        const interval = setInterval(() => {
-            current += increment;
-            if (current >= 100) {
-                setProgress(100);
-                clearInterval(interval);
-                setTimeout(finish, 260);
-            } else {
-                setProgress(current);
-            }
-        }, duration / steps);
+  const pct = Math.round(progress);
+  const reveal = Math.max(0, Math.min(100, progress));
+  const activeLines = BOOT_LINES.filter((l) => pct >= l.at);
+  const phase = pct >= 85 ? 3 : pct >= 50 ? 2 : pct >= 15 ? 1 : 0;
 
-        return () => {
-            clearTimeout(skipTimer);
-            clearInterval(interval);
-        };
-    }, [finish]);
+  return (
+    <div className="fixed inset-0 z-[9999] overflow-hidden bg-[#050508] text-white select-none">
+      <div
+        className="absolute inset-0 transition-opacity duration-300"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(0,233,250,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,233,250,0.06) 1px, transparent 1px)',
+          backgroundSize: '56px 56px',
+          maskImage: 'radial-gradient(circle at 50% 45%, #000 0%, rgba(0,0,0,0.4) 45%, transparent 75%)',
+          WebkitMaskImage: 'radial-gradient(circle at 50% 45%, #000 0%, rgba(0,0,0,0.4) 45%, transparent 75%)',
+          transform: `translate(${mouse.x * -8}px, ${mouse.y * -8}px)`,
+        }}
+      />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(600px circle at ${50 + mouse.x * 12}% ${45 + mouse.y * 12}%, rgba(0,233,250,0.14), transparent 60%)`,
+        }}
+      />
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="absolute left-0 right-0 h-px"
+            style={{
+              top: `${20 + i * 28}%`,
+              background: 'linear-gradient(90deg, transparent, rgba(0,233,250,0.14), transparent)',
+              animation: `scanline ${3.2 + i * 0.7}s linear infinite`,
+              animationDelay: `${i * 0.4}s`,
+            }}
+          />
+        ))}
+      </div>
 
-    const pct = Math.round(progress);
-    const phase = pct >= 85 ? 3 : pct >= 45 ? 2 : pct >= 12 ? 1 : 0;
-
-    return (
-        <div className="fixed inset-0 z-[9999] overflow-hidden bg-[#050508] flex flex-col items-center justify-center">
-            {/* Fondo: grid tecnico 48px con mascara radial + halo */}
+      <div className="relative h-full w-full max-w-[90rem] mx-auto px-6 md:px-10 lg:px-14 flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start">
             <div
-                className="absolute inset-0"
-                style={{
-                    backgroundImage:
-                        'linear-gradient(rgba(0,233,250,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(0,233,250,0.055) 1px, transparent 1px)',
-                    backgroundSize: '48px 48px',
-                    maskImage: 'radial-gradient(circle at 50% 45%, #000 0%, rgba(0,0,0,0.35) 42%, transparent 72%)',
-                    WebkitMaskImage:
-                        'radial-gradient(circle at 50% 45%, #000 0%, rgba(0,0,0,0.35) 42%, transparent 72%)',
-                }}
-            />
-            <div
-                className="absolute inset-0"
-                style={{
-                    background:
-                        'radial-gradient(circle at 50% 42%, rgba(0,233,250,0.13) 0%, transparent 58%)',
-                }}
-            />
-
-            {/* Lineas de escaneo */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {[0, 1, 2].map((i) => (
-                    <div
-                        key={i}
-                        className="absolute left-0 right-0 h-px"
-                        style={{
-                            top: `${22 + i * 26}%`,
-                            background:
-                                'linear-gradient(90deg, transparent, rgba(0,233,250,0.16), transparent)',
-                            animation: `scanline ${3 + i * 0.8}s linear infinite`,
-                            animationDelay: `${i * 0.45}s`,
-                        }}
-                    />
-                ))}
-            </div>
-
-            {/* Nucleo: anillos + particulas + logo */}
-            <div className="relative flex flex-col items-center">
-                <div className="relative w-[240px] h-[240px] md:w-[300px] md:h-[300px] flex items-center justify-center">
-                    {/* Anillo exterior: puntos, lento, antihorario */}
-                    <div
-                        className="absolute inset-0 rounded-full"
-                        style={{
-                            border: '1px dashed rgba(0,233,250,0.20)',
-                            animation: 'spin 26s linear infinite reverse',
-                            opacity: phase >= 1 ? 1 : 0,
-                            transition: 'opacity 0.6s ease',
-                        }}
-                    />
-                    {/* Anillo intermedio: solido, rapido, horario */}
-                    <div
-                        className="absolute inset-[26px] rounded-full"
-                        style={{
-                            border: '1px solid rgba(0,233,250,0.26)',
-                            animation: 'spin 15s linear infinite',
-                            opacity: phase >= 1 ? 1 : 0,
-                            transition: 'opacity 0.6s ease',
-                        }}
-                    />
-                    {/* Anillo interior: punteado, contrarrotacion */}
-                    <div
-                        className="absolute inset-[54px] rounded-full"
-                        style={{
-                            border: '1px dotted rgba(0,233,250,0.45)',
-                            animation: 'spin 9s linear infinite reverse',
-                            opacity: phase >= 2 ? 1 : 0,
-                            transition: 'opacity 0.6s ease',
-                        }}
-                    />
-                    {/* Halo pulsante */}
-                    <div
-                        className="absolute inset-[16px] rounded-full"
-                        style={{
-                            background:
-                                'radial-gradient(circle, rgba(0,233,250,0.16) 0%, transparent 68%)',
-                            animation: phase >= 2 ? 'pulse-ring 2.4s ease-out infinite' : 'none',
-                        }}
-                    />
-
-                    {/* 12 particulas en orbita */}
-                    <div className="absolute w-[62%] h-[62%]">
-                        {[...Array(12)].map((_, i) => (
-                            <div
-                                key={i}
-                                className="absolute left-1/2 top-1/2"
-                                style={{
-                                    '--orbit-r': 52 + (i % 3) * 9 + 'px',
-                                    transform: `translate(-50%, -50%) rotate(${i * 30}deg)`,
-                                    animation: `xlerion-orbit ${2.4 + (i % 4) * 0.35}s linear infinite`,
-                                    animationDelay: `${i * 0.08}s`,
-                                    opacity: phase >= 1 ? 1 : 0,
-                                    transition: 'opacity 0.5s ease',
-                                }}
-                            >
-                                <div
-                                    className="rounded-full"
-                                    style={{
-                                        width: i % 3 === 0 ? 5 : 3,
-                                        height: i % 3 === 0 ? 5 : 3,
-                                        background: i % 2 === 0 ? '#00e9fa' : '#00f9b8',
-                                        boxShadow: `0 0 ${5 + (i % 3) * 3}px ${i % 2 === 0 ? '#00e9fa' : '#00f9b8'}`,
-                                    }}
-                                />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* Logo con linea de escaneo */}
-                    <div className="relative">
-                        {/* Linea de escaneo: una barra fina que baja, no un
-                            relleno (el relleno pintaba un rectangulo sobre las
-                            zonas transparentes del SVG). */}
-                        <div
-                            className="absolute inset-0 overflow-hidden"
-                            style={{
-                                opacity: phase >= 2 ? 1 : 0,
-                                transition: 'opacity 0.6s ease',
-                            }}
-                        >
-                            <div
-                                className="absolute left-0 right-0 h-[2px]"
-                                style={{
-                                    background:
-                                        'linear-gradient(90deg, transparent, #00e9fa 50%, transparent)',
-                                    boxShadow: '0 0 14px rgba(0,233,250,0.85)',
-                                    animation: 'xlerion-scan-y 2.2s ease-in-out infinite',
-                                }}
-                            />
-                        </div>
-                        <img
-                            src="/LogoX.svg"
-                            alt="Xlerion"
-                            className="relative w-24 h-24 md:w-32 md:h-32 object-contain"
-                            style={{
-                                animation: phase >= 1 ? 'float 3.2s ease-in-out infinite' : 'none',
-                                filter:
-                                    phase >= 2
-                                        ? 'drop-shadow(0 0 18px rgba(0,233,250,0.65)) drop-shadow(0 0 46px rgba(0,233,250,0.28))'
-                                        : 'none',
-                                transition: 'filter 0.7s ease',
-                            }}
-                        />
-                    </div>
-                </div>
-
-                {/* Marca */}
-                <div
-                    className="mt-6 text-center"
-                    style={{ opacity: phase >= 1 ? 1 : 0, transition: 'opacity 0.5s ease' }}
-                >
-                    <p className="text-[#00e9fa] font-mono text-xs md:text-sm tracking-[0.42em] uppercase">
-                        Tecnología Avanzada
-                    </p>
-                </div>
-            </div>
-
-            {/* Marco HUD con escuadras */}
-            <div
-                className="relative mt-10 w-[min(88vw,460px)]"
-                style={{ opacity: phase >= 2 ? 1 : 0, transition: 'opacity 0.5s ease' }}
+              className="relative w-[260px] h-[260px] md:w-[340px] md:h-[340px] flex items-center justify-center"
+              style={{ transform: `perspective(900px) rotateY(${mouse.x * 4}deg) rotateX(${mouse.y * -4}deg)` }}
             >
-                {/* Escuadras */}
-                {[
-                    'left-0 top-0 border-l border-t',
-                    'right-0 top-0 border-r border-t',
-                    'left-0 bottom-0 border-l border-b',
-                    'right-0 bottom-0 border-r border-b',
-                ].map((c) => (
+              <div className="absolute inset-0 rounded-full border border-dashed border-[#00e9fa]/20" style={{ animation: 'spin 28s linear infinite reverse' }} />
+              <div className="absolute inset-[28px] rounded-full border border-[#00e9fa]/25" style={{ animation: 'spin 18s linear infinite' }} />
+              <div className="absolute inset-[58px] rounded-full border border-dotted border-[#00e9fa]/35" style={{ opacity: phase >= 1 ? 1 : 0.25, transition: 'opacity 0.6s ease', animation: 'spin 10s linear infinite reverse' }} />
+              <div className="absolute inset-[18px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(0,233,250,0.14) 0%, transparent 68%)', animation: phase >= 1 ? 'pulse-ring 2.6s ease-out infinite' : 'none' }} />
+
+              <div className="absolute w-[64%] h-[64%]">
+                {[...Array(12)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute left-1/2 top-1/2"
+                    style={{
+                      '--orbit-r': `${58 + (i % 3) * 10}px`,
+                      transform: `translate(-50%, -50%) rotate(${i * 30}deg)`,
+                      animation: `xlerion-orbit ${2.6 + (i % 4) * 0.35}s linear infinite`,
+                      animationDelay: `${i * 0.07}s`,
+                      opacity: phase >= 1 ? 1 : 0,
+                      transition: 'opacity 0.5s ease',
+                    }}
+                  >
                     <span
-                        key={c}
-                        className={`absolute w-5 h-5 border-[#00e9fa]/45 ${c}`}
+                      className="block rounded-full"
+                      style={{
+                        width: i % 3 === 0 ? 5 : 3,
+                        height: i % 3 === 0 ? 5 : 3,
+                        background: i % 2 === 0 ? '#00e9fa' : '#00f9b8',
+                        boxShadow: `0 0 ${6 + (i % 3) * 3}px ${i % 2 === 0 ? '#00e9fa' : '#00f9b8'}`,
+                      }}
                     />
+                  </div>
                 ))}
+              </div>
 
-                {/* Barra segmentada */}
-                <div className="relative h-3 w-full bg-white/[0.05] overflow-hidden flex gap-[2px] px-[2px] pt-[2px]">
-                    {[...Array(28)].map((_, i) => {
-                        const on = (i / 28) * 100 < progress;
-                        return (
-                            <span
-                                key={i}
-                                className="flex-1 h-full"
-                                style={{
-                                    background: on
-                                        ? 'linear-gradient(180deg, #00e9fa, #00b8c9)'
-                                        : 'rgba(255,255,255,0.07)',
-                                    boxShadow: on ? '0 0 8px rgba(0,233,250,0.45)' : 'none',
-                                    transition: 'background 0.18s ease, box-shadow 0.18s ease',
-                                }}
-                            />
-                        );
-                    })}
-
-                    {/* Shimmer SOLO sobre la barra */}
-                    <div
-                        className="absolute inset-0 overflow-hidden pointer-events-none"
-                        style={{ opacity: phase >= 2 ? 1 : 0, transition: 'opacity 0.5s ease' }}
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer" />
-                    </div>
+              <div className="relative w-28 h-28 md:w-36 md:h-36">
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    clipPath: `inset(${100 - reveal}% 0 0 0)`,
+                    transition: 'clip-path 0.25s linear',
+                    filter: phase >= 2 ? 'drop-shadow(0 0 18px rgba(0,233,250,0.55)) drop-shadow(0 0 40px rgba(0,233,250,0.2))' : 'none',
+                  }}
+                >
+                  <img src="/LogoX.svg" alt="Xlerion" className="w-full h-full object-contain" style={{ animation: phase >= 1 ? 'float 3.2s ease-in-out infinite' : 'none' }} />
                 </div>
+                <img src="/LogoX.svg" alt="" aria-hidden="true" className="absolute inset-0 w-full h-full object-contain opacity-[0.08] grayscale" />
+                <div className="absolute inset-x-[-10%] h-[2px] pointer-events-none" style={{ top: `${100 - reveal}%`, opacity: pct < 100 ? 1 : 0, background: 'linear-gradient(90deg, transparent, #00e9fa 50%, transparent)', boxShadow: '0 0 16px rgba(0,233,250,0.9)', transition: 'top 0.25s linear, opacity 0.3s ease' }} />
+              </div>
 
-                {/* Porcentaje + estado */}
-                <div className="mt-4 flex items-end justify-between">
-                    <span className="text-[#00e9fa] font-mono text-sm md:text-base tabular-nums">
-                        {String(pct).padStart(3, '0')}%
-                    </span>
-                    <span
-                        className="text-gray-500 font-mono text-[10px] md:text-[11px] uppercase tracking-[0.2em]"
-                        style={{ opacity: phase >= 3 ? 1 : 0, transition: 'opacity 0.4s ease' }}
-                    >
-                        <span
-                            className="inline-block"
-                            style={{ animation: phase >= 3 ? 'blink 1s step-end infinite' : 'none' }}
-                        >
-                            Inicializando experiencia...
-                        </span>
-                    </span>
-                </div>
-
-                {/* Puntos de estado */}
-                <div className="mt-4 flex gap-2">
-                    {[0, 1, 2].map((i) => (
-                        <span
-                            key={i}
-                            className="w-1.5 h-1.5 rounded-full"
-                            style={{
-                                background: phase > i ? '#00e9fa' : 'rgba(0,233,250,0.18)',
-                                boxShadow: phase > i ? '0 0 8px #00e9fa' : 'none',
-                                transition: 'all 0.3s ease',
-                            }}
-                        />
-                    ))}
-                </div>
+              <div className="absolute inset-0 pointer-events-none">
+                {['left-0 top-0 border-l border-t', 'right-0 top-0 border-r border-t', 'left-0 bottom-0 border-l border-b', 'right-0 bottom-0 border-r border-b'].map((c) => (
+                  <span key={c} className={`absolute w-6 h-6 border-[#00e9fa]/45 ${c}`} />
+                ))}
+              </div>
             </div>
 
-            {/* Saltar */}
-            {canSkip && (
-                <button
-                    onClick={finish}
-                    className="absolute bottom-6 right-6 md:bottom-10 md:right-10 px-4 py-2 md:px-5 md:py-2.5 bg-[#00e9fa]/10 hover:bg-[#00e9fa]/25 border border-[#00e9fa]/40 text-[#00e9fa] font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] rounded-sm backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,233,250,0.25)]"
-                    aria-label="Saltar la animación de carga"
-                >
-                    Saltar
-                </button>
-            )}
+            <div className="mt-8 text-center lg:text-left">
+              <p className="font-mono text-[11px] uppercase tracking-[0.34em] text-[#00e9fa]/85">Xlerion System Boot</p>
+              <h1 className="mt-3 text-3xl md:text-5xl font-semibold tracking-[-0.04em] text-white">Construyendo experiencia</h1>
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="border border-white/10 bg-white/[0.02] backdrop-blur-sm rounded-2xl p-5 md:p-6">
+              <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-[0.22em] text-gray-400 mb-5">
+                <span>Ensamblaje</span>
+                <span className="text-[#00e9fa] tabular-nums">{String(pct).padStart(3, '0')}%</span>
+              </div>
+
+              <div className="h-2 w-full bg-white/[0.06] rounded-full overflow-hidden">
+                <div className="h-full rounded-full bg-gradient-to-r from-[#00e9fa] to-[#00b8c9] shadow-[0_0_18px_rgba(0,233,250,0.45)] transition-[width] duration-200 ease-linear" style={{ width: `${pct}%` }} />
+              </div>
+
+              <div className="mt-6 space-y-3 font-mono text-[11px] md:text-xs">
+                {BOOT_LINES.map((line) => {
+                  const on = pct >= line.at;
+                  const active = pct >= line.at && pct < line.at + 18;
+                  return (
+                    <div key={line.text} className="flex items-start gap-3 transition-all duration-500" style={{ opacity: on ? 1 : 0.18, transform: on ? 'translateY(0)' : 'translateY(6px)' }}>
+                      <span className="mt-1 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: on ? '#00e9fa' : 'rgba(255,255,255,0.2)', boxShadow: on ? '0 0 8px #00e9fa' : 'none' }} />
+                      <span className={on ? 'text-gray-300' : 'text-gray-600'}>{line.text}</span>
+                      {active && <span className="text-[#00e9fa] animate-pulse">▍</span>}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between">
+                <div className="flex gap-2">
+                  {[0, 1, 2].map((i) => (
+                    <span key={i} className="w-1.5 h-1.5 rounded-full transition-all duration-300" style={{ background: phase > i ? '#00e9fa' : 'rgba(0,233,250,0.2)', boxShadow: phase > i ? '0 0 8px #00e9fa' : 'none' }} />
+                  ))}
+                </div>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gray-500">
+                  {pct < 100 ? 'Cargando módulos' : 'Listo'}
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+
+      {canSkip && (
+        <button
+          onClick={finish}
+          className="absolute bottom-6 right-6 md:bottom-10 md:right-10 px-5 py-2.5 border border-[#00e9fa]/35 text-[#00e9fa] font-mono text-[11px] uppercase tracking-[0.2em] rounded-full bg-[#00e9fa]/[0.04] hover:bg-[#00e9fa]/[0.1] hover:border-[#00e9fa]/60 transition-colors"
+        >
+          Saltar
+        </button>
+      )}
+    </div>
+  );
 }

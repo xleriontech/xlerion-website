@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biohostels IoT · Dashboard Inteligente & Blockchain Transparente</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.0.0/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'bio-primary': '#1B4D3E',
+          'bio-primary-dark': '#0F3328',
+          'bio-secondary': '#00C9A7',
+          'bio-accent': '#D4A373',
+          'bio-bg': '#FAFAF7',
+          'bio-cream': '#F5F2EC',
+          'bio-text': '#1A1A1A',
+          'bio-text-soft': '#4A4A4A',
+          'bio-danger': '#E74C3C',
+          'bio-warning': '#F39C12',
+        },
+        fontFamily: {
+          'heading': ['Montserrat', 'sans-serif'],
+          'body': ['Inter', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #FAFAF7; }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+  
+  .card-hover { transition: all 0.3s ease; }
+  .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(27, 77, 62, 0.15); }
+  
+  .tab-btn { transition: all 0.3s ease; }
+  .tab-btn.active { background: #1B4D3E; color: white; }
+  .tab-content { display: none; animation: fadeIn 0.4s ease; }
+  .tab-content.active { display: block; }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+  
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  .slide-in { animation: slide-in 0.5s ease forwards; }
+  
+  .metric-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid rgba(27, 77, 62, 0.1);
+  }
+  
+  .blockchain-block {
+    background: linear-gradient(135deg, #1B4D3E 0%, #0F3328 100%);
+    border-left: 4px solid #00C9A7;
+  }
+  
+  .toggle-switch {
+    position: relative;
+    width: 48px;
+    height: 24px;
+    background: #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .toggle-switch.active { background: #00C9A7; }
+  .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .toggle-switch.active::after { transform: translateX(24px); }
+  
+  .progress-ring { transition: stroke-dashoffset 1s ease; }
+  
+  .live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #00C9A7;
+  }
+  .live-indicator::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #00C9A7;
+    border-radius: 50%;
+    animation: pulse-dot 1.5s ease-in-out infinite;
+  }
+</style>
+</head>
+<body class="bg-bio-bg text-bio-text">
+
+<!-- Top Navigation -->
+<nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-lg z-50 border-b border-bio-primary/10 shadow-sm">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg width="36" height="36" viewBox="0 0 100 100">
+        <path d="M50 8 C32 8 18 22 18 40 C18 58 35 78 50 92 C65 78 82 58 82 40 C82 22 68 8 50 8 Z" fill="#1B4D3E"/>
+        <path d="M50 20 C38 20 28 30 28 42 C28 54 40 66 50 76 C60 66 72 54 72 42 C72 30 62 20 50 20 Z" fill="#FAFAF7" opacity="0.15"/>
+        <line x1="50" y1="30" x2="50" y2="68" stroke="#FAFAF7" stroke-width="1.5" opacity="0.6"/>
+        <line x1="50" y1="42" x2="40" y2="36" stroke="#FAFAF7" stroke-width="1.2" opacity="0.6"/>
+        <line x1="50" y1="52" x2="60" y2="46" stroke="#FAFAF7" stroke-width="1.2" opacity="0.6"/>
+        <circle cx="40" cy="36" r="2.5" fill="#00C9A7"/>
+        <circle cx="60" cy="46" r="2.5" fill="#00C9A7"/>
+        <circle cx="50" cy="30" r="2.5" fill="#00C9A7"/>
+      </svg>
+      <div>
+        <span class="font-heading font-bold text-bio-primary text-lg">Biohostels</span>
+        <span class="hidden sm:block text-[10px] text-bio-text-soft tracking-widest uppercase">IoT · Blockchain · Transparencia</span>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-4">
+      <div class="live-indicator">SISTEMA EN VIVO</div>
+      <div class="hidden md:flex items-center gap-2 text-sm text-bio-text-soft">
+        <span class="w-2 h-2 rounded-full bg-bio-secondary pulse-dot"></span>
+        <span>4 Biohostels conectados</span>
+      </div>
+      <button class="bg-bio-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-bio-primary-dark transition">
+        Mi Wallet BioCoin
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Header Section -->
+<section class="pt-24 pb-12 px-6 bg-gradient-to-br from-bio-primary via-bio-primary-dark to-bio-primary">
+  <div class="max-w-7xl mx-auto text-white">
+    <div class="flex items-center gap-2 mb-4">
+      <span class="text-xs bg-bio-secondary/20 text-bio-secondary px-3 py-1 rounded-full font-medium">🔒 Datos Privados</span>
+      <span class="text-xs bg-white/10 text-white/80 px-3 py-1 rounded-full font-medium">🌐 Transparencia Pública</span>
+    </div>
+    <h1 class="font-heading font-bold text-4xl md:text-5xl mb-3">Dashboard IoT & Blockchain Biohostels</h1>
+    <p class="text-white/80 max-w-3xl text-lg">Control inteligente de tu Biohostel con privacidad total. Producción comunitaria transparente en blockchain para todos los inversionistas.</p>
+    
+    <!-- View Toggle -->
+    <div class="mt-8 inline-flex bg-white/10 backdrop-blur rounded-xl p-1">
+      <button onclick="switchView('private')" id="btn-private" class="tab-btn active px-6 py-3 rounded-lg text-sm font-medium flex items-center gap-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Mi Biohostel (Privado)
+      </button>
+      <button onclick="switchView('public')" id="btn-public" class="tab-btn px-6 py-3 rounded-lg text-sm font-medium flex items-center gap-2 bg-white/5 text-white/80">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        Comunidad Biohostels (Público)
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVATE VIEW: Mi Biohostel -->
+<section id="view-private" class="tab-content active py-12 px-6">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- User Info Bar -->
+    <div class="bg-white rounded-2xl p-6 mb-8 shadow-sm border border-bio-primary/5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 bg-bio-primary/10 rounded-full flex items-center justify-center">
+          <span class="font-heading font-bold text-bio-primary text-lg">MR</span>
+        </div>
+        <div>
+          <div class="font-heading font-bold text-bio-primary-dark">Miguel E. Rodriguez Martinez</div>
+          <div class="text-sm text-bio-text-soft">Biohostel Plot 1 · Bag End · Guatapé, Antioquia</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="text-right">
+          <div class="text-xs text-bio-text-soft">Saldo BioCoin</div>
+          <div class="font-heading font-bold text-bio-secondary">2,847 BIO</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-bio-text-soft">Eficiencia Hoy</div>
+          <div class="font-heading font-bold text-bio-primary">94%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <button class="card-hover bg-white p-4 rounded-xl border border-bio-primary/5 text-center">
+        <div class="text-2xl mb-2">🔒</div>
+        <div class="text-xs font-medium text-bio-text-soft">Bloquear Acceso</div>
+      </button>
+      <button class="card-hover bg-white p-4 rounded-xl border border-bio-primary/5 text-center">
+        <div class="text-2xl mb-2">📹</div>
+        <div class="text-xs font-medium text-bio-text-soft">Ver Cámaras</div>
+      </button>
+      <button class="card-hover bg-white p-4 rounded-xl border border-bio-primary/5 text-center">
+        <div class="text-2xl mb-2">🔧</div>
+        <div class="text-xs font-medium text-bio-text-soft">Mantenimiento</div>
+      </button>
+      <button class="card-hover bg-white p-4 rounded-xl border border-bio-primary/5 text-center">
+        <div class="text-2xl mb-2">📊</div>
+        <div class="text-xs font-medium text-bio-text-soft">Reportes</div>
+      </button>
+    </div>
+
+    <!-- IoT Metrics Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+      
+      <!-- Energía -->
+      <div class="card-hover metric-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">⚡</span>
+            </div>
+            <div>
+              <div class="font-heading font-bold text-bio-primary-dark">Energía</div>
+              <div class="text-xs text-bio-text-soft">Solar + Red</div>
+            </div>
+          </div>
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">Auto-suficiente</span>
+        </div>
+        <div class="flex items-end gap-2 mb-3">
+          <span class="font-heading font-bold text-3xl text-bio-primary-dark">3.2</span>
+          <span class="text-sm text-bio-text-soft mb-1">kWh hoy</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+          <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 h-2 rounded-full" style="width: 78%;"></div>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="bg-bio-bg p-2 rounded-lg">
+            <div class="text-bio-text-soft">Generada</div>
+            <div class="font-bold text-bio-primary">4.1 kWh</div>
+          </div>
+          <div class="bg-bio-bg p-2 rounded-lg">
+            <div class="text-bio-text-soft">Consumida</div>
+            <div class="font-bold text-bio-warning">3.2 kWh</div>
+          </div>
+          <div class="bg-bio-bg p-2 rounded-lg col-span-2">
+            <div class="text-bio-text-soft">Excedente vendido a red</div>
+            <div class="font-bold text-bio-secondary">+0.9 kWh · +12 BIO</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agua -->
+      <div class="card-hover metric-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">💧</span>
+            </div>
+            <div>
+              <div class="font-heading font-bold text-bio-primary-dark">Agua</div>
+              <div class="text-xs text-bio-text-soft">Lluvia + Pozo</div>
+            </div>
+          </div>
+          <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-medium">Reciclaje activo</span>
+        </div>
+        <div class="flex items-end gap-2 mb-3">
+          <span class="font-heading font-bold text-3xl text-bio-primary-dark">487</span>
+          <span class="text-sm text-bio-text-soft mb-1">litros hoy</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-3">
+          <div class="bg-gradient-to-r from-blue-400 to-blue-600 h-2 rounded-full" style="width: 62%;"></div>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="bg-bio-bg p-2 rounded-lg">
+            <div class="text-bio-text-soft">Captada lluvia</div>
+            <div class="font-bold text-bio-primary">320 L</div>
+          </div>
+          <div class="bg-bio-bg p-2 rounded-lg">
+            <div class="text-bio-text-soft">Reciclada</div>
+            <div class="font-bold text-bio-secondary">180 L</div>
+          </div>
+          <div class="bg-bio-bg p-2 rounded-lg col-span-2">
+            <div class="text-bio-text-soft">Reserva en tanque</div>
+            <div class="font-bold text-bio-primary">2,450 L · 82%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reciclaje y Basura -->
+      <div class="card-hover metric-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">♻️</span>
+            </div>
+            <div>
+              <div class="font-heading font-bold text-bio-primary-dark">Residuos</div>
+              <div class="text-xs text-bio-text-soft">Basura cero meta</div>
+            </div>
+          </div>
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">87% reciclado</span>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-bio-text-soft">Orgánico → Compost</span>
+              <span class="font-bold text-bio-primary">2.4 kg</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5">
+              <div class="bg-green-500 h-1.5 rounded-full" style="width: 65%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-bio-text-soft">Reciclable</span>
+              <span class="font-bold text-bio-secondary">1.8 kg</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5">
+              <div class="bg-bio-secondary h-1.5 rounded-full" style="width: 48%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-bio-text-soft">No aprovechable</span>
+              <span class="font-bold text-bio-danger">0.3 kg</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5">
+              <div class="bg-bio-danger h-1.5 rounded-full" style="width: 8%;"></div>
+            </div>
+          </div>
+          <div class="bg-bio-bg p-3 rounded-lg mt-3">
+            <div class="text-xs text-bio-text-soft">Bonificación BioCoin por reciclaje</div>
+            <div class="font-heading font-bold text-bio-secondary">+28 BIO este mes</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Luces Inteligentes -->
+      <div class="card-hover metric-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">💡</span>
+            </div>
+            <div>
+              <div class="font-heading font-bold text-bio-primary-dark">Iluminación</div>
+              <div class="text-xs text-bio-text-soft">8 puntos IoT</div>
+            </div>
+          </div>
+          <span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full font-medium">5 activas</span>
+        </div>
+        <div class="space-y-3">
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-lg">🛋️</span>
+              <div>
+                <div class="text-sm font-medium">Sala Principal</div>
+                <div class="text-xs text-bio-text-soft">40% brillo · LED</div>
+              </div>
+            </div>
+            <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-lg">🛏️</span>
+              <div>
+                <div class="text-sm font-medium">Dormitorio</div>
+                <div class="text-xs text-bio-text-soft">Apagada</div>
+              </div>
+            </div>
+            <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-lg">🍳</span>
+              <div>
+                <div class="text-sm font-medium">Cocina</div>
+                <div class="text-xs text-bio-text-soft">100% brillo</div>
+              </div>
+            </div>
+            <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-lg">🌿</span>
+              <div>
+                <div class="text-sm font-medium">Jardín Exterior</div>
+                <div class="text-xs text-bio-text-soft">Sensor movimiento</div>
+              </div>
+            </div>
+            <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cámaras de Seguridad -->
+      <div class="card-hover metric-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">📹</span>
+            </div>
+            <div>
+              <div class="font-heading font-bold text-bio-primary-dark">Seguridad</div>
+              <div class="text-xs text-bio-text-soft">4 cámaras HD</div>
+            </div>
+          </div>
+          <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full font-medium">Grabando</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2 mb-4">
+          <div class="bg-gray-900 rounded-lg p-3 aspect-video flex items-center justify-center relative">
+            <div class="absolute top-2 left-2 w-2 h-2 bg-red-500 rounded-full pulse-dot"></div>
+            <span class="text-white text-xs">Entrada</span>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 aspect-video flex items-center justify-center relative">
+            <div class="absolute top-2 left-2 w-2 h-2 bg-red-500 rounded-full pulse-dot"></div>
+            <span class="text-white text-xs">Jardín</span>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 aspect-video flex items-center justify-center relative">
+            <div class="absolute top-2 left-2 w-2 h-2 bg-green-500 rounded-full"></div>
+            <span class="text-white text-xs">Cocina</span>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 aspect-video flex items-center justify-center relative">
+            <div class="absolute top-2 left-2 w-2 h-2 bg-green-500 rounded-full"></div>
+            <span class="text-white text-xs">Micro 1</span>
+          </div>
+        </div>
+        <div class="bg-bio-bg p-3 rounded-lg">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-bio-text-soft">Último movimiento detectado</span>
+            <span class="font-bold text-bio-primary">Hace 12 min</span>
+          </div>
+          <div class="flex items-center justify-between text-xs mt-2">
+            <span class="text-bio-text-soft">Almacenamiento cloud</span>
+            <span class="font-bold text-bio-primary">67% usado</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clima y Ambiente -->
+      <div class="card-hover metric-card rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+              <span class="text-xl">🌡️</span>
+            </div>
+            <div>
+              <div class="font-heading font-bold text-bio-primary-dark">Ambiente</div>
+              <div class="text-xs text-bio-text-soft">Sensores interiores</div>
+            </div>
+          </div>
+          <span class="text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded-full font-medium">Óptimo</span>
+        </div>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm text-bio-text-soft">🌡️ Temperatura interior</span>
+              <span class="font-bold text-bio-primary-dark">22°C</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5">
+              <div class="bg-gradient-to-r from-blue-400 to-red-400 h-1.5 rounded-full" style="width: 55%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm text-bio-text-soft">💨 Humedad</span>
+              <span class="font-bold text-bio-primary-dark">68%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5">
+              <div class="bg-blue-500 h-1.5 rounded-full" style="width: 68%;"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-sm text-bio-text-soft">🌬️ CO₂ interior</span>
+              <span class="font-bold text-bio-primary-dark">420 ppm</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-1.5">
+              <div class="bg-green-500 h-1.5 rounded-full" style="width: 30%;"></div>
+            </div>
+          </div>
+          <div class="bg-bio-bg p-3 rounded-lg">
+            <div class="text-xs text-bio-text-soft mb-1">🌤️ Clima exterior Guatapé</div>
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-bio-primary-dark">18°C · Parcialmente nublado</span>
+              <span class="text-2xl">⛅</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consumo Histórico Chart -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5 mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Consumo Histórico · Últimos 7 días</h3>
+          <p class="text-sm text-bio-text-soft">Datos privados de tu Biohostel Plot 1</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="text-xs bg-bio-primary text-white px-3 py-1 rounded-lg">7D</button>
+          <button class="text-xs bg-bio-bg text-bio-text-soft px-3 py-1 rounded-lg">30D</button>
+          <button class="text-xs bg-bio-bg text-bio-text-soft px-3 py-1 rounded-lg">1A</button>
+        </div>
+      </div>
+      <div class="h-64">
+        <canvas id="privateChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Alertas y Notificaciones -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-4">🔔 Alertas Recientes</h3>
+      <div class="space-y-3">
+        <div class="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+          <span class="text-xl">✅</span>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-bio-primary-dark">Sistema solar operando al 100%</div>
+            <div class="text-xs text-bio-text-soft">Hace 2 horas · Generación excedente vendida automáticamente</div>
+          </div>
+          <span class="text-xs text-bio-text-soft">14:32</span>
+        </div>
+        <div class="flex items-start gap-3 p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+          <span class="text-xl">⚠️</span>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-bio-primary-dark">Tanque de agua al 82%</div>
+            <div class="text-xs text-bio-text-soft">Hace 5 horas · Se activó captación de lluvia automática</div>
+          </div>
+          <span class="text-xs text-bio-text-soft">11:15</span>
+        </div>
+        <div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <span class="text-xl">📦</span>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-bio-primary-dark">Recolección de reciclaje programada</div>
+            <div class="text-xs text-bio-text-soft">Mañana 8:00 AM · Ruta El Flecho · +15 BIO de bonificación</div>
+          </div>
+          <span class="text-xs text-bio-text-soft">09:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLIC VIEW: Comunidad Biohostels -->
+<section id="view-public" class="tab-content py-12 px-6">
+  <div class="max-w-7xl mx-auto">
+    
+    <!-- Community Stats -->
+    <div class="grid md:grid-cols-4 gap-6 mb-8">
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-2">Biohostels Activos</div>
+        <div class="font-heading font-bold text-3xl text-bio-primary">4</div>
+        <div class="text-xs text-bio-secondary mt-1">↑ 100% operativos</div>
+      </div>
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-2">Microhostales</div>
+        <div class="font-heading font-bold text-3xl text-bio-primary">8</div>
+        <div class="text-xs text-bio-secondary mt-1">7/8 ocupados hoy</div>
+      </div>
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-2">Inversionistas</div>
+        <div class="font-heading font-bold text-3xl text-bio-primary">47</div>
+        <div class="text-xs text-bio-secondary mt-1">↑ 12 este mes</div>
+      </div>
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-2">Árboles Plantados</div>
+        <div class="font-heading font-bold text-3xl text-bio-primary">1,284</div>
+        <div class="text-xs text-bio-secondary mt-1">1 reserva = 1 árbol</div>
+      </div>
+    </div>
+
+    <!-- Producción General -->
+    <div class="bg-bio-primary rounded-2xl p-8 text-white mb-8 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-bio-secondary/10 rounded-full -translate-y-32 translate-x-32"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs bg-bio-secondary/20 text-bio-secondary px-3 py-1 rounded-full font-medium">🌐 DATOS PÚBLICOS</span>
+          <span class="text-xs bg-white/10 text-white/80 px-3 py-1 rounded-full font-medium">SIN DATOS SENSIBLES</span>
+        </div>
+        <h2 class="font-heading font-bold text-2xl mb-2">Producción General del Ecosistema</h2>
+        <p class="text-white/80 text-sm mb-6">Agregado de todos los Biohostels y Microhostales · Actualizado en tiempo real</p>
+        
+        <div class="grid md:grid-cols-4 gap-4">
+          <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+            <div class="text-3xl mb-2">⚡</div>
+            <div class="text-xs text-white/70">Energía Generada (mes)</div>
+            <div class="font-heading font-bold text-2xl">12,847 kWh</div>
+            <div class="text-xs text-bio-secondary mt-1">↑ 23% vs mes anterior</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+            <div class="text-3xl mb-2">💧</div>
+            <div class="text-xs text-white/70">Agua Reciclada (mes)</div>
+            <div class="font-heading font-bold text-2xl">48,320 L</div>
+            <div class="text-xs text-bio-secondary mt-1">↑ 18% eficiencia</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+            <div class="text-3xl mb-2">♻️</div>
+            <div class="text-xs text-white/70">Residuos Reciclados</div>
+            <div class="font-heading font-bold text-2xl">892 kg</div>
+            <div class="text-xs text-bio-secondary mt-1">91% tasa de reciclaje</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur rounded-xl p-4">
+            <div class="text-3xl mb-2">🌱</div>
+            <div class="text-xs text-white/70">CO₂ Compensado</div>
+            <div class="font-heading font-bold text-2xl">8.4 ton</div>
+            <div class="text-xs text-bio-secondary mt-1">Equivalente 420 árboles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ingresos y Distribución -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-4">💰 Ingresos Comunitarios (Mes Actual)</h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">🏠</span>
+              <div>
+                <div class="text-sm font-medium">Alquiler Microhostales</div>
+                <div class="text-xs text-bio-text-soft">8 unidades · 7 ocupadas</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-heading font-bold text-bio-primary">$18,400,000</div>
+              <div class="text-xs text-bio-text-soft">COP</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">⚡</span>
+              <div>
+                <div class="text-sm font-medium">Venta Energía Excedente</div>
+                <div class="text-xs text-bio-text-soft">Red eléctrica local</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-heading font-bold text-bio-primary">$2,100,000</div>
+              <div class="text-xs text-bio-text-soft">COP</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-bio-bg rounded-lg">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">🛒</span>
+              <div>
+                <div class="text-sm font-medium">Comisiones El Flecho</div>
+                <div class="text-xs text-bio-text-soft">Marketplace proveedores</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-heading font-bold text-bio-primary">$1,850,000</div>
+              <div class="text-xs text-bio-text-soft">COP · 5% comisión</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between p-3 bg-bio-primary/5 rounded-lg border border-bio-primary/20">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">📊</span>
+              <div>
+                <div class="text-sm font-bold text-bio-primary-dark">TOTAL INGRESOS</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="font-heading font-bold text-xl text-bio-primary">$22,350,000</div>
+              <div class="text-xs text-bio-text-soft">COP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-4">📈 Distribución de Ingresos</h3>
+        <div class="h-48 mb-4">
+          <canvas id="distributionChart"></canvas>
+        </div>
+        <div class="space-y-2 text-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-primary"></div>
+              <span class="text-bio-text-soft">Reinversión en lotes</span>
+            </div>
+            <span class="font-bold">40%</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-secondary"></div>
+              <span class="text-bio-text-soft">Dividendos inversionistas</span>
+            </div>
+            <span class="font-bold">35%</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-accent"></div>
+              <span class="text-bio-text-soft">Impuestos y legal</span>
+            </div>
+            <span class="font-bold">15%</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-warning"></div>
+              <span class="text-bio-text-soft">Mantenimiento</span>
+            </div>
+            <span class="font-bold">10%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inversiones en Lotes -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5 mb-8">
+      <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-4">🏗️ Inversiones en Nuevos Lotes (Pagadas con Ganancias)</h3>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-bio-bg rounded-xl p-4 border-2 border-bio-primary/20">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs bg-bio-primary text-white px-2 py-1 rounded-full font-medium">EN PROCESO</span>
+            <span class="text-xs text-bio-text-soft">Lote #5</span>
+          </div>
+          <div class="font-heading font-bold text-bio-primary-dark mb-1">Salento, Quindío</div>
+          <div class="text-xs text-bio-text-soft mb-3">800 m² · 2 Microhostales planificados</div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+            <div class="bg-bio-primary h-2 rounded-full" style="width: 65%;"></div>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-bio-text-soft">Progreso</span>
+            <span class="font-bold text-bio-primary">65%</span>
+          </div>
+          <div class="mt-3 pt-3 border-t border-bio-primary/10">
+            <div class="text-xs text-bio-text-soft">Financiado con</div>
+            <div class="font-bold text-bio-secondary">$8,940,000 COP</div>
+            <div class="text-xs text-bio-text-soft">de ganancias comunitarias</div>
+          </div>
+        </div>
+
+        <div class="bg-bio-bg rounded-xl p-4 border-2 border-bio-secondary/20">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs bg-bio-secondary text-white px-2 py-1 rounded-full font-medium">PLANIFICADO</span>
+            <span class="text-xs text-bio-text-soft">Lote #6</span>
+          </div>
+          <div class="font-heading font-bold text-bio-primary-dark mb-1">Tayrona, Magdalena</div>
+          <div class="text-xs text-bio-text-soft mb-3">800 m² · 2 Microhostales planificados</div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+            <div class="bg-bio-secondary h-2 rounded-full" style="width: 25%;"></div>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-bio-text-soft">Progreso</span>
+            <span class="font-bold text-bio-secondary">25%</span>
+          </div>
+          <div class="mt-3 pt-3 border-t border-bio-secondary/10">
+            <div class="text-xs text-bio-text-soft">Financiado con</div>
+            <div class="font-bold text-bio-secondary">$3,450,000 COP</div>
+            <div class="text-xs text-bio-text-soft">de ganancias comunitarias</div>
+          </div>
+        </div>
+
+        <div class="bg-bio-bg rounded-xl p-4 border-2 border-bio-accent/20">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs bg-bio-accent text-white px-2 py-1 rounded-full font-medium">APROBADO</span>
+            <span class="text-xs text-bio-text-soft">Lote #7</span>
+          </div>
+          <div class="font-heading font-bold text-bio-primary-dark mb-1">Mesa de los Santos</div>
+          <div class="text-xs text-bio-text-soft mb-3">800 m² · 2 Microhostales planificados</div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+            <div class="bg-bio-accent h-2 rounded-full" style="width: 10%;"></div>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="text-bio-text-soft">Progreso</span>
+            <span class="font-bold text-bio-accent">10%</span>
+          </div>
+          <div class="mt-3 pt-3 border-t border-bio-accent/10">
+            <div class="text-xs text-bio-text-soft">Financiado con</div>
+            <div class="font-bold text-bio-accent">$1,200,000 COP</div>
+            <div class="text-xs text-bio-text-soft">de ganancias comunitarias</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Impuestos Transparentes -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5 mb-8">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">🏛️ Impuestos Pagados (Transparencia Total)</h3>
+          <p class="text-sm text-bio-text-soft">Todos los pagos fiscales visibles para la comunidad</p>
+        </div>
+        <span class="text-xs bg-bio-primary/10 text-bio-primary px-3 py-1 rounded-full font-medium">Verificado DIAN</span>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-bio-primary/10">
+              <th class="text-left p-3 font-heading text-bio-primary-dark">Concepto</th>
+              <th class="text-left p-3 font-heading text-bio-primary-dark">Periodo</th>
+              <th class="text-right p-3 font-heading text-bio-primary-dark">Monto</th>
+              <th class="text-right p-3 font-heading text-bio-primary-dark">Estado</th>
+            </tr>
+          </thead>
+          <tbody class="text-bio-text-soft">
+            <tr class="border-b border-bio-primary/5">
+              <td class="p-3">Impuesto de Industria y Comercio</td>
+              <td class="p-3">Q4 2026</td>
+              <td class="p-3 text-right font-bold">$1,245,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5 bg-bio-bg/30">
+              <td class="p-3">Impuesto Predial Unificado</td>
+              <td class="p-3">2026</td>
+              <td class="p-3 text-right font-bold">$3,890,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5">
+              <td class="p-3">Retención en la Fuente (alquileres)</td>
+              <td class="p-3">Nov 2026</td>
+              <td class="p-3 text-right font-bold">$892,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5 bg-bio-bg/30">
+              <td class="p-3">IVA Plataforma Digital (Biohostels)</td>
+              <td class="p-3">Q4 2026</td>
+              <td class="p-3 text-right font-bold">$567,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Pendiente</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5">
+              <td class="p-3">Impuesto de Renta (BioCoin gains)</td>
+              <td class="p-3">2026</td>
+              <td class="p-3 text-right font-bold">$2,100,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="bg-bio-primary/5">
+              <td class="p-3 font-bold text-bio-primary-dark">TOTAL PAGADO 2026</td>
+              <td class="p-3"></td>
+              <td class="p-3 text-right font-bold text-bio-primary text-lg">$8,694,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-bio-primary text-white px-2 py-1 rounded-full">100% Transparente</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Blockchain Transparency -->
+    <div class="bg-bio-primary-dark rounded-2xl p-8 text-white mb-8 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-bio-secondary/10 rounded-full -translate-y-32 translate-x-32"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs bg-bio-secondary/20 text-bio-secondary px-3 py-1 rounded-full font-medium">⛓️ BLOCKCHAIN BIOHOSTELS</span>
+          <span class="text-xs bg-white/10 text-white/80 px-3 py-1 rounded-full font-medium">Polygon Network</span>
+        </div>
+        <h2 class="font-heading font-bold text-2xl mb-2">Transparencia Inmutable</h2>
+        <p class="text-white/80 text-sm mb-6">Todas las transacciones comunitarias registradas en blockchain · Verificables por cualquier inversionista</p>
+        
+        <div class="space-y-3">
+          <div class="blockchain-block rounded-xl p-4 slide-in">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">01</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Distribución Dividendos Q4</div>
+                  <div class="text-xs text-white/60">47 inversionistas · 2,847 BIO cada uno</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,293</div>
+                <div class="text-xs text-bio-secondary">Hace 2 horas</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0x9b4e...7f1a · 133,809 BIO · Gas: 0.002 MATIC</div>
+          </div>
+
+          <div class="blockchain-block rounded-xl p-4 slide-in" style="animation-delay: 0.1s;">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">02</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Pago Impuestos DIAN</div>
+                  <div class="text-xs text-white/60">Retención fuente · Noviembre 2026</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,291</div>
+                <div class="text-xs text-bio-secondary">Hace 5 horas</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0xDIAN...gov · $892,000 COP · Verified ✓</div>
+          </div>
+
+          <div class="blockchain-block rounded-xl p-4 slide-in" style="animation-delay: 0.2s;">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">03</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Inversión Lote #5 Salento</div>
+                  <div class="text-xs text-white/60">Compra terreno · 800 m²</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,285</div>
+                <div class="text-xs text-bio-secondary">Hace 1 día</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0xNotary...col · $8,940,000 COP · Smart Contract Executed</div>
+          </div>
+
+          <div class="blockchain-block rounded-xl p-4 slide-in" style="animation-delay: 0.3s;">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">04</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Quema de BioCoin (Deflación)</div>
+                  <div class="text-xs text-white/60">2% de transacciones del mes</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,280</div>
+                <div class="text-xs text-bio-secondary">Hace 2 días</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0x000...burn · 24,580 BIO · Supply reducido</div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-4 text-xs">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+            <span class="text-white/70">Total bloques: 847,293</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+            <span class="text-white/70">Transacciones verificadas: 12,847</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+            <span class="text-white/70">Auditado por: CertiK ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producción por Biohostel -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-6">📊 Producción por Biohostel (Agregado Anónimo)</h3>
+      <div class="h-64">
+        <canvas id="publicChart"></canvas>
+      </div>
+      <div class="mt-4 p-4 bg-bio-bg rounded-lg">
+        <div class="text-xs text-bio-text-soft">
+          <strong class="text-bio-primary">Nota de privacidad:</strong> Los datos individuales de cada Biohostel se mantienen privados para sus propietarios. 
+          Esta vista muestra únicamente métricas agregadas y anonimizadas para transparencia comunitaria sin comprometer la privacidad.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-bio-primary-dark text-white py-8 px-6 mt-12">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <svg width="32" height="32" viewBox="0 0 100 100">
+        <path d="M50 8 C32 8 18 22 18 40 C18 58 35 78 50 92 C65 78 82 58 82 40 C82 22 68 8 50 8 Z" fill="#FFFFFF"/>
+        <circle cx="35" cy="35" r="3" fill="#00C9A7"/>
+        <circle cx="65" cy="45" r="3" fill="#00C9A7"/>
+        <circle cx="50" cy="25" r="3" fill="#00C9A7"/>
+      </svg>
+      <span class="font-heading font-bold text-xl">Biohostels</span>
+    </div>
+    <p class="text-sm text-white/70 mb-2">IoT · Blockchain · Transparencia Total</p>
+    <p class="text-xs text-white/50">© 2026 Biohostels · Xlerion.com.co · Todos los datos privados cifrados E2E</p>
+  </div>
+</footer>
+
+<script>
+  // View Switching
+  function switchView(view) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => {
+      el.classList.remove('active');
+      el.classList.add('bg-white/5', 'text-white/80');
+    });
+    
+    document.getElementById('view-' + view).classList.add('active');
+    document.getElementById('btn-' + view).classList.add('active');
+    document.getElementById('btn-' + view).classList.remove('bg-white/5', 'text-white/80');
+    
+    // Initialize charts when switching
+    if (view === 'private') initPrivateChart();
+    if (view === 'public') initPublicCharts();
+  }
+
+  // Private Chart
+  let privateChartInstance = null;
+  function initPrivateChart() {
+    if (privateChartInstance) return;
+    const ctx = document.getElementById('privateChart').getContext('2d');
+    privateChartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+        datasets: [
+          {
+            label: 'Energía (kWh)',
+            data: [3.1, 2.8, 3.5, 3.2, 2.9, 4.1, 3.8],
+            borderColor: '#F39C12',
+            backgroundColor: 'rgba(243, 156, 18, 0.1)',
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Agua (L)',
+            data: [420, 380, 510, 487, 450, 520, 490],
+            borderColor: '#3498DB',
+            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+            tension: 0.4,
+            fill: true,
+            yAxisID: 'y1'
+          },
+          {
+            label: 'Reciclaje (kg)',
+            data: [1.2, 1.5, 1.1, 1.8, 1.4, 2.1, 1.9],
+            borderColor: '#00C9A7',
+            backgroundColor: 'rgba(0, 201, 167, 0.1)',
+            tension: 0.4,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { usePointStyle: true, padding: 20 } }
+        },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+          y1: { position: 'right', beginAtZero: true, grid: { drawOnChartArea: false } }
+        }
+      }
+    });
+  }
+
+  // Public Charts
+  let distributionChartInstance = null;
+  let publicChartInstance = null;
+  function initPublicCharts() {
+    if (distributionChartInstance) return;
+    
+    const distCtx = document.getElementById('distributionChart').getContext('2d');
+    distributionChartInstance = new Chart(distCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Reinversión lotes', 'Dividendos', 'Impuestos', 'Mantenimiento'],
+        datasets: [{
+          data: [40, 35, 15, 10],
+          backgroundColor: ['#1B4D3E', '#00C9A7', '#D4A373', '#F39C12'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        cutout: '70%'
+      }
+    });
+
+    const pubCtx = document.getElementById('publicChart').getContext('2d');
+    publicChartInstance = new Chart(pubCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Biohostel 1\nGuatapé', 'Biohostel 2\nSalento', 'Biohostel 3\nTayrona', 'Biohostel 4\nNocaima'],
+        datasets: [
+          {
+            label: 'Energía Generada (kWh)',
+            data: [3200, 2800, 3500, 3347],
+            backgroundColor: '#F39C12',
+            borderRadius: 8
+          },
+          {
+            label: 'Agua Reciclada (L x100)',
+            data: [120, 95, 140, 128],
+            backgroundColor: '#3498DB',
+            borderRadius: 8
+          },
+          {
+            label: 'Residuos Reciclados (kg x10)',
+            data: [22, 18, 25, 24],
+            backgroundColor: '#00C9A7',
+            borderRadius: 8
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { usePointStyle: true, padding: 20 } }
+        },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }
+        }
+      }
+    });
+  }
+
+  // Initialize on load
+  window.addEventListener('load', () => {
+    initPrivateChart();
+  });
+</script>
+
+</body>
+</html>

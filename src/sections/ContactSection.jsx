@@ -8,7 +8,7 @@ export default function ContactSection() {
   const { t } = useLanguage();
 
   return (
-    <section id="contacto" className="py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto border-t border-white/[0.08]">
+    <section id="contacto" className="py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto border-t border-white/[0.08]">
       <div data-reveal>
         <SectionHeader title={t('contact_title')} subtitle={t('contact_subtitle')} />
       </div>

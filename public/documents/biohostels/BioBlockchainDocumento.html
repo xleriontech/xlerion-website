@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biohostels · Documento para Inversionistas · Ecosistema IoT + Blockchain</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.0.0/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5.0.0/index.min.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'bio-primary': '#1B4D3E',
+          'bio-primary-dark': '#0F3328',
+          'bio-secondary': '#00C9A7',
+          'bio-accent': '#D4A373',
+          'bio-bg': '#FAFAF7',
+          'bio-cream': '#F5F2EC',
+          'bio-text': '#1A1A1A',
+          'bio-text-soft': '#4A4A4A',
+        },
+        fontFamily: {
+          'heading': ['Montserrat', 'sans-serif'],
+          'display': ['Playfair Display', 'serif'],
+          'body': ['Inter', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #FAFAF7; }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+  .font-display { font-family: 'Playfair Display', serif; }
+  
+  .section-fade { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+  .section-fade.visible { opacity: 1; transform: translateY(0); }
+  
+  .card-hover { transition: all 0.3s ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(27, 77, 62, 0.15); }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #1B4D3E 0%, #00C9A7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .pulse-dot { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .float-anim { animation: float 5s ease-in-out infinite; }
+  
+  .blockchain-block {
+    background: linear-gradient(135deg, #1B4D3E 0%, #0F3328 100%);
+    border-left: 4px solid #00C9A7;
+  }
+  
+  .metric-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid rgba(27, 77, 62, 0.1);
+  }
+  
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 2px; background: #00C9A7;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+  
+  .progress-ring { transition: stroke-dashoffset 1.5s ease; }
+  
+  @media print {
+    nav, .no-print { display: none !important; }
+    body { background: white !important; }
+    .section-fade { opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body class="bg-bio-bg text-bio-text">
+
+<!-- Progress Bar -->
+<div class="fixed top-0 left-0 h-1 bg-bio-secondary z-[60] transition-all duration-300 ease-out" id="progressBar" style="width: 0%;"></div>
+
+<!-- Navigation -->
+<nav class="fixed top-0 left-0 right-0 bg-bio-bg/95 backdrop-blur-lg z-50 border-b border-bio-primary/10 no-print">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <svg width="36" height="36" viewBox="0 0 100 100" class="float-anim">
+        <path d="M50 8 C32 8 18 22 18 40 C18 58 35 78 50 92 C65 78 82 58 82 40 C82 22 68 8 50 8 Z" fill="#1B4D3E"/>
+        <circle cx="35" cy="35" r="3" fill="#00C9A7"/>
+        <circle cx="65" cy="45" r="3" fill="#00C9A7"/>
+        <circle cx="50" cy="25" r="3" fill="#00C9A7"/>
+      </svg>
+      <div>
+        <span class="font-heading font-bold text-bio-primary text-lg tracking-tight">Biohostels</span>
+        <span class="hidden sm:block text-[10px] text-bio-text-soft tracking-widest uppercase">Documento para Inversionistas · v1.0</span>
+      </div>
+    </div>
+    <div class="hidden lg:flex items-center gap-5 text-sm font-medium">
+      <a href="#executive" class="nav-link text-bio-text hover:text-bio-primary">Resumen</a>
+      <a href="#iot" class="nav-link text-bio-text hover:text-bio-primary">IoT</a>
+      <a href="#blockchain" class="nav-link text-bio-text hover:text-bio-primary">Blockchain</a>
+      <a href="#investment" class="nav-link text-bio-text hover:text-bio-primary">Inversión</a>
+      <a href="#returns" class="nav-link text-bio-text hover:text-bio-primary">Retornos</a>
+      <a href="#roadmap" class="nav-link text-bio-text hover:text-bio-primary">Roadmap</a>
+    </div>
+    <button onclick="window.print()" class="bg-bio-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-bio-primary-dark transition">
+      📄 Descargar PDF
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-32 pb-20 px-6 relative overflow-hidden bg-gradient-to-br from-bio-primary via-bio-primary-dark to-bio-primary">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-bio-secondary/10 rounded-full -translate-y-48 translate-x-48"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-bio-accent/10 rounded-full translate-y-32 -translate-x-32"></div>
+  <div class="max-w-7xl mx-auto relative z-10 text-white">
+    <div class="inline-block mb-6 px-5 py-2 bg-white/10 backdrop-blur rounded-full border border-white/20">
+      <span class="text-bio-secondary text-sm font-medium tracking-wide">📊 OPORTUNIDAD DE INVERSIÓN · NOVIEMBRE 2026</span>
+    </div>
+    <h1 class="font-display font-bold text-5xl md:text-7xl mb-6 leading-tight">
+      Biohostels <span class="text-bio-secondary">IoT + Blockchain</span>
+    </h1>
+    <p class="text-xl md:text-2xl text-white/90 max-w-3xl mb-8 leading-relaxed">
+      El primer ecosistema de ecoturismo autosostenible en Colombia con gestión inteligente IoT, transparencia blockchain y economía circular local.
+    </p>
+    
+    <div class="grid md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+        <div class="text-3xl font-bold font-heading text-bio-secondary">$400M</div>
+        <div class="text-sm text-white/70 mt-1">Inversión inicial</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+        <div class="text-3xl font-bold font-heading text-bio-secondary">37.5%</div>
+        <div class="text-sm text-white/70 mt-1">ROI Año 1</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+        <div class="text-3xl font-bold font-heading text-bio-secondary">3-4</div>
+        <div class="text-sm text-white/70 mt-1">Años payback</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-5 border border-white/20">
+        <div class="text-3xl font-bold font-heading text-bio-secondary">10-13%</div>
+        <div class="text-sm text-white/70 mt-1">Dividendo anual</div>
+      </div>
+    </div>
+    
+    <div class="flex flex-wrap gap-3">
+      <span class="px-4 py-2 bg-white/10 backdrop-blur rounded-full text-sm">🌱 Ecoturismo Regenerativo</span>
+      <span class="px-4 py-2 bg-white/10 backdrop-blur rounded-full text-sm">⚡ IoT Inteligente</span>
+      <span class="px-4 py-2 bg-white/10 backdrop-blur rounded-full text-sm">🔒 Blockchain Transparente</span>
+      <span class="px-4 py-2 bg-white/10 backdrop-blur rounded-full text-sm">🪙 BioCoin Ecosystem</span>
+      <span class="px-4 py-2 bg-white/10 backdrop-blur rounded-full text-sm">🛒 El Flecho Marketplace</span>
+    </div>
+  </div>
+</section>
+
+<!-- 01. RESUMEN EJECUTIVO -->
+<section id="executive" class="py-20 px-6 section-fade">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Capítulo 01</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mt-3 mb-4 text-bio-primary-dark">Resumen Ejecutivo</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5">
+        <h3 class="font-heading font-bold text-2xl text-bio-primary-dark mb-4">🎯 La Oportunidad</h3>
+        <p class="text-bio-text-soft leading-relaxed mb-4">
+          Biohostels es una plataforma integral de ecoturismo que combina <strong>inversión inmobiliaria fraccionada</strong> en lotes de 800 m², <strong>gestión inteligente IoT</strong> de recursos naturales, <strong>transparencia blockchain</strong> y un <strong>marketplace comunitario</strong> llamado "El Flecho".
+        </p>
+        <p class="text-bio-text-soft leading-relaxed">
+          Cada Biohostel (casa principal) contiene 2 Microhostales (unidades de alquiler para extranjeros), generando ingresos recurrentes mientras se mantiene autosuficiencia energética, hídrica y alimentaria.
+        </p>
+      </div>
+      
+      <div class="bg-bio-primary rounded-2xl p-8 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-48 h-48 bg-bio-secondary/10 rounded-full -translate-y-24 translate-x-24"></div>
+        <h3 class="font-heading font-bold text-2xl mb-4 relative z-10">💡 Diferenciadores Clave</h3>
+        <ul class="space-y-3 text-sm relative z-10">
+          <li class="flex items-start gap-3">
+            <span class="text-bio-secondary font-bold text-lg">✓</span>
+            <span><strong>Cero overbooking:</strong> IA verifica disponibilidad en Booking/Airbnb antes de cobrar</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-bio-secondary font-bold text-lg">✓</span>
+            <span><strong>1 reserva = 1 árbol:</strong> Impacto ambiental medible y verificable</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-bio-secondary font-bold text-lg">✓</span>
+            <span><strong>IoT privado:</strong> Cada inversionista controla su Biohostel desde app móvil</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-bio-secondary font-bold text-lg">✓</span>
+            <span><strong>Blockchain público:</strong> Impuestos, dividendos e inversiones 100% transparentes</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-bio-secondary font-bold text-lg">✓</span>
+            <span><strong>BioCoin:</strong> Criptomoneda ecosistémica con respaldo en activos reales</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Visión y Misión -->
+    <div class="bg-bio-cream rounded-2xl p-8 border border-bio-primary/5">
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-3">🌍 Visión</h3>
+          <p class="text-bio-text-soft leading-relaxed">
+            Ser la plataforma líder de ecoturismo regenerativo en Latinoamérica, con 32 Biohostels (uno por departamento), integrando inversión inmobiliaria, economía circular local y criptomoneda ecosistémica respaldada por activos reales.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark mb-3">🎯 Misión</h3>
+          <p class="text-bio-text-soft leading-relaxed">
+            Democratizar el acceso a alojamientos sostenibles en Colombia, eliminando la fricción del overbooking mediante IA, garantizando impacto ambiental positivo por cada transacción y generando retornos financieros atractivos para inversionistas locales e internacionales.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02. ECOSISTEMA IoT -->
+<section id="iot" class="py-20 px-6 bg-white section-fade">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Capítulo 02</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mt-3 mb-4 text-bio-primary-dark">Ecosistema IoT Inteligente</h2>
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+      <p class="text-bio-text-soft max-w-3xl mx-auto">Cada Biohostel y Microhostal está equipado con sensores IoT que monitorean recursos naturales en tiempo real, con dos niveles de visualización: privado (propietario) y público (comunidad).</p>
+    </div>
+    
+    <!-- Arquitectura IoT -->
+    <div class="bg-bio-cream rounded-2xl p-8 border border-bio-primary/5 mb-12">
+      <h3 class="font-heading font-bold text-2xl mb-6 text-bio-primary-dark text-center">🏗️ Arquitectura del Sistema IoT</h3>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl border-2 border-bio-primary/10">
+          <div class="text-4xl mb-3">📱</div>
+          <h4 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Capa Dispositivos</h4>
+          <ul class="text-sm text-bio-text-soft space-y-1">
+            <li>• Sensores de energía (paneles solares)</li>
+            <li>• Medidores de agua (lluvia + pozo)</li>
+            <li>• Básculas de reciclaje inteligentes</li>
+            <li>• Cámaras HD con IA</li>
+            <li>• Sensores de clima interior</li>
+            <li>• Controladores de luces Zigbee</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-xl border-2 border-bio-secondary/30">
+          <div class="text-4xl mb-3">☁️</div>
+          <h4 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Capa Plataforma</h4>
+          <ul class="text-sm text-bio-text-soft space-y-1">
+            <li>• Cloudflare Workers (Edge Computing)</li>
+            <li>• API REST segura</li>
+            <li>• Base de datos PostgreSQL</li>
+            <li>• Motor de reglas IoT</li>
+            <li>• Integración con Polygon blockchain</li>
+            <li>• Cifrado E2E AES-256</li>
+          </ul>
+        </div>
+        <div class="bg-white p-6 rounded-xl border-2 border-bio-accent/30">
+          <div class="text-4xl mb-3">👁️</div>
+          <h4 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Capa Visualización</h4>
+          <ul class="text-sm text-bio-text-soft space-y-1">
+            <li>• App móvil (iOS/Android)</li>
+            <li>• Dashboard web privado</li>
+            <li>• Panel público comunitario</li>
+            <li>• Alertas push en tiempo real</li>
+            <li>• Reportes PDF automáticos</li>
+            <li>• Integración con BioCoin wallet</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Vista Privada vs Pública -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-bio-primary rounded-2xl p-8 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-bio-secondary/10 rounded-full -translate-y-16 translate-x-16"></div>
+        <div class="relative z-10">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+              <span class="text-2xl">🔒</span>
+            </div>
+            <div>
+              <h3 class="font-heading font-bold text-xl">Vista Privada</h3>
+              <p class="text-xs text-white/70">Solo para propietarios</p>
+            </div>
+          </div>
+          <p class="text-white/90 text-sm mb-4">
+            Cada inversionista accede desde su app móvil a datos detallados y en tiempo real de SU Biohostel:
+          </p>
+          <ul class="space-y-2 text-sm">
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">⚡</span> Consumo y generación de energía (kWh)</li>
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">💧</span> Agua captada, reciclada y consumida (litros)</li>
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">♻️</span> Basura generada, reciclada y compostada (kg)</li>
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">💡</span> Control remoto de 8 puntos de iluminación</li>
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">📹</span> 4 cámaras HD con detección de movimiento</li>
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">🌡️</span> Temperatura, humedad y CO₂ interior</li>
+            <li class="flex items-start gap-2"><span class="text-bio-secondary">💰</span> Saldo BioCoin y bonificaciones por reciclaje</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-8 border-2 border-bio-accent/30">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-bio-accent/20 rounded-lg flex items-center justify-center">
+            <span class="text-2xl">🌐</span>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Vista Pública</h3>
+            <p class="text-xs text-bio-text-soft">Transparencia comunitaria</p>
+          </div>
+        </div>
+        <p class="text-bio-text-soft text-sm mb-4">
+          La plataforma Biohostels muestra datos agregados y anonimizados de TODOS los Biohostels, sin exponer información sensible individual:
+        </p>
+        <ul class="space-y-2 text-sm text-bio-text-soft">
+          <li class="flex items-start gap-2"><span class="text-bio-accent">📊</span> Producción total de energía del ecosistema</li>
+          <li class="flex items-start gap-2"><span class="text-bio-accent">💧</span> Agua reciclada comunitaria (litros/mes)</li>
+          <li class="flex items-start gap-2"><span class="text-bio-accent">♻️</span> Tasa de reciclaje global (%)</li>
+          <li class="flex items-start gap-2"><span class="text-bio-accent">💰</span> Ingresos comunitarios mensuales</li>
+          <li class="flex items-start gap-2"><span class="text-bio-accent">🏗️</span> Nuevos lotes financiados con ganancias</li>
+          <li class="flex items-start gap-2"><span class="text-bio-accent">🏛️</span> Impuestos pagados (verificados DIAN)</li>
+          <li class="flex items-start gap-2"><span class="text-bio-accent">⛓️</span> Transacciones blockchain verificables</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Cómo funciona el IoT -->
+    <div class="bg-bio-cream rounded-2xl p-8 border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-2xl mb-6 text-bio-primary-dark text-center">⚙️ ¿Cómo Funciona el IoT en la Práctica?</h3>
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-xl">
+          <div class="w-12 h-12 bg-bio-primary/10 rounded-lg flex items-center justify-center mb-3">
+            <span class="text-2xl">1️⃣</span>
+          </div>
+          <h4 class="font-heading font-bold text-sm text-bio-primary-dark mb-2">Sensores capturan datos</h4>
+          <p class="text-xs text-bio-text-soft">Cada 5 minutos, sensores miden energía, agua, clima y movimiento</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl">
+          <div class="w-12 h-12 bg-bio-secondary/10 rounded-lg flex items-center justify-center mb-3">
+            <span class="text-2xl">2️⃣</span>
+          </div>
+          <h4 class="font-heading font-bold text-sm text-bio-primary-dark mb-2">Edge Computing procesa</h4>
+          <p class="text-xs text-bio-text-soft">Cloudflare Workers filtran y agregan datos en tiempo real</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl">
+          <div class="w-12 h-12 bg-bio-accent/10 rounded-lg flex items-center justify-center mb-3">
+            <span class="text-2xl">3️⃣</span>
+          </div>
+          <h4 class="font-heading font-bold text-sm text-bio-primary-dark mb-2">Blockchain registra</h4>
+          <p class="text-xs text-bio-text-soft">Transacciones críticas se anotan en Polygon para transparencia</p>
+        </div>
+        <div class="bg-white p-5 rounded-xl">
+          <div class="w-12 h-12 bg-bio-primary/10 rounded-lg flex items-center justify-center mb-3">
+            <span class="text-2xl">4️⃣</span>
+          </div>
+          <h4 class="font-heading font-bold text-sm text-bio-primary-dark mb-2">App muestra resultados</h4>
+          <p class="text-xs text-bio-text-soft">Propietario ve datos privados; comunidad ve agregados</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. BLOCKCHAIN TRANSPARENTE -->
+<section id="blockchain" class="py-20 px-6 section-fade">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Capítulo 03</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mt-3 mb-4 text-bio-primary-dark">Blockchain de Transparencia</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <!-- Qué se registra -->
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-14 h-14 bg-bio-primary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">💰</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Ingresos y Dividendos</h3>
+        <p class="text-sm text-bio-text-soft">Cada pago de alquiler, comisión de El Flecho y venta de energía excedente se registra en blockchain y se distribuye automáticamente vía smart contracts.</p>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-14 h-14 bg-bio-secondary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">🏛️</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Impuestos Verificados</h3>
+        <p class="text-sm text-bio-text-soft">Todos los pagos fiscales (ICA, predial, retención, IVA, renta) se publican con comprobante DIAN, generando confianza total en la comunidad inversionista.</p>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-14 h-14 bg-bio-accent/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-2xl">🏗️</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Reinversión en Lotes</h3>
+        <p class="text-sm text-bio-text-soft">El 40% de las ganancias se reinvierte automáticamente en nuevos Biohostels, con trazabilidad completa desde la decisión hasta la escrituración.</p>
+      </div>
+    </div>
+    
+    <!-- Ejemplo de transacción blockchain -->
+    <div class="bg-bio-primary-dark rounded-2xl p-8 text-white mb-12 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-bio-secondary/10 rounded-full -translate-y-32 translate-x-32"></div>
+      <div class="relative z-10">
+        <div class="flex items-center gap-2 mb-4">
+          <span class="text-xs bg-bio-secondary/20 text-bio-secondary px-3 py-1 rounded-full font-medium">⛓️ POLYGON NETWORK</span>
+          <span class="text-xs bg-white/10 text-white/80 px-3 py-1 rounded-full font-medium">VERIFICABLE</span>
+        </div>
+        <h3 class="font-heading font-bold text-2xl mb-6">Ejemplo de Transacciones en Blockchain</h3>
+        
+        <div class="space-y-3">
+          <div class="blockchain-block rounded-xl p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">01</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Distribución Dividendos Q4</div>
+                  <div class="text-xs text-white/60">47 inversionistas · 2,847 BIO cada uno</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,293</div>
+                <div class="text-xs text-bio-secondary">Hace 2 horas</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0x9b4e...7f1a · 133,809 BIO · Gas: 0.002 MATIC</div>
+          </div>
+
+          <div class="blockchain-block rounded-xl p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">02</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Pago Impuestos DIAN</div>
+                  <div class="text-xs text-white/60">Retención fuente · Noviembre 2026</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,291</div>
+                <div class="text-xs text-bio-secondary">Hace 5 horas</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0xDIAN...gov · $892,000 COP · Verified ✓</div>
+          </div>
+
+          <div class="blockchain-block rounded-xl p-4">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-bio-secondary/20 rounded-lg flex items-center justify-center">
+                  <span class="text-bio-secondary font-bold text-sm">03</span>
+                </div>
+                <div>
+                  <div class="text-sm font-medium">Inversión Lote #5 Salento</div>
+                  <div class="text-xs text-white/60">Compra terreno · 800 m²</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-white/60">Block #847,285</div>
+                <div class="text-xs text-bio-secondary">Hace 1 día</div>
+              </div>
+            </div>
+            <div class="font-mono text-xs text-white/40 break-all">0x7a8f...3c2d → 0xNotary...col · $8,940,000 COP · Smart Contract Executed</div>
+          </div>
+        </div>
+        
+        <div class="mt-6 flex flex-wrap gap-4 text-xs">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+            <span class="text-white/70">Total bloques: 847,293</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+            <span class="text-white/70">Transacciones verificadas: 12,847</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+            <span class="text-white/70">Auditado por: CertiK ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Beneficios para el inversionista -->
+    <div class="bg-bio-cream rounded-2xl p-8 border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-2xl mb-6 text-bio-primary-dark text-center">🎁 Beneficios para el Inversionista</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-xl">
+          <h4 class="font-heading font-bold text-bio-primary-dark mb-3">Transparencia Total</h4>
+          <p class="text-sm text-bio-text-soft">Cada peso que entra y sale del ecosistema es verificable en blockchain. No hay "cajas negras" ni decisiones opacas.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl">
+          <h4 class="font-heading font-bold text-bio-primary-dark mb-3">Dividendos Automáticos</h4>
+          <p class="text-sm text-bio-text-soft">Smart contracts distribuyen ganancias trimestralmente directo a la wallet BioCoin del inversionista, sin intermediarios.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl">
+          <h4 class="font-heading font-bold text-bio-primary-dark mb-3">Gobernanza DAO</h4>
+          <p class="text-sm text-bio-text-soft">1 BioCoin = 1 voto. Los inversionistas deciden sobre nuevos Biohostels, proveedores de El Flecho y uso del fondo de reserva.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl">
+          <h4 class="font-heading font-bold text-bio-primary-dark mb-3">Liquidez Secundaria</h4>
+          <p class="text-sm text-bio-text-soft">Las participaciones se pueden vender en mercado secundario (exchange descentralizado) cuando el inversionista lo necesite.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04. MODELO DE INVERSIÓN -->
+<section id="investment" class="py-20 px-6 bg-white section-fade">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Capítulo 04</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mt-3 mb-4 text-bio-primary-dark">Modelo de Inversión</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <!-- Estructura del Lote -->
+    <div class="bg-bio-cream rounded-2xl p-8 border border-bio-primary/5 mb-12">
+      <h3 class="font-heading font-bold text-2xl mb-6 text-bio-primary-dark text-center">🏡 Estructura de un Lote de 800 m²</h3>
+      <div class="bg-white rounded-2xl p-6 border border-bio-primary/10">
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <div class="w-20 h-20 bg-bio-primary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+              <span class="text-4xl">🏡</span>
+            </div>
+            <h4 class="font-heading font-bold text-bio-primary-dark">1 Biohostel</h4>
+            <p class="text-xs text-bio-text-soft mt-2">Casa principal con recursos compartidos: paneles solares, captación de agua, huerta orgánica, biodigestor</p>
+            <div class="mt-3 text-sm font-bold text-bio-primary">~400 m² construidos</div>
+          </div>
+          <div class="text-center">
+            <div class="w-20 h-20 bg-bio-secondary/10 rounded-full flex items-center justify-center mx-auto mb-3">
+              <span class="text-4xl">🏠</span>
+            </div>
+            <h4 class="font-heading font-bold text-bio-primary-dark">2 Microhostales</h4>
+            <p class="text-xs text-bio-text-soft mt-2">Unidades independientes para alquiler a extranjeros, autosuficientes pero conectadas a recursos del Biohostel</p>
+            <div class="mt-3 text-sm font-bold text-bio-secondary">~200 m² c/u</div>
+          </div>
+          <div class="text-center">
+            <div class="w-20 h-20 bg-bio-accent/10 rounded-full flex items-center justify-center mx-auto mb-3">
+              <span class="text-4xl">🌳</span>
+            </div>
+            <h4 class="font-heading font-bold text-bio-primary-dark">Áreas Comunes</h4>
+            <p class="text-xs text-bio-text-soft mt-2">Senderos, zonas verdes, huerta comunitaria, espacio de coworking, área de fogata</p>
+            <div class="mt-3 text-sm font-bold text-bio-accent">~200 m² libres</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Opciones de Inversión -->
+    <div class="grid lg:grid-cols-2 gap-8 mb-12">
+      <div class="bg-white rounded-2xl p-8 border-2 border-bio-primary shadow-lg">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 bg-bio-primary rounded-xl flex items-center justify-center text-white text-2xl">🏠</div>
+          <div>
+            <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Opción A: Propiedad Fraccionada</h3>
+            <p class="text-xs text-bio-text-soft">Recomendado para uso personal + inversión</p>
+          </div>
+        </div>
+        
+        <div class="space-y-4 mb-6">
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Inversión Inicial</div>
+            <div class="font-heading font-bold text-3xl text-bio-primary">$80-120M COP</div>
+            <div class="text-xs text-bio-text-soft">Por Biohostel completo (800 m²)</div>
+          </div>
+          
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Retorno Mensual</div>
+            <div class="font-heading font-bold text-3xl text-bio-primary">$2,400-3,600 USD</div>
+            <div class="text-xs text-bio-text-soft">Alquiler de 2 Microhostales</div>
+          </div>
+          
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Plusvalía Anual</div>
+            <div class="font-heading font-bold text-3xl text-bio-primary">8-12%</div>
+          </div>
+          
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Payback</div>
+            <div class="font-heading font-bold text-3xl text-bio-primary">3-4 años</div>
+          </div>
+        </div>
+        
+        <div class="pt-6 border-t border-bio-primary/10">
+          <h4 class="font-heading font-bold text-sm text-bio-primary-dark mb-3">Características</h4>
+          <ul class="space-y-2 text-sm text-bio-text-soft">
+            <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Escritura pública individual</li>
+            <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Uso personal rotativo (6 semanas/año)</li>
+            <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Márgenes 35-40% vs 10-15% tradicional</li>
+            <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Retorno rápido (6-12 meses)</li>
+            <li class="flex items-start gap-2"><span class="text-amber-600">⚠</span> Liquidez limitada</li>
+            <li class="flex items-start gap-2"><span class="text-amber-600">⚠</span> Costos compartidos de mantenimiento</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-8 border-2 border-bio-accent shadow-lg">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 bg-bio-accent rounded-xl flex items-center justify-center text-white text-2xl">🏦</div>
+          <div>
+            <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Opción B: Fideicomiso Inmobiliario</h3>
+            <p class="text-xs text-bio-text-soft">Recomendado para inversionistas pasivos</p>
+          </div>
+        </div>
+        
+        <div class="space-y-4 mb-6">
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Inversión Mínima</div>
+            <div class="font-heading font-bold text-3xl text-bio-accent">$5-10M COP</div>
+            <div class="text-xs text-bio-text-soft">Participaciones fraccionadas</div>
+          </div>
+          
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Dividendos Anuales</div>
+            <div class="font-heading font-bold text-3xl text-bio-accent">10-13%</div>
+            <div class="text-xs text-bio-text-soft">Efectivo anual proyectado</div>
+          </div>
+          
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Liquidez</div>
+            <div class="font-heading font-bold text-3xl text-bio-accent">Alta</div>
+            <div class="text-xs text-bio-text-soft">Venta en mercado secundario</div>
+          </div>
+          
+          <div class="bg-bio-bg p-4 rounded-lg">
+            <div class="text-xs text-bio-text-soft uppercase tracking-wider mb-1">Gestión</div>
+            <div class="font-heading font-bold text-3xl text-bio-accent">Profesional</div>
+            <div class="text-xs text-bio-text-soft">Fiduciaria supervisada por SFC</div>
+          </div>
+        </div>
+        
+        <div class="pt-6 border-t border-bio-accent/10">
+          <h4 class="font-heading font-bold text-sm text-bio-primary-dark mb-3">Características</h4>
+          <ul class="space-y-2 text-sm text-bio-text-soft">
+            <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Entrada baja (cientos de miles de pesos)</li>
+            <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Sin responsabilidad operativa</li>
+            <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Supervisión SFC</li>
+            <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Diversificación posible</li>
+            <li class="flex items-start gap-2"><span class="text-amber-600">⚠</span> No hay propiedad directa</li>
+            <li class="flex items-start gap-2"><span class="text-amber-600">⚠</span> Capital fiduciario: $3,417M COP</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Comparativo -->
+    <div class="bg-bio-cream rounded-2xl p-8 border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-xl mb-6 text-bio-primary-dark text-center">📊 Comparativo Directo</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-bio-primary/20">
+              <th class="text-left p-3 font-heading text-bio-primary-dark">Aspecto</th>
+              <th class="text-left p-3 font-heading text-bio-primary">Propiedad Fraccionada</th>
+              <th class="text-left p-3 font-heading text-bio-accent">Fideicomiso</th>
+            </tr>
+          </thead>
+          <tbody class="text-bio-text-soft">
+            <tr class="border-b border-bio-primary/10">
+              <td class="p-3 font-medium">Naturaleza</td>
+              <td class="p-3">Propiedad real registral</td>
+              <td class="p-3">Derechos económicos</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10 bg-white/50">
+              <td class="p-3 font-medium">ROI Principal</td>
+              <td class="p-3">Plusvalía + renta</td>
+              <td class="p-3">Dividendos periódicos</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10">
+              <td class="p-3 font-medium">Liquidez</td>
+              <td class="p-3">Baja (venta individual)</td>
+              <td class="p-3">Alta (mercado secundario)</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10 bg-white/50">
+              <td class="p-3 font-medium">Uso Personal</td>
+              <td class="p-3">Sí (6 semanas/año)</td>
+              <td class="p-3">No</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10">
+              <td class="p-3 font-medium">Gestión</td>
+              <td class="p-3">Copropietaria</td>
+              <td class="p-3">Profesional externalizada</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-medium">Regulación</td>
+              <td class="p-3">Ley 675/2001 (PH)</td>
+              <td class="p-3">SFC + Decreto 1357/2018</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. RETORNOS Y PROYECCIONES -->
+<section id="returns" class="py-20 px-6 section-fade">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Capítulo 05</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mt-3 mb-4 text-bio-primary-dark">Retornos y Proyecciones Financieras</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <!-- Proyección 4 Biohostels -->
+    <div class="bg-bio-primary rounded-2xl p-8 text-white mb-12 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-48 h-48 bg-bio-secondary/10 rounded-full -translate-y-24 translate-x-24"></div>
+      <h3 class="font-heading font-bold text-xl mb-6 relative z-10">📊 Proyección Financiera (4 Biohostels Piloto)</h3>
+      <div class="grid md:grid-cols-5 gap-4 relative z-10">
+        <div class="bg-white/10 p-4 rounded-lg backdrop-blur">
+          <div class="text-xs text-white/70 mb-1">Inversión Total</div>
+          <div class="text-xl font-bold font-heading">$400M</div>
+          <div class="text-xs text-white/70">COP</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-lg backdrop-blur">
+          <div class="text-xs text-white/70 mb-1">Ingresos Año 1</div>
+          <div class="text-xl font-bold font-heading">$230M</div>
+          <div class="text-xs text-white/70">COP</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-lg backdrop-blur">
+          <div class="text-xs text-white/70 mb-1">Utilidad Neta A1</div>
+          <div class="text-xl font-bold font-heading">$150M</div>
+          <div class="text-xs text-white/70">COP</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-lg backdrop-blur">
+          <div class="text-xs text-white/70 mb-1">ROI Año 1</div>
+          <div class="text-xl font-bold font-heading">37.5%</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-lg backdrop-blur">
+          <div class="text-xs text-white/70 mb-1">Valor Año 5</div>
+          <div class="text-xl font-bold font-heading">$750M</div>
+          <div class="text-xs text-white/70">COP</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Gráfico de proyección -->
+    <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5 mb-12">
+      <h3 class="font-heading font-bold text-xl mb-6 text-bio-primary-dark">📈 Proyección de Ingresos a 5 Años</h3>
+      <div class="h-80">
+        <canvas id="projectionChart"></canvas>
+      </div>
+    </div>
+    
+    <!-- Distribución de ingresos -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5">
+        <h3 class="font-heading font-bold text-xl mb-6 text-bio-primary-dark">💰 Distribución de Ingresos Mensuales</h3>
+        <div class="h-64">
+          <canvas id="distributionChart"></canvas>
+        </div>
+        <div class="mt-4 space-y-2 text-sm">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-primary"></div>
+              <span class="text-bio-text-soft">Reinversión en lotes</span>
+            </div>
+            <span class="font-bold">40%</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-secondary"></div>
+              <span class="text-bio-text-soft">Dividendos inversionistas</span>
+            </div>
+            <span class="font-bold">35%</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-accent"></div>
+              <span class="text-bio-text-soft">Impuestos y legal</span>
+            </div>
+            <span class="font-bold">15%</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-bio-warning"></div>
+              <span class="text-bio-text-soft">Mantenimiento</span>
+            </div>
+            <span class="font-bold">10%</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5">
+        <h3 class="font-heading font-bold text-xl mb-6 text-bio-primary-dark">🏗️ Expansión de Lotes Financiados</h3>
+        <div class="space-y-4">
+          <div class="bg-bio-bg p-4 rounded-xl border-2 border-bio-primary/20">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs bg-bio-primary text-white px-2 py-1 rounded-full font-medium">EN PROCESO</span>
+              <span class="text-xs text-bio-text-soft">Lote #5</span>
+            </div>
+            <div class="font-heading font-bold text-bio-primary-dark mb-1">Salento, Quindío</div>
+            <div class="text-xs text-bio-text-soft mb-3">800 m² · 2 Microhostales planificados</div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+              <div class="bg-bio-primary h-2 rounded-full" style="width: 65%;"></div>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-bio-text-soft">Progreso</span>
+              <span class="font-bold text-bio-primary">65%</span>
+            </div>
+            <div class="mt-3 pt-3 border-t border-bio-primary/10">
+              <div class="text-xs text-bio-text-soft">Financiado con</div>
+              <div class="font-bold text-bio-secondary">$8,940,000 COP</div>
+              <div class="text-xs text-bio-text-soft">de ganancias comunitarias</div>
+            </div>
+          </div>
+
+          <div class="bg-bio-bg p-4 rounded-xl border-2 border-bio-secondary/20">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs bg-bio-secondary text-white px-2 py-1 rounded-full font-medium">PLANIFICADO</span>
+              <span class="text-xs text-bio-text-soft">Lote #6</span>
+            </div>
+            <div class="font-heading font-bold text-bio-primary-dark mb-1">Tayrona, Magdalena</div>
+            <div class="text-xs text-bio-text-soft mb-3">800 m² · 2 Microhostales planificados</div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+              <div class="bg-bio-secondary h-2 rounded-full" style="width: 25%;"></div>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-bio-text-soft">Progreso</span>
+              <span class="font-bold text-bio-secondary">25%</span>
+            </div>
+            <div class="mt-3 pt-3 border-t border-bio-secondary/10">
+              <div class="text-xs text-bio-text-soft">Financiado con</div>
+              <div class="font-bold text-bio-secondary">$3,450,000 COP</div>
+              <div class="text-xs text-bio-text-soft">de ganancias comunitarias</div>
+            </div>
+          </div>
+
+          <div class="bg-bio-bg p-4 rounded-xl border-2 border-bio-accent/20">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs bg-bio-accent text-white px-2 py-1 rounded-full font-medium">APROBADO</span>
+              <span class="text-xs text-bio-text-soft">Lote #7</span>
+            </div>
+            <div class="font-heading font-bold text-bio-primary-dark mb-1">Mesa de los Santos</div>
+            <div class="text-xs text-bio-text-soft mb-3">800 m² · 2 Microhostales planificados</div>
+            <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+              <div class="bg-bio-accent h-2 rounded-full" style="width: 10%;"></div>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-bio-text-soft">Progreso</span>
+              <span class="font-bold text-bio-accent">10%</span>
+            </div>
+            <div class="mt-3 pt-3 border-t border-bio-accent/10">
+              <div class="text-xs text-bio-text-soft">Financiado con</div>
+              <div class="font-bold text-bio-accent">$1,200,000 COP</div>
+              <div class="text-xs text-bio-text-soft">de ganancias comunitarias</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Impuestos transparentes -->
+    <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">🏛️ Impuestos Pagados (Transparencia Total)</h3>
+          <p class="text-sm text-bio-text-soft">Todos los pagos fiscales visibles para la comunidad</p>
+        </div>
+        <span class="text-xs bg-bio-primary/10 text-bio-primary px-3 py-1 rounded-full font-medium">Verificado DIAN</span>
+      </div>
+      
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-bio-primary/10">
+              <th class="text-left p-3 font-heading text-bio-primary-dark">Concepto</th>
+              <th class="text-left p-3 font-heading text-bio-primary-dark">Periodo</th>
+              <th class="text-right p-3 font-heading text-bio-primary-dark">Monto</th>
+              <th class="text-right p-3 font-heading text-bio-primary-dark">Estado</th>
+            </tr>
+          </thead>
+          <tbody class="text-bio-text-soft">
+            <tr class="border-b border-bio-primary/5">
+              <td class="p-3">Impuesto de Industria y Comercio</td>
+              <td class="p-3">Q4 2026</td>
+              <td class="p-3 text-right font-bold">$1,245,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5 bg-bio-bg/30">
+              <td class="p-3">Impuesto Predial Unificado</td>
+              <td class="p-3">2026</td>
+              <td class="p-3 text-right font-bold">$3,890,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5">
+              <td class="p-3">Retención en la Fuente (alquileres)</td>
+              <td class="p-3">Nov 2026</td>
+              <td class="p-3 text-right font-bold">$892,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5 bg-bio-bg/30">
+              <td class="p-3">IVA Plataforma Digital (Biohostels)</td>
+              <td class="p-3">Q4 2026</td>
+              <td class="p-3 text-right font-bold">$567,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Pendiente</span></td>
+            </tr>
+            <tr class="border-b border-bio-primary/5">
+              <td class="p-3">Impuesto de Renta (BioCoin gains)</td>
+              <td class="p-3">2026</td>
+              <td class="p-3 text-right font-bold">$2,100,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">Pagado</span></td>
+            </tr>
+            <tr class="bg-bio-primary/5">
+              <td class="p-3 font-bold text-bio-primary-dark">TOTAL PAGADO 2026</td>
+              <td class="p-3"></td>
+              <td class="p-3 text-right font-bold text-bio-primary text-lg">$8,694,000</td>
+              <td class="p-3 text-right"><span class="text-xs bg-bio-primary text-white px-2 py-1 rounded-full">100% Transparente</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. ROADMAP -->
+<section id="roadmap" class="py-20 px-6 bg-white section-fade">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Capítulo 06</span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl mt-3 mb-4 text-bio-primary-dark">Roadmap de Implementación</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="space-y-6">
+      <div class="bg-white rounded-2xl p-8 border-l-4 border-bio-primary shadow-sm">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-primary text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">01</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Fundación</h3>
+              <span class="text-xs bg-bio-primary/10 text-bio-primary px-3 py-1 rounded-full font-medium">Mes 1-3</span>
+            </div>
+            <ul class="space-y-2 text-sm text-bio-text-soft">
+              <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Constituir BioCoin Foundation (jurisdicción crypto-friendly)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Desarrollar Smart Contract en Polygon</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Auditoría de seguridad (CertiK o Hacken)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Crear wallet oficial BioCoin (app móvil)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary">✓</span> Validación legal de subdivisión en 800 m² (UAF municipal)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-8 border-l-4 border-bio-secondary shadow-sm">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-secondary text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">02</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Integración Interna</h3>
+              <span class="text-xs bg-bio-secondary/10 text-bio-secondary px-3 py-1 rounded-full font-medium">Mes 4-6</span>
+            </div>
+            <ul class="space-y-2 text-sm text-bio-text-soft">
+              <li class="flex items-start gap-2"><span class="text-bio-secondary">✓</span> Primer Biohostel piloto acepta BioCoin</li>
+              <li class="flex items-start gap-2"><span class="text-bio-secondary">✓</span> 20 proveedores de El Flecho integran pagos</li>
+              <li class="flex items-start gap-2"><span class="text-bio-secondary">✓</span> Sistema de staking activo (5-15% anual)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-secondary">✓</span> Airdrop a primeros 1,000 inversionistas</li>
+              <li class="flex items-start gap-2"><span class="text-bio-secondary">✓</span> Construcción de 4 Biohostels piloto</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-8 border-l-4 border-bio-accent shadow-sm">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-accent text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">03</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Expansión</h3>
+              <span class="text-xs bg-bio-accent/10 text-bio-accent px-3 py-1 rounded-full font-medium">Mes 7-12</span>
+            </div>
+            <ul class="space-y-2 text-sm text-bio-text-soft">
+              <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Listado en exchange descentralizado (Uniswap/QuickSwap)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> 10 Biohostels operando con BioCoin</li>
+              <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> 200 proveedores en El Flecho</li>
+              <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Alianza con procesador de pagos cripto (BitPay/CoinGate)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-accent">✓</span> Registro SIC de marca "Biohostels"</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-8 border-l-4 border-bio-primary-dark shadow-sm">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-primary-dark text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">04</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Madurez</h3>
+              <span class="text-xs bg-bio-primary-dark/10 text-bio-primary-dark px-3 py-1 rounded-full font-medium">Año 2</span>
+            </div>
+            <ul class="space-y-2 text-sm text-bio-text-soft">
+              <li class="flex items-start gap-2"><span class="text-bio-primary-dark">✓</span> Listado en exchange centralizado (Binance/KuCoin)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary-dark">✓</span> 32 Biohostels (1 por departamento)</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary-dark">✓</span> BioCoin aceptada en turismo ecológico internacional</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary-dark">✓</span> Integración con Lightning Network (Bitcoin) para micropagos</li>
+              <li class="flex items-start gap-2"><span class="text-bio-primary-dark">✓</span> Certificación ISO 14001 (gestión ambiental)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- KPIs -->
+    <div class="mt-12 bg-bio-cream rounded-2xl p-8 border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-xl mb-6 text-bio-primary-dark">📈 Métricas de Éxito (KPIs)</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b-2 border-bio-primary/20">
+              <th class="text-left p-3 font-heading text-bio-primary-dark">Indicador</th>
+              <th class="text-left p-3 font-heading text-bio-primary">Meta Año 1</th>
+              <th class="text-left p-3 font-heading text-bio-primary">Meta Año 3</th>
+            </tr>
+          </thead>
+          <tbody class="text-bio-text-soft">
+            <tr class="border-b border-bio-primary/10">
+              <td class="p-3">Holders de BioCoin</td>
+              <td class="p-3 font-bold">5,000</td>
+              <td class="p-3 font-bold">50,000</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10 bg-bio-bg/50">
+              <td class="p-3">Transacciones/mes</td>
+              <td class="p-3 font-bold">10,000</td>
+              <td class="p-3 font-bold">500,000</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10">
+              <td class="p-3">BioCoin quemados</td>
+              <td class="p-3 font-bold">240,000</td>
+              <td class="p-3 font-bold">10,000,000</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10 bg-bio-bg/50">
+              <td class="p-3">Biohostels con BioCoin</td>
+              <td class="p-3 font-bold">4</td>
+              <td class="p-3 font-bold">32</td>
+            </tr>
+            <tr class="border-b border-bio-primary/10">
+              <td class="p-3">Proveedores El Flecho</td>
+              <td class="p-3 font-bold">100</td>
+              <td class="p-3 font-bold">3,200</td>
+            </tr>
+            <tr>
+              <td class="p-3">Precio BioCoin (USD)</td>
+              <td class="p-3 font-bold">$0.05</td>
+              <td class="p-3 font-bold">$0.50+</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07. LLAMADO A LA ACCIÓN -->
+<section class="py-20 px-6 bg-bio-primary-dark text-white">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="font-display font-bold text-4xl md:text-5xl mb-6">¿Listo para ser parte del futuro del ecoturismo?</h2>
+    <p class="text-xl text-white/80 mb-10 max-w-3xl mx-auto">
+      Biohostels combina lo mejor de la inversión inmobiliaria, la tecnología IoT, la transparencia blockchain y la economía circular local. Una oportunidad única en Colombia.
+    </p>
+    
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
+        <div class="text-3xl mb-3">📞</div>
+        <h3 class="font-heading font-bold mb-2">Contacto Directo</h3>
+        <p class="text-sm text-white/70">+57 313 226 3265</p>
+        <p class="text-sm text-white/70">miguelxlerion@gmail.com</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
+        <div class="text-3xl mb-3">🌐</div>
+        <h3 class="font-heading font-bold mb-2">Plataforma</h3>
+        <p class="text-sm text-white/70">biohostel-com.xleriondev.workers.dev</p>
+        <p class="text-sm text-white/70">Xlerion.com.co</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-6 border border-white/20">
+        <div class="text-3xl mb-3">📍</div>
+        <h3 class="font-heading font-bold mb-2">Ubicación</h3>
+        <p class="text-sm text-white/70">Bogotá, Colombia</p>
+        <p class="text-sm text-white/70">Disponible remoto</p>
+      </div>
+    </div>
+    
+    <div class="bg-bio-secondary/10 rounded-2xl p-6 border border-bio-secondary/30">
+      <h3 class="font-heading font-bold text-lg mb-3 text-bio-secondary">💡 Próximos Pasos para Inversionistas</h3>
+      <ol class="space-y-2 text-sm text-white/90 text-left max-w-2xl mx-auto">
+        <li class="flex gap-3"><span class="font-bold text-bio-secondary">1.</span> Agendar reunión de presentación (30 min)</li>
+        <li class="flex gap-3"><span class="font-bold text-bio-secondary">2.</span> Recibir documento legal completo y estructura fiduciaria</li>
+        <li class="flex gap-3"><span class="font-bold text-bio-secondary">3.</span> Visitar Biohostel piloto en Guatapé, Salento o Tayrona</li>
+        <li class="flex gap-3"><span class="font-bold text-bio-secondary">4.</span> Definir tipo de inversión (fraccionada o fideicomiso)</li>
+        <li class="flex gap-3"><span class="font-bold text-bio-secondary">5.</span> Firmar contrato y recibir wallet BioCoin con airdrop inicial</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-bio-primary text-white py-8 px-6">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <svg width="32" height="32" viewBox="0 0 100 100">
+        <path d="M50 8 C32 8 18 22 18 40 C18 58 35 78 50 92 C65 78 82 58 82 40 C82 22 68 8 50 8 Z" fill="#FFFFFF"/>
+        <circle cx="35" cy="35" r="3" fill="#00C9A7"/>
+        <circle cx="65" cy="45" r="3" fill="#00C9A7"/>
+        <circle cx="50" cy="25" r="3" fill="#00C9A7"/>
+      </svg>
+      <span class="font-heading font-bold text-xl">Biohostels</span>
+    </div>
+    <p class="text-sm text-white/70 mb-2">IoT · Blockchain · Transparencia Total</p>
+    <p class="text-xs text-white/50">© 2026 Biohostels · Xlerion.com.co · Documento para Inversionistas v1.0</p>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.section-fade').forEach(el => observer.observe(el));
+
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    document.getElementById('progressBar').style.width = scrollPercent + '%';
+  });
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 100;
+      if (window.scrollY >= top) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Charts
+  window.addEventListener('load', () => {
+    // Projection Chart
+    const projCtx = document.getElementById('projectionChart').getContext('2d');
+    new Chart(projCtx, {
+      type: 'line',
+      data: {
+        labels: ['Año 1', 'Año 2', 'Año 3', 'Año 4', 'Año 5'],
+        datasets: [
+          {
+            label: 'Ingresos (M COP)',
+            data: [230, 380, 580, 820, 1200],
+            borderColor: '#1B4D3E',
+            backgroundColor: 'rgba(27, 77, 62, 0.1)',
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Utilidad Neta (M COP)',
+            data: [150, 260, 420, 620, 950],
+            borderColor: '#00C9A7',
+            backgroundColor: 'rgba(0, 201, 167, 0.1)',
+            tension: 0.4,
+            fill: true
+          },
+          {
+            label: 'Valor del Proyecto (M COP)',
+            data: [450, 620, 850, 1100, 1500],
+            borderColor: '#D4A373',
+            backgroundColor: 'rgba(212, 163, 115, 0.1)',
+            tension: 0.4,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'top', labels: { usePointStyle: true, padding: 20 } }
+        },
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } }
+        }
+      }
+    });
+
+    // Distribution Chart
+    const distCtx = document.getElementById('distributionChart').getContext('2d');
+    new Chart(distCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Reinversión lotes', 'Dividendos', 'Impuestos', 'Mantenimiento'],
+        datasets: [{
+          data: [40, 35, 15, 10],
+          backgroundColor: ['#1B4D3E', '#00C9A7', '#D4A373', '#F39C12'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        cutout: '70%'
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

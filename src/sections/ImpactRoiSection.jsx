@@ -79,7 +79,7 @@ export default function ImpactRoiSection() {
   return (
     <section
       id="impacto"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div data-reveal>
         <SectionHeader title={t.title} subtitle={t.subtitle} />
@@ -90,7 +90,7 @@ export default function ImpactRoiSection() {
         {metrics.map((m, index) => {
           const Icon = m.icon;
           return (
-            <div key={m.value} data-reveal className={`stagger-${index + 1} relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 card-hover`}>
+            <div key={m.value} data-reveal className={`stagger-${index + 1} relative bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 card-hover`}>
               <div className="w-10 h-10 rounded-lg bg-[#00e9fa]/[0.06] border border-[#00e9fa]/20 flex items-center justify-center mb-4">
                 <Icon size={18} className="text-[#00e9fa]" />
               </div>

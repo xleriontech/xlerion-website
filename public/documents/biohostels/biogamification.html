@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biohostels · BioQuest · Gamificación Ecológica</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5.0.0/index.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.min.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'bio-primary': '#1B4D3E',
+          'bio-primary-dark': '#0F3328',
+          'bio-secondary': '#00C9A7',
+          'bio-accent': '#D4A373',
+          'bio-bg': '#FAFAF7',
+          'bio-cream': '#F5F2EC',
+          'bio-text': '#1A1A1A',
+          'bio-text-soft': '#4A4A4A',
+          'bio-gold': '#FFD700',
+          'bio-purple': '#8B5CF6',
+        },
+        fontFamily: {
+          'heading': ['Montserrat', 'sans-serif'],
+          'body': ['Inter', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<style>
+  * { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #FAFAF7; }
+  h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
+  
+  .card-hover { transition: all 0.3s ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(27, 77, 62, 0.15); }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .float-anim { animation: float 4s ease-in-out infinite; }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 201, 167, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(0, 201, 167, 0.6); }
+  }
+  .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+  
+  .badge-rarity-common { background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%); }
+  .badge-rarity-rare { background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%); }
+  .badge-rarity-epic { background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%); }
+  .badge-rarity-legendary { background: linear-gradient(135deg, #FFD700 0%, #F59E0B 100%); }
+  
+  .progress-ring { transition: stroke-dashoffset 1s ease; }
+  
+  .tab-btn { transition: all 0.3s ease; }
+  .tab-btn.active { background: #1B4D3E; color: white; }
+  .tab-content { display: none; animation: fadeIn 0.4s ease; }
+  .tab-content.active { display: block; }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .species-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .species-card:hover {
+    border-color: #00C9A7;
+    transform: scale(1.02);
+  }
+  .species-card.discovered {
+    border-color: #1B4D3E;
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  }
+</style>
+</head>
+<body class="bg-bio-bg text-bio-text">
+
+<!-- Header -->
+<header class="bg-bio-primary-dark text-white py-16 px-6 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-bio-secondary/10 rounded-full -translate-y-48 translate-x-48"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-bio-accent/10 rounded-full translate-y-32 -translate-x-32"></div>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="w-12 h-12 bg-bio-secondary/20 rounded-xl flex items-center justify-center float-anim">
+        <span class="text-3xl">🎮</span>
+      </div>
+      <div>
+        <span class="text-bio-secondary text-sm font-medium tracking-widest uppercase">Nueva Sección · BioQuest</span>
+        <h1 class="font-heading font-bold text-3xl">Gamificación Ecológica</h1>
+      </div>
+    </div>
+    <p class="text-white/90 text-lg max-w-3xl mb-8">Transforma la biodiversidad de cada Biohostel en una aventura de descubrimiento, aprendizaje y recompensas con BioCoin.</p>
+    
+    <div class="grid md:grid-cols-4 gap-4">
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="text-3xl mb-2">🌱</div>
+        <div class="font-heading font-bold text-xl">1,280</div>
+        <div class="text-sm text-white/70">Especies catalogadas</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="text-3xl mb-2">🏆</div>
+        <div class="font-heading font-bold text-xl">64</div>
+        <div class="text-sm text-white/70">Logros desbloqueables</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="text-3xl mb-2">🪙</div>
+        <div class="font-heading font-bold text-xl">500 BIO</div>
+        <div class="text-sm text-white/70">Recompensa máxima</div>
+      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="text-3xl mb-2">🌍</div>
+        <div class="font-heading font-bold text-xl">32</div>
+        <div class="text-sm text-white/70">Departamentos activos</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Concepto General -->
+<section class="py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Concepto</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4 text-bio-primary-dark">¿Qué es BioQuest?</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5 mb-8">
+      <p class="text-lg text-bio-text-soft leading-relaxed mb-6">
+        <strong class="text-bio-primary">BioQuest</strong> es un sistema de gamificación ecológica integrado en la plataforma Biohostels que convierte la biodiversidad local de cada lote (800 m²) en una experiencia interactiva de descubrimiento, aprendizaje y recompensas. Los huéspedes, inversionistas y comunidad local pueden explorar, identificar y coleccionar especies nativas mientras contribuyen a la conservación y generan valor económico mediante BioCoin.
+      </p>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-bio-bg p-6 rounded-xl">
+          <div class="text-4xl mb-3">🎯</div>
+          <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Objetivo Principal</h3>
+          <p class="text-sm text-bio-text-soft">Fomentar la conexión emocional con la biodiversidad local, educar sobre especies nativas y recompensar comportamientos sostenibles.</p>
+        </div>
+        <div class="bg-bio-bg p-6 rounded-xl">
+          <div class="text-4xl mb-3">🔗</div>
+          <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Integración</h3>
+          <p class="text-sm text-bio-text-soft">Conectado con IoT (sensores de biodiversidad), Blockchain (BioCoin rewards), El Flecho (proveedores locales) y el Libro Maestro (datos de especies).</p>
+        </div>
+        <div class="bg-bio-bg p-6 rounded-xl">
+          <div class="text-4xl mb-3">🌟</div>
+          <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Impacto</h3>
+          <p class="text-sm text-bio-text-soft">Cada especie descubierta genera datos científicos ciudadanos, contribuye a la conservación y fortalece la economía local.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mecánicas de Juego -->
+<section class="py-16 px-6 bg-bio-cream">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Mecánicas</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4 text-bio-primary-dark">Sistema de Juego</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-16 h-16 bg-bio-primary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-3xl">🔍</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Descubrimiento</h3>
+        <p class="text-sm text-bio-text-soft">Explora el Biohostel y sus alrededores para encontrar especies nativas. Usa la app para escanear, fotografiar e identificar flora y fauna.</p>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-16 h-16 bg-bio-secondary/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-3xl">📚</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Colección</h3>
+        <p class="text-sm text-bio-text-soft">Cada especie descubierta se añade a tu "BioDex" personal. Completa colecciones por departamento, ecosistema o rareza para desbloquear logros.</p>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-16 h-16 bg-bio-accent/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-3xl">⚔️</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Misiones</h3>
+        <p class="text-sm text-bio-text-soft">Completa desafíos diarios, semanales y especiales: "Fotografía 5 orquídeas diferentes", "Identifica 3 aves endémicas", etc.</p>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="w-16 h-16 bg-bio-gold/10 rounded-xl flex items-center justify-center mb-4">
+          <span class="text-3xl">🏆</span>
+        </div>
+        <h3 class="font-heading font-bold text-lg text-bio-primary-dark mb-2">Competencia</h3>
+        <p class="text-sm text-bio-text-soft">Tablas de clasificación por Biohostel, vereda y departamento. Compite con otros huéspedes y gana recompensas exclusivas.</p>
+      </div>
+    </div>
+    
+    <!-- Sistema de Rareza -->
+    <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5">
+      <h3 class="font-heading font-bold text-2xl text-bio-primary-dark mb-6">🎲 Sistema de Rareza de Especies</h3>
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="text-center">
+          <div class="badge-rarity-common text-white px-4 py-2 rounded-full text-sm font-bold mb-3">COMÚN</div>
+          <div class="text-3xl mb-2">🌿</div>
+          <div class="text-sm text-bio-text-soft">Especies frecuentes en el área</div>
+          <div class="text-xs text-bio-text-soft mt-2">Recompensa: 5-10 BIO</div>
+        </div>
+        <div class="text-center">
+          <div class="badge-rarity-rare text-white px-4 py-2 rounded-full text-sm font-bold mb-3">RARA</div>
+          <div class="text-3xl mb-2">🦋</div>
+          <div class="text-sm text-bio-text-soft">Especies poco comunes o estacionales</div>
+          <div class="text-xs text-bio-text-soft mt-2">Recompensa: 20-50 BIO</div>
+        </div>
+        <div class="text-center">
+          <div class="badge-rarity-epic text-white px-4 py-2 rounded-full text-sm font-bold mb-3">ÉPICA</div>
+          <div class="text-3xl mb-2">🦜</div>
+          <div class="text-sm text-bio-text-soft">Especies endémicas o en peligro</div>
+          <div class="text-xs text-bio-text-soft mt-2">Recompensa: 100-200 BIO</div>
+        </div>
+        <div class="text-center">
+          <div class="badge-rarity-legendary text-white px-4 py-2 rounded-full text-sm font-bold mb-3">LEGENDARIA</div>
+          <div class="text-3xl mb-2">🐆</div>
+          <div class="text-sm text-bio-text-soft">Especies icónicas o muy escasas</div>
+          <div class="text-xs text-bio-text-soft mt-2">Recompensa: 500+ BIO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tipos de Especies por Lote -->
+<section class="py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Biodiversidad</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4 text-bio-primary-dark">Especies por Biohostel</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border-2 border-bio-primary/20">
+        <div class="text-center mb-4">
+          <div class="text-5xl mb-3">🌺</div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Flora</h3>
+          <div class="text-sm text-bio-text-soft mt-2">320 especies</div>
+        </div>
+        <div class="space-y-2 text-sm text-bio-text-soft">
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Orquídeas nativas</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Palmas endémicas</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Frailejones de páramo</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Plantas medicinales</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-bio-primary/10">
+          <div class="text-xs text-bio-text-soft">Ejemplo en Plot 1 (Guatapé)</div>
+          <div class="font-bold text-bio-primary">12 especies de orquídeas</div>
+        </div>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border-2 border-bio-secondary/20">
+        <div class="text-center mb-4">
+          <div class="text-5xl mb-3">🦜</div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Aves</h3>
+          <div class="text-sm text-bio-text-soft mt-2">320 especies</div>
+        </div>
+        <div class="space-y-2 text-sm text-bio-text-soft">
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Colibríes endémicos</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Tucanes tropicales</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Tángaras coloridas</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Aves rapaces</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-bio-secondary/10">
+          <div class="text-xs text-bio-text-soft">Ejemplo en Plot 2 (Salento)</div>
+          <div class="font-bold text-bio-secondary">8 especies de colibríes</div>
+        </div>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border-2 border-bio-accent/20">
+        <div class="text-center mb-4">
+          <div class="text-5xl mb-3">🐆</div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Mamíferos</h3>
+          <div class="text-sm text-bio-text-soft mt-2">320 especies</div>
+        </div>
+        <div class="space-y-2 text-sm text-bio-text-soft">
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Jaguares (cámaras trampa)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Osos de anteojos</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Delfines rosados</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Monos aulladores</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-bio-accent/10">
+          <div class="text-xs text-bio-text-soft">Ejemplo en Plot 3 (Tayrona)</div>
+          <div class="font-bold text-bio-accent">5 especies de primates</div>
+        </div>
+      </div>
+      
+      <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border-2 border-bio-purple/20">
+        <div class="text-center mb-4">
+          <div class="text-5xl mb-3">🦋</div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Insectos</h3>
+          <div class="text-sm text-bio-text-soft mt-2">320 especies</div>
+        </div>
+        <div class="space-y-2 text-sm text-bio-text-soft">
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Mariposas morpho</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Escarabajos rinoceronte</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Abejas polinizadoras</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Libélulas gigantes</span>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-bio-purple/10">
+          <div class="text-xs text-bio-text-soft">Ejemplo en Plot 4 (Nocaima)</div>
+          <div class="font-bold text-bio-purple">15 especies de mariposas</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Reptiles adicional -->
+    <div class="mt-6 bg-white rounded-2xl p-6 shadow-sm border-2 border-bio-primary/10">
+      <div class="flex items-center gap-4">
+        <div class="text-5xl">🦎</div>
+        <div class="flex-1">
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Reptiles · 320 especies</h3>
+          <p class="text-sm text-bio-text-soft mt-1">Iguanas verdes, boas constrictoras, caimanes de anteojos, geckos nocturnos y tortugas de río. Cada Biohostel tiene un promedio de 8-12 especies de reptiles nativos en sus 800 m².</p>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-bio-text-soft">Ejemplo Plot 1</div>
+          <div class="font-bold text-bio-primary">6 especies de reptiles</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Sistema de Recompensas -->
+<section class="py-16 px-6 bg-bio-primary-dark text-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-secondary font-heading font-semibold tracking-widest text-xs uppercase">Recompensas</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4">Sistema BioCoin Rewards</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-secondary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-secondary"></div>
+        <div class="w-12 h-px bg-bio-secondary/30"></div>
+      </div>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+        <div class="text-4xl mb-4">📸</div>
+        <h3 class="font-heading font-bold text-xl mb-3">Fotografía de Especies</h3>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Especie común: <strong class="text-bio-secondary">5 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Especie rara: <strong class="text-bio-secondary">20 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Especie épica: <strong class="text-bio-secondary">100 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Especie legendaria: <strong class="text-bio-secondary">500 BIO</strong></span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+        <div class="text-4xl mb-4">🎯</div>
+        <h3 class="font-heading font-bold text-xl mb-3">Misiones Completadas</h3>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Misión diaria: <strong class="text-bio-secondary">10 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Misión semanal: <strong class="text-bio-secondary">50 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Colección completa: <strong class="text-bio-secondary">200 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Logro especial: <strong class="text-bio-secondary">100-1000 BIO</strong></span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-2xl p-6 border border-white/20">
+        <div class="text-4xl mb-4">🌟</div>
+        <h3 class="font-heading font-bold text-xl mb-3">Bonificaciones Especiales</h3>
+        <ul class="space-y-2 text-sm text-white/80">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Primera especie del día: <strong class="text-bio-secondary">+5 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Racha de 7 días: <strong class="text-bio-secondary">+50 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Compartir en redes: <strong class="text-bio-secondary">+10 BIO</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">•</span>
+            <span>Referir amigo: <strong class="text-bio-secondary">+100 BIO</strong></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Uso de BioCoin -->
+    <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
+      <h3 class="font-heading font-bold text-2xl mb-6">💰 ¿Qué puedes hacer con tus BIO?</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white/10 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🏠</div>
+          <div class="font-bold mb-1">Descuento en Reservas</div>
+          <div class="text-xs text-white/70">5% de descuento por cada 100 BIO usados</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🛒</div>
+          <div class="font-bold mb-1">El Flecho Marketplace</div>
+          <div class="text-xs text-white/70">Compra productos locales con BIO</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🌱</div>
+          <div class="font-bold mb-1">Plantar Árboles</div>
+          <div class="text-xs text-white/70">10 BIO = 1 árbol plantado en tu nombre</div>
+        </div>
+        <div class="bg-white/10 p-4 rounded-xl">
+          <div class="text-2xl mb-2">🎨</div>
+          <div class="font-bold mb-1">NFTs Exclusivos</div>
+          <div class="text-xs text-white/70">Colecciona arte digital de especies raras</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ejemplo de Gameplay -->
+<section class="py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Experiencia</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4 text-bio-primary-dark">Ejemplo de Gameplay</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="bg-white rounded-2xl p-8 shadow-sm border border-bio-primary/5">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 bg-bio-primary/10 rounded-xl flex items-center justify-center">
+          <span class="text-3xl">👤</span>
+        </div>
+        <div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">María García · Huésped Plot 1 (Guatapé)</h3>
+          <p class="text-sm text-bio-text-soft">Día 3 de su estancia · Nivel 5 Exploradora</p>
+        </div>
+      </div>
+      
+      <div class="space-y-4">
+        <div class="bg-bio-bg p-4 rounded-xl border-l-4 border-bio-primary">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🌅</span>
+            <div class="flex-1">
+              <div class="font-bold text-bio-primary-dark mb-1">07:30 AM · Misión Diaria Completada</div>
+              <p class="text-sm text-bio-text-soft">"Fotografía el amanecer desde el mirador del Biohostel"</p>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="text-xs bg-bio-secondary text-white px-2 py-1 rounded">+10 BIO</span>
+                <span class="text-xs bg-bio-primary text-white px-2 py-1 rounded">+50 XP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-bio-bg p-4 rounded-xl border-l-4 border-bio-secondary">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🦜</span>
+            <div class="flex-1">
+              <div class="font-bold text-bio-primary-dark mb-1">09:15 AM · Especie Descubierta</div>
+              <p class="text-sm text-bio-text-soft">"Colibrí Esmeralda (Chlorostilbon mellisugus) · Rara"</p>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="text-xs bg-bio-secondary text-white px-2 py-1 rounded">+20 BIO</span>
+                <span class="text-xs bg-bio-primary text-white px-2 py-1 rounded">+100 XP</span>
+                <span class="text-xs bg-bio-accent text-white px-2 py-1 rounded">🆕 Nueva especie</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-bio-bg p-4 rounded-xl border-l-4 border-bio-accent">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🏆</span>
+            <div class="flex-1">
+              <div class="font-bold text-bio-primary-dark mb-1">11:00 AM · Logro Desbloqueado</div>
+              <p class="text-sm text-bio-text-soft">"Ornitólogo Novato · Identifica 5 aves diferentes en un día"</p>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="text-xs bg-bio-accent text-white px-2 py-1 rounded">+50 BIO</span>
+                <span class="text-xs bg-bio-primary text-white px-2 py-1 rounded">+200 XP</span>
+                <span class="text-xs bg-bio-gold text-bio-primary-dark px-2 py-1 rounded font-bold">🎖️ Medalla</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-bio-bg p-4 rounded-xl border-l-4 border-bio-purple">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl">🌺</span>
+            <div class="flex-1">
+              <div class="font-bold text-bio-primary-dark mb-1">02:30 PM · Especie Legendaria Encontrada</div>
+              <p class="text-sm text-bio-text-soft">"Orquídea Fantasma (Dendrophylax lindenii) · Legendaria"</p>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="text-xs bg-bio-purple text-white px-2 py-1 rounded">+500 BIO</span>
+                <span class="text-xs bg-bio-primary text-white px-2 py-1 rounded">+1000 XP</span>
+                <span class="text-xs bg-bio-gold text-bio-primary-dark px-2 py-1 rounded font-bold">⭐ Primera en el servidor</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-6 pt-6 border-t border-bio-primary/10">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm text-bio-text-soft">Progreso del día</div>
+            <div class="font-heading font-bold text-2xl text-bio-primary">580 BIO · 1,350 XP</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-bio-text-soft">Nivel actual</div>
+            <div class="font-heading font-bold text-2xl text-bio-secondary">Nivel 6</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Integración Técnica -->
+<section class="py-16 px-6 bg-bio-cream">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Tecnología</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4 text-bio-primary-dark">Integración Técnica</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-bio-primary/10 rounded-xl flex items-center justify-center">
+            <span class="text-2xl">📱</span>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">App Móvil BioQuest</h3>
+        </div>
+        <ul class="space-y-2 text-sm text-bio-text-soft">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-primary">✓</span>
+            <span>Escaneo de especies con IA (computer vision)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-primary">✓</span>
+            <span>Geolocalización precisa dentro del Biohostel</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-primary">✓</span>
+            <span>BioDex personal con filtros y búsqueda</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-primary">✓</span>
+            <span>Notificaciones push de especies cercanas</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-primary">✓</span>
+            <span>Integración con wallet BioCoin</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-bio-secondary/10 rounded-xl flex items-center justify-center">
+            <span class="text-2xl">🔗</span>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Blockchain Polygon</h3>
+        </div>
+        <ul class="space-y-2 text-sm text-bio-text-soft">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Smart contracts para distribución de BIO</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>NFTs de especies legendarias (ERC-721)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Registro inmutable de descubrimientos</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Tablas de clasificación descentralizadas</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-secondary">✓</span>
+            <span>Transacciones de bajo costo (<$0.01)</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-bio-accent/10 rounded-xl flex items-center justify-center">
+            <span class="text-2xl">🤖</span>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">IA de Identificación</h3>
+        </div>
+        <ul class="space-y-2 text-sm text-bio-text-soft">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-accent">✓</span>
+            <span>Modelo entrenado con 1,280 especies colombianas</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-accent">✓</span>
+            <span>Reconocimiento por foto, sonido o descripción</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-accent">✓</span>
+            <span>Validación comunitaria (crowdsourcing)</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-accent">✓</span>
+            <span>Integración con iNaturalist y GBIF</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-accent">✓</span>
+            <span>Actualización continua con nuevos avistamientos</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-bio-primary/5">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 bg-bio-purple/10 rounded-xl flex items-center justify-center">
+            <span class="text-2xl">📡</span>
+          </div>
+          <h3 class="font-heading font-bold text-xl text-bio-primary-dark">IoT Biodiversidad</h3>
+        </div>
+        <ul class="space-y-2 text-sm text-bio-text-soft">
+          <li class="flex items-start gap-2">
+            <span class="text-bio-purple">✓</span>
+            <span>Cámaras trampa para mamíferos nocturnos</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-purple">✓</span>
+            <span>Sensores acústicos para aves e insectos</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-purple">✓</span>
+            <span>Estaciones meteorológicas micro-climáticas</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-purple">✓</span>
+            <span>Alertas automáticas de especies raras</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-bio-purple">✓</span>
+            <span>Datos abiertos para investigación científica</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Roadmap de Implementación -->
+<section class="py-16 px-6">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <span class="text-bio-primary font-heading font-semibold tracking-widest text-xs uppercase">Plan</span>
+      <h2 class="font-heading font-bold text-4xl mt-3 mb-4 text-bio-primary-dark">Roadmap BioQuest</h2>
+      <div class="flex items-center justify-center gap-3">
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+        <div class="w-2 h-2 rounded-full bg-bio-primary"></div>
+        <div class="w-12 h-px bg-bio-primary/30"></div>
+      </div>
+    </div>
+    
+    <div class="space-y-6">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-bio-primary">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-primary text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">01</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Piloto</h3>
+              <span class="text-xs bg-bio-primary/10 text-bio-primary px-3 py-1 rounded-full font-medium">Mes 1-2</span>
+            </div>
+            <ul class="space-y-1 text-sm text-bio-text-soft">
+              <li>• Lanzamiento en 1 Biohostel piloto (Guatapé)</li>
+              <li>• Catálogo inicial de 50 especies locales</li>
+              <li>• App móvil básica con escaneo de fotos</li>
+              <li>• Sistema de recompensas en BIO (testnet)</li>
+              <li>• 100 usuarios beta testers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-bio-secondary">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-secondary text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">02</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Expansión</h3>
+              <span class="text-xs bg-bio-secondary/10 text-bio-secondary px-3 py-1 rounded-full font-medium">Mes 3-6</span>
+            </div>
+            <ul class="space-y-1 text-sm text-bio-text-soft">
+              <li>• 4 Biohostels activos con BioQuest</li>
+              <li>• Catálogo completo de 320 especies por categoría</li>
+              <li>• IA de identificación avanzada</li>
+              <li>• Smart contracts en Polygon mainnet</li>
+              <li>• NFTs de especies legendarias</li>
+              <li>• 1,000 usuarios activos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-bio-accent">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-accent text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">03</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Gamificación Avanzada</h3>
+              <span class="text-xs bg-bio-accent/10 text-bio-accent px-3 py-1 rounded-full font-medium">Mes 7-12</span>
+            </div>
+            <ul class="space-y-1 text-sm text-bio-text-soft">
+              <li>• 10 Biohostels con BioQuest</li>
+              <li>• Modo multijugador cooperativo</li>
+              <li>• Eventos especiales (migraciones, floraciones)</li>
+              <li>• Integración con El Flecho (recompensas físicas)</li>
+              <li>• Competencias inter-Biohostel</li>
+              <li>• 5,000 usuarios activos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 shadow-sm border-l-4 border-bio-purple">
+        <div class="flex items-start gap-6">
+          <div class="flex-shrink-0 w-16 h-16 bg-bio-purple text-white rounded-xl flex items-center justify-center font-heading font-bold text-xl">04</div>
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <h3 class="font-heading font-bold text-xl text-bio-primary-dark">Fase Ecosistema Completo</h3>
+              <span class="text-xs bg-bio-purple/10 text-bio-purple px-3 py-1 rounded-full font-medium">Año 2</span>
+            </div>
+            <ul class="space-y-1 text-sm text-bio-text-soft">
+              <li>• 32 Biohostels (1 por departamento)</li>
+              <li>• Realidad aumentada para identificación</li>
+              <li>• Datos científicos ciudadanos abiertos</li>
+              <li>• Alianzas con universidades y ONGs</li>
+              <li>• Programa de conservación financiado por BIO</li>
+              <li>• 50,000+ usuarios activos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Próximos Pasos -->
+<section class="py-16 px-6 bg-bio-primary text-white">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="font-heading font-bold text-3xl mb-6">🚀 Próximos Pasos para Implementar BioQuest</h2>
+    <p class="text-white/80 mb-8">Acciones inmediatas para lanzar la gamificación ecológica en Biohostels</p>
+    
+    <div class="grid md:grid-cols-2 gap-4 text-left">
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-bio-secondary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+          <div>
+            <div class="font-bold mb-1">Validar catálogo de especies</div>
+            <div class="text-sm text-white/70">Revisar Libro Maestro y priorizar especies por Biohostel</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-bio-secondary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+          <div>
+            <div class="font-bold mb-1">Diseñar UX/UI de la app</div>
+            <div class="text-sm text-white/70">Wireframes y prototipos de BioQuest mobile</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-bio-secondary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+          <div>
+            <div class="font-bold mb-1">Desarrollar smart contracts</div>
+            <div class="text-sm text-white/70">Contratos de recompensas en Polygon testnet</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-bio-secondary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">4</div>
+          <div>
+            <div class="font-bold mb-1">Instalar IoT en Plot 1</div>
+            <div class="text-sm text-white/70">Cámaras trampa y sensores acústicos en Guatapé</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-bio-secondary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">5</div>
+          <div>
+            <div class="font-bold mb-1">Lanzar beta cerrada</div>
+            <div class="text-sm text-white/70">100 usuarios testers en el primer Biohostel</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 backdrop-blur rounded-xl p-4 border border-white/20">
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 bg-bio-secondary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">6</div>
+          <div>
+            <div class="font-bold mb-1">Iterar y escalar</div>
+            <div class="text-sm text-white/70">Ajustar mecánicas según feedback y expandir</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-bio-primary-dark text-white py-8 px-6">
+  <div class="max-w-7xl mx-auto text-center">
+    <div class="flex items-center justify-center gap-3 mb-4">
+      <span class="text-3xl">🎮</span>
+      <span class="font-heading font-bold text-xl">BioQuest</span>
+    </div>
+    <p class="text-sm text-white/70 mb-2">Gamificación Ecológica · Biohostels · Xlerion.com.co</p>
+    <p class="text-xs text-white/50">Noviembre 2026 · v1.0 · Integrado con BioCoin, IoT y Blockchain</p>
+  </div>
+</footer>
+
+</body>
+</html>

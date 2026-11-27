@@ -60,6 +60,13 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     console.log('Copied icons folder');
   }
 
+  // Copy fonts (public/fonts -> dist/fonts) — fuente oficial del logotipo
+  const fontsSrc = path.join(__dirname, '..', 'public', 'fonts');
+  if (fs.existsSync(fontsSrc)) {
+    copyDir(fontsSrc, path.join(__dirname, '..', 'dist', 'fonts'));
+    console.log('Copied fonts folder');
+  }
+
   // Copy PHP endpoints (public/api -> dist/api) for Apache/cPanel hosting
   const apiSrc = path.join(__dirname, '..', 'public', 'api');
   if (fs.existsSync(apiSrc)) {
@@ -122,6 +129,13 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     }
   }
 
+  // Copy public documents (public/documents -> dist/documents).
+  const docsSrc = path.join(__dirname, '..', 'public', 'documents');
+  if (fs.existsSync(docsSrc)) {
+    copyDir(docsSrc, path.join(__dirname, '..', 'dist', 'documents'));
+    console.log('Copied documents folder');
+  }
+
   // Limpieza de basura de deploy.
   // Algunas herramientas de deploy (el IDE) dejan copias de public/ dentro de
   // public/images/ mientras compila; el glob "public/images/*" las arrastra a
@@ -148,7 +162,9 @@ if (fs.existsSync(path.join(__dirname, '..', 'public', 'images'))) {
     'service-worker.js',
     '.htaccess',
     'Xlerion_OnePager.pdf',
-    'manual-de-imagen.html'
+    'manual-de-imagen.html',
+    'estudio-instagram.html',
+    'xlerion-content-creator.html'
   ];
 
   const srcPublicDir = path.join(__dirname, '..', 'public');

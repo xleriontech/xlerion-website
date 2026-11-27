@@ -89,7 +89,7 @@ export default function ToolkitSection({ onOpenPoC }) {
   return (
     <section
       id="toolkit"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div data-reveal>
         <SectionHeader title={c.title} subtitle={c.subtitle} />
@@ -106,7 +106,7 @@ export default function ToolkitSection({ onOpenPoC }) {
             <article
               key={module.title}
               data-reveal
-              className={`stagger-${index + 1} bg-[#0a0a12]/80 border border-white/[0.08] rounded-lg p-6 md:p-8 card-hover glow-on-hover transition-all duration-300`}
+              className={`stagger-${index + 1} bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 card-hover glow-on-hover transition-all duration-300`}
             >
               <div className="w-12 h-12 rounded-lg bg-[#00e9fa]/10 border border-[#00e9fa]/30 flex items-center justify-center mb-4">
                 <Icon size={24} className="text-[#00e9fa]" />

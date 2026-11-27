@@ -119,7 +119,7 @@
      SECCIONES
      ======================================== */
   .xl-section {
-    @apply py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto;
+    @apply py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto;
   }
 }
 
@@ -129,6 +129,17 @@
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
+  }
+}
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (pointer: fine) {
+  body.has-tech-cursor,
+  body.has-tech-cursor * {
+    cursor: none !important;
   }
 }
 
@@ -217,6 +228,39 @@
     transform: translateX(-50%) translateY(10px);
     opacity: 0.5;
   }
+}
+
+/* ========================================
+   HERO DEMOS — entradas y typing indicator
+   ======================================== */
+@keyframes xlSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.xl-slide-up {
+  animation: xlSlideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes xlTypingDot {
+  0%, 60%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.xl-typing-dot {
+  animation: xlTypingDot 1.2s ease-in-out infinite;
 }
 
 /* ========================================
@@ -431,6 +475,56 @@
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#00e9fa] to-[#33edfb];
 }
+
+.text-stroke {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.55);
+  color: transparent;
+}
+.text-stroke-cyan {
+  -webkit-text-stroke: 1.5px #00e9fa;
+  color: transparent;
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: -60%;
+  width: 220%;
+  height: 220%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain-shift 0.8s steps(4) infinite;
+}
+@keyframes grain-shift {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-1.5%, 2%); }
+  50% { transform: translate(2%, -1.5%); }
+  75% { transform: translate(-2%, -2%); }
+  100% { transform: translate(1.5%, 1.5%); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 32s linear infinite; }
+.animate-marquee-fast { animation: marquee 18s linear infinite; }
+.marquee-reverse { animation-direction: reverse; }
+
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.animate-scroll-line { animation: scroll-line 2.2s cubic-bezier(0.76, 0, 0.24, 1) infinite; }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 233, 250, 0.5); }
+  50% { opacity: 0.75; box-shadow: 0 0 0 6px rgba(0, 233, 250, 0); }
+}
+.animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 
 .text-shimmer {
   background: linear-gradient(90deg, #00e9fa, #33edfb, #00e9fa);

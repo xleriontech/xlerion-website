@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TreePine,
   Sprout,
   ShoppingBag,
   MapPin,
   ExternalLink,
+  Lock,
+  ArrowRight,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionHeader } from '../components/ui';
+import { FadeUp } from '../components/TextReveal';
 
 const COPY = {
   es: {
@@ -44,7 +49,7 @@ const CASES_ES = [
     tagline: 'Plataforma de turismo experiencial y hospedaje rural con buscador inteligente y Cosmic Bungalow 3D.',
     description:
       'Sitio web de destino turístico y hospedaje rural en Nocaima, Cundinamarca. Incluye buscador inteligente (Zemisqua), catálogo por categorías (hostales, glamping, actividades, restaurantes, fincas), fichas de propiedad y experiencia de Cosmic Bungalow con visualización 3D.',
-    url: 'https://tropicalbiohostel.pages.dev/',
+    url: 'https://tropicalbiohostel.com/',
     location: 'Nocaima, Cundinamarca',
     metrics: [
       { value: '30%', label: 'Bosque nativo' },
@@ -113,7 +118,7 @@ const CASES_EN = [
     tagline: 'Experiential tourism and rural lodging platform with smart search and Cosmic Bungalow 3D.',
     description:
       'Tourism destination and rural lodging website in Nocaima, Cundinamarca. Includes smart search (Zemisqua), category catalog (hostels, glamping, activities, restaurants, farms), property listings and a Cosmic Bungalow experience with 3D visualization.',
-    url: 'https://tropicalbiohostel.pages.dev/',
+    url: 'https://tropicalbiohostel.com/',
     location: 'Nocaima, Cundinamarca',
     metrics: [
       { value: '30%', label: 'Native forest' },
@@ -174,11 +179,19 @@ export default function CasosExitoSection() {
   const { lang } = useLanguage();
   const c = COPY[lang] || COPY.es;
   const cases = lang === 'en' ? CASES_EN : CASES_ES;
+  const [bioKey, setBioKey] = useState('');
+  const [bioUnlocked, setBioUnlocked] = useState(false);
+  const [bioError, setBioError] = useState('');
+  const unlockBio = (e) => {
+    e.preventDefault();
+    if (bioKey.trim() === '81720164') { setBioUnlocked(true); setBioError(''); }
+    else setBioError(lang === 'en' ? 'Invalid key.' : 'Clave incorrecta.');
+  };
 
   return (
     <section
       id="casos"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div
         className="absolute top-1/3 right-0 w-[500px] h-[320px] bg-[#00e9fa]/[0.03] rounded-full blur-3xl pointer-events-none"
@@ -186,25 +199,24 @@ export default function CasosExitoSection() {
       />
 
       <div className="relative">
-        <div data-reveal>
+        <FadeUp>
           <SectionHeader title={c.title} subtitle={c.subtitle} />
-        </div>
+        </FadeUp>
 
-        <p
-          data-reveal
-          className="stagger-1 max-w-3xl -mt-6 mb-12 text-sm md:text-base text-gray-400 leading-relaxed font-sans"
-        >
-          {c.intro}
-        </p>
+        <FadeUp delay={0.05}>
+          <p className="max-w-3xl -mt-8 mb-14 text-sm md:text-base text-gray-400 leading-relaxed font-sans">
+            {c.intro}
+          </p>
+        </FadeUp>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {cases.map((item, index) => {
             const Icon = item.icon;
             return (
-              <article
-                key={item.id}
-                data-reveal
-                className={`stagger-${index + 1} group relative flex flex-col bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg overflow-hidden backdrop-blur-sm card-hover`}
+              <FadeUp key={item.id} delay={index * 0.08}>
+              <motion.article
+                whileHover={{ y: -6, transition: { duration: 0.35 } }}
+                className="group relative h-full flex flex-col bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden hover:border-[#00e9fa]/30 transition-colors duration-300"
               >
                 {/* Screenshot del sitio en vivo */}
                 <div className="relative h-48 overflow-hidden border-b border-white/[0.08]">
@@ -284,9 +296,49 @@ export default function CasosExitoSection() {
                     </a>
                   </div>
                 </div>
-              </article>
+              </motion.article>
+              </FadeUp>
             );
           })}
+          <FadeUp delay={0.24}>
+          <motion.article whileHover={{ y: -6, transition: { duration: 0.35 } }} className="group relative h-full flex flex-col bg-white/[0.02] border border-[#00C9A7]/25 rounded-2xl overflow-hidden hover:border-[#00C9A7]/40 transition-colors duration-300">
+            <div className="relative h-48 overflow-hidden border-b border-white/[0.08] bg-gradient-to-br from-[#0b1712] to-[#081018] flex items-center justify-center">
+              <div className="text-center px-6">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl border border-[#00C9A7]/30 bg-[#00C9A7]/[0.08] mb-3">
+                  <Lock size={24} className="text-[#00C9A7]" />
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#00C9A7]">Acceso restringido</div>
+              </div>
+              <span className="absolute top-3 left-3 px-3 py-1 rounded bg-black/70 border border-[#00C9A7]/20 font-mono text-[9px] uppercase tracking-[0.2em] text-[#00C9A7] backdrop-blur-sm">Documentación</span>
+            </div>
+            <div className="flex flex-col gap-4 p-5 md:p-6 flex-1">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-[#00C9A7]/[0.06] border border-[#00C9A7]/20 flex items-center justify-center shrink-0">
+                  <Lock size={18} className="text-[#00C9A7]" />
+                </div>
+                <h3 className="text-lg font-semibold text-white leading-tight">Biohostels · Terravista</h3>
+              </div>
+              <p className="text-sm text-[#00C9A7] font-medium leading-relaxed">Documentación completa del ecosistema Biohostels.</p>
+              <p className="text-sm text-gray-400 leading-relaxed">15 micro-secciones: IoT, blockchain, inversión, BioCoin, El Flecho, BioQuest gamificación, marco legal, roadmap y 5 documentos descargables.</p>
+              <div className="mt-auto pt-4 border-t border-white/[0.08]">
+                {!bioUnlocked ? (
+                  <form onSubmit={unlockBio} className="space-y-2">
+                    <label htmlFor="biohome-key-casos" className="block text-[11px] font-mono uppercase tracking-wider text-gray-500">{lang === 'en' ? 'Access key' : 'Clave de acceso'}</label>
+                    <div className="flex gap-2">
+                      <input id="biohome-key-casos" type="password" value={bioKey} onChange={(e) => setBioKey(e.target.value)} className="min-w-0 flex-1 rounded-lg border border-white/15 bg-black/40 px-3 py-2 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-[#00C9A7]/60" placeholder={lang === 'en' ? 'Enter key' : 'Ingresar clave'} autoComplete="off" />
+                      <button type="submit" className="shrink-0 rounded-lg border border-[#00C9A7]/60 text-[#00C9A7] px-3 py-2 text-sm hover:bg-[#00C9A7] hover:text-black transition-colors">{lang === 'en' ? 'Enter' : 'Entrar'}</button>
+                    </div>
+                    {bioError && <p className="text-xs text-red-400">{bioError}</p>}
+                  </form>
+                ) : (
+                  <Link to="/proyectos/biohostels" className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#00C9A7] text-black font-semibold text-xs hover:bg-[#00b894] transition-all duration-300">
+                    {lang === 'en' ? 'Open documentation' : 'Abrir documentación'} <ArrowRight size={13} />
+                  </Link>
+                )}
+              </div>
+            </div>
+          </motion.article>
+          </FadeUp>
         </div>
       </div>
     </section>

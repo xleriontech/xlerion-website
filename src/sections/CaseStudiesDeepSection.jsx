@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AlertCircle, ArrowUpRight, Cpu, TrendingUp, Zap } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { SectionHeader } from '../components/ui';
@@ -41,6 +42,7 @@ const COPY = {
           { value: 'JWT RBAC', label: 'Autenticación' },
         ],
         techStack: ['React 18', 'Three.js', 'FastAPI', 'Python 3.11', 'WebSockets', 'Docker Compose'],
+        detailHref: '#detalle-smartfactory-3d',
       },
       {
         id: 'enterprise-rag',
@@ -61,6 +63,8 @@ const COPY = {
           { value: 'Re-ranking', label: 'Anti-alucinaciones' },
         ],
         techStack: ['Python', 'Django/DRF', 'LangChain', 'PostgreSQL (pgvector)', 'Celery + Redis', 'Docker'],
+        repo: 'https://github.com/xleriontech/central_rag_platform.git',
+        detailHref: '#detalle-enterprise-rag',
       },
       {
         id: 'fovis-platform',
@@ -81,6 +85,7 @@ const COPY = {
           { value: 'Simulado', label: 'Tráfico concurrente' },
         ],
         techStack: ['Python (Asyncio)', 'Node.js', 'WebSockets/MQTT', 'PostgreSQL', 'Linux SysAdmin', 'Docker'],
+        detailHref: '#detalle-fovis-platform',
       },
       {
         id: 'panelaia',
@@ -89,7 +94,7 @@ const COPY = {
         title: 'PanelaIA — Mesa de Mando Panelera',
         tagline: 'Revitalización panelera con gemelo 3D, trazabilidad, fondo de retiro y venta directa.',
         clientCategory: 'Cooperativa en Constitución / Alcaldía de Nocaima',
-        image: '/images/deeptech/panelaia-microsite.jpg',
+        image: '/images/deeptech/panelaia-microsite.webp',
         roiTimeline: 'Mesa operativa en 4 semanas',
         challenge: 'Trapiche comunitario sin automatización, intermediación en precios, ausencia de trazabilidad digital y sin fondo de retiro para productores.',
         solution: 'Mesa de mando integral: gemelo 3D del trapiche (Three.js/React Three Fiber), trazabilidad por lote con QR y huella SHA-256 local, fondo de retiro simulado con meta de $76M COP a 15 años, y comercialización directa Bogotá sin intermediarios.',
@@ -101,6 +106,9 @@ const COPY = {
           { value: '$7-9K/kg', label: 'Venta directa Bogotá' },
         ],
         techStack: ['Next.js 16', 'React 19', 'Three.js', 'Tailwind', 'PostgreSQL', 'Drizzle ORM'],
+        demo: '/panelaia',
+        repo: 'https://github.com/xleriontech/panelaia-microsite.git',
+        detailHref: '#detalle-panelaia',
       },
     ],
   },
@@ -141,6 +149,7 @@ const COPY = {
           { value: 'JWT RBAC', label: 'Authentication' },
         ],
         techStack: ['React 18', 'Three.js', 'FastAPI', 'Python 3.11', 'WebSockets', 'Docker Compose'],
+        detailHref: '#detalle-smartfactory-3d',
       },
       {
         id: 'enterprise-rag',
@@ -161,6 +170,8 @@ const COPY = {
           { value: 'Re-ranking', label: 'Anti-Hallucination' },
         ],
         techStack: ['Python', 'Django/DRF', 'LangChain', 'PostgreSQL (pgvector)', 'Celery + Redis', 'Docker'],
+        repo: 'https://github.com/xleriontech/central_rag_platform.git',
+        detailHref: '#detalle-enterprise-rag',
       },
       {
         id: 'fovis-platform',
@@ -181,6 +192,7 @@ const COPY = {
           { value: 'Simulated', label: 'Concurrent Traffic' },
         ],
         techStack: ['Python (Asyncio)', 'Node.js', 'WebSockets/MQTT', 'PostgreSQL', 'Linux SysAdmin', 'Docker'],
+        detailHref: '#detalle-fovis-platform',
       },
       {
         id: 'panelaia',
@@ -189,7 +201,7 @@ const COPY = {
         title: 'PanelaIA — Panel Mill Command Dashboard',
         tagline: 'Panel mill revitalization with 3D twin, traceability, pension fund & direct sales.',
         clientCategory: 'Cooperative in Formation / Nocaima Mayor Office',
-        image: '/images/deeptech/u2-smartfactory-twin.jpg',
+        image: '/images/deeptech/panelaia-microsite.webp',
         roiTimeline: 'Dashboard operational in 4 weeks',
         challenge: 'Community trapiche without automation, price intermediation, no digital traceability, no pension fund for producers.',
         solution: 'Unified command dashboard: 3D trapiche twin (Three.js/React Three Fiber), lot traceability with QR and local SHA-256 hash, pension fund simulation with $76M COP target at 15 years, and direct Bogotá sales without intermediaries.',
@@ -201,6 +213,9 @@ const COPY = {
           { value: '$7-9K/kg', label: 'Direct Bogotá sales' },
         ],
         techStack: ['Next.js 16', 'React 19', 'Three.js', 'Tailwind', 'PostgreSQL', 'Drizzle ORM'],
+        demo: '/panelaia',
+        repo: 'https://github.com/xleriontech/panelaia-microsite.git',
+        detailHref: '#detalle-panelaia',
       },
     ],
   },
@@ -219,7 +234,7 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
   return (
     <section
       id="proyectos"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div data-reveal>
         <SectionHeader title={c.title} subtitle={c.subtitle} />
@@ -264,7 +279,7 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
             <article
               key={item.id}
               data-reveal
-              className={`stagger-${index + 1} group relative flex flex-col bg-[#0a0a12]/80 border border-white/[0.08] rounded-lg overflow-hidden backdrop-blur-sm card-hover`}
+              className={`stagger-${index + 1} group relative flex flex-col bg-white/[0.02] border border-white/10 rounded-2xl overflow-hidden backdrop-blur-sm card-hover`}
             >
               <div className="relative h-48 overflow-hidden border-b border-white/[0.08]">
                 <img
@@ -305,15 +320,35 @@ export default function CaseStudiesDeepSection({ onOpenCase }) {
                     <p className="text-[9px] uppercase tracking-[0.2em] text-gray-500">Stack Tecnológico</p>
                     <p className="mt-2 text-white text-[11px]">{item.techStack.join(' • ')}</p>
                   </div>
-                  {item.id === 'panelaia' && (
-                    <a
-                      href={import.meta.env.VITE_PANELAIA_URL || 'https://panelaia.xlerion.com'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#00e9fa] text-black font-semibold text-sm rounded-lg hover:bg-[#00b8c9] hover:shadow-[0_0_20px_rgba(0,233,250,0.3)] transition-all duration-300"
-                    >
-                      <ArrowUpRight size={14} /> {lang === 'es' ? 'Ver Micrositio PanelaIA' : 'View PanelaIA Microsite'}
-                    </a>
+                  {(item.demo || item.repo || item.detailHref) && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {item.demo && (
+                        <Link
+                          to={item.demo}
+                          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#00e9fa] text-black font-semibold text-sm rounded-lg hover:bg-[#00b8c9] transition-all duration-300"
+                        >
+                          <ArrowUpRight size={14} /> {lang === 'es' ? 'Ver demo' : 'View demo'}
+                        </Link>
+                      )}
+                      {item.detailHref && (
+                        <a
+                          href={item.detailHref}
+                          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-[#00e9fa]/30 text-[#00e9fa] font-semibold text-sm rounded-lg hover:bg-[#00e9fa]/[0.08] transition-all duration-300"
+                        >
+                          {lang === 'es' ? 'Ver sección' : 'View section'}
+                        </a>
+                      )}
+                      {item.repo && (
+                        <a
+                          href={item.repo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 border border-white/15 text-gray-300 font-semibold text-sm rounded-lg hover:text-white hover:border-white/30 transition-all duration-300"
+                        >
+                          GitHub
+                        </a>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>

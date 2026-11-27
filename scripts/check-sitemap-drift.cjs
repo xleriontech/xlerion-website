@@ -39,6 +39,7 @@ const ROBOTS = path.join(ROOT, 'public', 'robots.txt');
  */
 const EXCLUIDAS = {
   '/panelaia': 'Microsite de demostración; marcado noindex en PanelaIAPage.tsx.',
+  '/legal/contratos': 'Sección privada protegida por clave de acceso; contenido bajo Acuerdo de Confidencialidad y no indicizado.',
 };
 
 const errors = [];

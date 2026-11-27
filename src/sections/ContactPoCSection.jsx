@@ -77,6 +77,9 @@ const COPY = {
     contactLocation: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     contactSla: '< 24 horas hábiles',
     legalNotice: 'Política de Tratamiento de Datos (Ley 1581 de 2012) | © 2026 Xlerion',
+    emailCorporateError: 'El correo debe ser corporativo: no se aceptan gmail.com, yahoo.com, hotmail.com, outlook.com, live.com ni icloud.com.',
+    sendError: 'No pudimos registrar la solicitud. Intente de nuevo o escriba a contacto@xlerion.com.co.',
+    connectionError: 'Error de conexión. Revise su red e intente de nuevo.',
   },
   en: {
     subtitle: 'Start Your Technical Proof of Concept',
@@ -116,6 +119,9 @@ const COPY = {
     contactLocation: 'Bogotá / Nocaima, Cundinamarca, Colombia',
     contactSla: '< 24 business hours',
     legalNotice: 'Data Processing Policy (Law 1581 of 2012) | © 2026 Xlerion',
+    emailCorporateError: 'A corporate email is required: gmail.com, yahoo.com, hotmail.com, outlook.com, live.com and icloud.com are not accepted.',
+    sendError: 'We could not register your request. Try again or email contacto@xlerion.com.co.',
+    connectionError: 'Connection error. Check your network and try again.',
   },
 };
 
@@ -135,6 +141,7 @@ export default function ContactPoCSection() {
   const [formData, setFormData] = useState(() => ({ ...INITIAL_FORM }));
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [ticketId, setTicketId] = useState('');
   const timerRef = useRef(null);
 
@@ -144,6 +151,7 @@ export default function ContactPoCSection() {
 
   const setField = (field) => (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setErrorMessage('');
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -157,15 +165,16 @@ export default function ContactPoCSection() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting || !formData.consent) return;
+    setErrorMessage('');
 
     if (!isCorporateEmail(formData.email)) {
-      alert('El correo debe ser corporativo (no se aceptan dominios públicos genéricos como gmail.com, yahoo.com, etc.)');
+      setErrorMessage(c.emailCorporateError);
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch('/api/contact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -175,10 +184,10 @@ export default function ContactPoCSection() {
         setTicketId(data.ticketId || 'XLR-' + Date.now());
         setIsSuccess(true);
       } else {
-        alert(data.error || 'Error al enviar la solicitud');
+        setErrorMessage(lang === 'es' && data.error ? data.error : c.sendError);
       }
     } catch {
-      alert('Error de conexión. Intente nuevamente.');
+      setErrorMessage(c.connectionError);
     } finally {
       setIsSubmitting(false);
     }
@@ -188,6 +197,7 @@ export default function ContactPoCSection() {
     setFormData(INITIAL_FORM);
     setTicketId('');
     setIsSuccess(false);
+    setErrorMessage('');
   };
 
   const contactRows = [
@@ -199,7 +209,7 @@ export default function ContactPoCSection() {
   return (
     <section
       id="contacto"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[420px] bg-[#00e9fa]/[0.04] rounded-full blur-3xl pointer-events-none"
@@ -262,7 +272,7 @@ export default function ContactPoCSection() {
           {/* Right column: evaluation form */}
           <div data-reveal className="stagger-2">
             {isSuccess ? (
-              <div className="relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 backdrop-blur-sm glow-on-hover">
+              <div className="relative bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm glow-on-hover">
                 <div className="text-center">
                   <div className="w-12 h-12 rounded-full bg-[#00e9fa]/20 flex items-center justify-center mx-auto mb-4">
                     <Check size={24} className="text-[#00e9fa]" />
@@ -276,7 +286,7 @@ export default function ContactPoCSection() {
                 </div>
               </div>
             ) : (
-              <div className="relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 backdrop-blur-sm glow-on-hover">
+              <div className="relative bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm glow-on-hover">
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="border-b border-white/[0.08] pb-4">
                     <h3 className="text-white text-lg font-semibold">{c.formTitle}</h3>
@@ -417,6 +427,15 @@ export default function ContactPoCSection() {
                       </label>
                     </p>
                   </div>
+
+                  {errorMessage && (
+                    <p
+                      role="alert"
+                      className="text-sm p-3 rounded-md border border-red-500/30 bg-red-500/10 text-red-400"
+                    >
+                      {errorMessage}
+                    </p>
+                  )}
 
                   <button
                     type="submit"

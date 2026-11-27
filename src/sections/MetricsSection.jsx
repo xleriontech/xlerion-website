@@ -183,14 +183,14 @@ export default function MetricsSection({ onApplyRoi, onOpenPoC }) {
   return (
     <section
       id="metricas"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {c.metrics.map((metric, index) => {
           return (
             <div
               key={metric.id}
-              className={`stagger-${index + 1} relative overflow-hidden bg-[#0a0a12]/80 border border-white/[0.08] rounded-lg p-6 md:p-7 card-hover glow-on-hover transition-colors`}
+              className={`stagger-${index + 1} relative overflow-hidden bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-7 card-hover glow-on-hover transition-colors`}
               data-reveal
             >
               <div className="flex items-center justify-between mb-4">

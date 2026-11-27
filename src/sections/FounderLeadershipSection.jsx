@@ -46,7 +46,7 @@ export default function FounderLeadershipSection({ onOpenPoC }) {
   return (
     <section
       id="liderazgo"
-      className="relative py-20 md:py-28 px-6 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-24 md:py-32 lg:py-36 px-6 md:px-10 lg:px-14 max-w-[90rem] mx-auto overflow-hidden"
     >
       <div data-reveal>
         <SectionHeader title={c.title} subtitle={c.subtitle} />
@@ -90,7 +90,7 @@ function FounderCard({ founder, locale, revealDelay }) {
   return (
     <article
       data-reveal
-      className={`stagger-${revealDelay + 2} relative bg-[#0a0a12]/80 border border-[#00e9fa]/20 rounded-lg p-6 md:p-8 card-hover flex flex-col`}
+      className={`stagger-${revealDelay + 2} relative bg-white/[0.02] border border-white/10 rounded-2xl p-6 md:p-8 card-hover flex flex-col`}
     >
       {/* Estado del fundador */}
       <div className="flex items-start justify-between gap-4 mb-6">
